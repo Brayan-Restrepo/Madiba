@@ -23,11 +23,7 @@ public class RepartoDAO {
 	
 	public void actualizarReparto(Reparto reparto){
 		Reparto repartoEnBD = manager.find(Reparto.class, reparto.getCedula());
-		libroEnBD.setTitulo(libro.getTitulo());
-		libroEnBD.setAutor(libro.getAutor());
-		libroEnBD.setArea(libro.getArea());
-		libroEnBD.setEstudiantePrestado(libro.getEstudiantePrestado());
-		libroEnBD.setEtiquetaReserva(libro.getEtiquetaReserva());
-		libroEnBD.setFechaLimiteEntrega(libro.getEtiquetaReserva());
+		//libroEnBD.setTitulo(libro.getTitulo());
+		//libroEnBD.setAutor(libro.getAutor());
 	}
 }
