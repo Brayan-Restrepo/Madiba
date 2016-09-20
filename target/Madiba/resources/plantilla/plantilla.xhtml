@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head>
+	<title>Conalbos | Solicitar Conciliación</title>	    
+    
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
+
+	    <link href="resources/fonts/css/font-awesome.min.css" rel="stylesheet"/>
+	    <link href="resources/css/animate.min.css" rel="stylesheet"/>
+	
+	    <!-- Custom styling plus plugins -->
+	    <link href="resources/css/custom.css" rel="stylesheet"/>
+	    <link href="resources/css/icheck/flat/green.css" rel="stylesheet"/>
+	
+    	<link href="resources/css/select/select2.min.css" rel="stylesheet"/>
+    	
+        <link href="resources/css/bootstrap.min.css" rel="stylesheet"/>
+
+	    <link href="resources/fonts/css/font-awesome.min.css" rel="stylesheet"/>
+	    <link href="resources/css/animate.min.css" rel="stylesheet"/>
+	
+	    <!-- Custom styling plus plugins -->
+	    <link href="resources/css/custom.css" rel="stylesheet"/>
+	    <link href="resources/css/icheck/flat/green.css" rel="stylesheet"/>
+	    <!-- editor -->
+	    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet"/>
+	    <link href="resources/css/editor/external/google-code-prettify/prettify.css" rel="stylesheet"/>
+	    <link href="resources/css/editor/index.css" rel="stylesheet"/>
+	    <!-- select2 -->
+	    <link href="resources/css/select/select2.min.css" rel="stylesheet"/>
+	    <!-- switchery -->
+	    <link rel="stylesheet" href="resources/css/switchery/switchery.min.css" />
+		    
+	    <script src="resources/js/jquery.min.js"></script>
+	    
+</h:head> 
+
+<body class="nav-md">
+
+    <div class="container body">
+
+        <div class="main_container">
+
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div>
+                        <div class="navbar nav_title" style="border: 0;">
+                            <a href="index.html" class="site_title">
+                            <div class="profile_pic" style="padding-top: 9px;">
+                                <img src="resources/img/logo22.png" alt="..." class="img-circle profile_img" style="margin-top: 0;"/>
+                            </div> 
+                            <span>CONALBOS</span></a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    
+
+                    <br />
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+
+                        <div class="menu_section">
+                            <h3>General</h3>
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a href="#" ><i class="fa fa-home"></i> Inicio--->:> </a>
+                                </li>
+                                <li>
+                                    <a href="solicitarconciliacion.jsf"><i class="fa fa-file-text-o	"></i> Solicitar Conciliacion </a>
+                                </li>
+                                <li>
+                                    <a href="conciliadores.jsf"><i class="fa fa-list-ol"></i> lista de Concilidores </a>
+                                </li>
+                              
+                                
+                            </ul>
+                        </div>
+
+                    </div>
+                    <!-- /sidebar menu -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+
+                <div class="nav_menu">
+                    <nav class="" role="navigation">
+                        <div class="nav toggle" >
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <ul class="nav navbar-nav navbar-right" style="width: 170px">
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="resources/img/f1.png" alt=""/>Olga Vega
+                                    <span class=" fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right" style="width: 178px;">
+                                    <li><a href="javascript:;">  Perfil</a>
+                                    </li>
+                                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            </ul>
+                    </nav> 
+                    <h3><center>Colegio Nacional de Abogados de Colombia, Conalbos </center></h3>
+              </div>
+
+            </div>
+            <!-- /top navigation -->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+
+                <div class="">
+                    
+                    <section class="page-title"> 
+                    	<div class="title_left">
+		                    <ui:insert name="titulo">
+								<h2>Titulo</h2>
+							</ui:insert> 
+						</div>
+					</section>
+                    <div class="clearfix"></div>
+
+                    <div class="row">
+							<ui:insert name="contenido">
+								<p>contenido</p>
+							</ui:insert>
+                    </div> 
+
+                </div>
+                
+                <!-- footer content -->
+            <div id="footer">
+                <div class="">
+                    <p class="pull-right"> &copy;2015 Ricardo Lindarte - Sergio Murillo - Brayan Restrepo. |
+                        <span class="lead"> <i class=""></i> CONALBOS</span>
+                    </p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- /footer content -->
+                
+            </div>
+            <!-- /page content -->
+        </div>
+
+    </div>
+</body>
+</html>
