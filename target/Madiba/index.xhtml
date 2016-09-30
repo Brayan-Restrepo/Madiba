@@ -11,11 +11,8 @@
 <body>
 	<ui:composition template="/recursos/plantilla/plantilla.xhtml">
 		<ui:define name="content">
-			<h:button value="Reparto" action="#{controllerConciliador.reparto}" />
-			<h:button value="Prestar" action="#{controllerConciliador.idAumentar}" />
-			<h:outputLabel value="#{controllerConciliador.id} " />
-			<h:outputLabel value="#{controllerConciliador.idAumentar()}" />
-			<h:outputLabel value="#{controllerConciliador.reparto()}" /> 
+			valor inicial del id: <h:outputLabel value="#{controllerConciliador.inicio}" />
+			#{controllerConciliador.reparto()}
 		</ui:define>
 	</ui:composition>
 </body>
