@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<h:outputStylesheet library="css" name="bootstrap.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="AdminLTE.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="_all-skins.css"></h:outputStylesheet>
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+</h:head>
+
+<h:body class='skin-blue sidebar-mini wysihtml5-supported'>
+
+	<div class='main-header'>
+		<ui:insert name="header">
+			<ui:include src="/resources/secciones/header.xhtml" />
+		</ui:insert>
+	</div>
+	<div class='main-sidebar'>
+		<ui:insert name="sidebar">
+			<ui:include src="/resources/secciones/sidebar.xhtml" />
+		</ui:insert>
+	</div>
+	<div class='content-wrapper' style='height: 537px;padding-top: 20px;overflow: scroll;'>
+		
+		<ui:insert name="content">
+			<ui:include src="/resources/secciones/content.xhtml" />
+		</ui:insert>
+	</div>
+	<div class='main-footer'>
+		<ui:insert name="footer">
+			<ui:include src="/resources/secciones/footer.xhtml" />
+		</ui:insert>
+	</div>
+	<h:outputScript library="js" name="jquery-2.2.3.min.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="app.js" />
+	
+</h:body>
+</html>

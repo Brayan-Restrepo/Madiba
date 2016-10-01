@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="/resources/plantilla/plantilla.xhtml">
+		<ui:define name="content">
+			<div class="">
+				<c:forEach items="${controllerConciliador.listaConciliador()}"
+					var="conciliador">
+					<div class="col-md-4 col-sm-4 col-xs-12">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<i> 
+									<h:outputLabel value="#{conciliador.getApellido()} " /> 
+									<h:outputLabel value="#{conciliador.getNombre()} " /> 
+								</i>
+								<small class="label pull-right label-primary">#{conciliador.getId()}</small>
+							</div>
+							<div class='box-body'>
+								<div class="left col-xs-7">
+									<p>
+										<h:outputLabel value="Especialidad:" />
+										#{conciliador.getEspecialidad()}
+									</p>
+									<p>
+										<h:outputLabel value="Experiencia:" />
+										#{conciliador.getExperiencia()}
+									</p>
+									<p>
+										<i class="fa fa-phone"></i> 
+										<h:outputLabel value=" Telefono:" />
+										#{conciliador.getTelefono()}
+									</p>
+								</div>
+								<div class="right col-xs-5 text-center">
+									<img
+										src="http://localhost:8080/Madiba/resources/img/png/#{conciliador.getFoto()}"
+										alt="" class="img-circle img-responsive" />
+								</div>
+								<div class="col-lg-12">
+									<p>
+										<i class="fa fa-envelope"></i>
+										<h:outputLabel value=" Email:" />
+										#{conciliador.getEmail()}
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
