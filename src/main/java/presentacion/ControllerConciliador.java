@@ -28,41 +28,41 @@ public class ControllerConciliador {
 			ControllerConciliador.inicio=false;
 			
 			ControllerConciliador.listaConciliador = new ArrayList<ModelConciliador>();
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(1,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(1, "1234235689",
 					"MARISOL", "BARAJAS TORRES", "3212040399", "Civil",
 					"7 años", "emilioa2005@yahoo.es", "boy-5.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(2,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(2, "2345673409",
 					"GUILLERMO LEON", "CHAVES BUSTOS", "3212040399", "Civil",
 					"7 años", "emilioa2005@yahoo.es", "boy-3.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(3,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(3, "1234563222",
 					"GUSTAVO", "JARAMILLO ZULUAGA", "3212040399", "Civil",
 					"7 años", "gustavojaramillozuluaga@hotmail.com",
 					"boy-1.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(4,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(4, "87655543",
 					"CARLOS ARTURO", "LEON ARDILA", "40444465", "Familia",
 					"5 años", "dimarce2511@hotmail.com", "boy-2.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(5,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(5, "3212020399",
 					"ROSA DEL PILAR", "MÁRQUEZ SARMIENTO", "3212040399",
 					"Civil", "7 años", "emilioa2005@yahoo.es", "boy-5.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(6,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(6, "3212780399",
 					"ADELINA", "PABON MIRAMÓN", "3212040399", "Civil",
 					"7 años", "emilioa2005@yahoo.es", "boy-5.png"));			
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(7,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(7, "3212790399",
 					"GLORIA ISABEL", "PEÑA TAMAYO", "40444465", "Familia",
 					"5 años", "dimarce2511@hotmail.com", "dj.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(8,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(8, "23567824",
 					"MARIA JOSEFINA", "PORRAS DE MONCALEANO", "3212040399",
 					"Civil", "7 años", "emilioa2005@yahoo.es", "boy-5.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(9,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(9, "3236440399",
 					"RAUL ARMANDO", "PRIETO GARCIA", "3212040399", "Civil",
 					"7 años", "emilioa2005@yahoo.es", "boy-5.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(10,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(10, "3212110399",
 					"ROSA DEL CARMEN", "QUEVEDO CELIS", "40444465", "Familia",
 					"5 años", "dimarce2511@hotmail.com", "boy-4.png"));			
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(11,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(11, "404445465",
 					"MARTHA JEANNETHE", "RAMIREZ ORTIZ", "40444465", "Familia",
 					"5 años", "dimarce2511@hotmail.com", "dj.png"));			
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(12,
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(12, "321220399",
 					"SANDRA PATRICIA", "VELASQUEZ PARRADO", "3212040399",
 					"Civil", "7 años", "emilioa2005@yahoo.es", "boy-5.png"));
 			
@@ -108,7 +108,22 @@ public class ControllerConciliador {
 		for (int i = 0; i < size; i++) {
 			ControllerConciliador.listaConciliador.get(i).setId(i + 1);
 		}
+		System.out.println("listaconciladores --- ");
+		//return "listaconciliadores";
+	}
+	
+	public void solicitado(String cedula) {
 
+		// Se le asigna el orden de la lista a los conciliadores
+		int size = ControllerConciliador.listaConciliador.size();
+		for (int i = 0; i < size; i++) {
+			if(ControllerConciliador.listaConciliador.get(i).getCedula().equals(cedula)){
+				ModelConciliador mCon = ControllerConciliador.listaConciliador.get(i);
+				ControllerConciliador.listaConciliador.remove(i);
+				ControllerConciliador.listaConciliador.add(mCon);
+			}
+		}
+		//return "listaconciliadores";
 	}
 
 }

@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedBean;
 public class ModelConciliador {
 	
 	private int id;
+	private String cedula;
 	private String nombre;
 	private String apellido;
 	private String telefono;
@@ -18,9 +19,10 @@ public class ModelConciliador {
 		
 	}
 	
-	public ModelConciliador(int id, String nombre, String apellido, String telefono,
+	public ModelConciliador(int id,String cedula, String nombre, String apellido, String telefono,
 			String especialidad, String experiencia, String email, String foto) {
 		this.id = id;
+		this.cedula = cedula;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
@@ -28,6 +30,14 @@ public class ModelConciliador {
 		this.experiencia = experiencia;
 		this.email = email;
 		this.foto = foto;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
 	}
 
 	public int getId() {

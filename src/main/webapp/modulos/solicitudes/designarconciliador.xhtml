@@ -10,7 +10,11 @@
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">
 		<ui:define name="content">
 			<div class="">
-				<h:commandButton value="Reparto" />#{controllerConciliador.reparto()}
+				<h:form>
+					<h:commandButton value="Reparto" action="#{controllerConciliador.reparto()}"  />
+					<h:commandButton value="Solicitado" action="#{controllerConciliador.solicitado('3212780399')}"  />	
+				</h:form>
+				
 			</div>
 		</ui:define>
 	</ui:composition>
