@@ -14,7 +14,15 @@
 					<h:commandButton value="Reparto" action="#{controllerConciliador.reparto()}"  />
 					<h:commandButton value="Solicitado" action="#{controllerConciliador.solicitado('3212780399')}"  />	
 				</h:form>
-				<ui:repeat var="" value="#{"></ui:repeat>
+				<ui:repeat var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
+					<h:outputLabel value="#{solicitud.conciliador}" />
+					<br/>
+					Convocados: 
+					<ui:repeat var="convotante" value="#{solicitud.convotante}">
+						 <h:outputLabel value="  #{convotante}" />
+					</ui:repeat>
+					<br/>
+				</ui:repeat>
 			</div>
 		</ui:define>
 	</ui:composition>

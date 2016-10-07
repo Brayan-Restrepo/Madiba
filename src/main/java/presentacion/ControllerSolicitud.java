@@ -31,8 +31,9 @@ public class ControllerSolicitud {
 		}
 	}
 
-	public static List<ModelSolicitud> getListaSolicitud() {
-		return listaSolicitud;
+	public List<ModelSolicitud> getListaSolicitud() {
+		return ControllerSolicitud.listaSolicitud;
 	}
+	
 	
 }
