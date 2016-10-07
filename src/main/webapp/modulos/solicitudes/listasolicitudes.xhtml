@@ -68,7 +68,7 @@
 								</ui:repeat>
 		              		</div>
 		              		<div class="tab-pane" id="liquidar" style="height: 1000px">
-								<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('radicar')}">
+								<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesLiquidar()}">
 									<div class="col-md-6 col-sm-6 col-xs-12" style="">
 										<div class="box box-primary" style="height: 150px;box-shadow: 2px 2px 5px #999;">
 											<h:form>
@@ -179,7 +179,7 @@
 										</div>
 									</div>
 								<!-- </ui:repeat> -->
-								<ui:repeat var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
+								<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesRadicar()}">
 									<div class="col-md-6 col-sm-6 col-xs-12" style="">
 										<div class="box box-primary" style="height: 150px;box-shadow: 2px 2px 5px #999;">
 											<h:form>

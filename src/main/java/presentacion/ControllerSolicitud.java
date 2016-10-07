@@ -1,6 +1,7 @@
 package presentacion;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -13,6 +14,7 @@ public class ControllerSolicitud {
 	
 	public ControllerSolicitud(){
 		if(ControllerSolicitud.inicio){
+			ControllerSolicitud.inicio = false;
 			String[] convocante = {"Luis Alberto Rodríguez"}; //Tener en cuenta que al añadir mas, se desconfigura la vista
 			String[] convocado = {"Alfonso López"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud("29/09/2016",convocante,convocado,"Por Reparto","Breve descripcion...","radicar"));
@@ -33,6 +35,32 @@ public class ControllerSolicitud {
 
 	public List<ModelSolicitud> getListaSolicitud() {
 		return ControllerSolicitud.listaSolicitud;
+	}
+	
+	public List<ModelSolicitud> solicitudesLiquidar(){
+		List<ModelSolicitud> listaPorEstado = new ArrayList<ModelSolicitud>();
+		int size = ControllerSolicitud.listaSolicitud.size();
+		
+		for(int i=0; i<size; i++){
+			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("liquidar")){
+				listaPorEstado.add(ControllerSolicitud.listaSolicitud.get(i));
+			}			
+		}
+		
+		return listaPorEstado;
+	}
+	
+	public List<ModelSolicitud> solicitudesRadicar(){
+		List<ModelSolicitud> listaPorEstado = new ArrayList<ModelSolicitud>();
+		int size = ControllerSolicitud.listaSolicitud.size();
+		
+		for(int i=0; i<size; i++){
+			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("radicar")){
+				listaPorEstado.add(ControllerSolicitud.listaSolicitud.get(i));
+			}			
+		}
+		
+		return listaPorEstado;
 	}
 	
 	public List<ModelSolicitud> solicitudesPorEstado(String estado){
