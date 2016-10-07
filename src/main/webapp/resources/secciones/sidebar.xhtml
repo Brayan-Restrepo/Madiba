@@ -4,43 +4,52 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head></h:head>
-<body>
-	<ui:composition>
-		<div class="sidebar">
-			<div class="user-panel">
-				<div class="pull-left image">
-					<h:graphicImage library="img/png" name="boy-1.png"
-						class="img-circle" alt="User Image" />
+	<h:head>
+	</h:head>
+	
+	<body>
+		<ui:composition>
+			<div class="sidebar">
+				<div class="user-panel">
+					<div class="pull-left image">
+						<h:graphicImage library="img/png" name="boy-1.png" class="img-circle" alt="User Image" />
+					</div>
+					<div class="pull-left info">
+						<p>Jenny Marcela</p>
+						<!-- Status -->
+						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+					</div>
 				</div>
-				<div class="pull-left info">
-					<p>Alexander Pierce</p>
-					<!-- Status -->
-					<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-				</div>
+				<ul class="sidebar-menu">
+					<li class="header">MENU</li>
+					<li class="active">
+						<a href="/Madiba/index.jsf">
+							<i class="fa fa-home"></i> 
+							<span>Inicio</span>
+						</a>
+					</li>
+					<li class="">
+						<a href="/Madiba/modulos/conciliadores/listaconciliadores.jsf">
+							<i class="fa fa-users"></i> 
+							<span>Conciliadores</span>
+						</a>
+					</li>
+					<li class="treeview">
+						<a href="/Madiba/modulos/solicitudes/listasolicitudes.jsf">
+							<i class="fa fa-link"></i> 
+							<span>Solicitudes</span>
+						</a>
+						<ul class="treeview-menu">
+							<li class="">
+								<a href="/Madiba/modulos/solicitudes/listasolicitudes.jsf">
+									<i class="fa fa-link"></i> 
+									<span>Lista Solicitudes</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
 			</div>
-
-			<ul class="sidebar-menu">
-				<li class="header">MENU</li>
-				<!-- Optionally, you can add icons to the links -->
-				<li class="active"><a href="/Madiba/index.jsf"><i
-						class="fa fa-home"></i> <span>Inicio</span></a></li>
-				<li class=""><a
-					href="/Madiba/modulos/conciliadores/listaconciliadores.jsf"><i
-						class="fa fa-users"></i> <span>Conciliadores</span></a></li>
-				<li class="treeview"><a
-					href="/Madiba/modulos/solicitudes/listasolicitudes.jsf"><i
-						class="fa fa-link"></i> <span>Solicitudes</span></a>
-					<ul class="treeview-menu">
-						<li class=""><a
-							href="/Madiba/modulos/solicitudes/listasolicitudes.jsf"><i
-								class="fa fa-link"></i> <span>Lista Solicitudes</span></a></li><li class=""><a
-							href="/Madiba/modulos/solicitudes/designarconciliador.jsf"><i
-								class="fa fa-link"></i> <span>Radicar Solicitud</span></a></li>
-					</ul></li>
-
-			</ul>
-		</div>
-	</ui:composition>
-</body>
+		</ui:composition>
+	</body>
 </html>
