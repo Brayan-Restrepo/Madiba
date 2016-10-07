@@ -96,7 +96,7 @@ public class ControllerConciliador {
 	/**
 	 * pasa el primer conciliador de ultimas
 	 */
-	public void reparto() {
+	public String reparto() {
 
 		// se elimina el primer conciliador y se adiciona al final de la lista
 		ModelConciliador mCon = ControllerConciliador.listaConciliador.get(0);
@@ -109,10 +109,10 @@ public class ControllerConciliador {
 			ControllerConciliador.listaConciliador.get(i).setId(i + 1);
 		}
 		//System.out.println("listaconciladores --- ");
-		//return "listaconciliadores";
+		return "listasolicitudes";
 	}
 	
-	public void solicitado(String cedula) {
+	public String solicitado(String cedula) {
 
 		// Se le asigna el orden de la lista a los conciliadores
 		int size = ControllerConciliador.listaConciliador.size();
@@ -127,7 +127,7 @@ public class ControllerConciliador {
 		for (int i = 0; i < size; i++) {
 			ControllerConciliador.listaConciliador.get(i).setId(i + 1);
 		}
-		//return "listaconciliadores";
+		return "listasolicitudes";
 	}
 
 }
