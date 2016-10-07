@@ -53,7 +53,7 @@
 												</div>
 												<div class="col-xs-6">
 													<h:outputLabel value="Conciliador:" />
-													#{solicitud.conciliador}
+													#{controllerConciliador.buscarConciliador(solicitud.conciliador)}
 													<br/>
 													<h:outputLabel value="Convocado:" />
 													<ui:repeat var="convocado" value="#{solicitud.convocado}">
@@ -96,7 +96,7 @@
 												</div>
 												<div class="col-xs-6">
 													<h:outputLabel value="Conciliador:" />
-													#{solicitud.conciliador}
+													#{controllerConciliador.buscarConciliador(solicitud.conciliador)}
 													<br/>
 													<h:outputLabel value="Convocado:" />
 													<ui:repeat var="convocado" value="#{solicitud.convocado}">
@@ -116,14 +116,14 @@
 		                	<div class="tab-pane" id="radicar" style="height: 1000px">
 		                		<!-- <ui:repeat var="conciliador" value="#{controllerConciliador.listaConciliador()}"> -->
 									<div class="col-md-6 col-sm-6 col-xs-12" style="">
-										<div class="box box-primary" style="height: 150px;box-shadow: 2px 2px 5px #999;">
+										<div class="box box-warning" style="height: 150px;box-shadow: 2px 2px 5px #999;">
 											<h:form>
 												<div class="box-header with-border">
 													<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
 													<i> 
 														<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
 													</i>
-													<h:commandButton class="pull-right btn btn-primary btn-sm" value="Radicar" action="#{controllerConciliador.reparto()}"/>
+													<h:commandButton class="pull-right btn btn-warning btn-sm" value="Radicar" action="#{controllerConciliador.reparto()}"/>
 												</div>
 											</h:form>
 											<div class='box-body'>
@@ -149,14 +149,14 @@
 										</div>
 									</div>
 									<div class="col-md-6 col-sm-6 col-xs-12" style="">
-										<div class="box box-primary" style="height: 150px;box-shadow: 2px 2px 5px #999;">
+										<div class="box box-warning" style="height: 150px;box-shadow: 2px 2px 5px #999;">
 											<h:form>
 												<div class="box-header with-border">
 													<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
 													<i> 
 														<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
 													</i>
-													<h:commandButton class="pull-right btn btn-primary btn-sm" value="Radicar" action="#{controllerConciliador.solicitado('3212780399')}"/>
+													<h:commandButton class="pull-right btn btn-warning btn-sm" value="Radicar" action="#{controllerConciliador.solicitado('3212780399')}"/>
 												</div>
 											</h:form>
 											<div class='box-body'>
@@ -184,14 +184,14 @@
 								<!-- </ui:repeat> -->
 								<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Radicar')}">
 									<div class="col-md-6 col-sm-6 col-xs-12" style="">
-										<div class="box box-primary" style="height: 150px;box-shadow: 2px 2px 5px #999;">
+										<div class="box box-warning" style="height: 150px;box-shadow: 2px 2px 5px #999;">
 											<h:form>
 												<div class="box-header with-border">
 													<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
 													<i> 
 														<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
 													</i>
-													<h:commandButton class="pull-right btn btn-primary btn-sm" value="#{solicitud.estado}" action="#{controllerConciliador.solicitado('3212780399')}"/>
+													<h:commandButton class="pull-right btn btn-warning btn-sm" value="#{solicitud.estado}" action="#{controllerConciliador.solicitado('3212780399')}"/>
 												</div>
 											</h:form>
 											<div class='box-body'>
@@ -207,7 +207,7 @@
 												</div>
 												<div class="col-xs-6">
 													<h:outputLabel value="Conciliador:" />
-													#{solicitud.conciliador}
+													#{controllerConciliador.buscarConciliador(solicitud.conciliador)}
 													<br/>
 													<h:outputLabel value="Convocado:" />
 													<ui:repeat var="convocado" value="#{solicitud.convocado}">
@@ -227,14 +227,14 @@
 	              			<div class="tab-pane" id="audiencia" style="height: 1000px">
 	              				<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Audiencia')}">
 									<div class="col-md-6 col-sm-6 col-xs-12" style="">
-										<div class="box box-primary" style="height: 150px;box-shadow: 2px 2px 5px #999;">
+										<div class="box box-success" style="height: 150px;box-shadow: 2px 2px 5px #999;">
 											<h:form>
 												<div class="box-header with-border">
 													<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
 													<i> 
 														<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
 													</i>
-													<h:commandButton class="pull-right btn btn-primary btn-sm" value="#{solicitud.estado}" action="#{controllerConciliador.solicitado('3212780399')}"/>
+													<h:commandButton class="pull-right btn btn-success btn-sm" value="#{solicitud.estado}" action="#{controllerConciliador.solicitado('3212780399')}"/>
 												</div>
 											</h:form>
 											<div class='box-body'>
@@ -250,7 +250,7 @@
 												</div>
 												<div class="col-xs-6">
 													<h:outputLabel value="Conciliador:" />
-													#{solicitud.conciliador}
+													#{controllerConciliador.buscarConciliador(solicitud.conciliador)}
 													<br/>
 													<h:outputLabel value="Convocado:" />
 													<ui:repeat var="convocado" value="#{solicitud.convocado}">

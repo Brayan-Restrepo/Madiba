@@ -11,8 +11,8 @@
 		<ui:define name="content">
 			<div class="">
 				<h:form>
-					<h:commandButton value="Reparto" action="#{controllerConciliador.reparto()}"  />
-					<h:commandButton value="Solicitado" action="#{controllerConciliador.solicitado('3212780399')}"  />	
+					<h:commandButton value="Reparto" action="#{controllerConciliador.reparto()}"  />	
+					<h:commandButton value="Solicitado" action="#{controllerConciliador.parametro('3212780399')}"  />
 				</h:form>
 				<ui:repeat var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
 					<h:outputLabel value="#{solicitud.conciliador}" />
@@ -24,6 +24,7 @@
 					<br/>
 				</ui:repeat>
 			</div>
+			
 		</ui:define>
 	</ui:composition>
 </body>

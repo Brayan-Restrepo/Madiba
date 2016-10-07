@@ -129,5 +129,24 @@ public class ControllerConciliador {
 		}
 		return "listasolicitudes";
 	}
+	
+	public String buscarConciliador(String cc){
+		String nombre = "";
+		if(cc.equals("Por Reparto")){
+			return "Por Reparto";
+		}
+		int size = ControllerConciliador.listaConciliador.size();
+		for(int i=0; i<size; i++){
+			if(ControllerConciliador.listaConciliador.get(i).getCedula().equals(cc)){
+				nombre = ControllerConciliador.listaConciliador.get(i).getApellido()+" "+ControllerConciliador.listaConciliador.get(i).getNombre();
+				break;
+			}
+		}
+		return nombre;
+	}
+	
+	public void parametro(String r){
+		System.out.println(r);
+	}
 
 }
