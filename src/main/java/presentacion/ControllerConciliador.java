@@ -81,7 +81,7 @@ public class ControllerConciliador {
 	 * Optiene el atributo para mostrarlo en pantalla no es necesario este metodo
 	 * @return
 	 */
-	public boolean getInicio() {
+	public static boolean getInicio() {
 		return ControllerConciliador.inicio;
 	}
 	
