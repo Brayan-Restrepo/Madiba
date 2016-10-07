@@ -9,43 +9,76 @@
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">
 		<ui:define name="content">
 			<div class="">
-				<ui:repeat var="conciliador" value="#{controllerConciliador.listaConciliador()}">
+				<!-- <ui:repeat var="conciliador" value="#{controllerConciliador.listaConciliador()}"> -->
 					<div class="col-md-6 col-sm-6 col-xs-12">
 						<div class="box box-primary" style="height: 150px">
+							<h:form>
 							<div class="box-header with-border">
-								<i> <h:outputLabel value="Solicitud No." style="font-size:14pt"/>123456
-								</i> <h:commandButton class="pull-right btn btn-primary btn-sm" value="Radicar" />
+								<h:graphicImage library="img" name="msj-solicitudes.png" style="width:32px;"/>
+								<i> 
+									<h:outputLabel value="Solicitud No." style="font-size:14pt; padding-bottom:-50px; background-color:blue"/>
+								</i>
+								<h:commandButton class="pull-right btn btn-primary btn-sm" value="Radicar" action="#{controllerConciliador.reparto()}"/>
 							</div>
+							</h:form>
 							<div class='box-body'>
 								<div class="left col-xs-2 text-center" >
-									<h:graphicImage library="img" name="msj-solicitudes.png" style="width:80px;"/>
+									<h:graphicImage library="img" name="msj-solicitudes.png" style="width:75px;"/>
 								</div>
-								<div class="right col-xs-5" style="">
+								<div class="right col-xs-5" style="margin-left:3%">
 									<h:outputLabel value="Fecha:" />
-									#{conciliador.getEspecialidad()}
+									10/05/2016
 									<br/>
 									<h:outputLabel value="Convocante:" />
-									#{conciliador.getExperiencia()}
+									Marta Sanchez
 									<br/>
-									<i class="fa fa-phone"></i>
 									<h:outputLabel value="Convocado:" />
-									#{conciliador.getTelefono()}
+									Carlos Melo
 								</div>
-								<div class="right col-xs-5" style="">
-									<h:outputLabel value="Fecha:" />
-									#{conciliador.getEspecialidad()}
+								<div class="right col-xs-5" style="margin-right: -3%">
+									<h:outputLabel value="Descripción:" />
+									Disputa Matrimonial
 									<br/>
-									<h:outputLabel value="Convocante:" />
-									#{conciliador.getExperiencia()}
-									<br/>
-									<i class="fa fa-phone"></i>
-									<h:outputLabel value="Convocado:" />
-									#{conciliador.getTelefono()}
+									<h:outputLabel value="Conciliador:" />
+									Por Reparto
 								</div>
 							</div>
 						</div>
 					</div>
-				</ui:repeat>
+					<div class="col-md-6 col-sm-6 col-xs-12">
+						<div class="box box-primary" style="height: 150px">
+							<h:form>
+							<div class="box-header with-border">
+								<i> <h:outputLabel value="Solicitud No. " style="font-size:14pt"/>
+								</i> 
+								<h:commandButton class="pull-right btn btn-primary btn-sm" value="Radicar" action="#{controllerConciliador.solicitado('3212780399')}" />
+							</div>
+							</h:form>
+							<div class='box-body'>
+								<div class="left col-xs-2 text-center" >
+									<h:graphicImage library="img" name="msj-solicitudes.png" style="width:75px;"/>
+								</div>
+								<div class="right col-xs-5" style="margin-left:3%">
+									<h:outputLabel value="Fecha:" />
+									10/05/2016
+									<br/>
+									<h:outputLabel value="Convocante:" />
+									Marta Sanchez
+									<br/>
+									<h:outputLabel value="Convocado:" />
+									Carlos Melo
+								</div>
+								<div class="right col-xs-5" style="margin-right: -3%">
+									<h:outputLabel value="Descripción:" />
+									Disputa Matrimonial
+									<br/>
+									<h:outputLabel value="Conciliador:" />
+									Adelina Pabon 
+								</div>
+							</div>
+						</div>
+					</div>
+				<!-- </ui:repeat> -->
 			</div>
 		</ui:define>
 	</ui:composition>

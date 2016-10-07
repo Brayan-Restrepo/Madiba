@@ -108,7 +108,7 @@ public class ControllerConciliador {
 		for (int i = 0; i < size; i++) {
 			ControllerConciliador.listaConciliador.get(i).setId(i + 1);
 		}
-		System.out.println("listaconciladores --- ");
+		//System.out.println("listaconciladores --- ");
 		//return "listaconciliadores";
 	}
 	
@@ -122,6 +122,10 @@ public class ControllerConciliador {
 				ControllerConciliador.listaConciliador.remove(i);
 				ControllerConciliador.listaConciliador.add(mCon);
 			}
+		}
+		// Se le asigna el orden de la lista a los conciliadores
+		for (int i = 0; i < size; i++) {
+			ControllerConciliador.listaConciliador.get(i).setId(i + 1);
 		}
 		//return "listaconciliadores";
 	}
