@@ -7,13 +7,6 @@ public class ControllerSolicitud {
 	
 	private static boolean inicio = true;
 	public static List<ModelSolicitud> listaSolicitud = new ArrayList<ModelSolicitud>();
-
-	private String fecha;
-	private String[] convotante;
-	private String[] convocado;
-	private String conciliador;
-	private String descripcion;
-	private String estado;
 	
 	public ControllerSolicitud(){
 		if(ControllerSolicitud.inicio){
@@ -34,6 +27,9 @@ public class ControllerSolicitud {
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud("06/10/2016",convocante5,convocado5,"Por Reparto","Breve descripcion...","t"));
 		}
 	}
-	
+
+	public static List<ModelSolicitud> getListaSolicitud() {
+		return listaSolicitud;
+	}
 	
 }
