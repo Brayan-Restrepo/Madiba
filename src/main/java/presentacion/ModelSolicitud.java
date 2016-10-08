@@ -13,8 +13,7 @@ public class ModelSolicitud {
 	private String descripcion;
 	private String estado;
 	
-	public ModelSolicitud(int id, String fecha, String[] convotante,
-			String[] convocado, String conciliador, String descripcion,
+	public ModelSolicitud(int id, String fecha, String[] convotante,String[] convocado, String conciliador, String descripcion,
 			String estado) {
 		this.id = id;
 		this.fecha = fecha;

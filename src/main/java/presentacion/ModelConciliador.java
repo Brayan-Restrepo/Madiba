@@ -19,8 +19,8 @@ public class ModelConciliador {
 		
 	}
 	
-	public ModelConciliador(int id,String cedula, String nombre, String apellido, String telefono,
-			String especialidad, String experiencia, String email, String foto) {
+	public ModelConciliador(int id,String cedula, String nombre, String apellido, String telefono,String especialidad, 
+			String experiencia, String email, String foto) {
 		this.id = id;
 		this.cedula = cedula;
 		this.nombre = nombre;

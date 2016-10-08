@@ -1,9 +1,0 @@
-diff a/src/main/java/presentacion/ControllerSolicitud.java b/src/main/java/presentacion/ControllerSolicitud.java	(rejected hunks)
-@@ -17,7 +17,6 @@
- 			ControllerSolicitud.inicio = false;
- 			String[] convocante = {"Luis Alberto Rodríguez"}; //Tener en cuenta que al añadir mas, se desconfigura la vista
- 			String[] convocado = {"Alfonso López"};
--			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud("29/09/2016",convocante,convocado,"Por Reparto","Breve descripcion...","radicar"));
- 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud("29/09/2016",convocante,convocado,"Por Reparto","Breve descripcion...","Radicar"));
- 			String[] convocante2 = {"Luis Alberto Rodríguez"};
- 			String[] convocado2 = {"Alfonso López"};

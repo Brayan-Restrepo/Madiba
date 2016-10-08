@@ -25,6 +25,9 @@
 		              		<li>
 		              			<a href="#audiencia" data-toggle="tab">Para Audiencia</a>
 		              		</li>
+		              		<li>
+		              			<a href="#registro" data-toggle="tab">Por Registrar</a>
+		              		</li>
 		            	</ul>
 		            	<div class="tab-content">
 		              		<div class="active tab-pane" id="todas" style="height: 1000px">
@@ -114,74 +117,6 @@
 								</ui:repeat>
 		              		</div>
 		                	<div class="tab-pane" id="radicar" style="height: 1000px">
-		                		<!-- <ui:repeat var="conciliador" value="#{controllerConciliador.listaConciliador()}"> -->
-									<div class="col-md-6 col-sm-6 col-xs-12" style="">
-										<div class="box box-warning" style="height: 150px;box-shadow: 2px 2px 5px #999;">
-											<h:form>
-												<div class="box-header with-border">
-													<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
-													<i> 
-														<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
-													</i>
-													<h:commandButton class="pull-right btn btn-warning btn-sm" value="Radicar" action="#{controllerConciliador.designarConciliador('Por Reparto')}"/>
-												</div>
-											</h:form>
-											<div class='box-body'>
-												<div class="col-xs-6">
-													<h:outputLabel value="Fecha:" />
-													10/05/2016
-													<br/>
-													<h:outputLabel value="Convocante:" />
-													Marta Sanchez
-												</div>
-												<div class="col-xs-6">
-													<h:outputLabel value="Conciliador:" />
-													Por Reparto
-													<br/>
-													<h:outputLabel value="Convocado:" />
-													Carlos Melo
-												</div>
-												<div class="col-xs-12">
-													<h:outputLabel value="Descripción:" />
-													Disputa Matrimonial
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6 col-sm-6 col-xs-12" style="">
-										<div class="box box-warning" style="height: 150px;box-shadow: 2px 2px 5px #999;">
-											<h:form>
-												<div class="box-header with-border">
-													<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
-													<i> 
-														<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
-													</i>
-													<h:commandButton class="pull-right btn btn-warning btn-sm" value="Radicar" action="#{controllerConciliador.designarConciliador('3212780399')}"/>
-												</div>
-											</h:form>
-											<div class='box-body'>
-												<div class="col-xs-6">
-													<h:outputLabel value="Fecha:" />
-													10/05/2016
-													<br/>
-													<h:outputLabel value="Convocante:" />
-													Marta Sanchez
-												</div>
-												<div class="col-xs-6">
-													<h:outputLabel value="Conciliador:" />
-													Adelina Pabon 
-													<br/>
-													<h:outputLabel value="Convocado:" />
-													Carlos Melo
-												</div>
-												<div class="col-xs-12">
-													<h:outputLabel value="Descripción:" />
-													Disputa Matrimonial
-												</div>
-											</div>
-										</div>
-									</div>
-								<!-- </ui:repeat> -->
 								<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Radicar')}">
 									<div class="col-md-6 col-sm-6 col-xs-12" style="">
 										<div class="box box-warning" style="height: 150px;box-shadow: 2px 2px 5px #999;">
@@ -226,6 +161,49 @@
 		              		</div>
 	              			<div class="tab-pane" id="audiencia" style="height: 1000px">
 	              				<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Audiencia')}">
+									<div class="col-md-6 col-sm-6 col-xs-12" style="">
+										<div class="box box-success" style="height: 150px;box-shadow: 2px 2px 5px #999;">
+											<h:form>
+												<div class="box-header with-border">
+													<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
+													<i> 
+														<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
+													</i>
+													<h:commandButton class="pull-right btn btn-success btn-sm" value="#{solicitud.estado}" action="#{controllerConciliador.solicitado('3212780399')}"/>
+												</div>
+											</h:form>
+											<div class='box-body'>
+												<div class="col-xs-6">
+													<h:outputLabel value="Fecha:" />
+													#{solicitud.fecha}
+													<br/>
+													<h:outputLabel value="Convocante:" />
+													<ui:repeat var="convotante" value="#{solicitud.convotante}">
+														 #{convotante}
+														 <label> </label>
+													</ui:repeat>
+												</div>
+												<div class="col-xs-6">
+													<h:outputLabel value="Conciliador:" />
+													#{controllerConciliador.buscarConciliador(solicitud.conciliador)}
+													<br/>
+													<h:outputLabel value="Convocado:" />
+													<ui:repeat var="convocado" value="#{solicitud.convocado}">
+														 #{convocado}
+														 <label> </label>
+													</ui:repeat>
+												</div>
+												<div class="col-xs-12">
+													<h:outputLabel value="Descripción:" />
+													#{solicitud.descripcion}
+												</div>
+											</div>
+										</div>
+									</div>
+								</ui:repeat>
+	              			</div>
+	              			<div class="tab-pane" id="registro" style="height: 1000px">
+	              				<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Registro')}">
 									<div class="col-md-6 col-sm-6 col-xs-12" style="">
 										<div class="box box-success" style="height: 150px;box-shadow: 2px 2px 5px #999;">
 											<h:form>

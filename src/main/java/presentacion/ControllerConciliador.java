@@ -2,7 +2,6 @@ package presentacion;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -12,60 +11,43 @@ public class ControllerConciliador {
 	@ManagedProperty(value = "#{modelConciliador}")
 	private ModelConciliador conciliador;
 
-	/**Este atributo va a ser true unicamente cuando se carga por priera vez la pagina
-	* al igresar el constructor queda falso y nunca mas va a ser true.
-	* con el obejtivo que solo se carge los datos de la lista solo una vez.
-	*/ 
+	//Permite validar que los datos solo se pinten la primera vez que se carga la pagina y no todas la veces
 	private static boolean inicio = true;
+	
+	//Contiene la lista de conciliadores con datos quemados
 	public static List<ModelConciliador> listaConciliador = new ArrayList<ModelConciliador>();
 
+	//Constructor: arma la lista de conciliadores solo la primera vez
 	public ControllerConciliador() {
-		// Es true unicamente cuando se ejecuta la aplicacion por primera vez y
-		
 		if (ControllerConciliador.inicio) {
-			
-			// inicio queda falso
 			ControllerConciliador.inicio=false;
 			
+			//Arma la lista de conciliadores
 			ControllerConciliador.listaConciliador = new ArrayList<ModelConciliador>();
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(1, "1234235689",
-					"MARISOL", "BARAJAS TORRES", "3212040399", "Civil",
-					"7 años", "emilioa2005@yahoo.es", "boy-5.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(2, "2345673409",
-					"GUILLERMO LEON", "CHAVES BUSTOS", "3212040399", "Civil",
-					"7 años", "emilioa2005@yahoo.es", "boy-3.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(3, "1234563222",
-					"GUSTAVO", "JARAMILLO ZULUAGA", "3212040399", "Civil",
-					"7 años", "gustavojaramillozuluaga@hotmail.com",
-					"boy-1.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(4, "87655543",
-					"CARLOS ARTURO", "LEON ARDILA", "40444465", "Familia",
-					"5 años", "dimarce2511@hotmail.com", "boy-2.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(5, "3212020399",
-					"ROSA DEL PILAR", "MÁRQUEZ SARMIENTO", "3212040399",
-					"Civil", "7 años", "emilioa2005@yahoo.es", "boy-5.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(6, "3212780399",
-					"ADELINA", "PABON MIRAMÓN", "3212040399", "Civil",
-					"7 años", "emilioa2005@yahoo.es", "boy-5.png"));			
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(7, "3212790399",
-					"GLORIA ISABEL", "PEÑA TAMAYO", "40444465", "Familia",
-					"5 años", "dimarce2511@hotmail.com", "dj.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(8, "23567824",
-					"MARIA JOSEFINA", "PORRAS DE MONCALEANO", "3212040399",
-					"Civil", "7 años", "emilioa2005@yahoo.es", "boy-5.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(9, "3236440399",
-					"RAUL ARMANDO", "PRIETO GARCIA", "3212040399", "Civil",
-					"7 años", "emilioa2005@yahoo.es", "boy-5.png"));
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(10, "3212110399",
-					"ROSA DEL CARMEN", "QUEVEDO CELIS", "40444465", "Familia",
-					"5 años", "dimarce2511@hotmail.com", "boy-4.png"));			
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(11, "404445465",
-					"MARTHA JEANNETHE", "RAMIREZ ORTIZ", "40444465", "Familia",
-					"5 años", "dimarce2511@hotmail.com", "dj.png"));			
-			ControllerConciliador.listaConciliador.add(new ModelConciliador(12, "321220399",
-					"SANDRA PATRICIA", "VELASQUEZ PARRADO", "3212040399",
-					"Civil", "7 años", "emilioa2005@yahoo.es", "boy-5.png"));
-			
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					1, "1234235689","MARISOL", "BARAJAS TORRES", "3212040399", "Civil","7 años", "emilioa2005@yahoo.es", "boy-5.png"));
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					2, "2345673409","GUILLERMO LEON", "CHAVES BUSTOS", "3212040399", "Civil","7 años", "emilioa2005@yahoo.es", "boy-3.png"));
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					3, "1234563222","GUSTAVO", "JARAMILLO ZULUAGA", "3212040399", "Civil","7 años", "gustavojaramillozuluaga@hotmail.com","boy-1.png"));
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					4, "87655543","CARLOS ARTURO", "LEON ARDILA", "40444465", "Familia","5 años", "dimarce2511@hotmail.com", "boy-2.png"));
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					5, "3212020399","ROSA DEL PILAR", "MÁRQUEZ SARMIENTO", "3212040399","Civil", "7 años", "emilioa2005@yahoo.es", "boy-5.png"));
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					6, "3212780399","ADELINA", "PABON MIRAMÓN", "3212040399", "Civil","7 años", "emilioa2005@yahoo.es", "boy-5.png"));			
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					7, "3212790399","GLORIA ISABEL", "PEÑA TAMAYO", "40444465", "Familia","5 años", "dimarce2511@hotmail.com", "dj.png"));
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					8, "23567824","MARIA JOSEFINA", "PORRAS DE MONCALEANO", "3212040399","Civil", "7 años", "emilioa2005@yahoo.es", "boy-5.png"));
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					9, "3236440399","RAUL ARMANDO", "PRIETO GARCIA", "3212040399", "Civil","7 años", "emilioa2005@yahoo.es", "boy-5.png"));
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					10, "3212110399","ROSA DEL CARMEN", "QUEVEDO CELIS", "40444465", "Familia","5 años", "dimarce2511@hotmail.com", "boy-4.png"));			
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					11, "404445465","MARTHA JEANNETHE", "RAMIREZ ORTIZ", "40444465", "Familia","5 años", "dimarce2511@hotmail.com", "dj.png"));			
+			ControllerConciliador.listaConciliador.add(new ModelConciliador(
+					12, "321220399","SANDRA PATRICIA", "VELASQUEZ PARRADO", "3212040399","Civil", "7 años", "emilioa2005@yahoo.es", "boy-5.png"));
 		}
 	}
 
@@ -77,25 +59,11 @@ public class ControllerConciliador {
 		this.conciliador = conciliador;
 	}
 
-	/**
-	 * Optiene el atributo para mostrarlo en pantalla no es necesario este metodo
-	 * @return
-	 */
-	public boolean getInicio() {
-		return ControllerConciliador.inicio;
-	}
-	
-	/**
-	 *  la lista de conciliadores que se muestra en la ventana listaconciliadores
-	 * @return listaConciliador 
-	 */
-	public List listaConciliador() {
+	public List<ModelConciliador> listaConciliador() {
 		return ControllerConciliador.listaConciliador;
 	}
 
-	/**
-	 * pasa el primer conciliador de ultimas
-	 */
+	//Designa un conciliador al caso, sea por solicitud o por reparto
 	public String designarConciliador(String conciliador, int idSolicitud, String nuevoEstado){
 		ControllerSolicitud solicitud=new ControllerSolicitud();
 		if(conciliador.equals("Por Reparto")){
@@ -107,23 +75,22 @@ public class ControllerConciliador {
 		return "listasolicitudes"; 
 	}
 	
+	//Designa el conciliador que este esperando el turno y lo manda al final de la cola
 	public void reparto() {
-
-		// se elimina el primer conciliador y se adiciona al final de la lista
 		ModelConciliador mCon = ControllerConciliador.listaConciliador.get(0);
 		ControllerConciliador.listaConciliador.remove(0);
 		ControllerConciliador.listaConciliador.add(mCon);
 
-		// Se le asigna el orden de la lista a los conciliadores
+		//Asigna los nuevos turnos
 		int size = ControllerConciliador.listaConciliador.size();
 		for (int i = 0; i < size; i++) {
 			ControllerConciliador.listaConciliador.get(i).setId(i + 1);
 		}
 	}
 	
+	//Designa el conciliador que fue seleccionado y lo manda al final de la cola
 	public void solicitado(String cedula) {
-
-		// Se le asigna el orden de la lista a los conciliadores
+		//Buscar el conciliador y lo manda a la cola
 		int size = ControllerConciliador.listaConciliador.size();
 		for (int i = 0; i < size; i++) {
 			if(ControllerConciliador.listaConciliador.get(i).getCedula().equals(cedula)){
@@ -132,20 +99,22 @@ public class ControllerConciliador {
 				ControllerConciliador.listaConciliador.add(mCon);
 			}
 		}
-		// Se le asigna el orden de la lista a los conciliadores
+		
+		//Asigna los nuevos turnos
 		for (int i = 0; i < size; i++) {
 			ControllerConciliador.listaConciliador.get(i).setId(i + 1);
 		}
 	}
 	
-	public String buscarConciliador(String cc){
+	//Busca el nombre del conciliador por su cedula
+	public String buscarConciliador(String cedula){
 		String nombre = "";
-		if(cc.equals("Por Reparto")){
+		if(cedula.equals("Por Reparto")){
 			return "Por Reparto";
 		}
 		int size = ControllerConciliador.listaConciliador.size();
 		for(int i=0; i<size; i++){
-			if(ControllerConciliador.listaConciliador.get(i).getCedula().equals(cc)){
+			if(ControllerConciliador.listaConciliador.get(i).getCedula().equals(cedula)){
 				//nombre = ControllerConciliador.listaConciliador.get(i).getApellido()+" "+ControllerConciliador.listaConciliador.get(i).getNombre();
 				nombre = ControllerConciliador.listaConciliador.get(i).getNombre();
 				break;
