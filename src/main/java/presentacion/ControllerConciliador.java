@@ -96,7 +96,18 @@ public class ControllerConciliador {
 	/**
 	 * pasa el primer conciliador de ultimas
 	 */
-	public String reparto() {
+	public String designarConciliador(String conciliador, int idSolicitud, String nuevoEstado){
+		ControllerSolicitud solicitud=new ControllerSolicitud();
+		if(conciliador.equals("Por Reparto")){
+			reparto();
+		}else{
+			solicitado(conciliador);
+		}
+		solicitud.cambiarEstado(idSolicitud,nuevoEstado);
+		return "listasolicitudes"; 
+	}
+	
+	public void reparto() {
 
 		// se elimina el primer conciliador y se adiciona al final de la lista
 		ModelConciliador mCon = ControllerConciliador.listaConciliador.get(0);
@@ -108,11 +119,9 @@ public class ControllerConciliador {
 		for (int i = 0; i < size; i++) {
 			ControllerConciliador.listaConciliador.get(i).setId(i + 1);
 		}
-		//System.out.println("listaconciladores --- ");
-		return "listasolicitudes";
 	}
 	
-	public String solicitado(String cedula) {
+	public void solicitado(String cedula) {
 
 		// Se le asigna el orden de la lista a los conciliadores
 		int size = ControllerConciliador.listaConciliador.size();
@@ -127,7 +136,6 @@ public class ControllerConciliador {
 		for (int i = 0; i < size; i++) {
 			ControllerConciliador.listaConciliador.get(i).setId(i + 1);
 		}
-		return "listasolicitudes";
 	}
 	
 	public String buscarConciliador(String cc){
@@ -138,15 +146,12 @@ public class ControllerConciliador {
 		int size = ControllerConciliador.listaConciliador.size();
 		for(int i=0; i<size; i++){
 			if(ControllerConciliador.listaConciliador.get(i).getCedula().equals(cc)){
-				nombre = ControllerConciliador.listaConciliador.get(i).getApellido()+" "+ControllerConciliador.listaConciliador.get(i).getNombre();
+				//nombre = ControllerConciliador.listaConciliador.get(i).getApellido()+" "+ControllerConciliador.listaConciliador.get(i).getNombre();
+				nombre = ControllerConciliador.listaConciliador.get(i).getNombre();
 				break;
 			}
 		}
 		return nombre;
-	}
-	
-	public void parametro(String r){
-		System.out.println(r);
 	}
 
 }

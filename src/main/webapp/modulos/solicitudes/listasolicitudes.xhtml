@@ -123,7 +123,7 @@
 													<i> 
 														<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
 													</i>
-													<h:commandButton class="pull-right btn btn-warning btn-sm" value="Radicar" action="#{controllerConciliador.reparto()}"/>
+													<h:commandButton class="pull-right btn btn-warning btn-sm" value="Radicar" action="#{controllerConciliador.designarConciliador('Por Reparto')}"/>
 												</div>
 											</h:form>
 											<div class='box-body'>
@@ -156,7 +156,7 @@
 													<i> 
 														<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
 													</i>
-													<h:commandButton class="pull-right btn btn-warning btn-sm" value="Radicar" action="#{controllerConciliador.solicitado('3212780399')}"/>
+													<h:commandButton class="pull-right btn btn-warning btn-sm" value="Radicar" action="#{controllerConciliador.designarConciliador('3212780399')}"/>
 												</div>
 											</h:form>
 											<div class='box-body'>
@@ -191,7 +191,7 @@
 													<i> 
 														<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
 													</i>
-													<h:commandButton class="pull-right btn btn-warning btn-sm" value="#{solicitud.estado}" action="#{controllerConciliador.solicitado('3212780399')}"/>
+													<h:commandButton class="pull-right btn btn-warning btn-sm" value="#{solicitud.estado}" action="#{controllerConciliador.designarConciliador(solicitud.conciliador,solicitud.id,'Audiencia')}"/>
 												</div>
 											</h:form>
 											<div class='box-body'>
