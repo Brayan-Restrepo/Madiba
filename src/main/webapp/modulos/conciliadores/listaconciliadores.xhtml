@@ -10,7 +10,9 @@
 	<body>
 		<ui:composition template="/resources/plantilla/plantilla.xhtml">
 			<ui:define name="content">
-				<div class="">
+			  
+				<div class="content">
+					<div class="row">
 					<ui:repeat var="conciliador" value="#{controllerConciliador.listaConciliador()}">
 						<div class="col-md-4 col-sm-6 col-xs-12">
 							<div class="box box-primary">
@@ -48,6 +50,7 @@
 							</div>
 						</div>
 					</ui:repeat>
+					</div>
 				</div>
 			</ui:define>
 		</ui:composition>
