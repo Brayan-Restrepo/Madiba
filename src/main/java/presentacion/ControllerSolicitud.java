@@ -2,7 +2,9 @@ package presentacion;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.event.AjaxBehaviorEvent;
 
 @ManagedBean
 public class ControllerSolicitud {
@@ -61,13 +63,43 @@ public class ControllerSolicitud {
 		}
 		return listaPorEstado;
 	}
+	private String parametro;
 	
+	public String getParametro() {
+		return parametro;
+	}
+
+	public void setParametro(String parametro) {
+		this.parametro = parametro;
+	}
+
 	//Cambia el estado de la solicitud despues de ser gestionada
 	public void cambiarEstado(int id, String nuevoEstado){
 		int size = ControllerSolicitud.listaSolicitud.size();
 		for(int i=0; i<size; i++){
 			if(ControllerSolicitud.listaSolicitud.get(i).getId() == id){
 				ControllerSolicitud.listaSolicitud.get(i).setEstado(nuevoEstado);
+			}			
+		}
+	}
+	
+	/**
+	 * Metodo encargado de de identificar el tipo de solicitud 
+	 * y Cambiar el estado al siguiente (Liquidar -> Radicar -> Audiencia -> Registrar)
+	 * @param evento Parametro ajax
+	 * @param id Es el id de la solicitud
+	 */
+	public void solicitud(AjaxBehaviorEvent evento, int id) {
+		int size = ControllerSolicitud.listaSolicitud.size();
+		for(int i=0; i<size; i++){
+			if(ControllerSolicitud.listaSolicitud.get(i).getId() == id){
+				if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Liquidar")){
+					ControllerSolicitud.listaSolicitud.get(i).setEstado("Radicar");
+				}else if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Radicar")){
+					ControllerSolicitud.listaSolicitud.get(i).setEstado("Audiencia");
+				}else if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Audiencia")){
+					ControllerSolicitud.listaSolicitud.get(i).setEstado("Registrar");
+				}
 			}			
 		}
 	}
