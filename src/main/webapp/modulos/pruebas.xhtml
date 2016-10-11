@@ -9,14 +9,14 @@
 	<ui:composition>
 		<h:form>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-			<div class="box #{controllerSolicitud.colorFicha(solicitud.id,'box')}" style="box-shadow: 2px 2px 5px #999;">
+			<div class="box #{controllerPruebas.colorFicha(solicitud.id,'box')}" style="box-shadow: 2px 2px 5px #999;">
 				<div class="box-header with-border">
 					<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
 					<i> 
 						<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
 					</i>
-					<h:commandButton class="pull-right btn btn-sm #{controllerSolicitud.colorFicha(solicitud.id,'btn')}" value="#{solicitud.estado}" action="listasolicitudes">
-						<f:ajax render=":radicar" listener="#{controllerSolicitud.cambiarEstado(this, solicitud.id)}"/>
+					<h:commandButton class="pull-right btn btn-sm #{controllerPruebas.colorFicha(solicitud.id,'btn')}" value="#{solicitud.estado}">
+						<f:ajax render=":panelTodas :panelLiquidar :panelRadicar :panelAudiencia :panelRegistrar" listener="#{controllerPruebas.cambiarEstado(this, solicitud.id)}"/>
 					</h:commandButton>
 				</div>
 				<div class='box-body'>

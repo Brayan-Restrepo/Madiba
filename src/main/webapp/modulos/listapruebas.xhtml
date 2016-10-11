@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+</h:head>
+
+<body>
+	<ui:composition template="/resources/plantilla/plantilla.xhtml">
+		<ui:define name="content">
+			<div class="content" >
+				<div class="row">
+					<div class="col-md-12">
+						<div class="nav-tabs-custom">
+							<ul class="nav nav-tabs" style="border-color:blue">
+								<li class="active">
+									<a href="#todas" data-toggle="tab">Todas</a>
+								</li>
+								<li>
+									<a href="#liquidar" data-toggle="tab">Por Liquidar</a>
+								</li>
+								<li>	
+									<a href="#radicar" data-toggle="tab">Por Radicar</a>
+								</li>
+								<li>
+									<a href="#audiencia" data-toggle="tab">Para Audiencia</a>
+								</li>
+								<li>
+									<a href="#registrar" data-toggle="tab">Por Registrar</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="todas">
+									<h:panelGroup class="row" id="panelTodas">
+										<ui:repeat var="solicitud" value="#{controllerPruebas.listaSolicitud}">
+											<ui:include src="pruebas.xhtml" />
+										</ui:repeat>
+									</h:panelGroup>
+								</div>
+								<div class="tab-pane" id="liquidar">
+									<h:panelGroup class="row" id="panelLiquidar">
+										<ui:repeat var="solicitud" value="#{controllerPruebas.solicitudesPorEstado('Liquidar')}">
+											<ui:include src="pruebas.xhtml" />
+										</ui:repeat>
+									</h:panelGroup>
+								</div>
+								<div class="tab-pane" id="radicar">
+									<h:panelGroup class="row" id="panelRadicar">
+										<ui:repeat var="solicitud" value="#{controllerPruebas.solicitudesPorEstado('Radicar')}">
+											<ui:include src="pruebas.xhtml" />
+										</ui:repeat>
+									</h:panelGroup>
+								</div>
+								<div class="tab-pane" id="audiencia">
+									<h:panelGroup class="row" id="panelAudiencia">
+										<ui:repeat var="solicitud" value="#{controllerPruebas.solicitudesPorEstado('Audiencia')}">
+											<ui:include src="pruebas.xhtml" />
+										</ui:repeat>
+									</h:panelGroup>
+								</div>
+								<div class="tab-pane" id="registrar">
+									<h:panelGroup class="row" id="panelRegistrar">
+										<ui:repeat var="solicitud" value="#{controllerPruebas.solicitudesPorEstado('Registrar')}">
+											<ui:include src="pruebas.xhtml" />
+										</ui:repeat>
+									</h:panelGroup>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
