@@ -14,7 +14,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="nav-tabs-custom">
-							<ul class="nav nav-tabs">
+							<ul class="nav nav-tabs" style="border-color:blue">
 								<li class="active">
 									<a href="#todas" data-toggle="tab">Todas</a>
 								</li>
@@ -28,62 +28,48 @@
 									<a href="#audiencia" data-toggle="tab">Para Audiencia</a>
 								</li>
 								<li>
-									<a href="#registro" data-toggle="tab">Por Registrar</a>
+									<a href="#registrar" data-toggle="tab">Por Registrar</a>
 								</li>
 							</ul>
 							<div class="tab-content">
-								<div class="tab-pane active" id="todas">
+								<h:panelGroup class="tab-pane active" id="todas">
 									<div class="row">
 										<ui:repeat var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
-											<h:form>
-												<ui:include src="fichasolicitud.xhtml">
-													<ui:param name="boxColor" value="box box-primary" />
-													<ui:param name="botonColor"	value="pull-right btn btn-primary btn-sm" />
-												</ui:include>
-											</h:form>
+											<ui:include src="fichasolicitud.xhtml" />
 										</ui:repeat>
 									</div>
-								</div>
-								<div class="tab-pane" id="liquidar">
+								</h:panelGroup>
+								<h:panelGroup class="tab-pane" id="liquidar">
 									<div class="row">
 										<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Liquidar')}">
-											<ui:include src="fichasolicitud.xhtml">
+											<ui:include src="fichasolicitud.xhtml" />
+											<!-- <ui:include src="fichasolicitud.xhtml" >
 												<ui:param name="boxColor" value="box box-warning" />
-												<ui:param name="botonColor" value="pull-right btn btn-warning btn-sm" />
-											</ui:include>
+											</ui:include> -->
 										</ui:repeat>
 									</div>
-								</div>
-								<div class="tab-pane" id="radicar">
+								</h:panelGroup>
+								<h:panelGroup class="tab-pane" id="radicar">
 									<div class="row">
 										<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Radicar')}">
-											<ui:include src="fichasolicitud.xhtml">
-												<ui:param name="boxColor" value="box box-info" />
-												<ui:param name="botonColor" value="pull-right btn btn-info btn-sm" />
-											</ui:include>
+											<ui:include src="fichasolicitud.xhtml" />
 										</ui:repeat>
 									</div>
-								</div>
-								<div class="tab-pane" id="audiencia">
+								</h:panelGroup>
+								<h:panelGroup class="tab-pane" id="audiencia">
 									<div class="row">
 										<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Audiencia')}">
-											<ui:include src="fichasolicitud.xhtml">
-												<ui:param name="boxColor" value="box box-success" />
-												<ui:param name="botonColor" value="pull-right btn btn-success btn-sm" />
-											</ui:include>
+											<ui:include src="fichasolicitud.xhtml" />
 										</ui:repeat>
 									</div>
-								</div>
-								<div class="tab-pane" id="registro">
+								</h:panelGroup>
+								<h:panelGroup class="tab-pane" id="registrar">
 									<div class="row">
 										<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Registrar')}">
-											<ui:include src="fichasolicitud.xhtml">
-												<ui:param name="boxColor" value="box box-danger" />
-												<ui:param name="botonColor" value="pull-right btn btn-danger btn-sm" />
-											</ui:include>
+											<ui:include src="fichasolicitud.xhtml" />
 										</ui:repeat>
 									</div>
-								</div>
+								</h:panelGroup>
 							</div>
 						</div>
 					</div>

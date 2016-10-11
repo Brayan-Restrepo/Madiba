@@ -64,15 +64,12 @@ public class ControllerConciliador {
 	}
 
 	//Designa un conciliador al caso, sea por solicitud o por reparto
-	public String designarConciliador(String conciliador, int idSolicitud, String nuevoEstado){
-		ControllerSolicitud solicitud=new ControllerSolicitud();
+	public void designarConciliador(String conciliador){
 		if(conciliador.equals("Por Reparto")){
 			reparto();
 		}else{
 			solicitado(conciliador);
 		}
-		solicitud.cambiarEstado(idSolicitud,nuevoEstado);
-		return "listasolicitudes"; 
 	}
 	
 	//Designa el conciliador que este esperando el turno y lo manda al final de la cola

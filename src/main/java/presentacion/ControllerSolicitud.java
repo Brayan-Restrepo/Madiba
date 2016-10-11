@@ -63,44 +63,49 @@ public class ControllerSolicitud {
 		}
 		return listaPorEstado;
 	}
-	private String parametro;
-	
-	public String getParametro() {
-		return parametro;
-	}
-
-	public void setParametro(String parametro) {
-		this.parametro = parametro;
-	}
 
 	//Cambia el estado de la solicitud despues de ser gestionada
-	public void cambiarEstado(int id, String nuevoEstado){
+	public void cambiarEstado(int id){
+		String[] estados = {"Liquidar","Radicar","Audiencia","Registrar","Finalizado"};
 		int size = ControllerSolicitud.listaSolicitud.size();
 		for(int i=0; i<size; i++){
 			if(ControllerSolicitud.listaSolicitud.get(i).getId() == id){
+				String estadoActual = ControllerSolicitud.listaSolicitud.get(i).getEstado();
+				String nuevoEstado = "";
+				for(int j=0; j<estados.length; j++){
+					if(estados[j].equals(estadoActual)){
+						nuevoEstado = estados[j+1];
+					}
+				}
 				ControllerSolicitud.listaSolicitud.get(i).setEstado(nuevoEstado);
-			}			
-		}
-	}
-	
-	/**
-	 * Metodo encargado de de identificar el tipo de solicitud 
-	 * y Cambiar el estado al siguiente (Liquidar -> Radicar -> Audiencia -> Registrar)
-	 * @param evento Parametro ajax
-	 * @param id Es el id de la solicitud
-	 */
-	public void solicitud(AjaxBehaviorEvent evento, int id) {
-		int size = ControllerSolicitud.listaSolicitud.size();
-		for(int i=0; i<size; i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getId() == id){
-				if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Liquidar")){
-					ControllerSolicitud.listaSolicitud.get(i).setEstado("Radicar");
-				}else if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Radicar")){
-					ControllerSolicitud.listaSolicitud.get(i).setEstado("Audiencia");
-				}else if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Audiencia")){
-					ControllerSolicitud.listaSolicitud.get(i).setEstado("Registrar");
+				//Designa el conciliador y actualiza la lista
+				if(estadoActual.equals("Radicar")){
+					ControllerConciliador conciliador = new ControllerConciliador();
+					conciliador.designarConciliador(ControllerSolicitud.listaSolicitud.get(i).getConciliador());
 				}
 			}			
 		}
+	}
+	
+	//Define el color de la ficha segun su estado
+	public String colorFicha(int id, String tipoComponente){
+		String[][] matrizColores = {{"Liquidar","info"}, //Azul claro
+							  {"Radicar","primary"}, //Azul rey
+							  {"Audiencia","warning"}, //Naranja
+							  {"Registrar","success"}, //Verde 
+							  {"Finalizado","default"}}; //Gris
+		String color = "";
+		int size = ControllerSolicitud.listaSolicitud.size();
+		for(int i=0; i<size; i++){
+			if(ControllerSolicitud.listaSolicitud.get(i).getId() == id){
+				String estadoActual = ControllerSolicitud.listaSolicitud.get(i).getEstado();
+				for(int j=0; j<matrizColores.length; j++){
+					if(matrizColores[j][0].equals(estadoActual)){
+						color = tipoComponente+"-"+matrizColores[j][1];
+					}
+				}
+			}			
+		}
+		return color;
 	}
 }

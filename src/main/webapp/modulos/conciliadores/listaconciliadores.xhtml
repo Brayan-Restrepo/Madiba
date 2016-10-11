@@ -10,12 +10,11 @@
 	<body>
 		<ui:composition template="/resources/plantilla/plantilla.xhtml">
 			<ui:define name="content">
-			  
 				<div class="content">
 					<div class="row">
 					<ui:repeat var="conciliador" value="#{controllerConciliador.listaConciliador()}">
 						<div class="col-md-4 col-sm-6 col-xs-12">
-							<div class="box box-primary">
+							<div class="box box-primary" style="box-shadow: 2px 2px 5px #999;">
 								<div class="box-header with-border">
 									<i>
 										<h:outputLabel value="#{conciliador.getApellido()}" />

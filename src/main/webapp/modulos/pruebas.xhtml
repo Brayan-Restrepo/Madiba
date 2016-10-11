@@ -2,31 +2,54 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head></h:head>
 <body>
-	<ui:composition template="/resources/plantilla/plantilla.xhtml">
-		<ui:define name="content">
-			<div class="">
-				<h:form>
-					<h:commandButton value="Reparto" action="#{controllerConciliador.reparto()}"  />	
-					<h:commandButton value="Solicitado" action="#{controllerConciliador.parametro('3212780399')}"  />
-				</h:form>
-				<ui:repeat var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
-					<h:outputLabel value="#{solicitud.conciliador}" />
-					<br/>
-					Convocados: 
-					<ui:repeat var="convotante" value="#{solicitud.convotante}">
-						 <h:outputLabel value="  #{convotante}" />
-					</ui:repeat>
-					<br/>
-				</ui:repeat>
-				
+	<ui:composition>
+		<h:form>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<div class="box #{controllerSolicitud.colorFicha(solicitud.id,'box')}" style="box-shadow: 2px 2px 5px #999;">
+				<div class="box-header with-border">
+					<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
+					<i> 
+						<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
+					</i>
+					<h:commandButton class="pull-right btn btn-sm #{controllerSolicitud.colorFicha(solicitud.id,'btn')}" value="#{solicitud.estado}" action="listasolicitudes">
+						<f:ajax render=":radicar" listener="#{controllerSolicitud.cambiarEstado(this, solicitud.id)}"/>
+					</h:commandButton>
+				</div>
+				<div class='box-body'>
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<h:outputLabel value="Fecha:" />
+							#{solicitud.fecha}
+							<br/>
+							<h:outputLabel value="Convocante:" />
+							<ui:repeat var="convotante" value="#{solicitud.convotante}">
+								 #{convotante}
+								 <label> </label>
+							</ui:repeat>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+							<h:outputLabel value="Conciliador:" />
+							#{controllerConciliador.buscarConciliador(solicitud.conciliador)}
+							<br/>
+							<h:outputLabel value="Convocado:" />
+							<ui:repeat var="convocado" value="#{solicitud.convocado}">
+								 #{convocado}
+								 <label> </label>
+							</ui:repeat>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<h:outputLabel value="Descripción:" />
+							#{solicitud.descripcion}
+						</div>
+					</div>
+				</div>
 			</div>
-			
-		</ui:define>
+		</div>
+		</h:form>
 	</ui:composition>
 </body>
 </html>
