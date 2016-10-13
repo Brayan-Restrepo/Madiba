@@ -37,7 +37,7 @@
 										<h:panelGroup class="row" id="panelTodas">
 											<ui:repeat var="solicitud" value="#{controllerPruebas.listaSolicitud}">
 												<ui:include src="pruebas.xhtml"  >
-													<ui:param name="formulacio" value=":formliquidar:panelLiquidar" />
+													<ui:param name="formulacio" value="@form :formliquidar:panelLiquidar :formradicar:panelRadicar :formaudiencia:panelAudiencia :formregistrar:panelRegistrar" />
 												</ui:include>
 											</ui:repeat>
 										</h:panelGroup>
@@ -48,7 +48,7 @@
 										<h:panelGroup class="row" id="panelLiquidar">
 											<ui:repeat var="solicitud" value="#{controllerPruebas.solicitudesPorEstado('Liquidar')}">
 												<ui:include src="pruebas.xhtml" >
-													<ui:param name="formulacio" value="" />
+													<ui:param name="formulacio" value="@form :formtodas:panelTodas :formradicar:panelRadicar :formaudiencia:panelAudiencia :formregistrar:panelRegistrar" />
 												</ui:include>
 											</ui:repeat>
 										</h:panelGroup>
@@ -59,7 +59,7 @@
 										<h:panelGroup class="row" id="panelRadicar">
 											<ui:repeat var="solicitud" value="#{controllerPruebas.solicitudesPorEstado('Radicar')}">
 												<ui:include src="pruebas.xhtml" >
-													<ui:param name="formulacio" value="" />
+													<ui:param name="formulacio" value="@form :formtodas:panelTodas :formliquidar:panelLiquidar :formaudiencia:panelAudiencia :formregistrar:panelRegistrar" />
 												</ui:include>
 											</ui:repeat>
 										</h:panelGroup>
@@ -70,7 +70,7 @@
 										<h:panelGroup class="row" id="panelAudiencia">
 											<ui:repeat var="solicitud" value="#{controllerPruebas.solicitudesPorEstado('Audiencia')}">
 												<ui:include src="pruebas.xhtml" >
-													<ui:param name="formulacio" value="" />
+													<ui:param name="formulacio" value="@form :formtodas:panelTodas :formliquidar:panelLiquidar :formradicar:panelRadicar :formregistrar:panelRegistrar" />
 												</ui:include>
 											</ui:repeat>
 										</h:panelGroup>
@@ -81,7 +81,7 @@
 										<h:panelGroup class="row" id="panelRegistrar">
 											<ui:repeat var="solicitud" value="#{controllerPruebas.solicitudesPorEstado('Registrar')}">
 												<ui:include src="pruebas.xhtml" >
-													<ui:param name="formulacio" value="" />
+													<ui:param name="formulacio" value="@form :formtodas:panelTodas :formliquidar:panelLiquidar :formradicar:panelRadicar :formaudiencia:panelAudiencia" />
 												</ui:include>
 											</ui:repeat>
 										</h:panelGroup>
