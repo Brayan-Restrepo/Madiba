@@ -33,11 +33,13 @@
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="todas">
+									<h:form>
 									<h:panelGroup class="row" id="panelTodas">
 										<ui:repeat var="solicitud" value="#{controllerPruebas.listaSolicitud}">
 											<ui:include src="pruebas.xhtml" />
 										</ui:repeat>
 									</h:panelGroup>
+									</h:form>
 								</div>
 								<div class="tab-pane" id="liquidar">
 									<h:panelGroup class="row" id="panelLiquidar">
