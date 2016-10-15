@@ -7,7 +7,6 @@
 <h:head></h:head>
 <body>
 	<ui:composition>
-		<h:form>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			<div class="box #{controllerSolicitud.colorFicha(solicitud.id,'box')}" style="box-shadow: 2px 2px 5px #999;">
 				<div class="box-header with-border">
@@ -15,41 +14,42 @@
 					<i> 
 						<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
 					</i>
-					<h:commandButton class="pull-right btn btn-sm #{controllerSolicitud.colorFicha(solicitud.id,'btn')}" 
-					value="#{solicitud.estado}" action="#{controllerSolicitud.cambiarEstado(solicitud.id)}" >
+					<h:commandButton class="pull-right btn btn-sm #{controllerSolicitud.colorFicha(solicitud.id,'btn')}" value="#{solicitud.estado}">
+						<f:ajax render="#{formulario}" listener="#{controllerSolicitud.cambiarEstado(this, solicitud.id)}"/>
 					</h:commandButton>
 				</div>
 				<div class='box-body'>
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<h:outputLabel value="Fecha:" />
-							#{solicitud.fecha}
+							<h:outputText value=" #{solicitud.fecha}" />
 							<br/>
-							<h:outputLabel value="Convocante:" />
-							<ui:repeat var="convotante" value="#{solicitud.convotante}">
-								 #{convotante}
-								 <label> </label>
-							</ui:repeat>
+							<h:outputLabel value="Convocantes:" />
+							<ul>
+								<ui:repeat var="convotante" value="#{solicitud.convotante}">
+									<li>#{convotante}</li> 
+								</ui:repeat>
+							</ul>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							<h:outputLabel value="Conciliador:" />
-							#{controllerConciliador.buscarConciliador(solicitud.conciliador)}
+							<h:outputText value=" #{controllerConciliador.buscarConciliador(solicitud.conciliador)}" />
 							<br/>
-							<h:outputLabel value="Convocado:" />
-							<ui:repeat var="convocado" value="#{solicitud.convocado}">
-								 #{convocado}
-								 <label> </label>
-							</ui:repeat>
+							<h:outputLabel value="Convocados:" />
+							<ul>
+								<ui:repeat var="convocado" value="#{solicitud.convocado}">
+									 <li>#{convocado}</li>
+								</ui:repeat>
+							</ul>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<h:outputLabel value="Descripción:" />
-							#{solicitud.descripcion}
+							<h:outputText value=" #{solicitud.descripcion}" />
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		</h:form>
 	</ui:composition>
 </body>
 </html>

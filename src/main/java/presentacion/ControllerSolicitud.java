@@ -21,16 +21,16 @@ public class ControllerSolicitud {
 			ControllerSolicitud.inicio = false;
 			
 			//Arma la lista de conciliadores
-			String[] convocante = {"Luis Alberto Rodríguez"}; //Tener en cuenta que al añadir mas, se desconfigura la vista
-			String[] convocado = {"Alfonso López"};
+			String[] convocante = {"Luis Alberto Rodríguez","Luis Alberto Rodríguez","Luis Alberto Rodríguez","Luis Alberto Rodríguez"}; //Tener en cuenta que al añadir mas, se desconfigura la vista
+			String[] convocado = {"Alfonso López","Alfonso López","Alfonso López","Alfonso López"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
 					1,"29/09/2015",convocante,convocado,"Por Reparto","Breve descripcion...","Radicar"));
-			String[] convocante2 = {"Luis Alberto Rodríguez"};
-			String[] convocado2 = {"Alfonso López"};
+			String[] convocante2 = {"Luis Alberto Rodríguez","Luis Alberto Rodríguez","Luis Alberto Rodríguez","Luis Alberto Rodríguez"}; //Tener en cuenta que al añadir mas, se desconfigura la vista
+			String[] convocado2 = {"Alfonso López","Alfonso López","Alfonso López","Alfonso López"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
 					2,"28/09/2014",convocante2,convocado2,"2345673409","Breve descripcion...","Radicar"));
-			String[] convocante3 = {"Luis Alberto Rodríguez"};
-			String[] convocado3 = {"Alfonso López"};
+			String[] convocante3 = {"Luis Alberto Rodríguez","Luis Alberto Rodríguez","Luis Alberto Rodríguez","Luis Alberto Rodríguez"}; //Tener en cuenta que al añadir mas, se desconfigura la vista
+			String[] convocado3 = {"Alfonso López","Alfonso López","Alfonso López","Alfonso López"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
 					3,"30/09/2016",convocante3,convocado3,"87655543","Breve descripcion...","Liquidar"));
 			String[] convocante4 = {"Luis Alberto Rodríguez"};

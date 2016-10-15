@@ -32,44 +32,61 @@
 								</li>
 							</ul>
 							<div class="tab-content">
-								<h:panelGroup class="tab-pane active" id="todas">
-									<div class="row">
-										<ui:repeat var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
-											<ui:include src="fichasolicitud.xhtml" />
-										</ui:repeat>
-									</div>
-								</h:panelGroup>
-								<h:panelGroup class="tab-pane" id="liquidar">
-									<div class="row">
-										<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Liquidar')}">
-											<ui:include src="fichasolicitud.xhtml" />
-											<!-- <ui:include src="fichasolicitud.xhtml" >
-												<ui:param name="boxColor" value="box box-warning" />
-											</ui:include> -->
-										</ui:repeat>
-									</div>
-								</h:panelGroup>
-								<h:panelGroup class="tab-pane" id="radicar">
-									<div class="row">
-										<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Radicar')}">
-											<ui:include src="fichasolicitud.xhtml" />
-										</ui:repeat>
-									</div>
-								</h:panelGroup>
-								<h:panelGroup class="tab-pane" id="audiencia">
-									<div class="row">
-										<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Audiencia')}">
-											<ui:include src="fichasolicitud.xhtml" />
-										</ui:repeat>
-									</div>
-								</h:panelGroup>
-								<h:panelGroup class="tab-pane" id="registrar">
-									<div class="row">
-										<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Registrar')}">
-											<ui:include src="fichasolicitud.xhtml" />
-										</ui:repeat>
-									</div>
-								</h:panelGroup>
+								<div class="tab-pane active" id="todas">
+									<h:form id='formtodas'>
+										<h:panelGroup class="row" id="panelTodas">
+											<ui:repeat var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
+												<ui:include src="fichasolicitud.xhtml"  >
+													<ui:param name="formulario" value="@form :formliquidar:panelLiquidar :formradicar:panelRadicar :formaudiencia:panelAudiencia :formregistrar:panelRegistrar" />
+												</ui:include>
+											</ui:repeat>
+										</h:panelGroup>
+									</h:form>
+								</div>
+								<div class="tab-pane" id="liquidar">
+									<h:form id='formliquidar'>
+										<h:panelGroup class="row" id="panelLiquidar">
+											<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Liquidar')}">
+												<ui:include src="fichasolicitud.xhtml" >
+													<ui:param name="formulario" value="@form :formtodas:panelTodas :formradicar:panelRadicar :formaudiencia:panelAudiencia :formregistrar:panelRegistrar" />
+												</ui:include>
+											</ui:repeat>
+										</h:panelGroup>
+									</h:form>
+								</div>
+								<div class="tab-pane" id="radicar">
+									<h:form id='formradicar'>
+										<h:panelGroup class="row" id="panelRadicar">
+											<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Radicar')}">
+												<ui:include src="fichasolicitud.xhtml" >
+													<ui:param name="formulario" value="@form :formtodas:panelTodas :formliquidar:panelLiquidar :formaudiencia:panelAudiencia :formregistrar:panelRegistrar" />
+												</ui:include>
+											</ui:repeat>
+										</h:panelGroup>
+									</h:form>
+								</div>
+								<div class="tab-pane" id="audiencia">
+									<h:form id='formaudiencia'>
+										<h:panelGroup class="row" id="panelAudiencia">
+											<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Audiencia')}">
+												<ui:include src="fichasolicitud.xhtml" >
+													<ui:param name="formulario" value="@form :formtodas:panelTodas :formliquidar:panelLiquidar :formradicar:panelRadicar :formregistrar:panelRegistrar" />
+												</ui:include>
+											</ui:repeat>
+										</h:panelGroup>
+									</h:form>
+								</div>
+								<div class="tab-pane" id="registrar">
+									<h:form id='formregistrar'>
+										<h:panelGroup class="row" id="panelRegistrar">
+											<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Registrar')}">
+												<ui:include src="fichasolicitud.xhtml" >
+													<ui:param name="formulario" value="@form :formtodas:panelTodas :formliquidar:panelLiquidar :formradicar:panelRadicar :formaudiencia:panelAudiencia" />
+												</ui:include>
+											</ui:repeat>
+										</h:panelGroup>
+									</h:form>
+								</div>
 							</div>
 						</div>
 					</div>
