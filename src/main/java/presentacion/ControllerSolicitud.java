@@ -22,7 +22,7 @@ public class ControllerSolicitud {
 			ControllerSolicitud.inicio = false;
 			
 			//Arma la lista de conciliadores
-			String[] convocante = {"Luis Alberto Rodriguez"};
+			String[] convocante = {"Luis Alberto Rodriguez","Luis Alberto Alberto Rodriguez","Luis Alberto Rodriguez"};
 			String[] convocado = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
 					1,"29/09/2015",convocante,convocado,"Por Reparto","Breve descripcion...","Radicar"));
@@ -109,5 +109,10 @@ public class ControllerSolicitud {
 			}			
 		}
 		return color;
+	}
+	
+	public ModelSolicitud siguienteFicha(int id){
+		return ControllerSolicitud.listaSolicitud.get(id+1);
+		
 	}
 }

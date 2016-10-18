@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
 </h:head>
@@ -35,10 +37,16 @@
 								<div class="tab-pane active" id="todas">
 									<h:form id='formtodas'>
 										<h:panelGroup class="row" id="panelTodas">
-											<ui:repeat var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
-												<ui:include src="fichasolicitud.xhtml"  >
-													<ui:param name="formulario" value="@form :formliquidar:panelLiquidar :formradicar:panelRadicar :formaudiencia:panelAudiencia :formregistrar:panelRegistrar" />
-												</ui:include>
+											<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.listaSolicitud}" step="2">
+												<div class="row">
+													<ui:include src="fichasolicitud.xhtml"  >
+														<ui:param name="formulario" value="@form :formliquidar:panelLiquidar :formradicar:panelRadicar :formaudiencia:panelAudiencia :formregistrar:panelRegistrar" />
+													</ui:include>
+													<ui:include src="fichasolicitud.xhtml"  >
+														<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFicha(n.index)}" />
+														<ui:param name="formulario" value="@form :formliquidar:panelLiquidar :formradicar:panelRadicar :formaudiencia:panelAudiencia :formregistrar:panelRegistrar" />
+													</ui:include>
+												</div>
 											</ui:repeat>
 										</h:panelGroup>
 									</h:form>
@@ -49,6 +57,7 @@
 											<ui:repeat var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Liquidar')}">
 												<ui:include src="fichasolicitud.xhtml" >
 													<ui:param name="formulario" value="@form :formtodas:panelTodas :formradicar:panelRadicar :formaudiencia:panelAudiencia :formregistrar:panelRegistrar" />
+													<ui:param name="tamdiv" value="#{controllerSolicitud.tamaño(solicitud.id)}" />
 												</ui:include>
 											</ui:repeat>
 										</h:panelGroup>
