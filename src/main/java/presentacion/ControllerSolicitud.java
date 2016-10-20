@@ -15,7 +15,10 @@ public class ControllerSolicitud {
 	//Contiene la lista de solicitudes con datos quemados
 	public static List<ModelSolicitud> listaSolicitud = new ArrayList<ModelSolicitud>();
 	
-	//Constructor: arma la lista de solicitudes solo la primera vez
+	
+	/**
+	 * Constructor: arma la lista de solicitudes solo la primera vez 
+	 */
 	public ControllerSolicitud(){
 
 		if(ControllerSolicitud.inicio){
@@ -54,7 +57,11 @@ public class ControllerSolicitud {
 		return ControllerSolicitud.listaSolicitud;
 	}
 	
-	//Filtra las solicitudes por su estado
+	/**
+	 * Filtra las solicitudes por su estado 
+	 * @param estado
+	 * @return
+	 */
 	public List<ModelSolicitud> solicitudesPorEstado(String estado){
 		List<ModelSolicitud> listaPorEstado = new ArrayList<ModelSolicitud>();
 		int size = ControllerSolicitud.listaSolicitud.size();
@@ -66,7 +73,11 @@ public class ControllerSolicitud {
 		return listaPorEstado;
 	}
 
-	//Cambia el estado de la solicitud despues de ser gestionada
+	/**
+	 * Cambia el estado de la solicitud despues de ser gestionada 
+	 * @param evento
+	 * @param id
+	 */
 	public void cambiarEstado(AjaxBehaviorEvent evento, int id){
 		String[] estados = {"Liquidar","Radicar","Audiencia","Registrar","Finalizado"};
 		int size = ControllerSolicitud.listaSolicitud.size();
@@ -111,8 +122,47 @@ public class ControllerSolicitud {
 		return color;
 	}
 	
+	/**
+	 * Retorna la solicitud siguiente del mismo estado
+	 * de acuerdo al parametro id.
+	 * 
+	 * @param id Es el id de la Ficha Actual
+	 * @return La siguiente Solicitud con el mismo estado de id
+	 */
 	public ModelSolicitud siguienteFicha(int id){
 		return ControllerSolicitud.listaSolicitud.get(id+1);
+		/*System.out.println(id);
 		
+		String estado = ControllerSolicitud.listaSolicitud.get(id).getEstado();
+		System.out.println();
+		int size = ControllerSolicitud.listaSolicitud.size();
+		for(int i=(id+1);i<size;i++){
+			if(estado.equals(ControllerSolicitud.listaSolicitud.get(id).getEstado())){
+				return ControllerSolicitud.listaSolicitud.get(i);
+			}
+		}	
+		return null;*/
 	}
+	
+	public ModelSolicitud siguienteFichaPorEstado(int id){
+		String estado = ControllerSolicitud.listaSolicitud.get(id).getEstado();
+		int size = ControllerSolicitud.listaSolicitud.size();
+		for(int i=(this.buscarSolicitud(id)+1);i<size;i++){
+			if(estado.equals(ControllerSolicitud.listaSolicitud.get(id).getEstado())){
+				return ControllerSolicitud.listaSolicitud.get(i);
+			}
+		}	
+		return null;
+	}
+	
+	public int buscarSolicitud(int id){		
+		int size = ControllerSolicitud.listaSolicitud.size();
+		for(int i=0;i<size;i++){
+			if(ControllerSolicitud.listaSolicitud.get(i).getId()==id){
+				return i;
+			}
+		}		
+		return -1;
+	}
+	
 }

@@ -153,14 +153,21 @@
 
         <!-- Import the JSF API, we use provided scope as the API is included in 
             JBoss AS 7 -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.faces</groupId>
-            <artifactId>jboss-jsf-api_2.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
+		<dependency>
+		    <groupId>com.sun.faces</groupId>
+		    <artifactId>jsf-api</artifactId>
+		    <version>2.2.13</version>
+		</dependency>
+		
         <!-- Now we declare any tools needed -->
-
+		
+		<!-- PrimeFace  -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.0</version>
+		</dependency>
+		
         <!-- Annotation processor to generate the JPA 2.0 metamodel classes for 
             typesafe criteria queries -->
         <dependency>
