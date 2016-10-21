@@ -3,7 +3,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" 					
+	xmlns:pt="http://java.sun.com/jsf/passthrough"
+	xmlns:jsf="http://java.sun.com/jsf"> 
+	
+	<!-- p: (PrimeFaces) Para usar componentes JSF mejorados -->
+	<!-- pt: (PassThrough) Para usar atributos HTML5 en etiquetas JSF -->
 
 <h:head>
 </h:head>
@@ -14,7 +19,11 @@
 			<p:outputPanel>
 				hola
 				<p:button value="Bookmark">Boton</p:button>
+				<p:inputText id="email" size="40" value="" required="true" pt:type="email" pt:placeholder="Introduzca su email" pt:autofocus="autofocus" />
 			</p:outputPanel>
+			<input jsf:id="prueba" value="probando" size="40" data-required="true" type="text" placeholder="Introduzca su email" autofocus="autofocus" />
+ 
+			<button jsf:action="#{ControllerSolicitud.prueba()}" class="ui-icon-disk" >Guardar</button>
 		</ui:define>
 	</ui:composition>
 </body>

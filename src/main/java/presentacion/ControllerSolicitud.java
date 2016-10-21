@@ -131,38 +131,10 @@ public class ControllerSolicitud {
 	 */
 	public ModelSolicitud siguienteFicha(int id){
 		return ControllerSolicitud.listaSolicitud.get(id+1);
-		/*System.out.println(id);
-		
-		String estado = ControllerSolicitud.listaSolicitud.get(id).getEstado();
-		System.out.println();
-		int size = ControllerSolicitud.listaSolicitud.size();
-		for(int i=(id+1);i<size;i++){
-			if(estado.equals(ControllerSolicitud.listaSolicitud.get(id).getEstado())){
-				return ControllerSolicitud.listaSolicitud.get(i);
-			}
-		}	
-		return null;*/
 	}
 	
-	public ModelSolicitud siguienteFichaPorEstado(int id){
-		String estado = ControllerSolicitud.listaSolicitud.get(id).getEstado();
-		int size = ControllerSolicitud.listaSolicitud.size();
-		for(int i=(this.buscarSolicitud(id)+1);i<size;i++){
-			if(estado.equals(ControllerSolicitud.listaSolicitud.get(id).getEstado())){
-				return ControllerSolicitud.listaSolicitud.get(i);
-			}
-		}	
-		return null;
-	}
-	
-	public int buscarSolicitud(int id){		
-		int size = ControllerSolicitud.listaSolicitud.size();
-		for(int i=0;i<size;i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getId()==id){
-				return i;
-			}
-		}		
-		return -1;
+	public String prueba(){
+		return "modulos/conciliadores/listaconciliadores";
 	}
 	
 }
