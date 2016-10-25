@@ -24,6 +24,13 @@
 			<input jsf:id="prueba" value="probando" size="40" data-required="true" type="text" placeholder="Introduzca su email" autofocus="autofocus" />
  
 			<button jsf:action="#{ControllerSolicitud.prueba()}" class="ui-icon-disk" >Guardar</button>
+			 <br/>
+			 <p:outputLabel>Fecha:</p:outputLabel>
+			 <p:clock pattern="dd:MM:yyyy" />
+			 <br/>
+			 <p:outputLabel>Hora:</p:outputLabel>
+			 <p:clock pattern="HH:mm:ss" />
+			 
 		</ui:define>
 	</ui:composition>
 </body>

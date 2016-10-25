@@ -10,27 +10,30 @@
 	<h:outputStylesheet library="css" name="AdminLTE.css"></h:outputStylesheet>
 	<h:outputStylesheet library="css" name="_all-skins.css"></h:outputStylesheet>
 	<h:outputStylesheet library="css" name="madiba.css" />
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
 </h:head>
 <body class="hold-transition login-page">
-	<div class="login-box">
+	<p:messages showDetail="true"/>
+	<div class="login-box">		
 		<div class="login-logo">
 			<p:outputLabel>CONALBOS</p:outputLabel>
 		</div>
 
 		<div class="login-box-body login-div">
 			<p:outputLabel value="Inicie Session" />
-			<div class="form-group has-feedback">
-				<p:inputText placeholder="Email" />
-				<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-			</div>
-			<div class="form-group has-feedback">
-				<p:password placeholder="Password" />
-        		<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-			</div>
+			<h:form>
+				<div class="form-group has-feedback">
+					<p:inputText value="#{modelLogin.usuario}" styleClass="form-control" placeholder="Email" />
+					<span class="fa fa-user form-control-feedback"></span>
+				</div>
+				<div class="form-group has-feedback">			
+					<p:password styleClass="form-control" value="#{modelLogin.clave}" placeholder="Password" />
+	        		<span class="fa fa-lock form-control-feedback"></span>
+				</div>
+		   		<p:captcha label="Captcha" />
+	  		 	<p:commandButton value="Iniciar Session" styleClass="btn btn-sm btn-primary" actionListener="#{controllerLogin.submit}" ajax="false" icon="ui-icon-check"/>
+			</h:form>
 		</div>
 	</div>
 </body>
