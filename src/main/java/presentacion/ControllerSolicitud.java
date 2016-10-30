@@ -93,8 +93,8 @@ public class ControllerSolicitud {
 				ControllerSolicitud.listaSolicitud.get(i).setEstado(nuevoEstado);
 				//Designa el conciliador y actualiza la lista
 				if(estadoActual.equals("Radicar")){
-					ControllerConciliador conciliador = new ControllerConciliador();
-					conciliador.designarConciliador(ControllerSolicitud.listaSolicitud.get(i).getConciliador());
+					ControllerListaConciliadores conciliador = new ControllerListaConciliadores();
+					//conciliador.designarConciliador(ControllerSolicitud.listaSolicitud.get(i).getConciliador());
 				}
 			}			
 		}

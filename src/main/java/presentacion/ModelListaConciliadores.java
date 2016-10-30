@@ -3,43 +3,43 @@ package presentacion;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean
-public class ModelConciliador {
+public class ModelListaConciliadores {
 	
+	private int turno;
 	private int id;
-	private String cedula;
 	private String nombre;
 	private String apellido;
 	private String telefono;
-	private String especialidad;
-	private String experiencia;
+	private String[] especialidades;
+	private int experiencia;
 	private String email;
 	private String foto;
 	
-	public ModelConciliador() {
+	public ModelListaConciliadores() {
 		
 	}
 	
-	public ModelConciliador(int id,String cedula, String nombre, String apellido, String telefono,String especialidad, 
-			String experiencia, String email, String foto) {
+	public ModelListaConciliadores(int turno,int id, String nombre, String apellido, String telefono,String[] especialidades, 
+			int experiencia, String email, String foto) {
+		this.turno = turno;
 		this.id = id;
-		this.cedula = cedula;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
-		this.especialidad = especialidad;
+		this.especialidades = especialidades;
 		this.experiencia = experiencia;
 		this.email = email;
 		this.foto = foto;
 	}
-
-	public String getCedula() {
-		return cedula;
+	
+	public int getTurno() {
+		return turno;
 	}
 
-	public void setCedula(String cedula) {
-		this.cedula = cedula;
+	public void setTurno(int turno) {
+		this.turno = turno;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -72,19 +72,19 @@ public class ModelConciliador {
 		this.telefono = telefono;
 	}
 
-	public String getEspecialidad() {
-		return especialidad;
+	public String[] getEspecialidades() {
+		return especialidades;
 	}
 
-	public void setEspecialidad(String especialidad) {
-		this.especialidad = especialidad;
+	public void setEspecialidad(String[] especialidades) {
+		this.especialidades = especialidades;
 	}
 
-	public String getExperiencia() {
+	public int getExperiencia() {
 		return experiencia;
 	}
 
-	public void setExperiencia(String experiencia) {
+	public void setExperiencia(int experiencia) {
 		this.experiencia = experiencia;
 	}
 

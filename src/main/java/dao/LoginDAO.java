@@ -5,7 +5,7 @@ import javax.persistence.PersistenceContext;
 
 import entidades.Usuario;
 
-public class UsuarioDAO {
+public class LoginDAO {
 	
 	@PersistenceContext
 	EntityManager manager;

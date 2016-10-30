@@ -3,14 +3,14 @@ package negocio;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
-import dao.UsuarioDAO;
+import dao.LoginDAO;
 import entidades.Usuario;
 
 @Stateless
 public class LoginBean implements iLoginBean{
 	
 	@Inject
-	UsuarioDAO usuarioDAO;
+	LoginDAO loginDAO;
 
 	public LoginBean(){
 		
@@ -18,7 +18,7 @@ public class LoginBean implements iLoginBean{
 
 	public boolean autenticarUsuario(String nickname, String password){
 		boolean usuarioValido = false;
-		Usuario usuarioBD = usuarioDAO.consultarUsuario(nickname);
+		Usuario usuarioBD = loginDAO.consultarUsuario(nickname);
 		if(usuarioBD != null){
 			usuarioValido = true;
 		}
