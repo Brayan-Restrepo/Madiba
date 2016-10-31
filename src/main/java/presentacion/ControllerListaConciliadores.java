@@ -1,26 +1,33 @@
 package presentacion;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import java.util.List;
-import java.util.ArrayList;
+
+import negocio.iListaConciliadoresBean;
 
 @ManagedBean
 public class ControllerListaConciliadores {
 
-	@ManagedProperty(value = "#{modelFichaConciliador}")
-	private ModelListaConciliadores fichaConciliador;
+	@ManagedProperty(value = "#{modelListaConciliadores}")
+	private ModelListaConciliadores listaConciliadores;
+	
+	@EJB
+	iListaConciliadoresBean listaConciliadoresBean;
 
 	public ControllerListaConciliadores() {
 	}
 
-	public ModelListaConciliadores getConciliador() {
-		return fichaConciliador;
+	public ModelListaConciliadores getListaConciliadores() {
+		return listaConciliadores;
 	}
 
-	public void setConciliador(ModelListaConciliadores fichaConciliador) {
-		this.fichaConciliador = fichaConciliador;
+	public void setListaConciliadores(ModelListaConciliadores listaConciliadores) {
+		this.listaConciliadores = listaConciliadores;
 	}
-
+	
+	public String traerApellidoConciliador(int id_conciliador){
+		return listaConciliadoresBean.buscarConciliador(id_conciliador);
+	}
 
 }

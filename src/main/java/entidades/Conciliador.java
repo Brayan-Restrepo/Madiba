@@ -2,7 +2,6 @@ package entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -35,10 +34,6 @@ public class Conciliador implements Serializable {
 
 	@Column(name="tipo_id")
 	private String tipoId;
-
-	//bi-directional many-to-one association to Conciliador_Especialidad
-	@OneToMany(mappedBy="conciliador")
-	private List<Conciliador_Especialidad> conciliadorEspecialidades;
 
 	//bi-directional one-to-one association to Reparto
 	@OneToOne(mappedBy="conciliador")
@@ -117,28 +112,6 @@ public class Conciliador implements Serializable {
 
 	public void setTipoId(String tipoId) {
 		this.tipoId = tipoId;
-	}
-
-	public List<Conciliador_Especialidad> getConciliadorEspecialidades() {
-		return this.conciliadorEspecialidades;
-	}
-
-	public void setConciliadorEspecialidades(List<Conciliador_Especialidad> conciliadorEspecialidades) {
-		this.conciliadorEspecialidades = conciliadorEspecialidades;
-	}
-
-	public Conciliador_Especialidad addConciliadorEspecialidade(Conciliador_Especialidad conciliadorEspecialidade) {
-		getConciliadorEspecialidades().add(conciliadorEspecialidade);
-		conciliadorEspecialidade.setConciliador(this);
-
-		return conciliadorEspecialidade;
-	}
-
-	public Conciliador_Especialidad removeConciliadorEspecialidade(Conciliador_Especialidad conciliadorEspecialidade) {
-		getConciliadorEspecialidades().remove(conciliadorEspecialidade);
-		conciliadorEspecialidade.setConciliador(null);
-
-		return conciliadorEspecialidade;
 	}
 
 	public Reparto getReparto() {
