@@ -1,9 +1,14 @@
 package negocio;
 
+import java.util.List;
+
 import javax.ejb.Remote;
+
 
 @Remote
 public interface iListaConciliadoresBean {
 
-	public String buscarConciliador(int id_conciliador);
+	public List listaConciliadores();
+	
+	public List listaReparto();
 }

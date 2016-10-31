@@ -31,7 +31,21 @@
 			 <p:outputLabel>Hora:</p:outputLabel>
 			 <p:clock pattern="HH:mm:ss" />
 			 
-			 <p:outputLabel value="#{controllerListaConciliadores.traerApellidoConciliador(1)}"/>
+			 <p:outputLabel>Lista Conciliadores:</p:outputLabel>
+			 <ui:repeat var="conciliador" value="#{controllerListaConciliadores.listaConciliadores()}">
+				<br/>
+				<p:outputLabel value="#{conciliador.getNombres()} #{conciliador.getApellidos()}"/>
+			</ui:repeat>
+			<br/>
+			<p:outputLabel>Lista Reparto:</p:outputLabel>
+			 <ui:repeat var="reparto" value="#{controllerListaConciliadores.listaReparto()}">
+				<br/>
+				<p:outputLabel value="#{reparto.getTurno()} #{reparto.getConciliador().getNombres()} #{reparto.getConciliador().getApellidos()}"/>
+				<ui:repeat var="especialidad" value="#{reparto.getConciliador().getConciliadorEspecialidades()}">
+					<br/>
+					<p:outputLabel value="#{especialidad.getEspecialidad().getNombreEspecialidad()}"/>
+				</ui:repeat>
+			</ui:repeat>
 		</ui:define>
 	</ui:composition>
 </body>

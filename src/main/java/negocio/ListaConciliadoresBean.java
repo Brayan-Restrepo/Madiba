@@ -1,10 +1,11 @@
 package negocio;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import dao.ListaConciliadoresDAO;
-import entidades.Conciliador;
 
 @Stateless
 public class ListaConciliadoresBean implements iListaConciliadoresBean{
@@ -16,12 +17,11 @@ public class ListaConciliadoresBean implements iListaConciliadoresBean{
 		
 	}
 	
-	public String buscarConciliador(int id_conciliador){
-		String apellido = "";
-		Conciliador conciliadorBD = listaConciliadoresDAO.consultarConciliador(id_conciliador);
-		if(conciliadorBD != null){
-			apellido = conciliadorBD.getApellidos();
-		}
-		return apellido;
+	public List listaConciliadores(){
+		return listaConciliadoresDAO.listaConciliadores();
+	}
+	
+	public List listaReparto(){
+		return listaConciliadoresDAO.listaReparto();
 	}
 }

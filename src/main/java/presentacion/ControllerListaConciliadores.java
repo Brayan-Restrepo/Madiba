@@ -1,5 +1,7 @@
 package presentacion;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -26,8 +28,11 @@ public class ControllerListaConciliadores {
 		this.listaConciliadores = listaConciliadores;
 	}
 	
-	public String traerApellidoConciliador(int id_conciliador){
-		return listaConciliadoresBean.buscarConciliador(id_conciliador);
+	public List listaConciliadores(){
+		return listaConciliadoresBean.listaConciliadores();
 	}
 
+	public List listaReparto(){
+		return listaConciliadoresBean.listaReparto();
+	}
 }

@@ -28,6 +28,8 @@
       <jta-data-source>java:/ConMadiba</jta-data-source>
       <class>entidades.Usuario</class>
       <class>entidades.Conciliador</class>
+      <class>entidades.Conciliador_Especialidad</class>
+      <class>entidades.Especialidad</class>
       <class>entidades.Reparto</class>
       <properties>
          <!-- Properties for Hibernate -->
