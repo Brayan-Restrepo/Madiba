@@ -56,10 +56,12 @@
 												<ui:include src="fichasolicitud.xhtml"  >
 													<ui:param name="formulario" value="@form :formtodas :formradicar :formaudiencia :formregistrar" />
 												</ui:include>
-												<ui:include src="fichasolicitud.xhtml"  >
-													<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFicha(n.index)}" />
-													<ui:param name="formulario" value="@form :formtodas :formradicar :formaudiencia :formregistrar" />
-												</ui:include>
+												<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													<ui:include src="fichasolicitud.xhtml">
+														<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+														<ui:param name="formulario" value="@form :formtodas :formradicar :formaudiencia :formregistrar" />
+													</ui:include>
+												</h:panelGroup>
 											</div>
 										</ui:repeat>
 									</h:form>
@@ -71,10 +73,12 @@
 												<ui:include src="fichasolicitud.xhtml"  >
 													<ui:param name="formulario" value="@form :formtodas :formliquidar :formaudiencia :formregistrar" />
 												</ui:include>
-												<ui:include src="fichasolicitud.xhtml"  >
-													<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFicha(n.index)}" />
-													<ui:param name="formulario" value="@form :formtodas :formliquidar :formaudiencia :formregistrar" />
-												</ui:include>
+												<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													<ui:include src="fichasolicitud.xhtml"  >
+														<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+														<ui:param name="formulario" value="@form :formtodas :formliquidar :formaudiencia :formregistrar" />
+													</ui:include>
+												</h:panelGroup>
 											</div>
 										</ui:repeat>
 									</h:form>
@@ -86,10 +90,12 @@
 												<ui:include src="fichasolicitud.xhtml"  >
 													<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formregistrar" />
 												</ui:include>
-												<ui:include src="fichasolicitud.xhtml"  >
-													<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFicha(n.index)}" />
-													<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formregistrar" />
-												</ui:include>
+												<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													<ui:include src="fichasolicitud.xhtml"  >
+														<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+														<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formregistrar" />
+													</ui:include>
+												</h:panelGroup>
 											</div>
 										</ui:repeat>
 									</h:form>
@@ -101,10 +107,12 @@
 												<ui:include src="fichasolicitud.xhtml"  >
 													<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formaudiencia" />
 												</ui:include>
-												<ui:include src="fichasolicitud.xhtml"  >
-													<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFicha(n.index)}" />
-													<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formaudiencia" />
-												</ui:include>
+												<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													<ui:include src="fichasolicitud.xhtml"  >
+														<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+														<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formaudiencia" />
+													</ui:include>
+												</h:panelGroup>
 											</div>
 										</ui:repeat>
 									</h:form>

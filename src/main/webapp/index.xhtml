@@ -5,7 +5,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui" 					
 	xmlns:pt="http://java.sun.com/jsf/passthrough"
-	xmlns:jsf="http://java.sun.com/jsf"> 
+	xmlns:jsf="http://java.sun.com/jsf"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"> 
 	
 	<!-- p: (PrimeFaces) Para usar componentes JSF mejorados -->
 	<!-- pt: (PassThrough) Para usar atributos HTML5 en etiquetas JSF -->
@@ -30,8 +31,14 @@
 			 <br/>
 			 <p:outputLabel>Hora:</p:outputLabel>
 			 <p:clock pattern="HH:mm:ss" />
+
+
+			<c:set var="salary" value="${2000*2}"/>
+			<c:if test="${salary > 2000}">
+			   <p>My salary is:</p>${salary}
+			</c:if>
 			 
-			 <p:outputLabel>Lista Conciliadores:</p:outputLabel>
+			 <!-- <p:outputLabel>Lista Conciliadores:</p:outputLabel>
 			 <ui:repeat var="conciliador" value="#{controllerListaConciliadores.listaConciliadores()}">
 				<br/>
 				<p:outputLabel value="#{conciliador.getNombres()} #{conciliador.getApellidos()}"/>
@@ -41,11 +48,11 @@
 			 <ui:repeat var="reparto" value="#{controllerListaConciliadores.listaReparto()}">
 				<br/>
 				<p:outputLabel value="#{reparto.getTurno()} #{reparto.getConciliador().getNombres()} #{reparto.getConciliador().getApellidos()}"/>
-				<ui:repeat var="especialidad" value="#{reparto.getConciliador().getConciliadorEspecialidades()}">
+				<ui:repeat var="especialidad" value="#{reparto.getConciliador().getEspecialidades()}">
 					<br/>
-					<p:outputLabel value="#{especialidad.getEspecialidad().getNombreEspecialidad()}"/>
+					<p:outputLabel value="#{especialidad.getNombreEspecialidad()}"/>
 				</ui:repeat>
-			</ui:repeat>
+			</ui:repeat> -->
 		</ui:define>
 	</ui:composition>
 </body>

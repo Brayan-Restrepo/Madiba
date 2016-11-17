@@ -20,7 +20,9 @@ public class LoginBean implements iLoginBean{
 		boolean usuarioValido = false;
 		Usuario usuarioBD = loginDAO.consultarUsuario(nickname);
 		if(usuarioBD != null){
-			usuarioValido = true;
+			if(usuarioBD.getPassword().equals(password)){
+				usuarioValido = true;
+			}
 		}
 		return usuarioValido;
 	}

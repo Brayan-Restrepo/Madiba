@@ -36,9 +36,9 @@ public class Conciliador implements Serializable {
 	@Column(name="tipo_id")
 	private String tipoId;
 
-	//bi-directional many-to-one association to Conciliador_Especialidad
+	//bi-directional many-to-one association to Especialidad
 	@OneToMany(mappedBy="conciliador")
-	private List<Conciliador_Especialidad> conciliadorEspecialidades;
+	private List<Especialidad> especialidades;
 
 	//bi-directional one-to-one association to Reparto
 	@OneToOne(mappedBy="conciliador")
@@ -119,26 +119,26 @@ public class Conciliador implements Serializable {
 		this.tipoId = tipoId;
 	}
 
-	public List<Conciliador_Especialidad> getConciliadorEspecialidades() {
-		return this.conciliadorEspecialidades;
+	public List<Especialidad> getEspecialidades() {
+		return this.especialidades;
 	}
 
-	public void setConciliadorEspecialidades(List<Conciliador_Especialidad> conciliadorEspecialidades) {
-		this.conciliadorEspecialidades = conciliadorEspecialidades;
+	public void setEspecialidades(List<Especialidad> especialidades) {
+		this.especialidades = especialidades;
 	}
 
-	public Conciliador_Especialidad addConciliadorEspecialidade(Conciliador_Especialidad conciliadorEspecialidade) {
-		getConciliadorEspecialidades().add(conciliadorEspecialidade);
-		conciliadorEspecialidade.setConciliador(this);
+	public Especialidad addEspecialidade(Especialidad especialidade) {
+		getEspecialidades().add(especialidade);
+		especialidade.setConciliador(this);
 
-		return conciliadorEspecialidade;
+		return especialidade;
 	}
 
-	public Conciliador_Especialidad removeConciliadorEspecialidade(Conciliador_Especialidad conciliadorEspecialidade) {
-		getConciliadorEspecialidades().remove(conciliadorEspecialidade);
-		conciliadorEspecialidade.setConciliador(null);
+	public Especialidad removeEspecialidade(Especialidad especialidade) {
+		getEspecialidades().remove(especialidade);
+		especialidade.setConciliador(null);
 
-		return conciliadorEspecialidade;
+		return especialidade;
 	}
 
 	public Reparto getReparto() {
