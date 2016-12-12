@@ -40,6 +40,8 @@ public class ControllerLogin {
 		if(usuarioValido){
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario: "+nickname+" Correcto", null);
 			validado = true;
+			LoginSingleton loginSing= LoginSingleton.getInstance(nickname);
+			//loginSing.cerrarSession();
 		}else{
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario: "+nickname+" o Contraseña Incorrecta", null);
 			validado = false;
@@ -58,4 +60,16 @@ public class ControllerLogin {
 			return "login"; 
 		}
 	}
+	
+	public void cerrarSession(){
+		LoginSingleton loginSing= LoginSingleton.getInstance("");
+		loginSing.cerrarSession();
+	}
+	
 }
+
+
+
+
+
+

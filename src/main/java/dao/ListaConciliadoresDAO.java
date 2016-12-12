@@ -3,7 +3,7 @@ package dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+//import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entidades.Conciliador;
@@ -12,9 +12,10 @@ import entidades.Reparto;
 public class ListaConciliadoresDAO {
 	
 	public ListaConciliadoresDAO(){
+		manager = Singleton.getInstance();
 	}
 	
-	@PersistenceContext
+	//@PersistenceContext
 	EntityManager manager;
 	
     public Reparto consultarReparto (int turno){
