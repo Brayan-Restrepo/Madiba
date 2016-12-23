@@ -35,5 +35,4 @@ public class ControllerListaConciliadores {
 	public List listaReparto(){
 		return listaConciliadoresBean.listaReparto();
 	}
-	
 }
