@@ -4,7 +4,7 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean
 public class ModelSolicitud {
-	
+
 	private int id;
 	private String fecha;
 	private String[] convotante;
@@ -12,9 +12,11 @@ public class ModelSolicitud {
 	private String conciliador;
 	private String descripcion;
 	private String estado;
-	
+	private String solicitud;
+	private String numeroRadicado;
+
 	public ModelSolicitud(int id, String fecha, String[] convotante,String[] convocado, String conciliador, String descripcion,
-			String estado) {
+			String estado, String solicitud, String numeroRadicado) {
 		this.id = id;
 		this.fecha = fecha;
 		this.convotante = convotante;
@@ -22,6 +24,24 @@ public class ModelSolicitud {
 		this.conciliador = conciliador;
 		this.descripcion = descripcion;
 		this.estado = estado;
+		this.solicitud = solicitud;
+		this.numeroRadicado = numeroRadicado;
+	}
+
+	public String getNumeroRadicado() {
+		return numeroRadicado;
+	}
+
+	public void setNumeroRadicado(String numeroRadicado) {
+		this.numeroRadicado = numeroRadicado;
+	}
+
+	public String getSolicitud(){
+		return this.solicitud;
+	}
+
+	public void setSolicitud(String solicitud){
+		this.solicitud = solicitud;
 	}
 	
 	public String getEstado() {
@@ -67,6 +87,6 @@ public class ModelSolicitud {
 
 	public void setId(int id) {
 		this.id = id;
-	}	
-	
+	}
+
 }

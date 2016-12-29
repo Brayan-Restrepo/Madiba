@@ -3,3 +3,7 @@
 	border-radius: 15px;
 	border: 6px double #03abeb;
 }
+
+.avatar {
+	width: 25px;
+}
