@@ -4,7 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
   xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-  xmlns:c="http://java.sun.com/jsp/jstl/core">
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 </h:head>
@@ -37,7 +38,8 @@
 								<div class="tab-pane active" id="todas">
 									<h:form id='formtodas'>
 										<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.listaSolicitud}" step="2">
-											<h:panelGroup styleClass="row">																					
+											
+											<div class="row">																					
 												<ui:include src="fichasolicitud.xhtml"  >
 													<ui:param name="formulario" value="@form :formliquidar :formradicar :formaudiencia :formregistrar" />
 												</ui:include>
@@ -45,7 +47,7 @@
 													<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFicha(n.index)}" />
 													<ui:param name="formulario" value="@form :formliquidar :formradicar :formaudiencia :formregistrar" />
 												</ui:include>
-											</h:panelGroup>
+											</div>
 										</ui:repeat>
 									</h:form>
 								</div>

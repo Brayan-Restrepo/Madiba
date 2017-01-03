@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head></h:head>
 <body>
@@ -10,20 +11,15 @@
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="height: 100%">
 			<div class="box #{controllerSolicitud.colorFicha(solicitud.id,'box')}" style="box-shadow: 2px 2px 5px #999;">
 				<div class="box-header with-border">
-					<h:panelGroup rendered="#{solicitud.estado != 'Liquidar' and solicitud.estado != 'Radicar'}">
-						<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
-						<i>
-							<h:outputLabel value="Rdicado No. #{solicitud.numeroRadicado}" style="font-size:14pt; margin-left:1%"/>
-						</i>
-					</h:panelGroup>
-					<h:commandButton class="pull-right btn btn-sm #{controllerSolicitud.colorFicha(solicitud.id,'btn')}" value="#{solicitud.estado}">
-						<f:ajax render="#{formulario}" listener="#{controllerSolicitud.cambiarEstado(this, solicitud.id)}"/>
-					</h:commandButton>
+					<i>
+						<h:outputLabel value="Radicado No. #{solicitud.numeroRadicado}" style="font-size:14pt; margin-left:1%"/>
+					</i>
+					<p:selectBooleanCheckbox styleClass="pull-right"></p:selectBooleanCheckbox>
 				</div>
 				<div class='box-body'>
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              <h:outputLabel value="Fecha:" />
+              				<h:outputLabel value="Fecha:" />
 							<h:outputText value=" #{solicitud.fecha}" />
 							<br/>
 							<h:outputLabel value="Convocantes:" />
