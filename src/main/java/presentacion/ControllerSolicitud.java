@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.event.AjaxBehaviorEvent;
 
 @ManagedBean
@@ -12,9 +13,16 @@ public class ControllerSolicitud {
 	//Permite validar que los datos solo se pinten la primera vez que se carga la pagina y no todas la veces
 	private static boolean inicio = true;
 
+	@ManagedProperty(value = "#{modelPago}")
+	private ModelPago consultaModelPago;
+
+	
 	//Contiene la lista de solicitudes con datos quemados
 	public static List<ModelSolicitud> listaSolicitud = new ArrayList<ModelSolicitud>();
-
+	/**
+	 * Los pagos de una solicitud
+	 */
+	public static List<ModelPago> listaPago = new ArrayList<ModelPago>();
 
 	/**
 	 * Constructor: arma la lista de solicitudes solo la primera vez
@@ -23,7 +31,10 @@ public class ControllerSolicitud {
 
 		if(ControllerSolicitud.inicio){
 			ControllerSolicitud.inicio = false;
-
+			ControllerSolicitud.listaPago.add(new ModelPago(3, "BanColombia", "Consignacion", "$200.000", "678-234-643"));
+			ControllerSolicitud.listaPago.add(new ModelPago(4, "BanBogota", "Consignacion", "$150.000", "970-684-463"));
+			ControllerSolicitud.listaPago.add(new ModelPago(5, "BanBogota", "PSE", "$250.000", "152-823-128"));
+			
 			//Arma la lista de conciliadores
 			String[] convocante3 = {"Luis Alberto Rodriguez"};
 			String[] convocado3 = {"Alfonso Lopez"};
@@ -57,6 +68,14 @@ public class ControllerSolicitud {
 			
 		}
 
+	}
+		
+	public ModelPago getConsultaModelPago() {
+		return consultaModelPago;
+	}
+
+	public void setConsultaModelPago(ModelPago consultaModelPago) {
+		this.consultaModelPago = consultaModelPago;
 	}
 
 	public List<ModelSolicitud> getListaSolicitud() {
@@ -170,5 +189,57 @@ public class ControllerSolicitud {
 			}	
 		}
 		return solicitud;
+	}
+	
+	public String seleccionarSolicitud(boolean select){
+		if(select){
+			return "seleccionar-solicitud animated bounce";
+		}
+		return "";
+	}
+	
+	public void verString(Object ver){
+		System.out.println("---------------------------------> "+ver);
+	}
+	
+	public ModelSolicitud liquidar(){
+		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++ ){
+			if(ControllerSolicitud.listaSolicitud.get(i).isSelect() && ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Liquidar")){
+				return ControllerSolicitud.listaSolicitud.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public ModelPago datosLiquidar(int id){
+		for(int i=0;i<ControllerSolicitud.listaPago.size();i++ ){
+			if(ControllerSolicitud.listaPago.get(i).getSolicitud()==id){
+				return ControllerSolicitud.listaPago.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public String classLiquidarHidden(){
+		
+		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++){
+			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Liquidar") && ControllerSolicitud.listaSolicitud.get(i).isSelect()){
+				return "";
+			}
+		}
+		return "hidden";
+	}
+	
+	public void guardarPago(int id){
+		this.consultaModelPago.setSolicitud(id);
+		ControllerSolicitud.listaPago.add(this.consultaModelPago);
+		
+		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++){
+			if(ControllerSolicitud.listaSolicitud.get(i).getId()==id && ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Liquidar")){
+				ControllerSolicitud.listaSolicitud.get(i).setEstado("Radicar");
+				ControllerSolicitud.listaSolicitud.get(i).setSelect(false);
+			}
+		}
+		
 	}
 }

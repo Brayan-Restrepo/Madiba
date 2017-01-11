@@ -7,3 +7,24 @@
 .avatar {
 	width: 25px;
 }
+
+.seleccionar-solicitud {
+	background-color: aliceblue;
+}
+
+.sombra {
+	box-shadow: 2px 2px 5px #999;
+}
+
+.btn-menu {
+	margin-left: 5px;
+	border-radius: 140px 140px 140px 140px;
+}
+
+.btn-menu:hover{
+	transform: scale(1.5,1.5);
+	
+    margin-left: 35px;
+    margin-right: 35px;
+	
+}

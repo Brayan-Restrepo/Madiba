@@ -14,6 +14,7 @@ public class ModelSolicitud {
 	private String estado;
 	private String solicitud;
 	private String numeroRadicado;
+	private boolean select; 
 
 	public ModelSolicitud(int id, String fecha, String[] convotante,String[] convocado, String conciliador, String descripcion,
 			String estado, String solicitud, String numeroRadicado) {
@@ -26,6 +27,15 @@ public class ModelSolicitud {
 		this.estado = estado;
 		this.solicitud = solicitud;
 		this.numeroRadicado = numeroRadicado;
+		this.select = false;
+	}
+	
+	public boolean isSelect() {
+		return select;
+	}
+
+	public void setSelect(boolean select) {
+		this.select = select;
 	}
 
 	public String getNumeroRadicado() {
