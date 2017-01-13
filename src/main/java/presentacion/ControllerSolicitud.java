@@ -25,11 +25,18 @@ public class ControllerSolicitud {
 	public static List<ModelPago> listaPago = new ArrayList<ModelPago>();
 
 	/**
+	 * si este atributo es verdadero se mostrara la solicitudes en forma de 
+	 * Ficha de lo contrario, se mostrara en Tablas
+	 */
+	private static boolean ficha;
+	
+	/**
 	 * Constructor: arma la lista de solicitudes solo la primera vez
 	 */
 	public ControllerSolicitud(){
 
 		if(ControllerSolicitud.inicio){
+			this.ficha = true;
 			ControllerSolicitud.inicio = false;
 			ControllerSolicitud.listaPago.add(new ModelPago(3, "BanColombia", "Consignacion", "$200.000", "678-234-643"));
 			ControllerSolicitud.listaPago.add(new ModelPago(4, "BanBogota", "Consignacion", "$150.000", "970-684-463"));
@@ -39,37 +46,45 @@ public class ControllerSolicitud {
 			String[] convocante3 = {"Luis Alberto Rodriguez"};
 			String[] convocado3 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					1,"24/12/2016",convocante3,convocado3,"87655543","Breve descripcion...","Liquidar","Solicitud","23122016006"));
+					1,"24/12/2016",convocante3,convocado3,"87655543","Breve descripcion...","Liquidar","Solicitud","","3'500.000"));
 			
 			String[] convocante4 = {"Luis Alberto Rodriguez"};
 			String[] convocado4 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					2,"17/12/2016",convocante4,convocado4,"","Breve descripcion...","Liquidar","Reparto","23122016005"));
+					2,"17/12/2016",convocante4,convocado4,"","Breve descripcion...","Liquidar","Reparto","","2'500.000"));
 
 			String[] convocante = {"Luis Alberto Rodriguez","Luis Alberto Alberto Rodriguez","Luis Alberto Rodriguez"};
 			String[] convocado = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					3,"13/12/2016",convocante,convocado,"","Breve descripcion...","Radicar","Reparto","23122016004"));
+					3,"13/12/2016",convocante,convocado,"","Breve descripcion...","Radicar","Reparto","","4'000.000"));
 			
 			String[] convocante2 = {"Luis Alberto Rodriguez"};
 			String[] convocado2 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					4,"08/12/2016",convocante2,convocado2,"2345673409","Breve descripcion...","Radicar","Solicitud","23122016003"));
+					4,"08/12/2016",convocante2,convocado2,"2345673409","Breve descripcion...","Radicar","Solicitud","","3'700.000"));
 						
 			String[] convocante5 = {"Luis Alberto Rodriguez","Luis Alberto Rodriguez","Luis Alberto Rodriguez"};
 			String[] convocado5 = {"Alfonso López"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					5,"03/12/2016",convocante5,convocado5,"","Breve descripcion...","Radicar","Reparto","23122016002"));
+					5,"03/12/2016",convocante5,convocado5,"","Breve descripcion...","Radicar","Reparto","","7'500.000"));
 			
 			String[] convocante6 = {"Luis Alberto Rodriguez"};
 			String[] convocado6 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					6,"01/12/2016",convocante6,convocado6,"","Breve descripcion...","Audiencia","Reparto","23122016001"));
+					6,"01/12/2016",convocante6,convocado6,"","Breve descripcion...","Audiencia","Reparto","23122016001","4'800.000"));
 			
 		}
 
 	}
-		
+			
+	public boolean isFicha() {
+		return ficha;
+	}
+
+	public void setFicha(boolean ficha) {
+		this.ficha = ficha;
+	}
+
 	public ModelPago getConsultaModelPago() {
 		return consultaModelPago;
 	}
@@ -241,5 +256,12 @@ public class ControllerSolicitud {
 			}
 		}
 		
+	}
+	
+	public boolean cambiarFichaTabla(){
+		System.out.println(this.ficha);
+		this.ficha = !this.ficha;
+		System.out.println(this.ficha);
+		return this.ficha;
 	}
 }

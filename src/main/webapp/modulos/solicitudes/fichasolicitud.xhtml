@@ -77,15 +77,15 @@
 						        
 		        <div class='box-footer #{controllerSolicitud.seleccionarSolicitud(solicitud.select)}'>
 		          	<div class="col-lg-5 col-sm-12 col-xs-12">
-			            <h:outputLabel value="Prtenciones:" />
-			            <h:outputText value=" $3'500.000" />
+			            <h:outputLabel value="Pretenciones:" />
+			            <h:outputText value=" $#{solicitud.pretenciones}" />
 		          	</div>
 		          	<div class="col-lg-5 col-sm-10 col-xs-10">
 			            <h:outputLabel value="Solicitud:" />
 			            <h:outputText value=" #{solicitud.solicitud}" />
 		          	</div>
 		          	<div class="col-lg-2 col-sm-2 col-xs-2">
-		          		<p:outputLabel value="#{solicitud.estado}" styleClass="label label-warning pull-right" />
+		          		<p:outputLabel value="#{solicitud.estado}" styleClass="label label#{controllerSolicitud.colorFicha(solicitud.id,'')} pull-right" />
 		          	</div>
 		        </div>
 			</div>

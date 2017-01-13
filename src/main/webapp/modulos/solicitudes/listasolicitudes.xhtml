@@ -3,10 +3,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-  xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:rich="http://richfaces.org/rich">
+  	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+  	xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 </h:head>
@@ -42,86 +41,127 @@
 								<div class="tab-pane active" id="todas">
 									
 									<h:form id='formtodas'>
-										<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.listaSolicitud}" step="2">
-											
-											<div class="row">																					
-												<ui:include src="fichasolicitud.xhtml">
-													<ui:param name="formulario" value="@form :formliquidar :formradicar :formaudiencia :formregistrar" />
-												</ui:include>
-												<ui:include src="fichasolicitud.xhtml"  >
-													<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFicha(n.index)}" />
-													<ui:param name="formulario" value="@form :formliquidar :formradicar :formaudiencia :formregistrar" />
-												</ui:include>
-											</div>
-										</ui:repeat>
+										<c:if test="#{!controllerSolicitud.ficha}">
+											<ui:include src="tablasolicitud.xhtml">
+												<ui:param name="listaSolicitud" value="#{controllerSolicitud.listaSolicitud}" />
+											</ui:include>
+										</c:if>
+										
+										<c:if test="#{controllerSolicitud.ficha}">	
+											<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.listaSolicitud}" step="2">
+												<div class="row">																					
+													<ui:include src="fichasolicitud.xhtml">
+														<ui:param name="formulario" value="@form :formliquidar :formradicar :formaudiencia :formregistrar" />
+													</ui:include>
+													<ui:include src="fichasolicitud.xhtml"  >
+														<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFicha(n.index)}" />
+														<ui:param name="formulario" value="@form :formliquidar :formradicar :formaudiencia :formregistrar" />
+													</ui:include>
+												</div>
+											</ui:repeat>
+										</c:if>
 									</h:form>
 								</div>
 								<div class="tab-pane" id="liquidar">
 									<h:form id='formliquidar'>
-										<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Liquidar')}" step="2">
-											<div class="row">
-												<ui:include src="fichasolicitud.xhtml"  >
-													<ui:param name="formulario" value="@form :formtodas :formradicar :formaudiencia :formregistrar" />
-												</ui:include>
-												<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+										<c:if test="#{!controllerSolicitud.ficha}">
+											<ui:include src="tablasolicitud.xhtml">
+												<ui:param name="listaSolicitud" value="#{controllerSolicitud.solicitudesPorEstado('Liquidar')}" />
+											</ui:include>
+										</c:if>
+										
+										<c:if test="#{controllerSolicitud.ficha}">	
+											<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Liquidar')}" step="2">
+												<div class="row">
 													<ui:include src="fichasolicitud.xhtml"  >
-														<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
 														<ui:param name="formulario" value="@form :formtodas :formradicar :formaudiencia :formregistrar" />
 													</ui:include>
-												</h:panelGroup>
-											</div>
-										</ui:repeat>
+													<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+														<ui:include src="fichasolicitud.xhtml"  >
+															<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+															<ui:param name="formulario" value="@form :formtodas :formradicar :formaudiencia :formregistrar" />
+														</ui:include>
+													</h:panelGroup>
+												</div>
+											</ui:repeat>
+										</c:if>
 									</h:form>
 								</div>
 								<div class="tab-pane" id="radicar">
 									<h:form id='formradicar'>
-										<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Radicar')}" step="2">
-											<div class="row">
-												<ui:include src="fichasolicitud.xhtml"  >
-													<ui:param name="formulario" value="@form :formtodas :formliquidar :formaudiencia :formregistrar" />
-												</ui:include>
-												<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+										<c:if test="#{!controllerSolicitud.ficha}">
+											<ui:include src="tablasolicitud.xhtml">
+												<ui:param name="listaSolicitud" value="#{controllerSolicitud.solicitudesPorEstado('Radicar')}" />
+											</ui:include>
+										</c:if>
+										
+										<c:if test="#{controllerSolicitud.ficha}">	
+											<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Radicar')}" step="2">
+												<div class="row">
 													<ui:include src="fichasolicitud.xhtml"  >
-														<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
 														<ui:param name="formulario" value="@form :formtodas :formliquidar :formaudiencia :formregistrar" />
 													</ui:include>
-												</h:panelGroup>
-											</div>
-										</ui:repeat>
+													<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+														<ui:include src="fichasolicitud.xhtml"  >
+															<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+															<ui:param name="formulario" value="@form :formtodas :formliquidar :formaudiencia :formregistrar" />
+														</ui:include>
+													</h:panelGroup>
+												</div>
+											</ui:repeat>
+										</c:if>
 									</h:form>
 								</div>
 								<div class="tab-pane" id="audiencia">
 									<h:form id='formaudiencia'>
-										<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Audiencia')}" step="2">
-											<div class="row">
-												<ui:include src="fichasolicitud.xhtml"  >
-													<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formregistrar" />
-												</ui:include>
-												<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+										<c:if test="#{!controllerSolicitud.ficha}">
+											<ui:include src="tablasolicitud.xhtml">
+												<ui:param name="listaSolicitud" value="#{controllerSolicitud.solicitudesPorEstado('Audiencia')}" />
+											</ui:include>
+										</c:if>
+										
+										<c:if test="#{controllerSolicitud.ficha}">	
+											<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Audiencia')}" step="2">
+												<div class="row">
 													<ui:include src="fichasolicitud.xhtml"  >
-														<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
 														<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formregistrar" />
 													</ui:include>
-												</h:panelGroup>
-											</div>
-										</ui:repeat>
+													<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+														<ui:include src="fichasolicitud.xhtml"  >
+															<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+															<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formregistrar" />
+														</ui:include>
+													</h:panelGroup>
+												</div>
+											</ui:repeat>
+										</c:if>
 									</h:form>
 								</div>
 								<div class="tab-pane" id="registrar">
+								
 									<h:form id='formregistrar'>
-										<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Registrar')}" step="2">
-											<div class="row">
-												<ui:include src="fichasolicitud.xhtml"  >
-													<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formaudiencia" />
-												</ui:include>
-												<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+										
+										<c:if test="#{!controllerSolicitud.ficha}">
+											<ui:include src="tablasolicitud.xhtml">
+												<ui:param name="listaSolicitud" value="#{controllerSolicitud.solicitudesPorEstado('Registrar')}" />
+											</ui:include>
+										</c:if>
+										
+										<c:if test="#{controllerSolicitud.ficha}">										
+											<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('Registrar')}" step="2">
+												<div class="row">
 													<ui:include src="fichasolicitud.xhtml"  >
-														<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
 														<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formaudiencia" />
 													</ui:include>
-												</h:panelGroup>
-											</div>
-										</ui:repeat>
+													<h:panelGroup rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+														<ui:include src="fichasolicitud.xhtml"  >
+															<ui:param name="solicitud" value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+															<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formaudiencia" />
+														</ui:include>
+													</h:panelGroup>
+												</div>
+											</ui:repeat>
+										</c:if>
 									</h:form>
 								</div>
 							</div>
@@ -133,7 +173,17 @@
 		
 		<ui:define name="footer">
 			<div class="text-center">		
-				<h:form id='formBotones'>							
+				<h:form id='formBotones'>
+					<c:if test="#{controllerSolicitud.ficha}">
+						<h:commandButton id="verTabla" styleClass="btn btn-sm btn-success btn-menu" value="Ver Tablas">
+							<f:ajax render="@form :formregistrar :formaudiencia :formradicar :formliquidar :formtodas" listener="#{controllerSolicitud.cambiarFichaTabla()}"></f:ajax>
+						</h:commandButton>
+					</c:if>
+					<c:if test="#{!controllerSolicitud.ficha}">
+						<h:commandButton id="verFicha" styleClass="btn btn-sm btn-success btn-menu" value="Ver Ficha">
+							<f:ajax render="@form :formregistrar :formaudiencia :formradicar :formliquidar :formtodas" listener="#{controllerSolicitud.cambiarFichaTabla()}"></f:ajax>
+						</h:commandButton>
+					</c:if>
 					<h:commandButton id="btn-liquidar" onclick="$('#modalAtualizar').modal();" styleClass="btn btn-sm btn-success btn-menu #{controllerSolicitud.classLiquidarHidden()}" value="Liquidar">
 						<f:ajax render=":modalradicar"></f:ajax>
 					</h:commandButton>

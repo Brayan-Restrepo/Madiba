@@ -14,10 +14,11 @@ public class ModelSolicitud {
 	private String estado;
 	private String solicitud;
 	private String numeroRadicado;
+	private String pretenciones;
 	private boolean select; 
 
 	public ModelSolicitud(int id, String fecha, String[] convotante,String[] convocado, String conciliador, String descripcion,
-			String estado, String solicitud, String numeroRadicado) {
+			String estado, String solicitud, String numeroRadicado, String pretenciones) {
 		this.id = id;
 		this.fecha = fecha;
 		this.convotante = convotante;
@@ -28,8 +29,17 @@ public class ModelSolicitud {
 		this.solicitud = solicitud;
 		this.numeroRadicado = numeroRadicado;
 		this.select = false;
+		this.pretenciones = pretenciones;
 	}
 	
+	public String getPretenciones() {
+		return pretenciones;
+	}
+
+	public void setPretenciones(String pretenciones) {
+		this.pretenciones = pretenciones;
+	}
+
 	public boolean isSelect() {
 		return select;
 	}
