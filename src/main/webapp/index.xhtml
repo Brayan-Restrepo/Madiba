@@ -15,9 +15,21 @@
 
 <body>
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">
+		
 		<ui:define name="content">
-								 
+			<ui:param name="seccion" value="content" />
+			<h:panelGroup layout="block" id="includeContent">	
+			    <ui:include src="#{route.ruta}.xhtml"></ui:include>
+			</h:panelGroup>
 		</ui:define>
+		
+		<ui:define name="footer">
+			<ui:param name="seccion" value="footer" />
+			<h:panelGroup layout="block" id="includeFooter">	
+			    <ui:include src="#{route.ruta}.xhtml"></ui:include>
+			</h:panelGroup>
+		</ui:define>
+		
 	</ui:composition>
 </body>
 </html>

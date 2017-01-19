@@ -11,7 +11,7 @@
 	<ui:composition>
 		<div class='box-body'>
 			
-			<h:dataTable class="table table-striped table-hover" value="#{listaSolicitud}" var="solicitud">
+			<h:dataTable id="tablaSolicitud" class="table table-striped table-hover" value="#{listaSolicitud}" var="solicitud">
 				<h:column>
 					<f:facet name="header">Estado</f:facet>
 					<p:outputLabel value="#{solicitud.estado}" styleClass="label label#{controllerSolicitud.colorFicha(solicitud.id,'')}" />
@@ -81,9 +81,10 @@
 						#{pago.cuantia}
 						<f:facet name="footer">Valor Pagado</f:facet>
 					</h:column>
-				
+					
 				
 			</h:dataTable>
+			
 		</div>
 	</ui:composition>
 

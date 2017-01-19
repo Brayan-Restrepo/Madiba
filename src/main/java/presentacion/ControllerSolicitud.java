@@ -73,6 +73,29 @@ public class ControllerSolicitud {
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
 					6,"01/12/2016",convocante6,convocado6,"","Breve descripcion...","Audiencia","Reparto","23122016001","4'800.000"));
 			
+
+			String[] convocante7 = {"Luis Alberto Rodriguez"};
+			String[] convocado7 = {"Alfonso Lopez"};
+			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
+					7,"01/12/2016",convocante7,convocado7,"","Breve descripcion...","Asignar Conciliador","Reparto","23122016002","2'300.000"));
+			
+
+			String[] convocante8 = {"Luis Alberto Rodriguez"};
+			String[] convocado8 = {"Alfonso Lopez"};
+			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
+					8,"01/12/2016",convocante8,convocado8,"","Breve descripcion...","Asignar Conciliador","Reparto","23122016003","1'600.000"));
+			
+			String[] convocante9 = {"Luis Alberto Rodriguez"};
+			String[] convocado9 = {"Alfonso Lopez"};
+			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
+					9,"01/12/2016",convocante9,convocado9,"","Breve descripcion...","Registrar","Reparto","23122016004","1'600.000"));
+			
+			String[] convocante10 = {"Luis Alberto Rodriguez"};
+			String[] convocado10 = {"Alfonso Lopez"};
+			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
+					10,"01/12/2016",convocante10,convocado10,"","Breve descripcion...","Finalizado","Reparto","23122016005","1'600.000"));
+			
+			
 		}
 
 	}
@@ -82,7 +105,7 @@ public class ControllerSolicitud {
 	}
 
 	public void setFicha(boolean ficha) {
-		this.ficha = ficha;
+		ControllerSolicitud.ficha = ficha;
 	}
 
 	public ModelPago getConsultaModelPago() {
@@ -99,7 +122,7 @@ public class ControllerSolicitud {
 
 	/**
 	 * Filtra las solicitudes por su estado
-	 * @param estado
+	 * @param El estado de la Solicitud (Liquidar -> Radicar -> Asignar Conciliador -> Audiencia -> Registrar - > Finalizado)
 	 * @return
 	 */
 	public List<ModelSolicitud> solicitudesPorEstado(String estado){
@@ -119,7 +142,7 @@ public class ControllerSolicitud {
 	 * @param id
 	 */
 	public void cambiarEstado(AjaxBehaviorEvent evento, int id){
-		String[] estados = {"Liquidar","Radicar","Audiencia","Registrar","Finalizado"};
+		String[] estados = {"Liquidar","Radicar","Asignar Conciliador","Audiencia","Registrar","Finalizado"};
 		int size = ControllerSolicitud.listaSolicitud.size();
 		for(int i=0; i<size; i++){
 			if(ControllerSolicitud.listaSolicitud.get(i).getId() == id){
@@ -145,6 +168,7 @@ public class ControllerSolicitud {
 		String[][] matrizColores = {{"Liquidar","info"}, //Azul claro
 							  {"Radicar","primary"}, //Azul rey
 							  {"Audiencia","warning"}, //Naranja
+							  {"Asignar Conciliador","warning"}, //Naranja
 							  {"Registrar","success"}, //Verde
 							  {"Finalizado","default"}}; //Gris
 		String color = "";
@@ -235,10 +259,9 @@ public class ControllerSolicitud {
 		return null;
 	}
 	
-	public String classLiquidarHidden(){
-		
+	public String classEstadoHidden(String estado){	
 		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Liquidar") && ControllerSolicitud.listaSolicitud.get(i).isSelect()){
+			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals(estado) && ControllerSolicitud.listaSolicitud.get(i).isSelect()){
 				return "";
 			}
 		}
@@ -259,9 +282,7 @@ public class ControllerSolicitud {
 	}
 	
 	public boolean cambiarFichaTabla(){
-		System.out.println(this.ficha);
-		this.ficha = !this.ficha;
-		System.out.println(this.ficha);
-		return this.ficha;
+		ControllerSolicitud.ficha = !ControllerSolicitud.ficha;
+		return ControllerSolicitud.ficha;
 	}
 }

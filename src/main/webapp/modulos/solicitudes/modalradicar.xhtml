@@ -7,7 +7,7 @@
 <h:head></h:head>
 <body>
 	<ui:composition>
-		<div class="modal inmodal" id="modalAtualizar" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal inmodal" id="modalRadicar" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="animated flipInY">
 					<div class="box box-primary box-solid animated flipInY">
@@ -72,7 +72,7 @@
 							</div>
 							
 							<div class="box-footer">
-								<h:commandButton onclick="$('#modalAtualizar').modal('hide');" styleClass="btn btn-info pull-right" value="Guardar">
+								<h:commandButton onclick="$('#modalRadicar').modal('hide');" styleClass="btn btn-info pull-right" value="Guardar">
 									<f:ajax execute="banco formaPago cuantia referencia" listener="#{controllerSolicitud.guardarPago(controllerSolicitud.liquidar().id)}" render="@form :formBotones :formtodas :formliquidar :formradicar"></f:ajax>
 								</h:commandButton>
 								<button class="btn btn-danger pull-right" data-dismiss="modal">Salir</button>

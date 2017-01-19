@@ -7,6 +7,7 @@
 <h:head></h:head>
 <body>
 	<ui:composition>
+	<h:form>
 		<div class="sidebar">
 			<div class="user-panel">
 				<div class="pull-left image">
@@ -29,17 +30,35 @@
 						<span>Inicio</span>
 					</a>
 				</li>
-				<li class="">
-					<a href="/Madiba/modulos/conciliadores/listaconciliadorestabla.jsf">
-						<i class="fa fa-users"></i>
+										    
+				<li class="treeview">
+					<h:outputLink value="#" >
+				        <i class="fa fa-users"></i>
 						<span>Conciliadores</span>
-					</a>
+				    </h:outputLink>
+					<ul class="treeview-menu">
+						<li>
+							<h:outputLink value="#" >
+						        <i class="fa fa-users"></i>
+								<span>Lista Conciliadores</span>	
+						        <f:ajax render=":includeContent :includeFooter" event="click" listener="#{route.setRuta('modulos/conciliadores/listaconciliadorestabla')}" />
+						    </h:outputLink>
+						</li>
+						<li>
+							<h:outputLink value="#" >
+						        <i class="fa fa-users"></i>
+								<span>Turno Reparto</span>	
+						        <f:ajax render=":includeContent :includeFooter" event="click" listener="#{route.setRuta('modulos/conciliadores/listaconciliadores')}" />
+						    </h:outputLink>
+						</li>
+					</ul>
 				</li>
-				<li class="">
-					<a href="/Madiba/modulos/conciliadores/listaconciliadores.jsf">
-						<i class="fa fa-users"></i>
-						<span>Reparto</span>
-					</a>
+				<li>
+					<h:outputLink value="#" >
+				        <i class="fa fa-users"></i>
+						<span>Lista Solicitudes</span>	
+				        <f:ajax render=":includeContent :includeFooter" event="click" listener="#{route.setRuta('modulos/solicitudes/listasolicitudes')}" />
+				    </h:outputLink>
 				</li>
 				<li class="">
 					<a href="/Madiba/modulos/solicitudes/listasolicitudes.jsf">
@@ -47,31 +66,49 @@
 						<span>Solicitudes</span>
 					</a>
 				</li>
-				<!-- <li class="treeview">
+				<li class="treeview">
 					<a href="#">
-						<i class="fa fa-link"></i>
-						<span>Solicitudes</span>
-						<span class="pull-right-container">
-		              		<i class="fa fa-angle-right pull-right"></i>
-			            </span>
+						<i class="fa fa-users"></i>
+						<span>Proceso</span>
 					</a>
 					<ul class="treeview-menu">
-						<li class="">
-							<a href="/Madiba/modulos/solicitudes/listasolicitudes.jsf">
-								<i class="fa fa-link"></i>
-								<span>Lista Solicitudes</span>
+						<li>
+							<a href="#">
+								<i class="fa fa-users"></i>
+								<span>Liquidar</span>
 							</a>
 						</li>
-						<li class="">
-							<a href="/Madiba/modulos/solicitudes/designarconciliador.jsf">
-								<i class="fa fa-link"></i>
-								<span>Radicar Solicitud</span>
+						<li>
+							<a href="#">
+								<i class="fa fa-users"></i>
+								<span>Radicar</span>
 							</a>
+						</li>
+						<li>
+							<a href="#">
+								<i class="fa fa-users"></i>
+								<span>Asignar Conciliador</span>
+							</a>
+						</li>						
+						<li>
+							<a href="#">
+								<i class="fa fa-users"></i>
+								<span>Audiencia</span>
+							</a>
+						</li>
+						<li>						
+						    <h:outputLink value="#" >
+						        <i class="fa fa-users"></i>
+								<span>Registrar</span>	
+						        <f:ajax render=":includeContent :includeFooter" event="click" listener="#{route.setRuta('modulos/conciliadores/listaconciliadorestabla')}" />
+						    </h:outputLink>
 						</li>
 					</ul>
-				</li> -->
+				</li>
 			</ul>
 		</div>
+		
+		</h:form>
 	</ui:composition>
 </body>
 </html>
