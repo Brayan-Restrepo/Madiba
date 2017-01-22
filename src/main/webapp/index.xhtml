@@ -5,7 +5,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui" 					
 	xmlns:pt="http://java.sun.com/jsf/passthrough"
-	xmlns:jsf="http://java.sun.com/jsf"> 
+	xmlns:jsf="http://java.sun.com/jsf"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"> 
 	
 	<!-- p: (PrimeFaces) Para usar componentes JSF mejorados -->
 	<!-- pt: (PassThrough) Para usar atributos HTML5 en etiquetas JSF -->
@@ -17,19 +18,71 @@
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">
 		
 		<ui:define name="content">
-			<ui:param name="seccion" value="content" />
-			<h:panelGroup layout="block" id="includeContent">	
-			    <ui:include src="#{route.ruta}.xhtml"></ui:include>
-			</h:panelGroup>
+		 	<div class="content">
+				
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="info-box bg-aqua">
+						<span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+						<div class="info-box-content">
+							<span class="info-box-text">Solicitudes</span> 
+							<span class="info-box-number">2 Por Liquidar</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="info-box bg-blue">
+						<span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+						<div class="info-box-content">
+							<span class="info-box-text">Solicitudes</span> <span
+								class="info-box-number">3 Por Radicar</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="info-box bg-orange">
+						<span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+						<div class="info-box-content">
+							<span class="info-box-text">Solicitudes</span> 
+							<span class="info-box-number">2 Por Asignar Conciliador</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="info-box bg-orange">
+						<span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+
+						<div class="info-box-content">
+							<span class="info-box-text">Solicitudes</span> 
+							<span class="info-box-number">1 Para Audiencia</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				
+				<div class="col-md-3 col-sm-6 col-xs-12">
+					<div class="info-box bg-orange">
+						<span class="info-box-icon"><i class="fa fa-bookmark-o"></i></span>
+						<div class="info-box-content">
+							<span class="info-box-text">Solicitudes</span> 
+							<span class="info-box-number">2 Por Registrar</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+					<!-- /.info-box -->
+				</div>
+				
+			</div>
 		</ui:define>
-		
-		<ui:define name="footer">
-			<ui:param name="seccion" value="footer" />
-			<h:panelGroup layout="block" id="includeFooter">	
-			    <ui:include src="#{route.ruta}.xhtml"></ui:include>
-			</h:panelGroup>
-		</ui:define>
-		
 	</ui:composition>
 </body>
 </html>

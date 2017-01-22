@@ -9,50 +9,50 @@
 	</h:head>
 
 	<body>
-		<ui:composition>
-		<c:if test="#{seccion == 'content'}">
-			<div class="content">
-				<div class="row">
-				<ui:repeat var="conciliador" value="#{controllerConciliador.listaConciliador()}">
-					<div class="col-md-4 col-sm-6 col-xs-12">
-						<div class="box box-primary" style="box-shadow: 2px 2px 5px #999;">
-							<div class="box-header with-border">
-								<i>
-									<h:outputLabel value="#{conciliador.getApellido()}" />
-									<label> </label>
-									<h:outputLabel value=" #{conciliador.getNombre()} " />
-								</i>
-								<small class="label pull-right label-primary">#{conciliador.getId()}</small>
-							</div>
-							<div class='box-body'>
-								<div class="left col-xs-8">
-									<h:outputLabel value="Especialidad:" />
-									#{conciliador.getEspecialidad()}
-									<br />
-									<h:outputLabel value="Experiencia:" />
-									#{conciliador.getExperiencia()}
-									<br />
-									<h:outputLabel value=" Universidad de los Llanos" />
+		<ui:composition template="/resources/plantilla/plantilla.xhtml">		
+			<ui:define name="content">
+				<div class="content">
+					<div class="row">
+					<ui:repeat var="conciliador" value="#{controllerConciliador.listaConciliador()}">
+						<div class="col-md-4 col-sm-6 col-xs-12">
+							<div class="box box-primary" style="box-shadow: 2px 2px 5px #999;">
+								<div class="box-header with-border">
+									<i>
+										<h:outputLabel value="#{conciliador.getApellido()}" />
+										<label> </label>
+										<h:outputLabel value=" #{conciliador.getNombre()} " />
+									</i>
+									<small class="label pull-right label-primary">#{conciliador.getId()}</small>
 								</div>
-								<div class="right col-xs-4 text-center">
-									<img src="http://localhost:8080/Madiba/resources/img/png/#{conciliador.getFoto()}" alt="" class="img-circle img-responsive" />
-								</div>
-								<div class="left col-xs-12">
-									<i class="fa fa-phone" />
-									<h:outputLabel value=" Telefono:" />
-									#{conciliador.getTelefono()}
-									<br />
-									<i class="fa fa-envelope" />
-									<h:outputLabel value=" Email:" />
-									#{conciliador.getEmail()}
+								<div class='box-body'>
+									<div class="left col-xs-8">
+										<h:outputLabel value="Especialidad:" />
+										#{conciliador.getEspecialidad()}
+										<br />
+										<h:outputLabel value="Experiencia:" />
+										#{conciliador.getExperiencia()}
+										<br />
+										<h:outputLabel value=" Universidad de los Llanos" />
+									</div>
+									<div class="right col-xs-4 text-center">
+										<img src="http://localhost:8080/Madiba/resources/img/png/#{conciliador.getFoto()}" alt="" class="img-circle img-responsive" />
+									</div>
+									<div class="left col-xs-12">
+										<i class="fa fa-phone" />
+										<h:outputLabel value=" Telefono:" />
+										#{conciliador.getTelefono()}
+										<br />
+										<i class="fa fa-envelope" />
+										<h:outputLabel value=" Email:" />
+										#{conciliador.getEmail()}
+									</div>
 								</div>
 							</div>
 						</div>
+					</ui:repeat>
 					</div>
-				</ui:repeat>
 				</div>
-			</div>
-		</c:if>
+			</ui:define>
 		</ui:composition>
 	</body>
 </html>

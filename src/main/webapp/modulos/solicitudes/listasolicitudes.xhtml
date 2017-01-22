@@ -11,9 +11,8 @@
 </h:head>
 
 <body>
-	<ui:composition>
-		<c:if test="#{seccion == 'content'}">
-
+	<ui:composition template="/resources/plantilla/plantilla.xhtml">		
+		<ui:define name="content">			
 			<ui:include src="modalasignarconciliador.xhtml"></ui:include>
 			<ui:include src="modalradicar.xhtml"></ui:include>
 
@@ -231,9 +230,9 @@
 					</div>
 				</div>
 			</div>
-		</c:if>
-
-		<c:if test="#{seccion == 'footer'}">
+		</ui:define>		
+		
+		<ui:define name="footer">
 			<div class="text-center">
 				<h:form id='formBotones'>
 					<c:if test="#{controllerSolicitud.ficha}">
@@ -255,27 +254,27 @@
 
 					<h:commandButton id="btn-liquidar"
 						onclick="$('#modalRadicar').modal();"
-						styleClass="btn btn-sm btn-success btn-menu #{controllerSolicitud.classEstadoHidden('Liquidar')}"
-						value="Liquidar">
+						styleClass="btn btn-sm btn-success btn-menu"
+						value="Liquidar" disabled="#{controllerSolicitud.estadoSelect('Liquidar')}">
 						<f:ajax render=":modalradicar"></f:ajax>
 					</h:commandButton>
 
 					<h:commandButton id="btn-asignarConciliador"
 						onclick="$('#modalAsignarConciliador').modal();"
-						styleClass="btn btn-sm btn-success btn-menu #{controllerSolicitud.classEstadoHidden('Asignar Conciliador')}"
-						value="Asignar Conciliador">
+						styleClass="btn btn-sm btn-success btn-menu"
+						value="Asignar Conciliador" disabled="#{controllerSolicitud.estadoSelect('Asignar Conciliador')}">
 						<f:ajax render=":modalAsignarConciliador"></f:ajax>
 					</h:commandButton>
 
-					<h:commandButton styleClass="btn btn-sm btn-primary btn-menu"
-						value="Radicar"></h:commandButton>
-					<h:commandButton styleClass="btn btn-sm btn-warning btn-menu"
-						value="Audiencia"></h:commandButton>
+					<h:commandButton styleClass="btn btn-sm btn-primary btn-menu "
+						value="Radicar" disabled="true"></h:commandButton>
+					<h:commandButton styleClass="btn btn-sm btn-warning btn-menu "
+						value="Audiencia" disabled="true"></h:commandButton>
 					<h:commandButton styleClass="btn btn-sm btn-info btn-menu"
-						value="Registrar"></h:commandButton>
+						value="Registrar" disabled="true"></h:commandButton>
 				</h:form>
 			</div>
-		</c:if>
+		</ui:define>
 	</ui:composition>
 </body>
 </html>

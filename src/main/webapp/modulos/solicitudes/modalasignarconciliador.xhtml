@@ -10,26 +10,36 @@
 <body> 
 
 	<ui:composition>
+	
 		<div class="modal inmodal" id="modalAsignarConciliador" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="animated flipInY">
 					<div class="box box-primary box-solid animated flipInY">
 						<div class="box-header text-center with-border">
-							<h3 class="box-title">Registrar los Datos del Pago.</h3>
+							<h3 class="box-title">Asignacion de Conciliador.</h3>
 						</div>
-						<h:form id="modalAsignarConciliador">
+						<h:form>
 							<div class="box-body" style="background-color: aliceblue;">
+								<div class="row">
+									<div class="col-lg-12 text-center">
+										<h:outputLabel style="font-size: 18px;" value="Radicado No. 23122016002" />
+										<br/>
+										<h:outputLabel style="font-size: 16px;" value="Se ha signado el Conciliador por Reparto" />
+										<br/>
+										<h:outputLabel style="font-size: 16px;" value="BARAJAS TORRES MARISOL" />
+									</div>
+								</div>
 							</div>
 							
 							<div class="box-footer">
-								
-								<button class="btn btn-danger pull-right" data-dismiss="modal">Salir</button>
+								<button class="btn btn-success pull-right" data-dismiss="modal">Aceptar</button>
 							</div>
 						</h:form>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 	</ui:composition>
 </body> 
 </html>

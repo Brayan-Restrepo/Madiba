@@ -268,6 +268,16 @@ public class ControllerSolicitud {
 		return "hidden";
 	}
 	
+	
+	public boolean estadoSelect(String estado){	
+		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++){
+			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals(estado) && ControllerSolicitud.listaSolicitud.get(i).isSelect()){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public void guardarPago(int id){
 		this.consultaModelPago.setSolicitud(id);
 		ControllerSolicitud.listaPago.add(this.consultaModelPago);
