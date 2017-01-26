@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="es" xml:lang="es" xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -31,6 +31,7 @@
 					<p:password styleClass="form-control" required="true" value="#{modelLogin.password}" placeholder="Password" requiredMessage="Password: Campo Obligatorio"/>
 	        		<span class="fa fa-lock form-control-feedback"></span>
 				</div>
+
 		   		<p:captcha language="es" requiredMessage="Captha: Campo Obligatorio"/>
 	  		 	<p:commandButton value="Iniciar Sesión" styleClass="btn btn-sm btn-primary" actionListener="#{controllerLogin.autenticar()}" action="#{controllerLogin.entrar()}" ajax="false" icon="ui-icon-check"/>
 			</h:form>
