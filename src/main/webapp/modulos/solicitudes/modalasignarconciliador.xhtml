@@ -32,7 +32,11 @@
 							</div>
 							
 							<div class="box-footer">
-								<button class="btn btn-success pull-right" data-dismiss="modal">Aceptar</button>
+							
+								<h:commandButton onclick="$('#modalAsignarConciliador').modal('hide');" styleClass="btn btn-success pull-right" value="Aceptar">
+									<f:ajax render="#{formulario}" listener="#{controllerSolicitud.cambiarEstado(this, 7)}"/>
+								</h:commandButton>
+								
 							</div>
 						</h:form>
 					</div>

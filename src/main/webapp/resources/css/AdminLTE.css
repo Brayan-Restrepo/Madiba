@@ -1558,6 +1558,9 @@ a:focus {
 .box.box-success {
   border-top-color: #00a65a;
 }
+.box.box-purple {
+  border-top-color: #555299;
+}
 .box.box-default {
   border-top-color: #d2d6de;
 }
@@ -2251,6 +2254,17 @@ a:focus {
 .btn-success:active,
 .btn-success.hover {
   background-color: #008d4c;
+}
+.btn-purple {
+  color: #fff;
+  background-color: #555299;
+  border-color: #605ca8;
+}
+.btn-purple:hover,
+.btn-purple:active,
+.btn-purple.hover {
+  color: #fff;
+  background-color: #605ca8;
 }
 .btn-info {
   background-color: #00c0ef;

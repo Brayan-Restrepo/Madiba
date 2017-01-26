@@ -55,7 +55,7 @@
 					</div>
 				</div>
 				
-				<h:panelGroup layout="block" rendered="#{solicitud.estado=='Radicar'}" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
+				<h:panelGroup layout="block" rendered="#{solicitud.estado!='Grabada'}" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 					<ui:param name="pago" value="#{controllerSolicitud.datosLiquidar(solicitud.id)}" />
 					<div class="col-lg-6 col-sm-12 col-xs-12">
 			            <h:outputLabel value="Banco:" />
@@ -76,15 +76,15 @@
 				</h:panelGroup>
 						        
 		        <div class='box-footer #{controllerSolicitud.seleccionarSolicitud(solicitud.select)}'>
-		          	<div class="col-lg-5">
+		          	<div class="col-lg-6">
 			            <h:outputLabel value="Pretenciones:" />
 			            <h:outputText value=" $#{solicitud.pretenciones}" />
 		          	</div>
-		          	<div class="col-lg-4">
-			            <h:outputLabel value="Solicitud:" />
+		          	<div class="col-lg-6">
+			            <h:outputLabel value="Conciliador por:" />
 			            <h:outputText value=" #{solicitud.solicitud}" />
 		          	</div>
-		          	<div class="col-lg-3">
+		          	<div class="col-lg-3 col-lg-offset-9">
 		          		<p:outputLabel value="#{solicitud.estado}" styleClass="label label#{controllerSolicitud.colorFicha(solicitud.id,'')} pull-right" />
 		          	</div>
 		        </div>

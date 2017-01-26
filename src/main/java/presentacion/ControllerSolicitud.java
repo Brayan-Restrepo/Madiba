@@ -46,54 +46,54 @@ public class ControllerSolicitud {
 			String[] convocante3 = {"Luis Alberto Rodriguez"};
 			String[] convocado3 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					1,"24/12/2016",convocante3,convocado3,"87655543","Breve descripcion...","Liquidar","Solicitud","","3'500.000"));
+					1,"24/12/2016",convocante3,convocado3,"87655543","Breve descripcion...","Grabada","Solicitud","","3'500.000"));
 			
 			String[] convocante4 = {"Luis Alberto Rodriguez"};
 			String[] convocado4 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					2,"17/12/2016",convocante4,convocado4,"","Breve descripcion...","Liquidar","Reparto","","2'500.000"));
+					2,"17/12/2016",convocante4,convocado4,"","Breve descripcion...","Grabada","Reparto","","2'500.000"));
 
 			String[] convocante = {"Luis Alberto Rodriguez","Luis Alberto Alberto Rodriguez","Luis Alberto Rodriguez"};
 			String[] convocado = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					3,"13/12/2016",convocante,convocado,"","Breve descripcion...","Radicar","Reparto","","4'000.000"));
+					3,"13/12/2016",convocante,convocado,"","Breve descripcion...","Pagada","Reparto","","4'000.000"));
 			
 			String[] convocante2 = {"Luis Alberto Rodriguez"};
 			String[] convocado2 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					4,"08/12/2016",convocante2,convocado2,"2345673409","Breve descripcion...","Radicar","Solicitud","","3'700.000"));
+					4,"08/12/2016",convocante2,convocado2,"2345673409","Breve descripcion...","Pagada","Solicitud","","3'700.000"));
 						
 			String[] convocante5 = {"Luis Alberto Rodriguez","Luis Alberto Rodriguez","Luis Alberto Rodriguez"};
 			String[] convocado5 = {"Alfonso López"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					5,"03/12/2016",convocante5,convocado5,"","Breve descripcion...","Radicar","Reparto","","7'500.000"));
+					5,"03/12/2016",convocante5,convocado5,"","Breve descripcion...","Pagada","Reparto","","7'500.000"));
 			
 			String[] convocante6 = {"Luis Alberto Rodriguez"};
 			String[] convocado6 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					6,"01/12/2016",convocante6,convocado6,"","Breve descripcion...","Audiencia","Reparto","23122016001","4'800.000"));
+					6,"01/12/2016",convocante6,convocado6,"","Breve descripcion...","Radicada","Reparto","23122016001","4'800.000"));
 			
 
 			String[] convocante7 = {"Luis Alberto Rodriguez"};
 			String[] convocado7 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					7,"01/12/2016",convocante7,convocado7,"","Breve descripcion...","Asignar Conciliador","Reparto","23122016002","2'300.000"));
+					7,"01/12/2016",convocante7,convocado7,"3212020399","Breve descripcion...","Designacion","Solicitud","23122016002","2'300.000"));
 			
 
 			String[] convocante8 = {"Luis Alberto Rodriguez"};
 			String[] convocado8 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					8,"01/12/2016",convocante8,convocado8,"","Breve descripcion...","Asignar Conciliador","Reparto","23122016003","1'600.000"));
+					8,"01/12/2016",convocante8,convocado8,"","Breve descripcion...","Designacion","Reparto","23122016003","1'600.000"));
 			
 			String[] convocante9 = {"Luis Alberto Rodriguez"};
 			String[] convocado9 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					9,"01/12/2016",convocante9,convocado9,"","Breve descripcion...","Registrar","Reparto","23122016004","1'600.000"));
+					9,"01/12/2016",convocante9,convocado9,"","Breve descripcion...","Audiencia","Reparto","23122016004","1'600.000"));
 			
 			String[] convocante10 = {"Luis Alberto Rodriguez"};
 			String[] convocado10 = {"Alfonso Lopez"};
 			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					10,"01/12/2016",convocante10,convocado10,"","Breve descripcion...","Finalizado","Reparto","23122016005","1'600.000"));
+					10,"01/12/2016",convocante10,convocado10,"","Breve descripcion...","Audiencia","Reparto","23122016005","1'600.000"));
 			
 			
 		}
@@ -122,7 +122,8 @@ public class ControllerSolicitud {
 
 	/**
 	 * Filtra las solicitudes por su estado
-	 * @param El estado de la Solicitud (Liquidar -> Radicar -> Asignar Conciliador -> Audiencia -> Registrar - > Finalizado)
+	 * 
+	 * @param El estado de la Solicitud (Grabada -> Pagada -> Radicada -> Designacion -> Audiencia)
 	 * @return
 	 */
 	public List<ModelSolicitud> solicitudesPorEstado(String estado){
@@ -141,8 +142,9 @@ public class ControllerSolicitud {
 	 * @param evento
 	 * @param id
 	 */
+	
 	public void cambiarEstado(AjaxBehaviorEvent evento, int id){
-		String[] estados = {"Liquidar","Radicar","Asignar Conciliador","Audiencia","Registrar","Finalizado"};
+		String[] estados = {"Grabada","Pagada","Radicada","Designacion","Audiencia"};
 		int size = ControllerSolicitud.listaSolicitud.size();
 		for(int i=0; i<size; i++){
 			if(ControllerSolicitud.listaSolicitud.get(i).getId() == id){
@@ -155,7 +157,7 @@ public class ControllerSolicitud {
 				}
 				ControllerSolicitud.listaSolicitud.get(i).setEstado(nuevoEstado);
 				//Designa el conciliador y actualiza la lista
-				if(estadoActual.equals("Radicar")){
+				if(estadoActual.equals("Designacion")){
 					ControllerConciliador conciliador = new ControllerConciliador();
 					conciliador.designarConciliador(ControllerSolicitud.listaSolicitud.get(i).getConciliador());
 				}
@@ -163,14 +165,19 @@ public class ControllerSolicitud {
 		}
 	}
 
-	//Define el color de la ficha segun su estado
+	/**
+	 * Define el color de la ficha segun su estado
+	 * @param id
+	 * @param tipoComponente
+	 * @return
+	 */
 	public String colorFicha(int id, String tipoComponente){
-		String[][] matrizColores = {{"Liquidar","info"}, //Azul claro
-							  {"Radicar","primary"}, //Azul rey
-							  {"Audiencia","warning"}, //Naranja
-							  {"Asignar Conciliador","warning"}, //Naranja
-							  {"Registrar","success"}, //Verde
-							  {"Finalizado","default"}}; //Gris
+		String[][] matrizColores = {
+								{"Grabada","info"}, //Azul claro
+								{"Pagada","primary"}, //Azul rey
+								{"Radicada","warning"}, //Naranja
+								{"Designacion","purple"}, //Naranja
+								{"Audiencia","success"}}; //Verde
 		String color = "";
 		int size = ControllerSolicitud.listaSolicitud.size();
 		for(int i=0; i<size; i++){
@@ -243,7 +250,7 @@ public class ControllerSolicitud {
 	
 	public ModelSolicitud liquidar(){
 		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++ ){
-			if(ControllerSolicitud.listaSolicitud.get(i).isSelect() && ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Liquidar")){
+			if(ControllerSolicitud.listaSolicitud.get(i).isSelect() && ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Grabada")){
 				return ControllerSolicitud.listaSolicitud.get(i);
 			}
 		}
@@ -283,8 +290,8 @@ public class ControllerSolicitud {
 		ControllerSolicitud.listaPago.add(this.consultaModelPago);
 		
 		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getId()==id && ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Liquidar")){
-				ControllerSolicitud.listaSolicitud.get(i).setEstado("Radicar");
+			if(ControllerSolicitud.listaSolicitud.get(i).getId()==id && ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Grabada")){
+				ControllerSolicitud.listaSolicitud.get(i).setEstado("Pagada");
 				ControllerSolicitud.listaSolicitud.get(i).setSelect(false);
 			}
 		}
@@ -295,4 +302,5 @@ public class ControllerSolicitud {
 		ControllerSolicitud.ficha = !ControllerSolicitud.ficha;
 		return ControllerSolicitud.ficha;
 	}
+	
 }

@@ -23,8 +23,6 @@
 
 .btn-menu:hover{
 	transform: scale(1.5,1.5);
-	
     margin-left: 35px;
     margin-right: 35px;
-	
 }
