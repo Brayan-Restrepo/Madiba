@@ -1,8 +1,24 @@
 
-Importar PrimeFace en la Vistas	
+cnectar el proyecto con wildfly
+
+Importal el plugin wildfly
+<plugin>
+		 <groupId>org.wildfly.plugins</groupId>
+		 <artifactId>wildfly-maven-plugin</artifactId>
+		 <version>1.1.0.Beta1</version>
+</plugin>
+
+ejecutar el proyecto y subirlo al servidor wildfly
+mvn wildfly:deploy
+
+solo compilar el pryecto si subir
+mvn package
+
+
+Importar PrimeFace en la Vistas
 xmlns:p="http://primefaces.org/ui"
 En el pom add la ependencia de PrimeFace
-una vez add hay que ir a 
+una vez add hay que ir a
 
 Maven > UPdate Project
 RunAs > Maven Install

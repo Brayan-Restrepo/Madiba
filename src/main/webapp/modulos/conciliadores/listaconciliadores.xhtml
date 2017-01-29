@@ -2,13 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<h:head>
 	</h:head>
-	
+
 	<body>
-		<ui:composition template="/resources/plantilla/plantilla.xhtml">
+		<ui:composition template="/resources/plantilla/plantilla.xhtml">		
 			<ui:define name="content">
 				<div class="content">
 					<div class="row">
@@ -20,7 +21,7 @@
 										<h:outputLabel value="#{conciliador.getApellido()}" />
 										<label> </label>
 										<h:outputLabel value=" #{conciliador.getNombre()} " />
-									</i> 
+									</i>
 									<small class="label pull-right label-primary">#{conciliador.getId()}</small>
 								</div>
 								<div class='box-body'>

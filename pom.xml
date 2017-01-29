@@ -36,16 +36,16 @@
     </licenses>
 
     <properties>
-        <!-- Explicitly declaring the source encoding eliminates the following 
+        <!-- Explicitly declaring the source encoding eliminates the following
             message: -->
-        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
             resources, i.e. build is platform dependent! -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- JBoss dependency versions -->
         <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
-        <!-- Define the version of the JBoss BOMs we want to import to specify 
+        <!-- Define the version of the JBoss BOMs we want to import to specify
             tested stacks. -->
         <version.jboss.bom>1.0.7.Final</version.jboss.bom>
         <!-- Alternatively, comment out the above line, and un-comment the line
@@ -66,13 +66,13 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill 
-                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
-                of artifacts. We use this here so that we always get the correct versions 
-                of artifacts. Here we use the jboss-javaee-6.0-with-tools stack (you can 
-                read this as the JBoss stack of the Java EE 6 APIs, with some extras tools 
-                for your project, such as Arquillian for testing) and the jboss-javaee-6.0-with-hibernate 
-                stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras 
+            <!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill
+                of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection)
+                of artifacts. We use this here so that we always get the correct versions
+                of artifacts. Here we use the jboss-javaee-6.0-with-tools stack (you can
+                read this as the JBoss stack of the Java EE 6 APIs, with some extras tools
+                for your project, such as Arquillian for testing) and the jboss-javaee-6.0-with-hibernate
+                stack you can read this as the JBoss stack of the Java EE 6 APIs, with extras
                 from the Hibernate family of projects) -->
             <dependency>
                 <groupId>org.jboss.bom</groupId>
@@ -93,10 +93,10 @@
 
     <dependencies>
 
-        <!-- First declare the APIs we depend on and need for compilation. All 
+        <!-- First declare the APIs we depend on and need for compilation. All
             of them are provided by JBoss AS 7 -->
 
-        <!-- Import the CDI API, we use provided scope as the API is included in 
+        <!-- Import the CDI API, we use provided scope as the API is included in
             JBoss AS 7 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -104,7 +104,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the Common Annotations API (JSR-250), we use provided scope 
+        <!-- Import the Common Annotations API (JSR-250), we use provided scope
             as the API is included in JBoss AS 7 -->
         <dependency>
             <groupId>org.jboss.spec.javax.annotation</groupId>
@@ -112,7 +112,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JAX-RS API, we use provided scope as the API is included 
+        <!-- Import the JAX-RS API, we use provided scope as the API is included
             in JBoss AS 7 -->
         <dependency>
             <groupId>org.jboss.spec.javax.ws.rs</groupId>
@@ -120,7 +120,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the JPA API, we use provided scope as the API is included in 
+        <!-- Import the JPA API, we use provided scope as the API is included in
             JBoss AS 7 -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -128,7 +128,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Import the EJB API, we use provided scope as the API is included in 
+        <!-- Import the EJB API, we use provided scope as the API is included in
             JBoss AS 7 -->
         <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
@@ -151,24 +151,24 @@
             </exclusions>
         </dependency>
 
-        <!-- Import the JSF API, we use provided scope as the API is included in 
+        <!-- Import the JSF API, we use provided scope as the API is included in
             JBoss AS 7 -->
 		<dependency>
 		    <groupId>com.sun.faces</groupId>
 		    <artifactId>jsf-api</artifactId>
 		    <version>2.2.13</version>
 		</dependency>
-		
+
         <!-- Now we declare any tools needed -->
-		
+
 		<!-- PrimeFace  -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>6.0</version>
 		</dependency>
-		
-        <!-- Annotation processor to generate the JPA 2.0 metamodel classes for 
+
+        <!-- Annotation processor to generate the JPA 2.0 metamodel classes for
             typesafe criteria queries -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -176,7 +176,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Annotation processor that raising compilation errors whenever constraint 
+        <!-- Annotation processor that raising compilation errors whenever constraint
             annotations are incorrectly used. -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -192,7 +192,7 @@
         </dependency>
 
         <!-- Optional, but highly recommended -->
-        <!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA) 
+        <!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA)
             JPA from JUnit/TestNG -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -209,7 +209,7 @@
     </dependencies>
 
     <build>
-        <!-- Maven will append the version to the finalName (which is the name 
+        <!-- Maven will append the version to the finalName (which is the name
             given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
@@ -228,14 +228,19 @@
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.maven.plugin}</version>
             </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.1.0.Beta1</version>
+            </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <!-- The default profile skips all tests, though you can tune it to run 
+            <!-- The default profile skips all tests, though you can tune it to run
                 just unit tests based on a custom pattern -->
-            <!-- Seperate profiles are provided for running all tests, including Arquillian 
+            <!-- Seperate profiles are provided for running all tests, including Arquillian
                 tests that execute in the specified container -->
             <id>default</id>
             <activation>
@@ -255,9 +260,9 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests in your 
+            <!-- An optional Arquillian testing profile that executes tests in your
                 JBoss AS instance -->
-            <!-- This profile will start a new JBoss AS instance, and execute the 
+            <!-- This profile will start a new JBoss AS instance, and execute the
                 test, shutting it down when done -->
             <!-- Run with: mvn clean test -Parq-jbossas-managed -->
             <id>arq-jbossas-managed</id>
@@ -271,7 +276,7 @@
         </profile>
 
         <profile>
-            <!-- An optional Arquillian testing profile that executes tests in a remote 
+            <!-- An optional Arquillian testing profile that executes tests in a remote
                 JBoss AS instance -->
             <!-- Run with: mvn clean test -Parq-jbossas-remote -->
             <id>arq-jbossas-remote</id>
@@ -285,11 +290,11 @@
         </profile>
 
         <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when 
+            <!-- When built in OpenShift the 'openshift' profile will be used when
                 invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app 
+            <!-- Use this profile for any OpenShift specific customization your app
                 will need. -->
-            <!-- By default that is to put the resulting archive into the 'deployments' 
+            <!-- By default that is to put the resulting archive into the 'deployments'
                 folder. -->
             <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
             <id>openshift</id>

@@ -2,37 +2,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+      xmlns:rich="http://richfaces.org/rich">
 
 <h:head></h:head>
 <body>
 	<ui:composition>
-		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="height: 100%">
-			<div class="box #{controllerSolicitud.colorFicha(solicitud.id,'box')}" style="box-shadow: 2px 2px 5px #999;">
+		
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 100%" >	
+				 
+			<div class="box #{controllerSolicitud.colorFicha(solicitud.id,'box')} sombra #{controllerSolicitud.seleccionarSolicitud(solicitud.select)}">
+				
 				<div class="box-header with-border">
-					<h:graphicImage library="img" name="msj-solicitudes.png" style="width:33px;"/>
-					<i> 
-						<h:outputLabel value="Solicitud No." style="font-size:14pt; margin-left:1%"/>
+					<i>
+						<h:outputLabel value="Radicado No. #{solicitud.numeroRadicado}" style="font-size:14pt; margin-left:1%"/>
 					</i>
-					<h:commandButton class="pull-right btn btn-sm #{controllerSolicitud.colorFicha(solicitud.id,'btn')}" value="#{solicitud.estado}">
-						<f:ajax render="#{formulario}" listener="#{controllerSolicitud.cambiarEstado(this, solicitud.id)}"/>
-					</h:commandButton>
+										
+					<h:selectBooleanCheckbox value="#{solicitud.select}" styleClass="pull-right">
+						<f:ajax listener="#{controllerSolicitud.verString(solicitud.select)}" render="#{formulario} :formBotones"></f:ajax>
+					</h:selectBooleanCheckbox>
 				</div>
 				<div class='box-body'>
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-							<h:outputLabel value="Fecha:" />
+              				<h:outputLabel value="Fecha:" />
 							<h:outputText value=" #{solicitud.fecha}" />
 							<br/>
 							<h:outputLabel value="Convocantes:" />
 							<ul>
 								<ui:repeat var="convotante" value="#{solicitud.convotante}">
-									<li><h:outputText value="#{convotante}" /></li> 
+									<li><h:outputText value="#{convotante}" /></li>
 								</ui:repeat>
 							</ul>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-							<h:outputLabel value="Conciliador:" />
+							
+							<h:outputLabel rendered="#{controllerConciliador.buscarConciliador(solicitud.conciliador)!=''}" value="Conciliador:" />
 							<h:outputText value=" #{controllerConciliador.buscarConciliador(solicitud.conciliador)}" />
 							<br/>
 							<h:outputLabel value="Convocados:" />
@@ -48,8 +54,43 @@
 						</div>
 					</div>
 				</div>
+				
+				<h:panelGroup layout="block" rendered="#{solicitud.estado!='Grabada'}" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
+					<ui:param name="pago" value="#{controllerSolicitud.datosLiquidar(solicitud.id)}" />
+					<div class="col-lg-6 col-sm-12 col-xs-12">
+			            <h:outputLabel value="Banco:" />
+			            <h:outputText value=" #{pago.banco}" />
+		          	</div>
+		          	<div class="col-lg-6 col-sm-10 col-xs-10">
+			            <h:outputLabel value="Numero de Referencia:" />
+			            <h:outputText value=" #{pago.referencia}" />
+		          	</div>
+		          	<div class="col-lg-6 col-sm-12 col-xs-12">
+			            <h:outputLabel value="Forma de Pago:" />
+			            <h:outputText value=" #{pago.formaPago}" />
+		          	</div>
+		          	<div class="col-lg-6 col-sm-10 col-xs-10">
+			            <h:outputLabel value="Valor Pagado:" />
+			            <h:outputText value=" #{pago.cuantia}" />
+		          	</div>
+				</h:panelGroup>
+						        
+		        <div class='box-footer #{controllerSolicitud.seleccionarSolicitud(solicitud.select)}'>
+		          	<div class="col-lg-6">
+			            <h:outputLabel value="Pretenciones:" />
+			            <h:outputText value=" $#{solicitud.pretenciones}" />
+		          	</div>
+		          	<div class="col-lg-6">
+			            <h:outputLabel value="Conciliador por:" />
+			            <h:outputText value=" #{solicitud.solicitud}" />
+		          	</div>
+		          	<div class="col-lg-3 col-lg-offset-9">
+		          		<p:outputLabel value="#{solicitud.estado}" styleClass="label label#{controllerSolicitud.colorFicha(solicitud.id,'')} pull-right" />
+		          	</div>
+		        </div>
 			</div>
 		</div>
+	
 	</ui:composition>
 </body>
 </html>
