@@ -37,7 +37,7 @@ public class ControllerSolicitud {
 	public ControllerSolicitud(){
 
 		if(ControllerSolicitud.inicio){
-			this.ficha = true;
+			ControllerSolicitud.ficha = true;
 			ControllerSolicitud.inicio = false;
 			ControllerSolicitud.listaPago.add(new ModelPago(3, "BanColombia", "Consignacion", "$200.000", "678-234-643"));
 			ControllerSolicitud.listaPago.add(new ModelPago(4, "BanBogota", "Consignacion", "$150.000", "970-684-463"));
