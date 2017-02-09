@@ -15,36 +15,40 @@
 					<div class="row">
 					<ui:repeat var="conciliador" value="#{controllerConciliador.listaConciliador()}">
 						<div class="col-md-4 col-sm-6 col-xs-12">
-							<div class="box box-primary" style="box-shadow: 2px 2px 5px #999;">
+							<!-- El valor del height: 283px; se debe de quitar esta provicionalmente -->
+							<div class="box box-primary" style="box-shadow: 2px 2px 5px #999;height: 283px;">
 								<div class="box-header with-border">
 									<i>
-										<h:outputLabel value="#{conciliador.getApellido()}" />
+										<h:outputLabel value="#{conciliador.apellidos}" />
 										<label> </label>
-										<h:outputLabel value=" #{conciliador.getNombre()} " />
+										<h:outputLabel value=" #{conciliador.nombres} " />
 									</i>
-									<small class="label pull-right label-primary">#{conciliador.getId()}</small>
+									<small class="label pull-right label-primary">#{conciliador.idConciliador}</small>
 								</div>
 								<div class='box-body'>
 									<div class="left col-xs-8">
 										<h:outputLabel value="Especialidad:" />
-										#{conciliador.getEspecialidad()}
-										<br />
-										<h:outputLabel value="Experiencia:" />
-										#{conciliador.getExperiencia()}
-										<br />
-										<h:outputLabel value=" Universidad de los Llanos" />
+										<ul>
+											<ui:repeat var="especialidad" value="#{conciliador.especialidads}">
+												<li> #{especialidad.nombreEspecialidad} </li>
+											</ui:repeat>
+										</ul>
+										<h:outputLabel value="Experiencia:"/>
+										<h:outputText value=" #{conciliador.experiencia} años" />
 									</div>
 									<div class="right col-xs-4 text-center">
-										<img src="http://localhost:8080/Madiba/resources/img/png/#{conciliador.getFoto()}" alt="" class="img-circle img-responsive" />
+										<img src="http://localhost:8080/Madiba/resources/img/#{conciliador.foto}" alt="" class="img-circle img-responsive" />
 									</div>
 									<div class="left col-xs-12">
-										<i class="fa fa-phone" />
-										<h:outputLabel value=" Telefono:" />
-										#{conciliador.getTelefono()}
+										<!-- <i class="fa fa-phone" />  -->
+										<h:outputLabel value=" Telefono: " />
+										#{conciliador.telefono}
 										<br />
-										<i class="fa fa-envelope" />
-										<h:outputLabel value=" Email:" />
-										#{conciliador.getEmail()}
+										<!-- <i class="fa fa-envelope" />  -->
+										<h:outputLabel value=" Email: " />
+										#{conciliador.correo}
+										<br/>
+										<h:outputLabel value="#{conciliador.egresado}" />
 									</div>
 								</div>
 							</div>

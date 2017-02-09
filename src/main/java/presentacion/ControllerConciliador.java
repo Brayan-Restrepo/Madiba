@@ -1,7 +1,12 @@
 package presentacion;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+
+import entidades.Conciliador;
+import negocio.iConciliadorBean;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -50,7 +55,10 @@ public class ControllerConciliador {
 					12, "321220399","SANDRA PATRICIA", "VELASQUEZ PARRADO", "3212040399","Civil", "7 años", "emilioa2005@yahoo.es", "boy-5.png"));
 		}
 	}
-
+	
+	@EJB
+	public iConciliadorBean conciliadorBean;
+	
 	public ModelConciliador getConciliador() {
 		return conciliador;
 	}
@@ -59,8 +67,12 @@ public class ControllerConciliador {
 		this.conciliador = conciliador;
 	}
 
-	public List<ModelConciliador> listaConciliador() {
-		return ControllerConciliador.listaConciliador;
+	/**
+	 * Obtiene toda la lista de conciliadores
+	 * @return List de Todos los Conciliadores
+	 */
+	public List<Conciliador> listaConciliador() {
+		return conciliadorBean.allConciliador();		
 	}
 
 	//Designa un conciliador al caso, sea por solicitud o por reparto
