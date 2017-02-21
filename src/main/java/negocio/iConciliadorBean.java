@@ -10,5 +10,4 @@ import entidades.Conciliador;
 public interface iConciliadorBean {
 	
 	public List<Conciliador> allConciliador();
-	public String consultarConciliador(); 
 }

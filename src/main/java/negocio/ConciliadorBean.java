@@ -14,13 +14,6 @@ public class ConciliadorBean implements iConciliadorBean {
 	@Inject
 	ConciliadorDAO conciliadorDAO;
 	
-	public String consultarConciliador() {
-		
-		Conciliador conciliadorDB = conciliadorDAO.consultarConciliador(1);
-		
-		return conciliadorDB.getApellidos();
-	}
-
 	@Override
 	public List<Conciliador> allConciliador() {
 		return conciliadorDAO.allConciliador();

@@ -4,12 +4,12 @@ package presentacion;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.event.AjaxBehaviorEvent;
 
-import negocio.iConciliadorBean;
+
 
 @ManagedBean
 public class ControllerSolicitud {
@@ -301,11 +301,8 @@ public class ControllerSolicitud {
 		}
 		
 	}
-	@EJB
-	public iConciliadorBean conciliadorBean;
 	
 	public boolean cambiarFichaTabla(){
-		System.out.println(this.conciliadorBean.consultarConciliador());
 		ControllerSolicitud.ficha = !ControllerSolicitud.ficha;
 		return ControllerSolicitud.ficha;
 	}
