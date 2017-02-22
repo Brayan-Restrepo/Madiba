@@ -47,7 +47,7 @@
 										<c:if test="#{controllerSolicitud.ficha}">
 											<ui:repeat varStatus="n" var="solicitud"
 												value="#{controllerSolicitud.listaSolicitud}" step="2">
-												<div class="row">
+												<h:panelGroup layout="block" class="row" rendered="#{solicitud.estado=='Grabada' or solicitud.estado=='Pagada' or solicitud.estado=='Radicada' or solicitud.estado=='Designacion' or solicitud.estado=='Audiencia'}">
 													<ui:include src="fichasolicitud.xhtml">
 														<ui:param name="formulario"
 															value="@form :formliquidar :formradicar :formasignarconciliador :formaudiencia :formregistrar" />
@@ -58,7 +58,7 @@
 														<ui:param name="formulario"
 															value="@form :formliquidar :formradicar :formasignarconciliador :formaudiencia :formregistrar" />
 													</ui:include>
-												</div>
+												</h:panelGroup>
 											</ui:repeat>
 										</c:if>
 									</h:form>
@@ -271,4 +271,5 @@
 		</ui:define>
 	</ui:composition>
 </body>
+
 </html>

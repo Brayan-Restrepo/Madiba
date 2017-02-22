@@ -47,11 +47,11 @@
 									<div class="col-lg-6">
 										<div class="form-group">	
 											<h:outputLabel value="Banco:" />
-											<h:inputText id="banco" required="true" requiredMessage="Value is required" value="#{modelPago.banco}" styleClass="form-control"/>					
+											<h:inputText id="banco" required="true" requiredMessage="Value is required" value="#{modelSolicitud.bancoPago}" styleClass="form-control"/>					
 										</div>
 										<div class="form-group">
 											<h:outputLabel value="Forma de Pago:" />
-											<h:selectOneMenu id="formaPago" value="#{modelPago.formaPago}" styleClass="form-control">
+											<h:selectOneMenu id="formaPago" value="#{modelSolicitud.formaPago}" styleClass="form-control">
 												<f:selectItem itemLabel="Consignación" itemValue="consignacion"/>
 												<f:selectItem itemLabel="Transferencia" itemValue="transferencia"/>
 												<f:selectItem itemLabel="PSE" itemValue="pse"/>
@@ -62,11 +62,11 @@
 									<div class="col-lg-6">									
 										<div class="form-group">
 											<h:outputLabel value="Numero de Referencia de Pago:" />
-											<h:inputText id="referencia" value="#{modelPago.referencia}" styleClass="form-control" />
+											<h:inputText id="referencia" value="#{modelSolicitud.referenciaPago}" styleClass="form-control" />
 										</div>
 										<div class="form-group">
 											<h:outputLabel value="Valor Pagado:" />
-											<h:inputText id="cuantia" value="#{modelPago.cuantia}" styleClass="form-control"/>
+											<h:inputText id="cuantia" value="#{modelSolicitud.cuantiaPago}" styleClass="form-control"/>
 										</div>
 									</div>
 								</div>

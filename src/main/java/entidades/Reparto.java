@@ -19,8 +19,8 @@ public class Reparto implements Serializable {
 
 	private String estado;
 
-	//bi-directional many-to-one association to Conciliador
-	@ManyToOne
+	//bi-directional one-to-one association to Conciliador
+	@OneToOne
 	@JoinColumn(name="id_conciliador")
 	private Conciliador conciliador;
 

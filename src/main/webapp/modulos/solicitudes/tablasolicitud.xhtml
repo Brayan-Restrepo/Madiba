@@ -56,30 +56,24 @@
 					<f:facet name="footer">Combocantes</f:facet>
 				</h:column>
 				
-					<ui:param name="pago" value="#{controllerSolicitud.datosLiquidar(solicitud.id)}" />
-					
 					<h:column>
 						<f:facet name="header">Banco</f:facet>
-						#{pago.banco}
-						<f:facet name="footer">Banco</f:facet>
+						#{solicitud.bancoPago}
 					</h:column>
 					
 					<h:column>
 						<f:facet name="header">Numero de Referencia</f:facet>
-						#{pago.referencia}
-						<f:facet name="footer">Numero de Referencia</f:facet>
+						#{solicitud.referenciaPago}
 					</h:column>
 					
 					<h:column>
 						<f:facet name="header">Forma de Pago</f:facet>
-						#{pago.formaPago}
-						<f:facet name="footer">Forma de Pago</f:facet>
+						#{solicitud.formaPago}
 					</h:column>
 					
 					<h:column>
 						<f:facet name="header">Valor Pagado</f:facet>
-						#{pago.cuantia}
-						<f:facet name="footer">Valor Pagado</f:facet>
+						#{cuantiaPago.cuantiaPago}
 					</h:column>
 									
 			</h:dataTable>

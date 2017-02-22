@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+
+<body>
+	<ui:composition template="/resources/plantilla/plantilla.xhtml">		
+		<ui:define name="content">			
+			
+			<div class="content">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="nav-tabs-custom">
+							<ul class="nav nav-tabs" style="border-color: blue">
+								<li class="active"><a href="#todas" data-toggle="tab">Todas</a>
+								</li>
+								<li><a href="#citacion" data-toggle="tab">Por citación <span class="label label-warning">10</span></a>
+								</li>
+								<li><a href="#pendientes" data-toggle="tab">Pendientes</a></li>
+								<li><a href="#encurso" data-toggle="tab">En curso</a></li>
+								<li><a href="#finalizadas" data-toggle="tab">Finalizadas</a></li>
+								
+							</ul>
+							<div class="tab-content">
+
+								<div class="tab-pane active" id="todas">
+									<h:form id='formtodas'>
+										<ui:param name="formulario" value="@form :formcitacion :formpendientes :formencurso :formfinalizadas"/>
+										<ui:repeat varStatus="n" var="solicitud"
+											value="#{controllerSolicitud.listaSolicitud}" step="2">
+											<h:panelGroup layout="block" class="row" rendered="#{solicitud.estado=='por Citacion' or solicitud.estado=='Pendientes' or solicitud.estado=='En Curso' or solicitud.estado=='Finalizadas' }">
+												
+												<ui:include src="fichaaudiencia.xhtml"></ui:include>
+												
+												<ui:include src="fichaaudiencia.xhtml">
+													<ui:param name="solicitud"
+														value="#{controllerSolicitud.siguienteFicha(n.index)}" />
+												</ui:include>
+											</h:panelGroup>
+										</ui:repeat>
+									</h:form>
+								</div>
+								
+								<div class="tab-pane" id="citacion">
+									<h:form id="formcitacion">
+										<ui:param name="formulario" value="@form :formtodas :formpendientes :formencurso :formfinalizadas"/>
+										<ui:repeat varStatus="n" var="solicitud"
+											value="#{controllerSolicitud.solicitudesPorEstado('por Citacion')}"
+											step="2">
+											<div class="row">
+												<ui:include src="fichaaudiencia.xhtml"></ui:include>
+												<h:panelGroup
+													rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													<ui:include src="fichaaudiencia.xhtml">
+														<ui:param name="solicitud"
+															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+													</ui:include>
+												</h:panelGroup>
+											</div>
+										</ui:repeat>
+									</h:form>
+								</div>
+								<div class="tab-pane" id="pendientes">
+									<h:form id="formpendientes">
+										<ui:param name="formulario" value="@form :formtodas :formcitacion :formencurso :formfinalizadas"/>
+										<ui:repeat varStatus="n" var="solicitud"
+											value="#{controllerSolicitud.solicitudesPorEstado('Pendientes')}"
+											step="2">
+											<div class="row">
+												<ui:include src="fichaaudiencia.xhtml"></ui:include>
+												<h:panelGroup
+													rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													<ui:include src="fichaaudiencia.xhtml">
+														<ui:param name="solicitud"
+															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+													</ui:include>
+												</h:panelGroup>
+											</div>
+										</ui:repeat>
+									</h:form>
+								</div>
+								<div class="tab-pane" id="encurso">
+									<h:form id="formencurso">
+										<ui:param name="formulario" value="@form :formtodas :formpendientes :formpendientes :formfinalizadas"/>
+										<ui:repeat varStatus="n" var="solicitud"
+											value="#{controllerSolicitud.solicitudesPorEstado('En Curso')}"
+											step="2">
+											<div class="row">
+												<ui:include src="fichaaudiencia.xhtml"></ui:include>
+												<h:panelGroup
+													rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													<ui:include src="fichaaudiencia.xhtml">
+														<ui:param name="solicitud"
+															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+													</ui:include>
+												</h:panelGroup>
+											</div>
+										</ui:repeat>
+									</h:form>
+								</div>
+								<div class="tab-pane" id="finalizadas">
+									<h:form id="formfinalizadas">
+										<ui:param name="formulario" value="@form :formtodas :formpendientes :formencurso :formencurso"/>
+										<ui:repeat varStatus="n" var="solicitud"
+											value="#{controllerSolicitud.solicitudesPorEstado('Finalizadas')}" step="2">
+											<div class="row">
+												<ui:include src="fichaaudiencia.xhtml"></ui:include>
+												<h:panelGroup
+													rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													<ui:include src="fichaaudiencia.xhtml">
+														<ui:param name="solicitud"
+															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+													</ui:include>
+												</h:panelGroup>
+											</div>
+										</ui:repeat>
+									</h:form>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ui:define>		
+		
+		<ui:define name="footer">
+			<div class="text-center">
+				<h:form id="formBotones">
+				
+					<h:commandButton styleClass="btn btn-sm btn-warning btn-menu" value="Enviar Citaciones"></h:commandButton>
+					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Cambiar Conciliador"></h:commandButton>
+					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Modificar Acta" disabled="true"></h:commandButton>
+					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Expedir Acta" disabled="true"></h:commandButton>
+					
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body>
+ 
+</html>

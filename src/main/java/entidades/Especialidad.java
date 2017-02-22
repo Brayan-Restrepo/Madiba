@@ -17,14 +17,15 @@ public class Especialidad implements Serializable {
 
 	@Id
 	@Column(name="id_especialidad")
-	private Integer idEspecialidad;
+	private Long idEspecialidad;
 
 	@Column(name="nombre_especialidad")
 	private String nombreEspecialidad;
 
-	//bi-directional many-to-many association to Conciliador
-	@ManyToMany(mappedBy="especialidads")
-	private List<Conciliador> conciliadors;
+	//bi-directional many-to-one association to Conciliador
+	@ManyToOne
+	@JoinColumn(name="id_conciliador")
+	private Conciliador conciliador;
 
 	//bi-directional many-to-one association to Conciliador_Especialidad
 	@OneToMany(mappedBy="especialidad")
@@ -33,11 +34,11 @@ public class Especialidad implements Serializable {
 	public Especialidad() {
 	}
 
-	public Integer getIdEspecialidad() {
+	public Long getIdEspecialidad() {
 		return this.idEspecialidad;
 	}
 
-	public void setIdEspecialidad(Integer idEspecialidad) {
+	public void setIdEspecialidad(Long idEspecialidad) {
 		this.idEspecialidad = idEspecialidad;
 	}
 
@@ -49,12 +50,12 @@ public class Especialidad implements Serializable {
 		this.nombreEspecialidad = nombreEspecialidad;
 	}
 
-	public List<Conciliador> getConciliadors() {
-		return this.conciliadors;
+	public Conciliador getConciliador() {
+		return this.conciliador;
 	}
 
-	public void setConciliadors(List<Conciliador> conciliadors) {
-		this.conciliadors = conciliadors;
+	public void setConciliador(Conciliador conciliador) {
+		this.conciliador = conciliador;
 	}
 
 	public List<Conciliador_Especialidad> getConciliadorEspecialidads() {

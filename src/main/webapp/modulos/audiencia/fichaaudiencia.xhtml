@@ -1,13 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
-<h:head></h:head>
-<body>
+<h:head></h:head> 
+<body> 
 	<ui:composition>
 		
 		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 100%" >	
@@ -26,8 +26,8 @@
 				<div class='box-body'>
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              				<h:outputLabel value="Fecha:" />
-							<h:outputText value=" #{solicitud.fecha}" />
+              				<h:outputLabel value="Conciliador:" />
+							<h:outputText value=" #{controllerConciliador.buscarConciliador(solicitud.conciliador)}" />
 							<br/>
 							<h:outputLabel value="Convocantes:" />
 							<ul>
@@ -38,8 +38,6 @@
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 							
-							<h:outputLabel rendered="#{controllerConciliador.buscarConciliador(solicitud.conciliador)!=''}" value="Conciliador:" />
-							<h:outputText value=" #{controllerConciliador.buscarConciliador(solicitud.conciliador)}" />
 							<br/>
 							<h:outputLabel value="Convocados:" />
 							<ul>
@@ -55,24 +53,24 @@
 					</div>
 				</div>
 				
-				<h:panelGroup layout="block" rendered="#{solicitud.estado!='Grabada'}" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
-					
+				<h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 					<div class="col-lg-6 col-sm-12 col-xs-12">
-			            <h:outputLabel value="Banco:" />
-			            <h:outputText value=" #{solicitud.bancoPago}" />
+			            <h:outputLabel value="Fecha Audiencia:" />
+			            <h:outputText value=" #{solicitud.fechaAudi}" />
 		          	</div>
 		          	<div class="col-lg-6 col-sm-10 col-xs-10">
-			            <h:outputLabel value="Numero de Referencia:" />
-			            <h:outputText value=" #{solicitud.referenciaPago}" />
+			            <h:outputLabel value="Hora:" />
+			            <h:outputText value=" #{solicitud.horaAudi}" />
 		          	</div>
-		          	<div class="col-lg-6 col-sm-12 col-xs-12">
-			            <h:outputLabel value="Forma de Pago:" />
-			            <h:outputText value=" #{solicitud.formaPago}" />
+		          	
+					<div class="col-lg-6 col-sm-12 col-xs-12">
+			            <h:outputLabel value="Audiencia Numero:" />
+			            <h:outputText value=" #{solicitud.numeroAudi}" />
 		          	</div>
 		          	<div class="col-lg-6 col-sm-10 col-xs-10">
-			            <h:outputLabel value="Valor Pagado:" />
-			            <h:outputText value=" #{solicitud.cuantiaPago}" />
-		          	</div>
+			            <h:outputLabel value="Duración:" />
+			            <h:outputText value=" #{solicitud.duracionAudi}" />
+		          	</div>		          	
 				</h:panelGroup>
 						        
 		        <div class='box-footer #{controllerSolicitud.seleccionarSolicitud(solicitud.select)}'>
@@ -89,8 +87,7 @@
 		          	</div>
 		        </div>
 			</div>
-		</div>
-	
+		</div>	
 	</ui:composition>
-</body>
+</body> 
 </html>

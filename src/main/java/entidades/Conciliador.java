@@ -17,7 +17,7 @@ public class Conciliador implements Serializable {
 
 	@Id
 	@Column(name="id_conciliador")
-	private Integer idConciliador;
+	private Long idConciliador;
 
 	private String apellidos;
 
@@ -33,6 +33,8 @@ public class Conciliador implements Serializable {
 
 	private String foto;
 
+	private String identificacion;
+
 	private String nombres;
 
 	private String telefono;
@@ -40,35 +42,30 @@ public class Conciliador implements Serializable {
 	@Column(name="tipo_id")
 	private String tipoId;
 
-	//bi-directional many-to-many association to Especialidad
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-		name="\"Conciliador_Especialidad\""
-		, joinColumns={
-			@JoinColumn(name="id_conciliador")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="id_especialidad")
-			}
-		)
+	//bi-directional many-to-one association to Especialidad
+	@OneToMany(mappedBy="conciliador",fetch=FetchType.EAGER)
 	private List<Especialidad> especialidads;
 
 	//bi-directional many-to-one association to Conciliador_Especialidad
 	@OneToMany(mappedBy="conciliador")
 	private List<Conciliador_Especialidad> conciliadorEspecialidads;
 
-	//bi-directional many-to-one association to Reparto
+	//bi-directional many-to-one association to Designacion
 	@OneToMany(mappedBy="conciliador")
-	private List<Reparto> repartos;
+	private List<Designacion> designacions;
+
+	//bi-directional one-to-one association to Reparto
+	@OneToOne(mappedBy="conciliador")
+	private Reparto reparto;
 
 	public Conciliador() {
 	}
 
-	public Integer getIdConciliador() {
+	public Long getIdConciliador() {
 		return this.idConciliador;
 	}
 
-	public void setIdConciliador(Integer idConciliador) {
+	public void setIdConciliador(Long idConciliador) {
 		this.idConciliador = idConciliador;
 	}
 
@@ -128,6 +125,14 @@ public class Conciliador implements Serializable {
 		this.foto = foto;
 	}
 
+	public String getIdentificacion() {
+		return this.identificacion;
+	}
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
+
 	public String getNombres() {
 		return this.nombres;
 	}
@@ -160,6 +165,20 @@ public class Conciliador implements Serializable {
 		this.especialidads = especialidads;
 	}
 
+	public Especialidad addEspecialidad(Especialidad especialidad) {
+		getEspecialidads().add(especialidad);
+		especialidad.setConciliador(this);
+
+		return especialidad;
+	}
+
+	public Especialidad removeEspecialidad(Especialidad especialidad) {
+		getEspecialidads().remove(especialidad);
+		especialidad.setConciliador(null);
+
+		return especialidad;
+	}
+
 	public List<Conciliador_Especialidad> getConciliadorEspecialidads() {
 		return this.conciliadorEspecialidads;
 	}
@@ -182,26 +201,34 @@ public class Conciliador implements Serializable {
 		return conciliadorEspecialidad;
 	}
 
-	public List<Reparto> getRepartos() {
-		return this.repartos;
+	public List<Designacion> getDesignacions() {
+		return this.designacions;
 	}
 
-	public void setRepartos(List<Reparto> repartos) {
-		this.repartos = repartos;
+	public void setDesignacions(List<Designacion> designacions) {
+		this.designacions = designacions;
 	}
 
-	public Reparto addReparto(Reparto reparto) {
-		getRepartos().add(reparto);
-		reparto.setConciliador(this);
+	public Designacion addDesignacion(Designacion designacion) {
+		getDesignacions().add(designacion);
+		designacion.setConciliador(this);
 
-		return reparto;
+		return designacion;
 	}
 
-	public Reparto removeReparto(Reparto reparto) {
-		getRepartos().remove(reparto);
-		reparto.setConciliador(null);
+	public Designacion removeDesignacion(Designacion designacion) {
+		getDesignacions().remove(designacion);
+		designacion.setConciliador(null);
 
-		return reparto;
+		return designacion;
+	}
+
+	public Reparto getReparto() {
+		return this.reparto;
+	}
+
+	public void setReparto(Reparto reparto) {
+		this.reparto = reparto;
 	}
 
 }

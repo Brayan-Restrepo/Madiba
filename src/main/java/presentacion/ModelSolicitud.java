@@ -15,10 +15,32 @@ public class ModelSolicitud {
 	private String solicitud;
 	private String numeroRadicado;
 	private String pretenciones;
+	
+	/**
+	 * Audiencia
+	 */
+	private String numeroAudi;
+	private String fechaAudi;
+	private String horaAudi;
+	private String duracionAudi;
+	private String salaAudi;
+	
+	/*
+	 * Pago
+	 */
+	private String bancoPago;
+	private String formaPago;
+	private String cuantiaPago;
+	private String referenciaPago;
+	
+	//Hay que quitar esto es solo provicional
 	private boolean select; 
 
+	public ModelSolicitud(){}
+	
 	public ModelSolicitud(int id, String fecha, String[] convotante,String[] convocado, String conciliador, String descripcion,
-			String estado, String solicitud, String numeroRadicado, String pretenciones) {
+			String estado, String solicitud, String numeroRadicado, String pretenciones,String bancoPago, String formaPago, 
+			String cuantiaPago, String referenciaPago, String numeroAudi, String fechaAudi,	String horaAudi, String duracionAudi, String salaAudi) {
 		this.id = id;
 		this.fecha = fecha;
 		this.convotante = convotante;
@@ -30,6 +52,20 @@ public class ModelSolicitud {
 		this.numeroRadicado = numeroRadicado;
 		this.select = false;
 		this.pretenciones = pretenciones;
+		
+		//Audiencia
+		this.numeroAudi = numeroAudi;
+		this.fechaAudi = fechaAudi;
+		this.horaAudi = horaAudi;
+		this.duracionAudi = duracionAudi;
+		this.salaAudi = salaAudi;
+		
+		//Pago		
+		this.bancoPago = bancoPago;
+		this.formaPago = formaPago;
+		this.cuantiaPago = cuantiaPago;
+		this.referenciaPago = referenciaPago;
+		
 	}
 	
 	public String getPretenciones() {
@@ -109,4 +145,77 @@ public class ModelSolicitud {
 		this.id = id;
 	}
 
+	public String getNumeroAudi() {
+		return numeroAudi;
+	}
+
+	public void setNumeroAudi(String numeroAudi) {
+		this.numeroAudi = numeroAudi;
+	}
+
+	public String getFechaAudi() {
+		return fechaAudi;
+	}
+
+	public void setFechaAudi(String fechaAudi) {
+		this.fechaAudi = fechaAudi;
+	}
+
+	public String getHoraAudi() {
+		return horaAudi;
+	}
+
+	public void setHoraAudi(String horaAudi) {
+		this.horaAudi = horaAudi;
+	}
+
+	public String getDuracionAudi() {
+		return duracionAudi;
+	}
+
+	public void setDuracionAudi(String duracionAudi) {
+		this.duracionAudi = duracionAudi;
+	}
+
+	public String getSalaAudi() {
+		return salaAudi;
+	}
+
+	public void setSalaAudi(String salaAudi) {
+		this.salaAudi = salaAudi;
+	}
+
+	public String getBancoPago() {
+		return bancoPago;
+	}
+
+	public void setBancoPago(String bancoPago) {
+		this.bancoPago = bancoPago;
+	}
+
+	public String getFormaPago() {
+		return formaPago;
+	}
+
+	public void setFormaPago(String formaPago) {
+		this.formaPago = formaPago;
+	}
+
+	public String getCuantiaPago() {
+		return cuantiaPago;
+	}
+
+	public void setCuantiaPago(String cuantiaPago) {
+		this.cuantiaPago = cuantiaPago;
+	}
+
+	public String getReferenciaPago() {
+		return referenciaPago;
+	}
+
+	public void setReferenciaPago(String referenciaPago) {
+		this.referenciaPago = referenciaPago;
+	}
+
+	
 }

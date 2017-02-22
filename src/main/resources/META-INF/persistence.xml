@@ -29,8 +29,11 @@
       <class>entidades.Usuario</class>
       <class>entidades.Conciliador</class>
       <class>entidades.Conciliador_Especialidad</class>
+      <class>entidades.Designacion</class>
       <class>entidades.Especialidad</class>
+      <class>entidades.Parte</class>
       <class>entidades.Reparto</class>
+      <class>entidades.Solicitud</class>
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="update" />
