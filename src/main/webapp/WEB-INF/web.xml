@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <web-app>
-	<!-- keys gotten from recaptcha -->
+	
+    
+    <!-- 192.166.0.16 Juan -->
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6LdsvRYUAAAAALYG8V_VnlnF20_FzOCY5oa8NXAB</param-value>
+    </context-param>
+   
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6LdsvRYUAAAAAMKJHqggwyNJAHZfa6rQmz5OQKxA</param-value>
+    </context-param>
+    
+     <!-- 192.166.0.13 Brayan-->
     <context-param>
         <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
         <param-value>6LdbsxYUAAAAAMqkaUsvyT6ZaA-WyCp74SDRvEAS</param-value>
@@ -12,6 +25,15 @@
         <param-value>6LdbsxYUAAAAABKuzsIgOvEqw4Zsdef8Q6tEHN4l</param-value>
     </context-param>
     
-    
+    	<!-- Localhost -->
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6LeeTxQUAAAAAInP9teZ-_kAlaReoZlQxBIGSeM2</param-value>
+    </context-param>
+   
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6LeeTxQUAAAAAJBt1_paEU248ePTD7yh6NqKT_qR</param-value>
+    </context-param>
     
 </web-app>
