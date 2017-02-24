@@ -14,34 +14,32 @@
 			<h:dataTable id="tablaSolicitud" class="table table-striped table-hover" value="#{listaSolicitud}" var="solicitud">
 				<h:column>
 					<f:facet name="header">Estado</f:facet>					
-					<p:outputLabel value="#{solicitud.estado}" styleClass="label label#{controllerSolicitud.colorFicha(solicitud.id,'')}"/>
+					<p:outputLabel value="#{solicitud.estado}" styleClass="label label#{controllerSolicitud.colorFicha(solicitud.idSolicitud,'')}"/>
 					<f:facet name="footer">Estado</f:facet>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">Pretenciones</f:facet>
-					#{solicitud.pretenciones}
+					#{solicitud.cuantia}
 					<f:facet name="footer">Pretenciones</f:facet>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">Solicitud</f:facet>
-					#{solicitud.solicitud}
+					
 					<f:facet name="footer">Solicitud</f:facet>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">Conciliador</f:facet>
-					#{controllerConciliador.buscarConciliador(solicitud.conciliador)}
+					
 					<f:facet name="footer">Conciliador</f:facet>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">Combocados</f:facet>
 						<ul>
-							<ui:repeat var="convocado" value="#{solicitud.convocado}">
-								<li><h:outputText value="#{convocado}" /></li>
-							</ui:repeat>
+							
 						</ul>
 					<f:facet name="footer">Combocados</f:facet>
 				</h:column>
@@ -49,8 +47,10 @@
 				<h:column>
 					<f:facet name="header">Combocantes</f:facet>
 						<ul>
-							<ui:repeat var="convotante" value="#{solicitud.convotante}">
-								<li><h:outputText value="#{convotante}" /></li>
+							<ui:repeat var="partes" value="#{solicitud.partes}" >
+								<h:panelGroup rendered="#{partes.tipoParte=='Convocante'}">
+									<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+								</h:panelGroup>
 							</ui:repeat>
 						</ul>
 					<f:facet name="footer">Combocantes</f:facet>
@@ -58,22 +58,22 @@
 				
 					<h:column>
 						<f:facet name="header">Banco</f:facet>
-						#{solicitud.bancoPago}
+						
 					</h:column>
 					
 					<h:column>
 						<f:facet name="header">Numero de Referencia</f:facet>
-						#{solicitud.referenciaPago}
+						
 					</h:column>
 					
 					<h:column>
 						<f:facet name="header">Forma de Pago</f:facet>
-						#{solicitud.formaPago}
+						
 					</h:column>
 					
 					<h:column>
 						<f:facet name="header">Valor Pagado</f:facet>
-						#{cuantiaPago.cuantiaPago}
+						
 					</h:column>
 									
 			</h:dataTable>

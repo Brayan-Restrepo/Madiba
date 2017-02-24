@@ -18,9 +18,6 @@ import negocio.iSolicitudBean;
 @ManagedBean
 public class ControllerSolicitud {
 
-	//Permite validar que los datos solo se pinten la primera vez que se carga la pagina y no todas la veces
-	private static boolean inicio = true;
-
 	/**
 	 * 
 	 */
@@ -30,28 +27,14 @@ public class ControllerSolicitud {
 	//Contiene la lista de solicitudes con datos quemados
 	public List<Solicitud> listaSolicitud;
 
-	/**
-	 * si este atributo es verdadero se mostrara la solicitudes en forma de 
-	 * Ficha de lo contrario, se mostrara en Tablas
-	 */
-	private static boolean ficha;
-
 	@EJB
 	public iSolicitudBean solicitudBean;
 
 	
 	/**
-	 * Constructor: arma la lista de solicitudes solo la primera vez
+	 * Constructor: 
 	 */
-	public ControllerSolicitud(){
-
-		if(ControllerSolicitud.inicio){
-			ControllerSolicitud.ficha = true;
-			ControllerSolicitud.inicio = false;
-		
-		}
-
-	}
+	public ControllerSolicitud(){}
 	
 	public List<Solicitud> allSolicitudes(String estado){
 		this.listaSolicitud = this.solicitudBean.allSolicitud(estado);
@@ -75,13 +58,6 @@ public class ControllerSolicitud {
 		this.consultaModelSolicitud = consultaModelSolicitud;
 	}
 
-	public boolean isFicha() {
-		return ficha;
-	}
-
-	public void setFicha(boolean ficha) {
-		ControllerSolicitud.ficha = ficha;
-	}
 	
 	/**
 	 * Filtra las solicitudes por su estado
@@ -277,8 +253,8 @@ public class ControllerSolicitud {
 	}
 	
 	public boolean cambiarFichaTabla(){
-		ControllerSolicitud.ficha = !ControllerSolicitud.ficha;
-		return ControllerSolicitud.ficha;
+		this.consultaModelSolicitud.setFicha(!this.consultaModelSolicitud.isFicha());
+		return this.consultaModelSolicitud.isFicha();
 	}
 	
 	public String MascaraHora(int hora){

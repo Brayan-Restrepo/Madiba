@@ -34,39 +34,12 @@ public class ModelSolicitud {
 	private String referenciaPago;
 	
 	//Hay que quitar esto es solo provicional
-	private boolean select; 
+	private boolean ficha; 
 
-	public ModelSolicitud(){}
-	
-	public ModelSolicitud(int id, String fecha, String[] convotante,String[] convocado, String conciliador, String descripcion,
-			String estado, String solicitud, String numeroRadicado, String pretenciones,String bancoPago, String formaPago, 
-			String cuantiaPago, String referenciaPago, String numeroAudi, String fechaAudi,	String horaAudi, String duracionAudi, String salaAudi) {
-		this.id = id;
-		this.fecha = fecha;
-		this.convotante = convotante;
-		this.convocado = convocado;
-		this.conciliador = conciliador;
-		this.descripcion = descripcion;
-		this.estado = estado;
-		this.solicitud = solicitud;
-		this.numeroRadicado = numeroRadicado;
-		this.select = false;
-		this.pretenciones = pretenciones;
-		
-		//Audiencia
-		this.numeroAudi = numeroAudi;
-		this.fechaAudi = fechaAudi;
-		this.horaAudi = horaAudi;
-		this.duracionAudi = duracionAudi;
-		this.salaAudi = salaAudi;
-		
-		//Pago		
-		this.bancoPago = bancoPago;
-		this.formaPago = formaPago;
-		this.cuantiaPago = cuantiaPago;
-		this.referenciaPago = referenciaPago;
-		
+	public ModelSolicitud(){
+		this.ficha=true;
 	}
+	
 	
 	public String getPretenciones() {
 		return pretenciones;
@@ -76,12 +49,12 @@ public class ModelSolicitud {
 		this.pretenciones = pretenciones;
 	}
 
-	public boolean isSelect() {
-		return select;
+	public boolean isFicha() {
+		return this.ficha;
 	}
 
-	public void setSelect(boolean select) {
-		this.select = select;
+	public void setFicha(boolean ficha) {
+		this.ficha = ficha;
 	}
 
 	public String getNumeroRadicado() {
