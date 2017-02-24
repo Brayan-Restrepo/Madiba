@@ -17,6 +17,9 @@ public class ConciliadorDAO {
 	public List<Conciliador> allConciliador(){
 		//List<Conciliador> conciliadores = this.manager.createQuery("FROM Conciliador").getResultList();
 		List<Conciliador> conciliadores = this.manager.createNamedQuery("Conciliador.findAll").getResultList();
+		for(int i=0;i<conciliadores.size();i++){
+			conciliadores.get(i).getConciliadorEspecialidads().size();
+		}
 		return conciliadores;
 		
 	}

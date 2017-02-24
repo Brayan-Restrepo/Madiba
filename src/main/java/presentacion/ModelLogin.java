@@ -1,25 +1,28 @@
 package presentacion;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 @ManagedBean
+@SessionScoped
 public class ModelLogin {
 	
-	private String usuario;
-	private String clave;
+	private String nickname;
+	private String password;
 	
-	public String getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-	public String getClave() {
-		return clave;
-	}
-	public void setClave(String clave) {
-		this.clave = clave;
+	public String getNickname() {
+		return nickname;
 	}
 	
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }

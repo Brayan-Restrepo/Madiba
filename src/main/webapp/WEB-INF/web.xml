@@ -4,11 +4,14 @@
 	<!-- keys gotten from recaptcha -->
     <context-param>
         <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
-        <param-value>6LeROwoUAAAAACRcqhSzA4sJZ-uhD3mOR-1DFWGx</param-value>
+        <param-value>6LdbsxYUAAAAAMqkaUsvyT6ZaA-WyCp74SDRvEAS</param-value>
     </context-param>
    
     <context-param>
         <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
-        <param-value>6LeROwoUAAAAALyLiN8b5jJWDNKY5O-nE3djbmcU</param-value>
+        <param-value>6LdbsxYUAAAAABKuzsIgOvEqw4Zsdef8Q6tEHN4l</param-value>
     </context-param>
+    
+    
+    
 </web-app>

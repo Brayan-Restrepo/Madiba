@@ -14,8 +14,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
 </h:head>
 <body class="hold-transition login-page">
-	<p:messages showDetail="true"/>
-	<div class="login-box">
+	<p:messages/>
+	<div class="login-box">		
 		<div class="login-logo">
 			<p:outputLabel>CONALBOS</p:outputLabel>
 		</div>
@@ -24,15 +24,15 @@
 			<p:outputLabel value="Inicie Session" />
 			<h:form>
 				<div class="form-group has-feedback">
-					<p:inputText value="#{modelLogin.usuario}" styleClass="form-control" placeholder="Email" />
+					<p:inputText value="#{modelLogin.nickname}" required="true" styleClass="form-control" placeholder="Nickname" requiredMessage="Nickname: Campo Obligatorio" />
 					<span class="fa fa-user form-control-feedback"></span>
 				</div>
-				<div class="form-group has-feedback">
-					<p:password styleClass="form-control" value="#{modelLogin.clave}" placeholder="Password" />
+				<div class="form-group has-feedback">			
+					<p:password styleClass="form-control" required="true" value="#{modelLogin.password}" placeholder="Password" requiredMessage="Password: Campo Obligatorio"/>
 	        		<span class="fa fa-lock form-control-feedback"></span>
 				</div>
-		   		<p:captcha label="Captcha" language="es" />
-	  		 	<p:commandButton value="Iniciar Session" styleClass="btn btn-sm btn-primary" actionListener="#{controllerLogin.submit()}" ajax="false" icon="ui-icon-check"/>
+		   		<p:captcha language="es" requiredMessage="Captha: Campo Obligatorio"/>
+	  		 	<p:commandButton value="Iniciar Sesión" styleClass="btn btn-sm btn-primary" actionListener="#{controllerLogin.autenticar()}" action="#{controllerLogin.entrar()}" ajax="false" icon="ui-icon-check"/>
 			</h:form>
 		</div>
 	</div>

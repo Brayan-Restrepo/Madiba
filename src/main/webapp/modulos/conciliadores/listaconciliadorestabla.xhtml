@@ -23,18 +23,15 @@
 									<h:column>
 										<f:facet name="header">#</f:facet>
 										#{conciliador.idConciliador}
-										<f:facet name="footer">#</f:facet>
 									</h:column>
 									<h:column>
 										<f:facet name="header">Apellido</f:facet>
-										<img src="http://localhost:8080/Madiba/resources/img/#{conciliador.foto}" alt="" class="avatar user-image" />
+										<img src="http://192.168.0.13:8080/Madiba/resources/img/#{conciliador.foto}" alt="" class="avatar user-image" />
 										<span class="hidden-xs">#{conciliador.apellidos}</span>
-										<f:facet name="footer">Apellido</f:facet>
 									</h:column>
 									<h:column>
 										<f:facet name="header">Nombre</f:facet>
 										#{conciliador.nombres}
-										<f:facet name="footer">Nombre</f:facet>
 									</h:column>
 									<h:column>
 										<f:facet name="header">Especialidad</f:facet>
@@ -43,27 +40,22 @@
 													<li> #{especialidad.nombre} </li>
 												</ui:repeat>
 											</ul>
-										<f:facet name="footer">Especialidad</f:facet>
 									</h:column>
 									<h:column>
 										<f:facet name="header">Experiencia</f:facet>
 										#{conciliador.experiencia}
-										<f:facet name="footer">Experiencia</f:facet>
 									</h:column>
 									<h:column>
 										<f:facet name="header">Telefono</f:facet>
 										#{conciliador.telefono}
-										<f:facet name="footer">Telefono</f:facet>
 									</h:column>
 									<h:column>
 										<f:facet name="header">Email</f:facet>
 										#{conciliador.correo}
-										<f:facet name="footer">Email</f:facet>
 									</h:column>
 									<h:column>
 										<f:facet name="header">Egresado</f:facet>
 										#{conciliador.egresado}
-										<f:facet name="footer">Egresado</f:facet>
 									</h:column>
 								</h:dataTable>
 							</div>
