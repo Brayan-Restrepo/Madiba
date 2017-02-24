@@ -15,8 +15,8 @@ public class Conciliador_Especialidad implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_concil_esp")
-	private Integer idConcilEsp;
+	@Column(name="id_concil_especi")
+	private Long idConcilEspeci;
 
 	//bi-directional many-to-one association to Conciliador
 	@ManyToOne
@@ -31,12 +31,12 @@ public class Conciliador_Especialidad implements Serializable {
 	public Conciliador_Especialidad() {
 	}
 
-	public Integer getIdConcilEsp() {
-		return this.idConcilEsp;
+	public Long getIdConcilEspeci() {
+		return this.idConcilEspeci;
 	}
 
-	public void setIdConcilEsp(Integer idConcilEsp) {
-		this.idConcilEsp = idConcilEsp;
+	public void setIdConcilEspeci(Long idConcilEspeci) {
+		this.idConcilEspeci = idConcilEspeci;
 	}
 
 	public Conciliador getConciliador() {

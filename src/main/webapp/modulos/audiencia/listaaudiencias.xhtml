@@ -32,11 +32,10 @@
 									<h:form id='formtodas'>
 										<ui:param name="formulario" value="@form :formcitacion :formpendientes :formencurso :formfinalizadas"/>
 										<ui:repeat varStatus="n" var="solicitud"
-											value="#{controllerSolicitud.listaSolicitud}" step="2">
-											<h:panelGroup layout="block" class="row" rendered="#{solicitud.estado=='por Citacion' or solicitud.estado=='Pendientes' or solicitud.estado=='En Curso' or solicitud.estado=='Finalizadas' }">
-												
+											value="#{controllerSolicitud.allSolicitudes('AUDIENCIA')}" step="2">
+											<h:panelGroup layout="block" class="row" rendered="#{solicitud.estado=='AUDIENCIA-CITACION' or solicitud.estado=='AUDIENCIA-PENDIENTE' or solicitud.estado=='AUDIENCIA-ENCURSO' or solicitud.estado=='AUDIENCIA-FINALIZADA' }">
+
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
-												
 												<ui:include src="fichaaudiencia.xhtml">
 													<ui:param name="solicitud"
 														value="#{controllerSolicitud.siguienteFicha(n.index)}" />
@@ -50,15 +49,15 @@
 									<h:form id="formcitacion">
 										<ui:param name="formulario" value="@form :formtodas :formpendientes :formencurso :formfinalizadas"/>
 										<ui:repeat varStatus="n" var="solicitud"
-											value="#{controllerSolicitud.solicitudesPorEstado('por Citacion')}"
+											value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION')}"
 											step="2">
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
 												<h:panelGroup
-													rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													rendered="#{controllerSolicitud.masFichas(solicitud.idSolicitud,solicitud.estado)}">
 													<ui:include src="fichaaudiencia.xhtml">
 														<ui:param name="solicitud"
-															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.idSolicitud,solicitud.estado)}" />
 													</ui:include>
 												</h:panelGroup>
 											</div>
@@ -69,15 +68,15 @@
 									<h:form id="formpendientes">
 										<ui:param name="formulario" value="@form :formtodas :formcitacion :formencurso :formfinalizadas"/>
 										<ui:repeat varStatus="n" var="solicitud"
-											value="#{controllerSolicitud.solicitudesPorEstado('Pendientes')}"
+											value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE')}"
 											step="2">
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
 												<h:panelGroup
-													rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													rendered="#{controllerSolicitud.masFichas(solicitud.idSolicitud,solicitud.estado)}">
 													<ui:include src="fichaaudiencia.xhtml">
 														<ui:param name="solicitud"
-															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.idSolicitud,solicitud.estado)}" />
 													</ui:include>
 												</h:panelGroup>
 											</div>
@@ -88,15 +87,15 @@
 									<h:form id="formencurso">
 										<ui:param name="formulario" value="@form :formtodas :formpendientes :formpendientes :formfinalizadas"/>
 										<ui:repeat varStatus="n" var="solicitud"
-											value="#{controllerSolicitud.solicitudesPorEstado('En Curso')}"
+											value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO')}"
 											step="2">
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
 												<h:panelGroup
-													rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													rendered="#{controllerSolicitud.masFichas(solicitud.idSolicitud,solicitud.estado)}">
 													<ui:include src="fichaaudiencia.xhtml">
 														<ui:param name="solicitud"
-															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.idSolicitud,solicitud.estado)}" />
 													</ui:include>
 												</h:panelGroup>
 											</div>
@@ -107,14 +106,14 @@
 									<h:form id="formfinalizadas">
 										<ui:param name="formulario" value="@form :formtodas :formpendientes :formencurso :formencurso"/>
 										<ui:repeat varStatus="n" var="solicitud"
-											value="#{controllerSolicitud.solicitudesPorEstado('Finalizadas')}" step="2">
+											value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}" step="2">
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
 												<h:panelGroup
-													rendered="#{controllerSolicitud.masFichas(solicitud.id,solicitud.estado)}">
+													rendered="#{controllerSolicitud.masFichas(solicitud.idSolicitud,solicitud.estado)}">
 													<ui:include src="fichaaudiencia.xhtml">
 														<ui:param name="solicitud"
-															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.id,solicitud.estado)}" />
+															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.idSolicitud,solicitud.estado)}" />
 													</ui:include>
 												</h:panelGroup>
 											</div>

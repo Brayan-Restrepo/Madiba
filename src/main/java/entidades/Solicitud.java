@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="\"Solicitud\"")
-@NamedQuery(name="Solicitud.findAll", query="SELECT s FROM Solicitud s")
+@NamedQuery(name="Solicitud.findAll", query="SELECT s FROM Solicitud s WHERE s.estado like :estado ")
 public class Solicitud implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,15 +32,31 @@ public class Solicitud implements Serializable {
 	private Date fecha;
 
 	@Column(name="nro_radicado")
-	private Integer nroRadicado;
+	private Long nroRadicado;
+
+	//bi-directional many-to-one association to Anexo
+	@OneToMany(mappedBy="solicitud")
+	private List<Anexo> anexos;
+
+	//bi-directional many-to-one association to Audiencia
+	@OneToMany(mappedBy="solicitud",fetch=FetchType.EAGER)
+	private List<Audiencia> audiencias;
 
 	//bi-directional many-to-one association to Designacion
 	@OneToMany(mappedBy="solicitud")
 	private List<Designacion> designacions;
 
+	//bi-directional many-to-one association to Pago
+	@OneToMany(mappedBy="solicitud")
+	private List<Pago> pagos;
+
 	//bi-directional many-to-one association to Parte
 	@OneToMany(mappedBy="solicitud")
 	private List<Parte> partes;
+
+	//bi-directional one-to-one association to Resultado
+	@OneToOne(mappedBy="solicitud")
+	private Resultado resultado;
 
 	public Solicitud() {
 	}
@@ -93,12 +109,56 @@ public class Solicitud implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public Integer getNroRadicado() {
+	public Long getNroRadicado() {
 		return this.nroRadicado;
 	}
 
-	public void setNroRadicado(Integer nroRadicado) {
+	public void setNroRadicado(Long nroRadicado) {
 		this.nroRadicado = nroRadicado;
+	}
+
+	public List<Anexo> getAnexos() {
+		return this.anexos;
+	}
+
+	public void setAnexos(List<Anexo> anexos) {
+		this.anexos = anexos;
+	}
+
+	public Anexo addAnexo(Anexo anexo) {
+		getAnexos().add(anexo);
+		anexo.setSolicitud(this);
+
+		return anexo;
+	}
+
+	public Anexo removeAnexo(Anexo anexo) {
+		getAnexos().remove(anexo);
+		anexo.setSolicitud(null);
+
+		return anexo;
+	}
+
+	public List<Audiencia> getAudiencias() {
+		return this.audiencias;
+	}
+
+	public void setAudiencias(List<Audiencia> audiencias) {
+		this.audiencias = audiencias;
+	}
+
+	public Audiencia addAudiencia(Audiencia audiencia) {
+		getAudiencias().add(audiencia);
+		audiencia.setSolicitud(this);
+
+		return audiencia;
+	}
+
+	public Audiencia removeAudiencia(Audiencia audiencia) {
+		getAudiencias().remove(audiencia);
+		audiencia.setSolicitud(null);
+
+		return audiencia;
 	}
 
 	public List<Designacion> getDesignacions() {
@@ -123,6 +183,28 @@ public class Solicitud implements Serializable {
 		return designacion;
 	}
 
+	public List<Pago> getPagos() {
+		return this.pagos;
+	}
+
+	public void setPagos(List<Pago> pagos) {
+		this.pagos = pagos;
+	}
+
+	public Pago addPago(Pago pago) {
+		getPagos().add(pago);
+		pago.setSolicitud(this);
+
+		return pago;
+	}
+
+	public Pago removePago(Pago pago) {
+		getPagos().remove(pago);
+		pago.setSolicitud(null);
+
+		return pago;
+	}
+
 	public List<Parte> getPartes() {
 		return this.partes;
 	}
@@ -143,6 +225,14 @@ public class Solicitud implements Serializable {
 		parte.setSolicitud(null);
 
 		return parte;
+	}
+
+	public Resultado getResultado() {
+		return this.resultado;
+	}
+
+	public void setResultado(Resultado resultado) {
+		this.resultado = resultado;
 	}
 
 }

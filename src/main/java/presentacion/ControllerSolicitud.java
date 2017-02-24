@@ -4,10 +4,14 @@ package presentacion;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.event.AjaxBehaviorEvent;
+
+import entidades.Solicitud;
+import negocio.iConciliadorBean;
+import negocio.iSolicitudBean;
 
 
 
@@ -24,13 +28,17 @@ public class ControllerSolicitud {
 	private ModelSolicitud consultaModelSolicitud;
 	
 	//Contiene la lista de solicitudes con datos quemados
-	public static List<ModelSolicitud> listaSolicitud = new ArrayList<ModelSolicitud>();
+	public List<Solicitud> listaSolicitud;
 
 	/**
 	 * si este atributo es verdadero se mostrara la solicitudes en forma de 
 	 * Ficha de lo contrario, se mostrara en Tablas
 	 */
 	private static boolean ficha;
+
+	@EJB
+	public iSolicitudBean solicitudBean;
+
 	
 	/**
 	 * Constructor: arma la lista de solicitudes solo la primera vez
@@ -40,83 +48,25 @@ public class ControllerSolicitud {
 		if(ControllerSolicitud.inicio){
 			ControllerSolicitud.ficha = true;
 			ControllerSolicitud.inicio = false;
-			
-			//Arma la lista de conciliadores
-			String[] convocante3 = {"Luis Alberto Rodriguez"};
-			String[] convocado3 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					1,"24/12/2016",convocante3,convocado3,"87655543","Breve descripcion...","Grabada","Solicitud","","3'500.000","","","","","","","","",""));
-			
-			String[] convocante4 = {"Luis Alberto Rodriguez"};
-			String[] convocado4 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					2,"17/12/2016",convocante4,convocado4,"","Breve descripcion...","Grabada","Reparto","","2'500.000","","","","","","","","",""));
-
-			String[] convocante = {"Luis Alberto Rodriguez","Luis Alberto Alberto Rodriguez","Luis Alberto Rodriguez"};
-			String[] convocado = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					3,"13/12/2016",convocante,convocado,"","Breve descripcion...","Pagada","Reparto","","4'000.000","BanColombia", "Consignacion", "$200.000", "678-234-643","","","","",""));
-			
-			String[] convocante2 = {"Luis Alberto Rodriguez"};
-			String[] convocado2 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					4,"08/12/2016",convocante2,convocado2,"2345673409","Breve descripcion...","Pagada","Solicitud","","3'700.000","BanBogota", "Consignacion", "$150.000", "970-684-463","","","","",""));
-						
-			String[] convocante5 = {"Luis Alberto Rodriguez","Luis Alberto Rodriguez","Luis Alberto Rodriguez"};
-			String[] convocado5 = {"Alfonso López"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					5,"03/12/2016",convocante5,convocado5,"","Breve descripcion...","Pagada","Reparto","","7'500.000","BanBogota", "PSE", "$250.000", "152-823-128","","","","",""));
-			
-			String[] convocante6 = {"Luis Alberto Rodriguez"};
-			String[] convocado6 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					6,"01/12/2016",convocante6,convocado6,"","Breve descripcion...","Radicada","Reparto","23122016001","4'800.000","BanBogota", "PSE", "$250.000", "152-823-128","","","","",""));
-			
-
-			String[] convocante7 = {"Luis Alberto Rodriguez"};
-			String[] convocado7 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					7,"01/12/2016",convocante7,convocado7,"3212020399","Breve descripcion...","Designacion","Solicitud","23122016002","2'300.000","BanBogota", "PSE", "$250.000", "152-823-128","","","","",""));
-			
-
-			String[] convocante8 = {"Luis Alberto Rodriguez"};
-			String[] convocado8 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					8,"01/12/2016",convocante8,convocado8,"","Breve descripcion...","Designacion","Reparto","23122016003","1'600.000","BanBogota", "PSE", "$250.000", "152-823-128","","","","",""));
-			
-			String[] convocante9 = {"Luis Alberto Rodriguez"};
-			String[] convocado9 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					9,"01/12/2016",convocante9,convocado9,"","Breve descripcion...","Audiencia","Reparto","23122016004","1'600.000","BanBogota", "PSE", "$250.000", "152-823-128","","","","",""));
-			
-			String[] convocante10 = {"Luis Alberto Rodriguez"};
-			String[] convocado10 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					10,"01/12/2016",convocante10,convocado10,"","Breve descripcion...","Audiencia","Reparto","23122016005","1'600.000","BanBogota", "PSE", "$250.000", "152-823-128","","","","",""));
-			
-			String[] convocante11 = {"Luis Alberto Rodriguez"};
-			String[] convocado11 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					11,"01/12/2016",convocante11,convocado11,"87655543","Breve descripcion...","por Citacion","Reparto","23122016005","1'600.000","BanBogota", "PSE", "$250.000", "152-823-128","1","25/02/2017","10:00 am","2 horas","3"));
-			
-			String[] convocante12 = {"Luis Alberto Rodriguez"};
-			String[] convocado12 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					12,"01/12/2016",convocante12,convocado12,"87655543","Breve descripcion...","Pendientes","Reparto","23122016005","1'600.000","BanBogota", "PSE", "$250.000", "152-823-128","1","26/02/2017","3:00pm","2 horas","1"));
-			
-			String[] convocante13 = {"Luis Alberto Rodriguez"};
-			String[] convocado13 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					13,"01/12/2016",convocante13,convocado13,"87655543","Breve descripcion...","En Curso","Reparto","23122016005","1'600.000","BanBogota", "PSE", "$250.000", "152-823-128","3","25/02/2017","10:00 am","2 horas","3"));
-			
-			String[] convocante14 = {"Luis Alberto Rodriguez"};
-			String[] convocado14 = {"Alfonso Lopez"};
-			ControllerSolicitud.listaSolicitud.add(new ModelSolicitud(
-					14,"01/12/2016",convocante14,convocado14,"87655543","Breve descripcion...","Finalizadas","Reparto","23122016005","1'600.000","BanBogota", "PSE", "$250.000", "152-823-128","2","26/02/2017","3:00pm","2 horas","1"));
+		
 		}
 
 	}
+	
+	public List<Solicitud> allSolicitudes(String estado){
+		this.listaSolicitud = this.solicitudBean.allSolicitud(estado);
+		return this.listaSolicitud;
+	}
+		
+	public List<Solicitud> getListaSolicitud() {
+		return listaSolicitud;
+	}
 
+
+	public void setListaSolicitud(List<Solicitud> listaSolicitud) {
+		this.listaSolicitud = listaSolicitud;
+	}
+	
 	public ModelSolicitud getConsultaModelSolicitud() {
 		return consultaModelSolicitud;
 	}
@@ -132,23 +82,19 @@ public class ControllerSolicitud {
 	public void setFicha(boolean ficha) {
 		ControllerSolicitud.ficha = ficha;
 	}
-
-	public List<ModelSolicitud> getListaSolicitud() {
-		return ControllerSolicitud.listaSolicitud;
-	}
-
+	
 	/**
 	 * Filtra las solicitudes por su estado
 	 * 
 	 * @param El estado de la Solicitud (Grabada -> Pagada -> Radicada -> Designacion -> Audiencia)
 	 * @return
 	 */
-	public List<ModelSolicitud> solicitudesPorEstado(String estado){
-		List<ModelSolicitud> listaPorEstado = new ArrayList<ModelSolicitud>();
-		int size = ControllerSolicitud.listaSolicitud.size();
+	public List<Solicitud> solicitudesPorEstado(String estado){
+		List<Solicitud> listaPorEstado = new ArrayList<Solicitud>();
+		int size = this.listaSolicitud.size();
 		for(int i=0; i<size; i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals(estado)){
-				listaPorEstado.add(ControllerSolicitud.listaSolicitud.get(i));
+			if(this.listaSolicitud.get(i).getEstado().equals(estado)){
+				listaPorEstado.add(this.listaSolicitud.get(i));
 			}
 		}
 		return listaPorEstado;
@@ -162,21 +108,21 @@ public class ControllerSolicitud {
 	
 	public void cambiarEstado(AjaxBehaviorEvent evento, int id){
 		String[] estados = {"Grabada","Pagada","Radicada","Designacion","Audiencia"};
-		int size = ControllerSolicitud.listaSolicitud.size();
+		int size = this.listaSolicitud.size();
 		for(int i=0; i<size; i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getId() == id){
-				String estadoActual = ControllerSolicitud.listaSolicitud.get(i).getEstado();
+			if(this.listaSolicitud.get(i).getIdSolicitud() == id){
+				String estadoActual = this.listaSolicitud.get(i).getEstado();
 				String nuevoEstado = "";
 				for(int j=0; j<estados.length; j++){
 					if(estados[j].equals(estadoActual)){
 						nuevoEstado = estados[j+1];
 					}
 				}
-				ControllerSolicitud.listaSolicitud.get(i).setEstado(nuevoEstado);
+				this.listaSolicitud.get(i).setEstado(nuevoEstado);
 				//Designa el conciliador y actualiza la lista
 				if(estadoActual.equals("Designacion")){
 					ControllerConciliador conciliador = new ControllerConciliador();
-					conciliador.designarConciliador(ControllerSolicitud.listaSolicitud.get(i).getConciliador());
+					//conciliador.designarConciliador(this.listaSolicitud.get(i).getConciliador());
 				}
 			}
 		}
@@ -190,22 +136,21 @@ public class ControllerSolicitud {
 	 */
 	public String colorFicha(int id, String tipoComponente){
 		String[][] matrizColores = {
-			{"Grabada","info"}, //Azul claro
-			{"Pagada","primary"}, //Azul rey
-			{"Radicada","warning"}, //Naranja
-			{"Designacion","success"}, //verde
-			{"Audiencia","success"},
-			
-			{"por Citacion","warning"}, //Azul claro
-			{"Pendientes","info"}, //Azul rey
-			{"En Curso","primary"}, //Naranja
-			{"Finalizadas","success"}, //verde
+			{"GRABADA","info"}, //Azul claro
+			{"PAGADA","primary"}, //Azul rey
+			{"RADICADA","warning"}, //Naranja
+			{"DESIGNACION","success"}, //verde
+			{"AUDIENCIA-CITACION","success"},
+			{"AUDIENCIA-PENDIENTE","success"},
+			{"AUDIENCIA-ENCURSO","success"},
+			{"AUDIENCIA-FINALIZADA","success"},
+						
 		}; //Verde
 		String color = "";
-		int size = ControllerSolicitud.listaSolicitud.size();
+		int size = this.listaSolicitud.size();
 		for(int i=0; i<size; i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getId() == id){
-				String estadoActual = ControllerSolicitud.listaSolicitud.get(i).getEstado();
+			if(this.listaSolicitud.get(i).getIdSolicitud() == id){
+				String estadoActual = this.listaSolicitud.get(i).getEstado();
 				for(int j=0; j<matrizColores.length; j++){
 					if(matrizColores[j][0].equals(estadoActual)){
 						color = tipoComponente+"-"+matrizColores[j][1];
@@ -223,8 +168,8 @@ public class ControllerSolicitud {
 	 * @param id Es el id de la Ficha Actual
 	 * @return La siguiente Solicitud con el mismo estado de id
 	 */
-	public ModelSolicitud siguienteFicha(int id){
-		return ControllerSolicitud.listaSolicitud.get(id+1);
+	public Solicitud siguienteFicha(int id){
+		return this.listaSolicitud.get(id+1);
 	}
 
 	/**
@@ -234,9 +179,9 @@ public class ControllerSolicitud {
 	 */
 	public boolean masFichas(int id, String estado){
 		boolean mas = false;
-		int size = ControllerSolicitud.listaSolicitud.size();
+		int size = this.listaSolicitud.size();
 		for(int i=id; i<size; i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equalsIgnoreCase(estado)){
+			if(this.listaSolicitud.get(i).getEstado().equalsIgnoreCase(estado)){
 				mas = true;
 			}
 		}
@@ -248,12 +193,12 @@ public class ControllerSolicitud {
 	 * @param Se envia el id de la ficha actual
 	 * @return Retorna la siguiente solicitud con el mismo estado
 	 */
-	public ModelSolicitud siguienteFichaEstado(int id, String estado){
-		ModelSolicitud solicitud = null;
-		int size = ControllerSolicitud.listaSolicitud.size();
+	public Solicitud siguienteFichaEstado(int id, String estado){
+		Solicitud solicitud = null;
+		int size = this.listaSolicitud.size();
 		for(int i=id; i<size; i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals(estado) && ControllerSolicitud.listaSolicitud.get(i).getId()!=id){
-				solicitud = ControllerSolicitud.listaSolicitud.get(i);
+			if(this.listaSolicitud.get(i).getEstado().equals(estado) && this.listaSolicitud.get(i).getIdSolicitud()!=id){
+				solicitud = this.listaSolicitud.get(i);
 				break;
 			}	
 		}
@@ -272,57 +217,60 @@ public class ControllerSolicitud {
 		System.out.println("---------------------------------> "+ver);
 	}
 	
-	public ModelSolicitud liquidar(){
-		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++ ){
-			if(ControllerSolicitud.listaSolicitud.get(i).isSelect() && ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Grabada")){
-				return ControllerSolicitud.listaSolicitud.get(i);
+	public Solicitud liquidar(){
+		/*for(int i=0;i<this.listaSolicitud.size();i++ ){
+			if(this.listaSolicitud.get(i).isSelect() && this.listaSolicitud.get(i).getEstado().equals("Grabada")){
+				return this.listaSolicitud.get(i);
 			}
-		}
+		}*/
 		return null;
 	}
-	public ModelSolicitud designarConciliador(){
-		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++ ){
-			if(ControllerSolicitud.listaSolicitud.get(i).isSelect() && ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Radicada")){
-				return ControllerSolicitud.listaSolicitud.get(i);
+	public Solicitud designarConciliador(){
+		/*
+		for(int i=0;i<this.listaSolicitud.size();i++ ){
+			if(this.listaSolicitud.get(i).isSelect() && this.listaSolicitud.get(i).getEstado().equals("Radicada")){
+				return this.listaSolicitud.get(i);
 			}
-		}
+		}*/
 		return null;
 	}
 		
 	public String classEstadoHidden(String estado){	
-		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals(estado) && ControllerSolicitud.listaSolicitud.get(i).isSelect()){
+		/*for(int i=0;i<this.listaSolicitud.size();i++){
+			if(this.listaSolicitud.get(i).getEstado().equals(estado) && this.listaSolicitud.get(i).isSelect()){
 				return "";
 			}
-		}
+		}*/
 		return "hidden";
 	}
 	
 	
 	public boolean estadoSelect(String estado){	
-		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getEstado().equals(estado) && ControllerSolicitud.listaSolicitud.get(i).isSelect()){
+		/*for(int i=0;i<this.listaSolicitud.size();i++){
+			if(this.listaSolicitud.get(i).getEstado().equals(estado) && this.listaSolicitud.get(i).isSelect()){
 				return false;
 			}
-		}
+		}*/
 		return true;
 	}
 	
 	public void guardarPago(int id){
 		
-		for(int i=0;i<ControllerSolicitud.listaSolicitud.size();i++){
-			if(ControllerSolicitud.listaSolicitud.get(i).getId()==id && ControllerSolicitud.listaSolicitud.get(i).getEstado().equals("Grabada")){
-				ControllerSolicitud.listaSolicitud.get(i).setEstado("Pagada");
+		for(int i=0;i<this.listaSolicitud.size();i++){
+			if(this.listaSolicitud.get(i).getIdSolicitud()==id && this.listaSolicitud.get(i).getEstado().equals("Grabada")){
+				this.listaSolicitud.get(i).setEstado("Pagada");
 				String bancoPago = this.consultaModelSolicitud.getBancoPago();
 				String cuantiaPago = this.consultaModelSolicitud.getCuantiaPago();
 				String formaPago = this.consultaModelSolicitud.getFormaPago();
 				//String referenciaPago
+				/*
 				ControllerSolicitud.listaSolicitud.get(i).setBancoPago(bancoPago);
 				ControllerSolicitud.listaSolicitud.get(i).setCuantiaPago(cuantiaPago);
 				ControllerSolicitud.listaSolicitud.get(i).setFormaPago(formaPago);
 				//ControllerSolicitud.listaSolicitud.get(i).setReferenciaPago(referenciaPago);
+				*/
 				
-				ControllerSolicitud.listaSolicitud.get(i).setSelect(false);
+				//ControllerSolicitud.listaSolicitud.get(i).setSelect(false);
 			}
 		}
 		
@@ -331,6 +279,24 @@ public class ControllerSolicitud {
 	public boolean cambiarFichaTabla(){
 		ControllerSolicitud.ficha = !ControllerSolicitud.ficha;
 		return ControllerSolicitud.ficha;
+	}
+	
+	public String MascaraHora(int hora){
+		String horaInicial = hora+"";
+		String horaFinal = "";
+		if(horaInicial.length()==4){
+			horaFinal = horaInicial.substring(0,2)+":"+horaInicial.substring(2);
+		}
+		if(horaInicial.length()==3){
+			horaFinal = "0"+horaInicial.substring(0,1)+":"+horaInicial.substring(1);
+		}
+		return horaFinal;
+	}
+	
+	public String Duracion(int horaIni, int horaFin){
+		String duracion = (horaFin-horaIni)+"";
+		duracion = duracion.substring(0, 1);
+		return duracion;
 	}
 	
 }

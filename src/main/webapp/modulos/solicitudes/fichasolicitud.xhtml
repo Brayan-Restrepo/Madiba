@@ -4,6 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:rich="http://richfaces.org/rich">
 
 <h:head></h:head>
@@ -12,80 +13,80 @@
 		
 		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 100%" >	
 				 
-			<div class="box #{controllerSolicitud.colorFicha(solicitud.id,'box')} sombra #{controllerSolicitud.seleccionarSolicitud(solicitud.select)}">
+			<div class="box #{controllerSolicitud.colorFicha(solicitud.idSolicitud,'box')} sombra }">
 				
-				<div class="box-header with-border">
+				<div class="box-header with-border" style="padding-bottom:0px">
 					<i>
-						<h:outputLabel value="Radicado No. #{solicitud.numeroRadicado}" style="font-size:14pt; margin-left:1%"/>
+						<h:outputLabel value="Radicado No. #{solicitud.nroRadicado}" style="font-size:14pt; margin-left:1%"/>
 					</i>
-										
-					<h:selectBooleanCheckbox value="#{solicitud.select}" styleClass="pull-right">
-						<f:ajax listener="#{controllerSolicitud.verString(solicitud.select)}" render="#{formulario} :formBotones"></f:ajax>
-					</h:selectBooleanCheckbox>
+					<p:outputLabel value="#{solicitud.estado}" styleClass="label label#{controllerSolicitud.colorFicha(solicitud.idSolicitud,'')} pull-right" />
 				</div>
 				<div class='box-body'>
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              				<h:outputLabel value="Fecha:" />
-							<h:outputText value=" #{solicitud.fecha}" />
+              				<h:outputLabel value="Fecha" />
 							<br/>
-							<h:outputLabel value="Convocantes:" />
+							<h:outputText style="padding-left:10%" value=" #{solicitud.fecha}" />
+							<br/>
+							<h:outputLabel value="Convocantes" />
 							<ul>
-								<ui:repeat var="convotante" value="#{solicitud.convotante}">
-									<li><h:outputText value="#{convotante}" /></li>
+								<ui:repeat var="partes" value="#{solicitud.partes}" >
+									<h:panelGroup rendered="#{partes.tipoParte=='Convocante'}">
+										<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+									</h:panelGroup>
 								</ui:repeat>
 							</ul>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-							
-							<h:outputLabel rendered="#{controllerConciliador.buscarConciliador(solicitud.conciliador)!=''}" value="Conciliador:" />
-							<h:outputText value=" #{controllerConciliador.buscarConciliador(solicitud.conciliador)}" />
+							<h:outputLabel value="Conciliador" />
 							<br/>
-							<h:outputLabel value="Convocados:" />
+							<h:outputText style="padding-left:10%" value="#{solicitud.designacions.get(solicitud.designacions.size()-1).conciliador.nombres} #{solicitud.designacions.get(solicitud.designacions.size()-1).conciliador.apellidos}" />							
+							<br/>
+							<h:outputLabel value="Convocados" />
 							<ul>
-								<ui:repeat var="convocado" value="#{solicitud.convocado}">
-									<li><h:outputText value="#{convocado}" /></li>
+								<ui:repeat var="partes" value="#{solicitud.partes}" >
+									<h:panelGroup rendered="#{partes.tipoParte=='Convocado'}">
+										<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+									</h:panelGroup>
 								</ui:repeat>
-							</ul>
+							</ul>							
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<h:outputLabel value="Descripcion:" />
-							<h:outputText value=" #{solicitud.descripcion}" />
+							<h:outputLabel value="Descripcion" />
+							<br/>
+							<h:outputText style="padding-left:5%" value=" #{solicitud.asunto}" />
 						</div>
 					</div>
 				</div>
 				
-				<h:panelGroup layout="block" rendered="#{solicitud.estado!='Grabada'}" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
-					
-					<div class="col-lg-6 col-sm-12 col-xs-12">
-			            <h:outputLabel value="Banco:" />
-			            <h:outputText value=" #{solicitud.bancoPago}" />
-		          	</div>
-		          	<div class="col-lg-6 col-sm-10 col-xs-10">
-			            <h:outputLabel value="Numero de Referencia:" />
-			            <h:outputText value=" #{solicitud.referenciaPago}" />
-		          	</div>
-		          	<div class="col-lg-6 col-sm-12 col-xs-12">
-			            <h:outputLabel value="Forma de Pago:" />
-			            <h:outputText value=" #{solicitud.formaPago}" />
-		          	</div>
-		          	<div class="col-lg-6 col-sm-10 col-xs-10">
-			            <h:outputLabel value="Valor Pagado:" />
-			            <h:outputText value=" #{solicitud.cuantiaPago}" />
-		          	</div>
+				<h:panelGroup layout="block" rendered="#{solicitud.estado!='GRABADA'}" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              				<h:outputLabel value="Banco:" />
+              				<h:outputText style="padding-left:5%" value="#{controllerDominio.nombreDominio(solicitud.pagos.get(0).banco)}" />
+              				<br />              				
+              				<h:outputLabel value="Forma de Pago:" />
+              				<h:outputText style="padding-left:5%" value="#{controllerDominio.nombreDominio(solicitud.pagos.get(0).formaPago)}" />
+           				</div>
+           				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              				<h:outputLabel value="Referencia:" />
+              				<h:outputText style="padding-left:5%" value="#{solicitud.pagos.get(0).referencia}" />
+              				<br />              				
+              				<h:outputLabel value="Valor:" />
+              				<h:outputText style="padding-left:5%" value="$#{solicitud.pagos.get(0).valor}" />
+           				</div>
+       				</div>
+						
 				</h:panelGroup>
 						        
-		        <div class='box-footer #{controllerSolicitud.seleccionarSolicitud(solicitud.select)}'>
+		        <div class='box-footer '>
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Pretenciones:" />
-			            <h:outputText value=" $#{solicitud.pretenciones}" />
+			            <h:outputText style="padding-left:5%" value=" $#{solicitud.cuantia}" />
 		          	</div>
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Conciliador por:" />
-			            <h:outputText value=" #{solicitud.solicitud}" />
-		          	</div>
-		          	<div class="col-lg-3 col-lg-offset-9">
-		          		<p:outputLabel value="#{solicitud.estado}" styleClass="label label#{controllerSolicitud.colorFicha(solicitud.id,'')} pull-right" />
+			            <h:outputText style="padding-left:5%" value="#{solicitud.designacions.get(solicitud.designacions.size()-1).tipoDesignacion}" />
 		          	</div>
 		        </div>
 			</div>

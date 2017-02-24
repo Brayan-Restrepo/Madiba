@@ -42,10 +42,6 @@ public class Conciliador implements Serializable {
 	@Column(name="tipo_id")
 	private String tipoId;
 
-	//bi-directional many-to-one association to Especialidad
-	@OneToMany(mappedBy="conciliador",fetch=FetchType.EAGER)
-	private List<Especialidad> especialidads;
-
 	//bi-directional many-to-one association to Conciliador_Especialidad
 	@OneToMany(mappedBy="conciliador")
 	private List<Conciliador_Especialidad> conciliadorEspecialidads;
@@ -57,6 +53,10 @@ public class Conciliador implements Serializable {
 	//bi-directional one-to-one association to Reparto
 	@OneToOne(mappedBy="conciliador")
 	private Reparto reparto;
+
+	//bi-directional many-to-one association to Sancion
+	@OneToMany(mappedBy="conciliador")
+	private List<Sancion> sancions;
 
 	public Conciliador() {
 	}
@@ -157,28 +157,6 @@ public class Conciliador implements Serializable {
 		this.tipoId = tipoId;
 	}
 
-	public List<Especialidad> getEspecialidads() {
-		return this.especialidads;
-	}
-
-	public void setEspecialidads(List<Especialidad> especialidads) {
-		this.especialidads = especialidads;
-	}
-
-	public Especialidad addEspecialidad(Especialidad especialidad) {
-		getEspecialidads().add(especialidad);
-		especialidad.setConciliador(this);
-
-		return especialidad;
-	}
-
-	public Especialidad removeEspecialidad(Especialidad especialidad) {
-		getEspecialidads().remove(especialidad);
-		especialidad.setConciliador(null);
-
-		return especialidad;
-	}
-
 	public List<Conciliador_Especialidad> getConciliadorEspecialidads() {
 		return this.conciliadorEspecialidads;
 	}
@@ -229,6 +207,28 @@ public class Conciliador implements Serializable {
 
 	public void setReparto(Reparto reparto) {
 		this.reparto = reparto;
+	}
+
+	public List<Sancion> getSancions() {
+		return this.sancions;
+	}
+
+	public void setSancions(List<Sancion> sancions) {
+		this.sancions = sancions;
+	}
+
+	public Sancion addSancion(Sancion sancion) {
+		getSancions().add(sancion);
+		sancion.setConciliador(this);
+
+		return sancion;
+	}
+
+	public Sancion removeSancion(Sancion sancion) {
+		getSancions().remove(sancion);
+		sancion.setConciliador(null);
+
+		return sancion;
 	}
 
 }

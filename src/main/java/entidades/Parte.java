@@ -2,6 +2,7 @@ package entidades;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -35,6 +36,10 @@ public class Parte implements Serializable {
 
 	@Column(name="tipo_parte")
 	private String tipoParte;
+
+	//bi-directional many-to-one association to Asistencia
+	@OneToMany(mappedBy="parte")
+	private List<Asistencia> asistencias;
 
 	//bi-directional many-to-one association to Solicitud
 	@ManyToOne
@@ -114,6 +119,28 @@ public class Parte implements Serializable {
 
 	public void setTipoParte(String tipoParte) {
 		this.tipoParte = tipoParte;
+	}
+
+	public List<Asistencia> getAsistencias() {
+		return this.asistencias;
+	}
+
+	public void setAsistencias(List<Asistencia> asistencias) {
+		this.asistencias = asistencias;
+	}
+
+	public Asistencia addAsistencia(Asistencia asistencia) {
+		getAsistencias().add(asistencia);
+		asistencia.setParte(this);
+
+		return asistencia;
+	}
+
+	public Asistencia removeAsistencia(Asistencia asistencia) {
+		getAsistencias().remove(asistencia);
+		asistencia.setParte(null);
+
+		return asistencia;
 	}
 
 	public Solicitud getSolicitud() {

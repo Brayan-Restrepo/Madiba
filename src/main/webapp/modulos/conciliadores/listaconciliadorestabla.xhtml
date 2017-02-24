@@ -39,8 +39,8 @@
 									<h:column>
 										<f:facet name="header">Especialidad</f:facet>
 											<ul>
-												<ui:repeat var="especialidad" value="#{conciliador.especialidads}">
-													<li> #{especialidad.nombreEspecialidad} </li>
+												<ui:repeat var="especialidad" value="#{conciliador.conciliadorEspecialidads.get(0).especialidad}">
+													<li> #{especialidad.nombre} </li>
 												</ui:repeat>
 											</ul>
 										<f:facet name="footer">Especialidad</f:facet>
