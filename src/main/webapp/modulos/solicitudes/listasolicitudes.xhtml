@@ -40,10 +40,7 @@
 									<h:form id='formtodas'>
 										
 										<c:if test="#{!modelSolicitud.ficha}">
-											<ui:include src="tablasolicitud.xhtml">
-												<ui:param name="listaSolicitud"
-													value="#{controllerSolicitud.allSolicitudes('')}" />
-											</ui:include>
+											<ui:include src="tablasolicitud.xhtml"></ui:include>
 										</c:if>
 
 										<c:if test="#{modelSolicitud.ficha}">
@@ -53,7 +50,7 @@
 													<ui:include src="fichasolicitud.xhtml">
 														<ui:param name="formulario"
 															value="@form :formliquidar :formradicar :formasignarconciliador :formaudiencia :formregistrar" />
-													</ui:include>
+													</ui:include> 
 													<ui:include src="fichasolicitud.xhtml">
 														<ui:param name="solicitud"
 															value="#{controllerSolicitud.siguienteFicha(n.index)}" />
@@ -70,10 +67,7 @@
 									<h:form id='formliquidar'>
 									
 										<c:if test="#{!modelSolicitud.ficha}">
-											<ui:include src="tablasolicitud.xhtml">
-												<ui:param name="listaSolicitud"
-													value="#{controllerSolicitud.solicitudesPorEstado('GRABADA')}" />
-											</ui:include>
+											<ui:include src="tablasolicitud.xhtml"></ui:include>
 										</c:if>
  
 										 <c:if test="#{modelSolicitud.ficha}">
@@ -103,10 +97,7 @@
 								<div class="tab-pane" id="radicar">
 									<h:form id='formradicar'>
 										<c:if test="#{!modelSolicitud.ficha}">
-											<ui:include src="tablasolicitud.xhtml">
-												<ui:param name="listaSolicitud"
-													value="#{controllerSolicitud.solicitudesPorEstado('PAGADA')}" />
-											</ui:include>
+											<ui:include src="tablasolicitud.xhtml"></ui:include>
 										</c:if>
 
 										<c:if test="#{modelSolicitud.ficha}">
@@ -136,10 +127,7 @@
 								<div class="tab-pane" id="asignarConciliador">
 									<h:form id='formasignarconciliador'>
 										<c:if test="#{!modelSolicitud.ficha}">
-											<ui:include src="tablasolicitud.xhtml">
-												<ui:param name="listaSolicitud"
-													value="#{controllerSolicitud.solicitudesPorEstado('RADICADA')}" />
-											</ui:include>
+											<ui:include src="tablasolicitud.xhtml"></ui:include>
 										</c:if>
 										<c:if test="#{modelSolicitud.ficha}">
 											<ui:repeat varStatus="n" var="solicitud"
@@ -168,10 +156,7 @@
 								<div class="tab-pane" id="audiencia">
 									<h:form id='formaudiencia'>
 										<c:if test="#{!modelSolicitud.ficha}">
-											<ui:include src="tablasolicitud.xhtml">
-												<ui:param name="listaSolicitud"
-													value="#{controllerSolicitud.solicitudesPorEstado('DESIGNACION')}" />
-											</ui:include>
+											<ui:include src="tablasolicitud.xhtml"></ui:include>
 										</c:if>
 
 										<c:if test="#{modelSolicitud.ficha}">
@@ -203,10 +188,7 @@
 									<h:form id='formregistrar'>
 
 										<c:if test="#{!modelSolicitud.ficha}">
-											<ui:include src="tablasolicitud.xhtml">
-												<ui:param name="listaSolicitud"
-													value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION')}" />
-											</ui:include>
+											<ui:include src="tablasolicitud.xhtml"></ui:include>
 										</c:if>
 
 										<c:if test="#{modelSolicitud.ficha}">

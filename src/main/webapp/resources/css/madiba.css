@@ -11,7 +11,33 @@
 .seleccionar-solicitud {
 	background-color: aliceblue;
 }
+.seleccionar-solicitud-warning {
+	background-color: rgba(243, 156, 18, 0.27);
+}
 
+.seleccionar-solicitud-success  {
+	background-color: rgba(0, 166, 89, 0.27);
+}
+
+.seleccionar-solicitud-info {
+	background-color: rgba(0, 192, 237, 0.20);
+}
+
+.seleccionar-solicitud-primary {
+	background-color: rgba(60, 141, 188, 0.25);
+}
+
+.seleccionar-solicitud-black {
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.box-black{
+	border-top-color: #000000;
+}
+
+.label-black{
+	border-top-color: #000000;
+}
 .sombra {
 	box-shadow: 2px 2px 5px #999;
 }

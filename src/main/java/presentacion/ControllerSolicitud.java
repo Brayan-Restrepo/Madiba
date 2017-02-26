@@ -2,7 +2,9 @@ package presentacion;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -29,12 +31,26 @@ public class ControllerSolicitud {
 
 	@EJB
 	public iSolicitudBean solicitudBean;
+	
+	private Map<String, String> coloresEstado;
+	
 
 	
 	/**
 	 * Constructor: 
 	 */
-	public ControllerSolicitud(){}
+	public ControllerSolicitud(){
+		System.out.println("Constructor Inicializado");
+		this.coloresEstado = new HashMap<String, String>();
+		this.coloresEstado.put("GRABADA", "info");
+		this.coloresEstado.put("PAGADA", "primary");
+		this.coloresEstado.put("RADICADA", "warning");
+		this.coloresEstado.put("DESIGNACION", "success");
+		this.coloresEstado.put("AUDIENCIA-CITACION", "info");
+		this.coloresEstado.put("AUDIENCIA-PENDIENTE", "primary");
+		this.coloresEstado.put("AUDIENCIA-ENCURSO", "warning");
+		this.coloresEstado.put("AUDIENCIA-FINALIZADA", "success");
+	}
 	
 	public List<Solicitud> allSolicitudes(String estado){
 		this.listaSolicitud = this.solicitudBean.allSolicitud(estado);
@@ -58,13 +74,14 @@ public class ControllerSolicitud {
 		this.consultaModelSolicitud = consultaModelSolicitud;
 	}
 
-	
+
 	/**
 	 * Filtra las solicitudes por su estado
 	 * 
 	 * @param El estado de la Solicitud (Grabada -> Pagada -> Radicada -> Designacion -> Audiencia)
 	 * @return
 	 */
+	
 	public List<Solicitud> solicitudesPorEstado(String estado){
 		List<Solicitud> listaPorEstado = new ArrayList<Solicitud>();
 		int size = this.listaSolicitud.size();
@@ -75,7 +92,8 @@ public class ControllerSolicitud {
 		}
 		return listaPorEstado;
 	}
-
+	
+	
 	/**
 	 * Cambia el estado de la solicitud despues de ser gestionada
 	 * @param evento
@@ -110,6 +128,7 @@ public class ControllerSolicitud {
 	 * @param tipoComponente
 	 * @return
 	 */
+	// YA no se Esta Utilizando
 	public String colorFicha(int id, String tipoComponente){
 		String[][] matrizColores = {
 			{"GRABADA","info"}, //Azul claro
@@ -154,14 +173,14 @@ public class ControllerSolicitud {
 	 * @return Retorna falso si no hay mas, true si encontro otra
 	 */
 	public boolean masFichas(int id, String estado){
-		boolean mas = false;
+		
 		int size = this.listaSolicitud.size();
-		for(int i=id; i<size; i++){
+		for(int i=id-1; i<size; i++){
 			if(this.listaSolicitud.get(i).getEstado().equalsIgnoreCase(estado)){
-				mas = true;
+				return true;
 			}
 		}
-		return mas;
+		return false;
 	}
 	
 	/**
@@ -170,21 +189,21 @@ public class ControllerSolicitud {
 	 * @return Retorna la siguiente solicitud con el mismo estado
 	 */
 	public Solicitud siguienteFichaEstado(int id, String estado){
-		Solicitud solicitud = null;
+		
 		int size = this.listaSolicitud.size();
 		for(int i=id; i<size; i++){
-			if(this.listaSolicitud.get(i).getEstado().equals(estado) && this.listaSolicitud.get(i).getIdSolicitud()!=id){
-				solicitud = this.listaSolicitud.get(i);
-				break;
+			if(this.listaSolicitud.get(i).getEstado().equals(estado)){
+				return this.listaSolicitud.get(i);
 			}	
 		}
-		return solicitud;
+		return null;
 	}
 	
-	public String seleccionarSolicitud(boolean select){
-		if(select){
-			//return "seleccionar-solicitud animated bounce";
-			return "seleccionar-solicitud";
+	public String seleccionarSolicitud(Integer idSolicitud,String estado){
+		for(int i=0;i<this.consultaModelSolicitud.getSelectSolicitud().size();i++){
+			if(this.consultaModelSolicitud.getSelectSolicitud().get(i)==idSolicitud){
+				return "seleccionar-solicitud-"+this.coloresEstado.get(estado);
+			}
 		}
 		return "";
 	}
@@ -275,4 +294,7 @@ public class ControllerSolicitud {
 		return duracion;
 	}
 	
+	public String colorSolicitudEstado(String estado){
+		return this.coloresEstado.get(estado);
+	}
 }

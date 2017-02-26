@@ -53,12 +53,16 @@
 											step="2">
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
+												
 												<h:panelGroup
 													rendered="#{controllerSolicitud.masFichas(solicitud.idSolicitud,solicitud.estado)}">
+													
 													<ui:include src="fichaaudiencia.xhtml">
-														<ui:param name="solicitud"
+													<ui:param name="solicitud"
 															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.idSolicitud,solicitud.estado)}" />
+																								
 													</ui:include>
+													
 												</h:panelGroup>
 											</div>
 										</ui:repeat>

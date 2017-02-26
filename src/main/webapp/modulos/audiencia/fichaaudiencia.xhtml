@@ -10,15 +10,16 @@
 <body> 
 	<ui:composition>
 		
-		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 100%" >	
-				 
-			<div class="box #{controllerSolicitud.colorFicha(solicitud.idSolicitud,'box')} sombra">
+		
+		<h:panelGroup layout="block" styleClass="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 100%" >	
+			<f:ajax event="click" listener="#{modelSolicitud.addSelectSolicitud(solicitud.idSolicitud,solicitud.estado)}" render="#{formulario}" ></f:ajax>
+			<h:panelGroup layout="block" class="box box-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} sombra #{controllerSolicitud.seleccionarSolicitud(solicitud.idSolicitud,solicitud.estado)}">
 				
 				<div class="box-header with-border" style="padding-bottom:0px">
 					<i>
 						<h:outputLabel value="Radicado No. #{solicitud.nroRadicado}" style="font-size:14pt; margin-left:1%"/>
 					</i>
-					<p:outputLabel value="#{solicitud.estado}" styleClass="label label#{controllerSolicitud.colorFicha(solicitud.idSolicitud,'')} pull-right" />
+					<p:outputLabel value="#{solicitud.estado}" styleClass="label label-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} pull-right" />
 				</div>
 				<div class='box-body'>
 					<div class="row">
@@ -78,7 +79,7 @@
 		          	</div>			          	
 				</h:panelGroup>
 						        
-		        <div class='box-footer'>
+		        <div class='box-footer #{controllerSolicitud.seleccionarSolicitud(solicitud.idSolicitud,solicitud.estado)}'>
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Pretenciones:" />
 			            <h:outputText style="padding-left:5%" value=" $#{solicitud.cuantia}" />
@@ -88,8 +89,8 @@
 			            <h:outputText style="padding-left:5%" value="#{solicitud.designacions.get(solicitud.designacions.size()-1).tipoDesignacion}" />
 		          	</div>
 		        </div>
-			</div>
-		</div>	
+			</h:panelGroup>
+		</h:panelGroup>
 	</ui:composition>
 </body> 
 </html>

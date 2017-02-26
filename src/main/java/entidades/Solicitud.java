@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="\"Solicitud\"")
-@NamedQuery(name="Solicitud.findAll", query="SELECT s FROM Solicitud s WHERE s.estado like :estado ")
+@NamedQuery(name="Solicitud.findAll", query="SELECT s FROM Solicitud s WHERE s.estado like :estado ORDER BY s.idSolicitud")
 public class Solicitud implements Serializable {
 	private static final long serialVersionUID = 1L;
 

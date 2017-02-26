@@ -1,8 +1,13 @@
 package presentacion;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 @ManagedBean
+@ViewScoped
 public class ModelSolicitud {
 
 	private int id;
@@ -36,11 +41,62 @@ public class ModelSolicitud {
 	//Hay que quitar esto es solo provicional
 	private boolean ficha; 
 
+	private List<Integer> selectSolicitud; 
+	private String statusSelect = "";
+	
 	public ModelSolicitud(){
 		this.ficha=true;
+		this.selectSolicitud=new ArrayList<Integer>();
 	}
 	
 	
+	public List<Integer> getSelectSolicitud() {
+		return selectSolicitud;
+	}
+
+
+	public void setSelectSolicitud(List<Integer> selectSolicitud) {
+		this.selectSolicitud = selectSolicitud;
+	}
+	
+	public void addSelectSolicitud(Integer id, String estado) {
+		if(!statusSelect.equals(estado)){
+			statusSelect = estado;
+			this.selectSolicitud = new ArrayList<Integer>();
+		}
+		if(estado.equalsIgnoreCase("AUDIENCIA-CITACION") || estado.equalsIgnoreCase("AUDIENCIA-FINALIZADA")){
+			boolean isSelect = false;
+			int position = 0;
+			for(int i=0;i<this.selectSolicitud.size();i++){
+				if(this.selectSolicitud.get(i)==id){
+					isSelect = true;
+					position = i;
+					break;
+				}
+			}
+			if(isSelect){
+				this.selectSolicitud.remove(position);
+			}else{
+				this.selectSolicitud.add(id);
+			}
+			System.out.println(isSelect);
+		}
+		else{
+			if(this.selectSolicitud.size()>0){
+				Integer idSolicitudLista = this.selectSolicitud.get(0);
+				this.selectSolicitud = new ArrayList<Integer>();
+				if(idSolicitudLista != id){
+					this.selectSolicitud.add(id);
+				}
+			}else{
+				this.selectSolicitud = new ArrayList<Integer>();
+				this.selectSolicitud.add(id);
+				statusSelect = estado;
+			}
+		}
+		System.out.println(	this.selectSolicitud.toString());
+	}
+
 	public String getPretenciones() {
 		return pretenciones;
 	}
