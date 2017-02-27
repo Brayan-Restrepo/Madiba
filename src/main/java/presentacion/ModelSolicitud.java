@@ -67,6 +67,7 @@ public class ModelSolicitud {
 		if(estado.equalsIgnoreCase("AUDIENCIA-CITACION") || estado.equalsIgnoreCase("AUDIENCIA-FINALIZADA")){
 			boolean isSelect = false;
 			int position = 0;
+			
 			for(int i=0;i<this.selectSolicitud.size();i++){
 				if(this.selectSolicitud.get(i)==id){
 					isSelect = true;

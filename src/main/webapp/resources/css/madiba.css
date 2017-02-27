@@ -36,7 +36,7 @@
 }
 
 .label-black{
-	border-top-color: #000000;
+	background-color: #000000;
 }
 .sombra {
 	box-shadow: 2px 2px 5px #999;

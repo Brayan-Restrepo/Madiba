@@ -26,7 +26,29 @@ public class SolicitudDAO {
 		
 		}
 		return solicitud;
-		
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Solicitud> findSolicitudes(){
+
+		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findSolicitudes").getResultList();
+		for(int i=0;i<solicitud.size();i++){
+			solicitud.get(i).getPartes().size();
+			solicitud.get(i).getPagos().size();
+			solicitud.get(i).getDesignacions().size();
+		}
+		return solicitud;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Solicitud> findAudiencias(){
+
+		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findAudiencias").getResultList();
+		for(int i=0;i<solicitud.size();i++){
+			solicitud.get(i).getPartes().size();
+			solicitud.get(i).getPagos().size();
+			solicitud.get(i).getDesignacions().size();
+		}
+		return solicitud;
+	}
 }

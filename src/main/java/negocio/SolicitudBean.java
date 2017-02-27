@@ -19,4 +19,16 @@ public class SolicitudBean implements iSolicitudBean {
 		return this.solicitudDAO.allSolicitud(estado);
 	}
 
+	@Override
+	public List<Solicitud> findSolicitudes() {
+		// TODO Auto-generated method stub
+		return this.solicitudDAO.findSolicitudes();
+	}
+
+	@Override
+	public List<Solicitud> findAudiencias() {
+		// TODO Auto-generated method stub
+		return this.solicitudDAO.findAudiencias();
+	}
+
 }

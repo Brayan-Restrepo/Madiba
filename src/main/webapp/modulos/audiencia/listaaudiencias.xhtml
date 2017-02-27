@@ -11,7 +11,7 @@
 <body>
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">		
 		<ui:define name="content">			
-			
+			#{controllerSolicitud.findAudiencia()}
 			<div class="content">
 				<div class="row">
 					<div class="col-md-12">
@@ -32,14 +32,15 @@
 									<h:form id='formtodas'>
 										<ui:param name="formulario" value="@form :formcitacion :formpendientes :formencurso :formfinalizadas"/>
 										<ui:repeat varStatus="n" var="solicitud"
-											value="#{controllerSolicitud.allSolicitudes('AUDIENCIA')}" step="2">
-											<h:panelGroup layout="block" class="row" rendered="#{solicitud.estado=='AUDIENCIA-CITACION' or solicitud.estado=='AUDIENCIA-PENDIENTE' or solicitud.estado=='AUDIENCIA-ENCURSO' or solicitud.estado=='AUDIENCIA-FINALIZADA' }">
+											value="#{controllerSolicitud.listaSolicitud}" step="2">
+											<h:panelGroup layout="block" class="row">
 
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
-												<ui:include src="fichaaudiencia.xhtml">
-													<ui:param name="solicitud"
-														value="#{controllerSolicitud.siguienteFicha(n.index)}" />
-												</ui:include>
+												<h:panelGroup rendered="#{controllerSolicitud.listaSolicitud.size()>(n.index+1)}">						
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
+														<ui:include src="fichaaudiencia.xhtml"></ui:include>
+													</ui:repeat>
+												</h:panelGroup>
 											</h:panelGroup>
 										</ui:repeat>
 									</h:form>
@@ -48,21 +49,16 @@
 								<div class="tab-pane" id="citacion">
 									<h:form id="formcitacion">
 										<ui:param name="formulario" value="@form :formtodas :formpendientes :formencurso :formfinalizadas"/>
+										
 										<ui:repeat varStatus="n" var="solicitud"
 											value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION')}"
 											step="2">
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
-												
-												<h:panelGroup
-													rendered="#{controllerSolicitud.masFichas(solicitud.idSolicitud,solicitud.estado)}">
-													
-													<ui:include src="fichaaudiencia.xhtml">
-													<ui:param name="solicitud"
-															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.idSolicitud,solicitud.estado)}" />
-																								
-													</ui:include>
-													
+												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION').size()>(n.index+1)}">							
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION')}">
+														<ui:include src="fichaaudiencia.xhtml"></ui:include>
+													</ui:repeat>
 												</h:panelGroup>
 											</div>
 										</ui:repeat>
@@ -76,12 +72,10 @@
 											step="2">
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
-												<h:panelGroup
-													rendered="#{controllerSolicitud.masFichas(solicitud.idSolicitud,solicitud.estado)}">
-													<ui:include src="fichaaudiencia.xhtml">
-														<ui:param name="solicitud"
-															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.idSolicitud,solicitud.estado)}" />
-													</ui:include>
+												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE').size()>(n.index+1)}">							
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE')}">
+														<ui:include src="fichaaudiencia.xhtml"></ui:include>
+													</ui:repeat>
 												</h:panelGroup>
 											</div>
 										</ui:repeat>
@@ -95,12 +89,10 @@
 											step="2">
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
-												<h:panelGroup
-													rendered="#{controllerSolicitud.masFichas(solicitud.idSolicitud,solicitud.estado)}">
-													<ui:include src="fichaaudiencia.xhtml">
-														<ui:param name="solicitud"
-															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.idSolicitud,solicitud.estado)}" />
-													</ui:include>
+												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO').size()>(n.index+1)}">						
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO')}">
+														<ui:include src="fichaaudiencia.xhtml"></ui:include>
+													</ui:repeat>
 												</h:panelGroup>
 											</div>
 										</ui:repeat>
@@ -113,12 +105,10 @@
 											value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}" step="2">
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
-												<h:panelGroup
-													rendered="#{controllerSolicitud.masFichas(solicitud.idSolicitud,solicitud.estado)}">
-													<ui:include src="fichaaudiencia.xhtml">
-														<ui:param name="solicitud"
-															value="#{controllerSolicitud.siguienteFichaEstado(solicitud.idSolicitud,solicitud.estado)}" />
-													</ui:include>
+												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA').size()>(n.index+1)}">							
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}">
+														<ui:include src="fichaaudiencia.xhtml"></ui:include>
+													</ui:repeat>
 												</h:panelGroup>
 											</div>
 										</ui:repeat>

@@ -12,7 +12,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="\"Solicitud\"")
-@NamedQuery(name="Solicitud.findAll", query="SELECT s FROM Solicitud s WHERE s.estado like :estado ORDER BY s.idSolicitud")
+@NamedQueries({
+	@NamedQuery(name="Solicitud.findAll", query="SELECT s FROM Solicitud s WHERE s.estado like :estado ORDER BY s.idSolicitud"),
+	@NamedQuery(name="Solicitud.findAudiencias", query="SELECT s FROM Solicitud s WHERE s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findSolicitudes", query="SELECT s FROM Solicitud s WHERE s.estado='GRABADA' or s.estado='PAGADA' or s.estado='RADICADA' or s.estado='REGISTRADA' or s.estado='DESIGNACION' or s.estado='AUDIENCIA-FINALIZADA' ORDER BY s.fecha")
+})
+
 public class Solicitud implements Serializable {
 	private static final long serialVersionUID = 1L;
 

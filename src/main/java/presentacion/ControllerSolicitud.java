@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import entidades.Solicitud;
@@ -18,6 +19,7 @@ import negocio.iSolicitudBean;
 
 
 @ManagedBean
+@ViewScoped
 public class ControllerSolicitud {
 
 	/**
@@ -50,11 +52,20 @@ public class ControllerSolicitud {
 		this.coloresEstado.put("AUDIENCIA-PENDIENTE", "primary");
 		this.coloresEstado.put("AUDIENCIA-ENCURSO", "warning");
 		this.coloresEstado.put("AUDIENCIA-FINALIZADA", "success");
+		this.coloresEstado.put("REGISTRADA", "black");
 	}
 	
+	/*
 	public List<Solicitud> allSolicitudes(String estado){
 		this.listaSolicitud = this.solicitudBean.allSolicitud(estado);
 		return this.listaSolicitud;
+	}
+	*/
+	public void findSolicitudes(){
+		this.listaSolicitud = this.solicitudBean.findSolicitudes();
+	}
+	public void findAudiencia(){
+		this.listaSolicitud = this.solicitudBean.findAudiencias();
 	}
 		
 	public List<Solicitud> getListaSolicitud() {
@@ -273,6 +284,7 @@ public class ControllerSolicitud {
 	
 	public boolean cambiarFichaTabla(){
 		this.consultaModelSolicitud.setFicha(!this.consultaModelSolicitud.isFicha());
+		System.out.println(this.consultaModelSolicitud.isFicha());
 		return this.consultaModelSolicitud.isFicha();
 	}
 	
