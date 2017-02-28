@@ -17,20 +17,20 @@
 					<div class="col-md-12">
 						<div class="nav-tabs-custom">
 							<ul class="nav nav-tabs" style="border-color: blue">
-								<li class="active"><a href="#todas" data-toggle="tab">Todas</a>
+								<li class="active"><a href="#todas" data-toggle="tab">Todas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('REGISTRADA')}">#{controllerSolicitud.listaSolicitud.size()}</span></a>
 								</li>
-								<li><a href="#citacion" data-toggle="tab">Por citación <span class="label label-warning">10</span></a>
+								<li><a href="#citacion" data-toggle="tab">Por citación <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')}">#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION').size()}</span></a>
 								</li>
-								<li><a href="#pendientes" data-toggle="tab">Pendientes</a></li>
-								<li><a href="#encurso" data-toggle="tab">En curso</a></li>
-								<li><a href="#finalizadas" data-toggle="tab">Finalizadas</a></li>
+								<li><a href="#pendientes" data-toggle="tab">Pendientes <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-PENDIENTE')}">#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE').size()}</span></a></li>
+								<li><a href="#encurso" data-toggle="tab">En curso <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')}">#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO').size()}</span></a></li>
+								<li><a href="#finalizadas" data-toggle="tab">Finalizadas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-FINALIZADA')}">#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA').size()}</span></a></li>
 								
 							</ul>
 							<div class="tab-content">
 
 								<div class="tab-pane active" id="todas">
 									<h:form id='formtodas'>
-										<ui:param name="formulario" value="@form :formcitacion :formpendientes :formencurso :formfinalizadas"/>
+										<ui:param name="formulario" value="@form :formcitacion :formpendientes :formencurso :formfinalizadas :formBotones"/>
 										<ui:repeat varStatus="n" var="solicitud"
 											value="#{controllerSolicitud.listaSolicitud}" step="2">
 											<h:panelGroup layout="block" class="row">
@@ -126,7 +126,8 @@
 			<div class="text-center">
 				<h:form id="formBotones">
 				
-					<h:commandButton styleClass="btn btn-sm btn-warning btn-menu" value="Enviar Citaciones"></h:commandButton>
+					<h:commandButton styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')} btn-menu" value="Enviar Citaciones"></h:commandButton>
+					<h:button value="Desarrollar Audiencia" outcome="desarrolloaudiencia" styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')} btn-menu" ></h:button>
 					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Cambiar Conciliador"></h:commandButton>
 					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Modificar Acta" disabled="true"></h:commandButton>
 					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Expedir Acta" disabled="true"></h:commandButton>

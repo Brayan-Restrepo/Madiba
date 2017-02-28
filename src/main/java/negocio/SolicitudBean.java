@@ -30,5 +30,11 @@ public class SolicitudBean implements iSolicitudBean {
 		// TODO Auto-generated method stub
 		return this.solicitudDAO.findAudiencias();
 	}
+	
+	@Override
+	public Solicitud findSolicitud(Long id) {
+		// TODO Auto-generated method stub
+		return this.solicitudDAO.findSolicitud(id);
+	}
 
 }

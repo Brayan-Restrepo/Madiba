@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import entidades.Dominio;
 import entidades.Solicitud;
 
 
@@ -49,6 +50,17 @@ public class SolicitudDAO {
 			solicitud.get(i).getPagos().size();
 			solicitud.get(i).getDesignacions().size();
 		}
+		return solicitud;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Solicitud findSolicitud(Long id){
+		Solicitud solicitud = this.manager.find(Solicitud.class,id);
+		
+		solicitud.getPartes().size();
+		solicitud.getPagos().size();
+		solicitud.getDesignacions().size();
+		
 		return solicitud;
 	}
 }
