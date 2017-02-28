@@ -2,10 +2,13 @@ package dao;
 
 import java.util.List;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entidades.Dominio;
+import entidades.Asistencia;
+import entidades.Resultado;
 import entidades.Solicitud;
 
 
@@ -62,5 +65,17 @@ public class SolicitudDAO {
 		solicitud.getDesignacions().size();
 		
 		return solicitud;
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void addAsistencia(Asistencia asistencia){
+		this.manager.getTransaction().begin();
+		this.manager.persist(asistencia);
+		this.manager.getTransaction().commit();
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void addResultado(Resultado resultado){
+		this.manager.persist(resultado);
 	}
 }

@@ -127,7 +127,7 @@
 				<h:form id="formBotones">
 				
 					<h:commandButton styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')} btn-menu" value="Enviar Citaciones"></h:commandButton>
-					<h:button value="Desarrollar Audiencia" outcome="desarrolloaudiencia" styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')} btn-menu" ></h:button>
+					<h:button value="Desarrollar Audiencia" outcome="desarrolloaudiencia" disabled="#{modelAudiencia.audiencia}" styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')} btn-menu" ></h:button>
 					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Cambiar Conciliador"></h:commandButton>
 					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Modificar Acta" disabled="true"></h:commandButton>
 					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Expedir Acta" disabled="true"></h:commandButton>

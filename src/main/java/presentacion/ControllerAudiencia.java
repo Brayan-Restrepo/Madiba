@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import entidades.Solicitud;
@@ -13,29 +14,41 @@ import negocio.iSolicitudBean;
 @ManagedBean
 @ViewScoped
 public class ControllerAudiencia {
+
 	
-	private List<String> listaAsistencias;
+	public ControllerAudiencia() {}
 	
-	public List<String> getListaAsistencias() {
-		return listaAsistencias;
-	}
-
-	public ControllerAudiencia() {
-		this.listaAsistencias = new ArrayList<String>();
-	}
-
-	public void setListaAsistencias(List<String> listaAsistencias) {
-		this.listaAsistencias = listaAsistencias;
-	}
-
 	@EJB
 	public iSolicitudBean solicitudBean;
 	
-	public Solicitud findSolicitud(Long id){		
-		return this.solicitudBean.findSolicitud(id);
+	@ManagedProperty(value = "#{modelAudiencia}")
+	private ModelAudiencia modelAudiencia;
+	
+	private Solicitud solicitud;
+	
+	
+	
+	public ModelAudiencia getModelAudiencia() {
+		return modelAudiencia;
+	}
+
+	public void setModelAudiencia(ModelAudiencia modelAudiencia) {
+		this.modelAudiencia = modelAudiencia;
+	}
+
+	/**
+	 * Consulta en la DB la Solicitud de la Audiencia
+	 * @param id -> idSolicitud
+	 * @return Solicitud
+	 */
+	public Solicitud findSolicitud(Long id){
+		this.solicitud = this.solicitudBean.findSolicitud(id);
+		return this.solicitud;
 	}
 	
-	public void AddAsistecia(){		
-		this.listaAsistencias.add("");
+	public String addResultado(){
+		System.out.println(this.modelAudiencia.getObservacion());
+		this.solicitudBean.addResultado("---", this.solicitud, "-----");
+		return "listaaudiencias";
 	}
 }

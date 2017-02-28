@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+import entidades.Asistencia;
+import entidades.Resultado;
 import entidades.Solicitud;
 
 @Remote
@@ -13,5 +15,8 @@ public interface iSolicitudBean {
 	public List<Solicitud> findSolicitudes();
 	public List<Solicitud> findAudiencias();
 	public Solicitud findSolicitud(Long id);
+	
+	public void addResultado(String tipoResultado, Solicitud solicitud, String conclucion);
+	public void addAsistencia(Asistencia asistencia);
 	
 }
