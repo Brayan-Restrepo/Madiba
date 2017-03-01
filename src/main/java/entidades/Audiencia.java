@@ -37,6 +37,10 @@ public class Audiencia implements Serializable {
 	@JoinColumn(name="id_solicitud")
 	private Solicitud solicitud;
 
+	//bi-directional many-to-one association to Resultado
+	@OneToMany(mappedBy="audiencia")
+	private List<Resultado> resultados;
+
 	public Audiencia() {
 	}
 
@@ -114,6 +118,28 @@ public class Audiencia implements Serializable {
 
 	public void setSolicitud(Solicitud solicitud) {
 		this.solicitud = solicitud;
+	}
+
+	public List<Resultado> getResultados() {
+		return this.resultados;
+	}
+
+	public void setResultados(List<Resultado> resultados) {
+		this.resultados = resultados;
+	}
+
+	public Resultado addResultado(Resultado resultado) {
+		getResultados().add(resultado);
+		resultado.setAudiencia(this);
+
+		return resultado;
+	}
+
+	public Resultado removeResultado(Resultado resultado) {
+		getResultados().remove(resultado);
+		resultado.setAudiencia(null);
+
+		return resultado;
 	}
 
 }

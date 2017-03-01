@@ -57,7 +57,7 @@ public class ControllerAudiencia {
 		System.out.println(this.modelAudiencia.getTipoResultado());
 		System.out.println(this.modelAudiencia.getNoAcuerd());
 		System.out.println(this.modelAudiencia.getAcuerdo());
-		this.audienciaBean.addResultado("---", this.solicitud, "-----");
+		this.audienciaBean.addResultado("---", this.solicitud.getAudiencias().get(0), "-----");
 		//return "listaaudiencias";
 	}
 	

@@ -23,10 +23,10 @@ public class Resultado implements Serializable {
 	@Column(name="tipo_resultado")
 	private String tipoResultado;
 
-	//bi-directional many-to-one association to Solicitud
+	//bi-directional many-to-one association to Audiencia
 	@ManyToOne
-	@JoinColumn(name="id_solicitud")
-	private Solicitud solicitud;
+	@JoinColumn(name="id_audiencia")
+	private Audiencia audiencia;
 
 	public Resultado() {
 	}
@@ -55,12 +55,12 @@ public class Resultado implements Serializable {
 		this.tipoResultado = tipoResultado;
 	}
 
-	public Solicitud getSolicitud() {
-		return this.solicitud;
+	public Audiencia getAudiencia() {
+		return this.audiencia;
 	}
 
-	public void setSolicitud(Solicitud solicitud) {
-		this.solicitud = solicitud;
+	public void setAudiencia(Audiencia audiencia) {
+		this.audiencia = audiencia;
 	}
 
 }

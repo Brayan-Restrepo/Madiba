@@ -17,7 +17,6 @@ import java.util.List;
 	@NamedQuery(name="Solicitud.findAudiencias", query="SELECT s FROM Solicitud s WHERE s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findSolicitudes", query="SELECT s FROM Solicitud s WHERE s.estado='GRABADA' or s.estado='PAGADA' or s.estado='RADICADA' or s.estado='REGISTRADA' or s.estado='DESIGNACION' or s.estado='AUDIENCIA-FINALIZADA' ORDER BY s.fecha")
 })
-
 public class Solicitud implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -58,10 +57,6 @@ public class Solicitud implements Serializable {
 	//bi-directional many-to-one association to Parte
 	@OneToMany(mappedBy="solicitud")
 	private List<Parte> partes;
-
-	//bi-directional many-to-one association to Resultado
-	@OneToMany(mappedBy="solicitud")
-	private List<Resultado> resultados;
 
 	public Solicitud() {
 	}
@@ -230,28 +225,6 @@ public class Solicitud implements Serializable {
 		parte.setSolicitud(null);
 
 		return parte;
-	}
-
-	public List<Resultado> getResultados() {
-		return this.resultados;
-	}
-
-	public void setResultados(List<Resultado> resultados) {
-		this.resultados = resultados;
-	}
-
-	public Resultado addResultado(Resultado resultado) {
-		getResultados().add(resultado);
-		resultado.setSolicitud(this);
-
-		return resultado;
-	}
-
-	public Resultado removeResultado(Resultado resultado) {
-		getResultados().remove(resultado);
-		resultado.setSolicitud(null);
-
-		return resultado;
 	}
 
 }

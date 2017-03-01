@@ -7,7 +7,7 @@ import dao.AudienciaDAO;
 import dao.SolicitudDAO;
 import entidades.Asistencia;
 import entidades.Resultado;
-import entidades.Solicitud;
+import entidades.Audiencia;
 
 @Stateless
 public class AudienciaBean implements iAudienciaBean {
@@ -16,14 +16,14 @@ public class AudienciaBean implements iAudienciaBean {
 	AudienciaDAO audienciaDAO;
 	
 	@Override
-	public void addResultado(String tipoResultado, Solicitud solicitud, String conclusion) {
+	public void addResultado(String tipoResultado, Audiencia audiencia, String conclusion) {
 		// TODO Auto-generated method stub
 		Long idResultado = 1L;
 		Resultado resultado = new Resultado();
 		resultado.setIdResultado(idResultado);
 		resultado.setTipoResultado(tipoResultado);
 		resultado.setConclusion(conclusion);
-		resultado.setSolicitud(solicitud);
+		resultado.setAudiencia(audiencia);
 		this.audienciaDAO.addResultado(resultado);
 	}
 
