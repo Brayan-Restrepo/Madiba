@@ -288,7 +288,7 @@ public class ControllerSolicitud {
 		return this.consultaModelSolicitud.isFicha();
 	}
 	
-	public String MascaraHora(int hora){
+	public String MascaraHora(Integer hora){
 		String horaInicial = hora+"";
 		String horaFinal = "";
 		if(horaInicial.length()==4){
@@ -300,7 +300,7 @@ public class ControllerSolicitud {
 		return horaFinal;
 	}
 	
-	public String Duracion(int horaIni, int horaFin){
+	public String Duracion(Integer horaIni, Integer horaFin){
 		String duracion = (horaFin-horaIni)+"";
 		duracion = duracion.substring(0, 1);
 		return duracion;

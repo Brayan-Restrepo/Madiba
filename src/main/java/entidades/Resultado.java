@@ -23,8 +23,8 @@ public class Resultado implements Serializable {
 	@Column(name="tipo_resultado")
 	private String tipoResultado;
 
-	//bi-directional one-to-one association to Solicitud
-	@OneToOne
+	//bi-directional many-to-one association to Solicitud
+	@ManyToOne
 	@JoinColumn(name="id_solicitud")
 	private Solicitud solicitud;
 

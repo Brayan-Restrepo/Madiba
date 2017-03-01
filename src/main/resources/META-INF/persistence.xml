@@ -26,8 +26,6 @@
       <!-- The datasource is deployed as WEB-INF/Madiba-ds.xml, you
          can find it in the source at src/main/webapp/WEB-INF/Madiba-ds.xml -->
       <jta-data-source>java:/ConMadiba</jta-data-source>
-      <class>entidades.Usuario</class>
-      <class>entidades.Dominio</class>
       <class>entidades.Agenda</class>
       <class>entidades.Anexo</class>
       <class>entidades.Asistencia</class>
@@ -36,6 +34,7 @@
       <class>entidades.Conciliador</class>
       <class>entidades.Conciliador_Especialidad</class>
       <class>entidades.Designacion</class>
+      <class>entidades.Dominio</class>
       <class>entidades.Especialidad</class>
       <class>entidades.Pago</class>
       <class>entidades.Parte</class>
@@ -44,6 +43,7 @@
       <class>entidades.Sala</class>
       <class>entidades.Sancion</class>
       <class>entidades.Solicitud</class>
+      <class>entidades.Usuario</class>
       <validation-mode>CALLBACK</validation-mode>
       <properties>
          <!-- Properties for Hibernate -->

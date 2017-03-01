@@ -58,11 +58,11 @@
 				<h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 					<div class="col-lg-6 col-sm-12 col-xs-12">
 			            <h:outputLabel value="Fecha Audiencia:" />
-			            <h:outputText style="padding-left:5%" value="#{solicitud.audiencias.get(0).agenda.fecha}" />
+			            <h:outputText style="padding-left:5%" value="#{solicitud.audiencias.get(0).agendas.get(0).fecha}" />
 		          	</div>
 		          	<div class="col-lg-6 col-sm-10 col-xs-10">
 			            <h:outputLabel value="Hora:" />
-			            <h:outputText style="padding-left:5%" value="#{controllerSolicitud.MascaraHora(solicitud.audiencias.get(0).agenda.horaInicial)}" />
+			            <h:outputText style="padding-left:5%" value="#{controllerSolicitud.MascaraHora(solicitud.audiencias.get(0).agendas.get(0).horaInicial)}" />
 		          	</div>
 		          	
 					<div class="col-lg-6 col-sm-12 col-xs-12">
@@ -71,11 +71,11 @@
 		          	</div>
 		          	<div class="col-lg-6 col-sm-10 col-xs-10">
 			            <h:outputLabel value="Duración:" />
-			            <h:outputText style="padding-left:5%" value="#{controllerSolicitud.Duracion(solicitud.audiencias.get(0).agenda.horaInicial,solicitud.audiencias.get(0).agenda.horaFinal)}" />
+			            <h:outputText style="padding-left:5%" value="#{controllerSolicitud.Duracion(solicitud.audiencias.get(0).agendas.get(0).horaInicial,solicitud.audiencias.get(0).agendas.get(0).horaFinal)}" />
 		          	</div>
 		          	<div class="col-lg-6 col-sm-10 col-xs-10">
 			            <h:outputLabel value="Sala:" />
-			            <h:outputText style="padding-left:5%" value="#{solicitud.audiencias.get(0).agenda.sala.nombre}" />
+			            <h:outputText style="padding-left:5%" value="#{solicitud.audiencias.get(0).agendas.get(0).sala.nombre}" />
 		          	</div>			          	
 				</h:panelGroup>
 						        

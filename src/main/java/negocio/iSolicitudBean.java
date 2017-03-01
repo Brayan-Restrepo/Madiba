@@ -16,7 +16,5 @@ public interface iSolicitudBean {
 	public List<Solicitud> findAudiencias();
 	public Solicitud findSolicitud(Long id);
 	
-	public void addResultado(String tipoResultado, Solicitud solicitud, String conclucion);
-	public void addAsistencia(Asistencia asistencia);
-	
+		
 }

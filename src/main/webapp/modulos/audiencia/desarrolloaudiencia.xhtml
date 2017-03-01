@@ -87,29 +87,86 @@
 							</div>
 			  			</div>
 		  			</div>
-					<div class="col-lg-12">
-			  			<h:panelGroup layout="block" class="box box-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} sombra">
-							<div class="box-header with-border" style="padding-bottom:0px">
-                 				<i>
-		              				<h:outputLabel value="Desarrollo" style="font-size:14pt; margin-left:1%"/>
-                   				</i>
-							</div>
-							<div class='box-body'>
-								<h:form>
-								<div class="form-group has-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} col-lg-10 col-lg-offset-1">
-									<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Observación  </label>
-									<h:inputTextarea id="observacion" value="#{modelAudiencia.observacion}" styleClass="form-control" rows="6"/>
+		  			<h:form>
+						<div class="col-lg-12">
+				  			<h:panelGroup layout="block" class="box box-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} sombra">
+								<div class="box-header with-border" style="padding-bottom:0px">
+	                 				<i>
+			              				<h:outputLabel value="Desarrollo" style="font-size:14pt; margin-left:1%"/>
+	                   				</i>
+	                   				<h:outputLabel value="Acuerdo Parcial" style="font-size:14pt; margin-left:1%"/>
+	                   				<h:commandButton value="Si" styleClass="btn btn-success">
+	                   					<f:ajax render="@form" listener="#{modelAudiencia.setAcuerdoParcial(true)}"></f:ajax>
+	                 				</h:commandButton>
+	                   				<h:commandButton  value="No" styleClass="btn btn-success">
+	                   					<f:ajax render="@form" listener="#{modelAudiencia.setAcuerdoParcial(false)}"></f:ajax>
+	                 				</h:commandButton>
 								</div>
-								<h:commandButton  value="Guardar Resultado" action="#{controllerAudiencia.addResultado()}">
-								</h:commandButton>
-								</h:form>
-							</div>
-						</h:panelGroup>
-					</div>
+								
+								<h:panelGroup layout="block" rendered="#{!modelAudiencia.acuerdoParcial}" styleClass="box-body">
+									<div class="form-group has-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} col-lg-10">
+										<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Observación  </label>
+										<h:inputTextarea id="observacion" value="#{modelAudiencia.observacion}" styleClass="form-control" rows="6"/>
+									</div>
+									<div class="col-lg-2">
+										<h:outputLabel value="Asunto:" />
+										<p:selectOneRadio id="asunto" value="#{modelAudiencia.tipoResultado}" layout="grid" columns="1">
+											<f:selectItem itemLabel=" No Conciliable" itemValue="NOCONCILIABLE"/>
+											<f:selectItem itemLabel=" Acuerdo" itemValue="ACUERDO"/>
+											<f:selectItem itemLabel=" No Acuerdo" itemValue="NOACUERDO"/>
+										</p:selectOneRadio>
+									</div>
+								</h:panelGroup>
+								
+								<h:panelGroup layout="block" rendered="#{modelAudiencia.acuerdoParcial}" styleClass="box-body">
+									<div class="form-group has-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} col-lg-10">
+										<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Observación  </label>
+										<h:inputTextarea id="acuerdos" value="#{modelAudiencia.acuerdo}" styleClass="form-control" rows="6"/>
+									</div>
+									
+									<div class="col-lg-2">
+										<h:outputLabel value="Asunto:" />
+										<p:selectOneRadio id="asuntoAcuerdo" value="#{modelAudiencia.tipoResultado}" layout="grid" columns="1">
+											<f:selectItem itemLabel=" No Conciliable" itemValue="NOCONCILIABLE"/>
+											<f:selectItem itemLabel=" Acuerdo" itemValue="ACUERDO"/>
+											<f:selectItem itemLabel=" No Acuerdo" itemValue="NOACUERDO"/>
+										</p:selectOneRadio>
+									</div>
+									
+									<div class="form-group has-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} col-lg-10">
+										<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Observación  </label>
+										<h:inputTextarea id="noacuerdos" value="#{modelAudiencia.noAcuerd}" styleClass="form-control" rows="6"/>
+									</div>
+									
+									<div class="col-lg-2">
+										<h:outputLabel value="Asunto:" />
+										<p:selectOneRadio id="asuntoNoAcuerdo" value="#{modelAudiencia.tipoResultado}" layout="grid" columns="1">
+											<f:selectItem itemLabel=" No Conciliable" itemValue="NOCONCILIABLE"/>
+											<f:selectItem itemLabel=" Acuerdo" itemValue="ACUERDO"/>
+											<f:selectItem itemLabel=" No Acuerdo" itemValue="NOACUERDO"/>
+										</p:selectOneRadio>
+									</div>
+								</h:panelGroup>
+							</h:panelGroup>
+						</div>
+					</h:form>
 				</div>
 			</div>
 			
 		</ui:define>
+		
+		<ui:define name="footer">
+			<div class="text-center">
+				<h:form id='formBotones'>
+					<h:commandButton  value="Registrar Asistencia" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
+					<h:commandButton  value="Guardar Cambios" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
+					<h:commandButton  value="Finalizar" actionListener="#{controllerAudiencia.addResultado('FINALIZAR')}" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
+					<h:commandButton  value="Suspender" actionListener="#{controllerAudiencia.addResultado('SUSPENDER')}" styleClass="btn btn-primary btn-menu" action="listaaudiencias?faces-redirect=true"/>
+					<h:commandButton  value="Aplazar" actionListener="#{controllerAudiencia.addResultado('APLAZAAR')}" styleClass="btn btn-warning btn-menu" action="listaaudiencias?faces-redirect=true"/>
+				</h:form>
+			</div>
+		</ui:define>
+		
 	</ui:composition>
 
 </body>

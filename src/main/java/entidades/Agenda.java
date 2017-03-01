@@ -28,8 +28,8 @@ public class Agenda implements Serializable {
 	@Column(name="hora_inicial")
 	private Integer horaInicial;
 
-	//bi-directional one-to-one association to Audiencia
-	@OneToOne
+	//bi-directional many-to-one association to Audiencia
+	@ManyToOne
 	@JoinColumn(name="id_audiencia")
 	private Audiencia audiencia;
 

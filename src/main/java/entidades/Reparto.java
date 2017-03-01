@@ -15,23 +15,22 @@ public class Reparto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private Integer turno;
+	private Long turno;
 
 	private String estado;
 
 	//bi-directional one-to-one association to Conciliador
-	@OneToOne
-	@JoinColumn(name="id_conciliador")
+	@OneToOne(mappedBy="reparto")
 	private Conciliador conciliador;
 
 	public Reparto() {
 	}
 
-	public Integer getTurno() {
+	public Long getTurno() {
 		return this.turno;
 	}
 
-	public void setTurno(Integer turno) {
+	public void setTurno(Long turno) {
 		this.turno = turno;
 	}
 

@@ -24,9 +24,9 @@ public class Audiencia implements Serializable {
 
 	private String estado;
 
-	//bi-directional one-to-one association to Agenda
-	@OneToOne(mappedBy="audiencia")
-	private Agenda agenda;
+	//bi-directional many-to-one association to Agenda
+	@OneToMany(mappedBy="audiencia",fetch=FetchType.EAGER)
+	private List<Agenda> agendas;
 
 	//bi-directional many-to-one association to Asistencia
 	@OneToMany(mappedBy="audiencia")
@@ -64,12 +64,26 @@ public class Audiencia implements Serializable {
 		this.estado = estado;
 	}
 
-	public Agenda getAgenda() {
-		return this.agenda;
+	public List<Agenda> getAgendas() {
+		return this.agendas;
 	}
 
-	public void setAgenda(Agenda agenda) {
-		this.agenda = agenda;
+	public void setAgendas(List<Agenda> agendas) {
+		this.agendas = agendas;
+	}
+
+	public Agenda addAgenda(Agenda agenda) {
+		getAgendas().add(agenda);
+		agenda.setAudiencia(this);
+
+		return agenda;
+	}
+
+	public Agenda removeAgenda(Agenda agenda) {
+		getAgendas().remove(agenda);
+		agenda.setAudiencia(null);
+
+		return agenda;
 	}
 
 	public List<Asistencia> getAsistencias() {

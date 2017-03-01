@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Table(name="\"Dominio\"")
 @NamedQuery(name="Dominio.findType", query="SELECT d.nombre FROM Dominio d WHERE d.tipo=:tipo")
 
-
 public class Dominio implements Serializable {
 	private static final long serialVersionUID = 1L;
 

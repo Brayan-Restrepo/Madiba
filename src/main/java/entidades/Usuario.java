@@ -19,6 +19,8 @@ public class Usuario implements Serializable {
 
 	private String password;
 
+	private String role;
+
 	public Usuario() {
 	}
 
@@ -36,6 +38,14 @@ public class Usuario implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return this.role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

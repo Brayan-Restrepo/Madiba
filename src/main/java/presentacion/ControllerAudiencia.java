@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import entidades.Solicitud;
+import negocio.iAudienciaBean;
 import negocio.iSolicitudBean;
 
 @ManagedBean
@@ -21,12 +22,13 @@ public class ControllerAudiencia {
 	@EJB
 	public iSolicitudBean solicitudBean;
 	
+	@EJB
+	public iAudienciaBean audienciaBean;
+	
 	@ManagedProperty(value = "#{modelAudiencia}")
 	private ModelAudiencia modelAudiencia;
 	
 	private Solicitud solicitud;
-	
-	
 	
 	public ModelAudiencia getModelAudiencia() {
 		return modelAudiencia;
@@ -46,9 +48,22 @@ public class ControllerAudiencia {
 		return this.solicitud;
 	}
 	
-	public String addResultado(){
+	/**
+	 * 	
+	 * @param estdoAudiencia -> FINALIZADA, APLAZADA, SUSPENDIDA
+	 */
+	public void addResultado(String estdoAudiencia){
 		System.out.println(this.modelAudiencia.getObservacion());
-		this.solicitudBean.addResultado("---", this.solicitud, "-----");
-		return "listaaudiencias";
+		System.out.println(this.modelAudiencia.getTipoResultado());
+		System.out.println(this.modelAudiencia.getNoAcuerd());
+		System.out.println(this.modelAudiencia.getAcuerdo());
+		this.audienciaBean.addResultado("---", this.solicitud, "-----");
+		//return "listaaudiencias";
+	}
+	
+	public void addAsistencia(){
+		int size = this.solicitud.getAudiencias().size();
+		Long idAudiencia = this.solicitud.getAudiencias().get(size-1).getIdAudiencia();
+		//this.solicitudBean.addAsistencia(idAudiencia, 	);
 	}
 }

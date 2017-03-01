@@ -59,9 +59,9 @@ public class Solicitud implements Serializable {
 	@OneToMany(mappedBy="solicitud")
 	private List<Parte> partes;
 
-	//bi-directional one-to-one association to Resultado
-	@OneToOne(mappedBy="solicitud")
-	private Resultado resultado;
+	//bi-directional many-to-one association to Resultado
+	@OneToMany(mappedBy="solicitud")
+	private List<Resultado> resultados;
 
 	public Solicitud() {
 	}
@@ -232,12 +232,26 @@ public class Solicitud implements Serializable {
 		return parte;
 	}
 
-	public Resultado getResultado() {
-		return this.resultado;
+	public List<Resultado> getResultados() {
+		return this.resultados;
 	}
 
-	public void setResultado(Resultado resultado) {
-		this.resultado = resultado;
+	public void setResultados(List<Resultado> resultados) {
+		this.resultados = resultados;
+	}
+
+	public Resultado addResultado(Resultado resultado) {
+		getResultados().add(resultado);
+		resultado.setSolicitud(this);
+
+		return resultado;
+	}
+
+	public Resultado removeResultado(Resultado resultado) {
+		getResultados().remove(resultado);
+		resultado.setSolicitud(null);
+
+		return resultado;
 	}
 
 }

@@ -21,11 +21,7 @@ public class Conciliador implements Serializable {
 
 	private String apellidos;
 
-	private String codigo;
-
 	private String correo;
-
-	private String documento;
 
 	private String egresado;
 
@@ -50,13 +46,14 @@ public class Conciliador implements Serializable {
 	@OneToMany(mappedBy="conciliador")
 	private List<Designacion> designacions;
 
-	//bi-directional one-to-one association to Reparto
-	@OneToOne(mappedBy="conciliador")
-	private Reparto reparto;
-
 	//bi-directional many-to-one association to Sancion
 	@OneToMany(mappedBy="conciliador")
 	private List<Sancion> sancions;
+
+	//bi-directional one-to-one association to Reparto
+	@OneToOne
+	@JoinColumn(name="id_conciliador", referencedColumnName="id_conciliador")
+	private Reparto reparto;
 
 	public Conciliador() {
 	}
@@ -77,28 +74,12 @@ public class Conciliador implements Serializable {
 		this.apellidos = apellidos;
 	}
 
-	public String getCodigo() {
-		return this.codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-
 	public String getCorreo() {
 		return this.correo;
 	}
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
-	}
-
-	public String getDocumento() {
-		return this.documento;
-	}
-
-	public void setDocumento(String documento) {
-		this.documento = documento;
 	}
 
 	public String getEgresado() {
@@ -201,14 +182,6 @@ public class Conciliador implements Serializable {
 		return designacion;
 	}
 
-	public Reparto getReparto() {
-		return this.reparto;
-	}
-
-	public void setReparto(Reparto reparto) {
-		this.reparto = reparto;
-	}
-
 	public List<Sancion> getSancions() {
 		return this.sancions;
 	}
@@ -229,6 +202,14 @@ public class Conciliador implements Serializable {
 		sancion.setConciliador(null);
 
 		return sancion;
+	}
+
+	public Reparto getReparto() {
+		return this.reparto;
+	}
+
+	public void setReparto(Reparto reparto) {
+		this.reparto = reparto;
 	}
 
 }

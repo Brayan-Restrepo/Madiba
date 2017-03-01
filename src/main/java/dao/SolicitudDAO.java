@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entidades.Asistencia;
+import entidades.Audiencia;
 import entidades.Resultado;
 import entidades.Solicitud;
 
@@ -52,6 +53,7 @@ public class SolicitudDAO {
 			solicitud.get(i).getPartes().size();
 			solicitud.get(i).getPagos().size();
 			solicitud.get(i).getDesignacions().size();
+			
 		}
 		return solicitud;
 	}
@@ -64,18 +66,8 @@ public class SolicitudDAO {
 		solicitud.getPagos().size();
 		solicitud.getDesignacions().size();
 		
+		
 		return solicitud;
 	}
 	
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void addAsistencia(Asistencia asistencia){
-		this.manager.getTransaction().begin();
-		this.manager.persist(asistencia);
-		this.manager.getTransaction().commit();
-	}
-	
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void addResultado(Resultado resultado){
-		this.manager.persist(resultado);
-	}
 }
