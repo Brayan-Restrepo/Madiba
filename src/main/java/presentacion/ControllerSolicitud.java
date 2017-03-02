@@ -12,7 +12,9 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import entidades.Audiencia;
 import entidades.Solicitud;
+import negocio.iAudienciaBean;
 import negocio.iConciliadorBean;
 import negocio.iSolicitudBean;
 
@@ -33,6 +35,9 @@ public class ControllerSolicitud {
 
 	@EJB
 	public iSolicitudBean solicitudBean;
+	
+	@EJB
+	public iAudienciaBean audienciaBean;
 	
 	private Map<String, String> coloresEstado;
 	
@@ -309,4 +314,30 @@ public class ControllerSolicitud {
 	public String colorSolicitudEstado(String estado){
 		return this.coloresEstado.get(estado);
 	}
+	
+	public boolean bloquearBoton(String estado1, String estado2){
+		
+			if(this.consultaModelSolicitud.getSelectSolicitud().size()==0){
+				return true;
+			}else{
+				Long id = this.consultaModelSolicitud.getSelectSolicitud().get(0)+0L;
+				String estadoSolicitud = this.solicitudBean.findSolicitud(id).getEstado();
+				if(estadoSolicitud.equals(estado1) || estadoSolicitud.equals(estado2) ){
+					return false;
+				}
+			}
+		
+		return true;
+	}
+	
+	public void aplazarAudiencia(){
+				
+		Long id = this.consultaModelSolicitud.getSelectSolicitud().get(0)+0L;
+		List<Audiencia> audiencia = this.solicitudBean.findSolicitud(id).getAudiencias();
+		Long idAudiencia = audiencia.get(audiencia.size()-1).getIdAudiencia();
+		
+		this.audienciaBean.actualizarEstadoAudiencia(idAudiencia, "APLAZADA");
+		this.solicitudBean.actualizarEstadoSolicitud(id, "DESIGNACION");
+	}
+	
 }

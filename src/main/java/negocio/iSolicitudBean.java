@@ -15,6 +15,7 @@ public interface iSolicitudBean {
 	public List<Solicitud> findSolicitudes();
 	public List<Solicitud> findAudiencias();
 	public Solicitud findSolicitud(Long id);
+	public void actualizarEstadoSolicitud(Long id,String nuevoEstado);
 	
 		
 }

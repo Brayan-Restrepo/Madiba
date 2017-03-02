@@ -14,10 +14,11 @@
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">		
 		<ui:define name="content">	
 			#{controllerSolicitud.findSolicitudes()}
-					
+			
 			<ui:include src="modalasignarconciliador.xhtml"></ui:include>
 			<ui:include src="modalradicar.xhtml"></ui:include>
-
+			
+			<div class='content-wrapper' style="height:10px;overflow:auto">
 			<div class="content">
 				<div class="row">
 				
@@ -198,9 +199,8 @@
 					</div>
 				</div>
 			</div>
-		</ui:define>		
-		
-		<ui:define name="footer">
+		</div>
+		<div class='main-footer' style="height: 43.11111px;">
 			<div class="text-center">
 				<h:form id='formBotones'>
 					
@@ -233,6 +233,7 @@
 					
 				</h:form>
 			</div>
+		</div>
 		</ui:define>
 	</ui:composition>
 </body>

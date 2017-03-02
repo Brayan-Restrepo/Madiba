@@ -1,8 +1,11 @@
 package presentacion;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 @ManagedBean
@@ -24,12 +27,13 @@ public class ModelAudiencia {
 	 */
 	private String noAcuerd;
 	
-	private String tipoResultado;
+	private String tipoResultado = "ACUERDO";
 	
 	/**
 	 * Es el valor del los CheckBox True si asistieron y False si no
 	 */
-	private List<String> listaAsistencias;
+	private Long[] valorAsistencias;
+	private List<Long[]> listaAsistencias;
 	
 	private boolean audiencia;
 	
@@ -57,6 +61,7 @@ public class ModelAudiencia {
 	public ModelAudiencia(){
 		this.audiencia = false;
 		this.acuerdoParcial=false;
+		this.valorAsistencias = new Long[2];
 	}
 	
 	public boolean isAcuerdoParcial() {
@@ -90,20 +95,21 @@ public class ModelAudiencia {
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
-	
-	/**
-	 * Lista de Aistencias
-	 * @return lista de asistencia
-	 */
-	public List<String> getListaAsistencias() {
+
+	public Long[] getValorAsistencias() {
+		return valorAsistencias;
+	}
+
+	public void setValorAsistencias(Long[] valorAsistencias) {
+		this.valorAsistencias = valorAsistencias;
+	}
+
+	public List<Long[]> getListaAsistencias() {
 		return listaAsistencias;
 	}
 
-	/**
-	 * Lista de Asistencias
-	 * @param listaAsistencias
-	 */
-	public void setListaAsistencias(List<String> listaAsistencias) {
+	public void setListaAsistencias(List<Long[]> listaAsistencias) {
 		this.listaAsistencias = listaAsistencias;
 	}
+	
 }

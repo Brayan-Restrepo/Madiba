@@ -10,7 +10,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="\"Resultado\"")
-@NamedQuery(name="Resultado.findAll", query="SELECT r FROM Resultado r")
+@NamedQueries({
+	@NamedQuery(name="Resultado.findAll", query="SELECT r FROM Resultado r"),
+	@NamedQuery(name="Resultado.countAll", query="SELECT count(a.idResultado) FROM Resultado a")
+})
 public class Resultado implements Serializable {
 	private static final long serialVersionUID = 1L;
 

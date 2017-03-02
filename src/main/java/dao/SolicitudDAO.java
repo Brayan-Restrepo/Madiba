@@ -70,4 +70,14 @@ public class SolicitudDAO {
 		return solicitud;
 	}
 	
+	/**
+	 * Actualiza El estado de la Solicitud
+	 * @param idSolicitud
+	 * @param nuevoEstado
+	 */
+	public void actualizarEstadoSolicitud(Long idSolicitud, String nuevoEstado){
+		Solicitud solicitud = this.manager.find(Solicitud.class, idSolicitud);
+		solicitud.setEstado(nuevoEstado);
+	}
+	
 }

@@ -58,27 +58,27 @@
 						</div>
 					</div>
 				</div>
-				
-				<h:panelGroup layout="block" rendered="#{solicitud.estado!='GRABADA'}" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              				<h:outputLabel value="Banco:" />
-              				<h:outputText style="padding-left:5%" value="#{controllerDominio.nombreDominio(solicitud.pagos.get(0).banco)}" />
-              				<br />              				
-              				<h:outputLabel value="Forma de Pago:" />
-              				<h:outputText style="padding-left:5%" value="#{controllerDominio.nombreDominio(solicitud.pagos.get(0).formaPago)}" />
-           				</div>
-           				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              				<h:outputLabel value="Referencia:" />
-              				<h:outputText style="padding-left:5%" value="#{solicitud.pagos.get(0).referencia}" />
-              				<br />              				
-              				<h:outputLabel value="Valor:" />
-              				<h:outputText style="padding-left:5%" value="$#{solicitud.pagos.get(0).valor}" />
-           				</div>
-       				</div>
-						
-				</h:panelGroup>
-				
+				<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+					<h:panelGroup layout="block" rendered="#{solicitud.estado!='GRABADA'}" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	              				<h:outputLabel value="Banco:" />
+	              				<h:outputText style="padding-left:5%" value="#{controllerDominio.nombreDominio(pagos.banco)}" />
+	              				<br />              				
+	              				<h:outputLabel value="Forma de Pago:" />
+	              				<h:outputText style="padding-left:5%" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
+	           				</div>
+	           				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+	              				<h:outputLabel value="Referencia:" />
+	              				<h:outputText style="padding-left:5%" value="#{pagos.referencia}" />
+	              				<br />              				
+	              				<h:outputLabel value="Valor:" />
+	              				<h:outputText style="padding-left:5%" value="$#{pagos.valor}" />
+	           				</div>
+	       				</div>
+							
+					</h:panelGroup>
+				</ui:repeat>
 				<h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Pretenciones:" />

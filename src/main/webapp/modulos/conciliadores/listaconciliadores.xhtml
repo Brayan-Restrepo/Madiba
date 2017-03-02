@@ -11,7 +11,7 @@
 	<body>
 		<ui:composition template="/resources/plantilla/plantilla.xhtml">		
 			<ui:define name="content">
-			
+			<div class='content-wrapper' style="height:10px;overflow:auto">
 				<div class="content">
 					<div class="row">
 					<ui:repeat var="conciliador" value="#{controllerConciliador.listaConciliador()}">
@@ -30,8 +30,8 @@
 									<div class="left col-xs-8">
 										<h:outputLabel value="Especialidad:" />
 										<ul>
-											<ui:repeat var="especialidad" value="#{conciliador.conciliadorEspecialidads.get(0).especialidad}">
-												<li> #{especialidad.nombre} </li>
+											<ui:repeat var="especialidad" value="#{conciliador.conciliadorEspecialidads}">
+												<li> #{especialidad.especialidad.nombre} </li>
 											</ui:repeat>
 										</ul>
 										<h:outputLabel value="Experiencia:"/>
@@ -57,7 +57,7 @@
 					</ui:repeat>
 					</div>
 				</div>
-				
+			</div>
 			</ui:define>
 		</ui:composition>
 	</body>

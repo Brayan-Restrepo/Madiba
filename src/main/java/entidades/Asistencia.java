@@ -10,7 +10,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="\"Asistencia\"")
-@NamedQuery(name="Asistencia.findAll", query="SELECT a FROM Asistencia a")
+@NamedQueries({
+	@NamedQuery(name="Asistencia.findAll", query="SELECT a FROM Asistencia a"),
+	@NamedQuery(name="Asistencia.countAll", query="SELECT max(a.idAsistencia) FROM Asistencia a")
+})
 public class Asistencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 

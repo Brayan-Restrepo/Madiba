@@ -38,5 +38,9 @@ public class SolicitudBean implements iSolicitudBean {
 		// TODO Auto-generated method stub
 		return this.solicitudDAO.findSolicitud(id);
 	}
-
+	@Override
+	public void actualizarEstadoSolicitud(Long id, String nuevoEstado){
+		this.solicitudDAO.actualizarEstadoSolicitud(id, nuevoEstado);
+	}
+	
 }

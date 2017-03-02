@@ -10,7 +10,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="\"Anexo\"")
-@NamedQuery(name="Anexo.findAll", query="SELECT a FROM Anexo a")
+@NamedQueries({
+	@NamedQuery(name="Anexo.findAll", query="SELECT a FROM Anexo a"),
+	@NamedQuery(name="Anexo.countAll", query="SELECT max(a.idAnexo) FROM Anexo a")
+})
 public class Anexo implements Serializable {
 	private static final long serialVersionUID = 1L;
 

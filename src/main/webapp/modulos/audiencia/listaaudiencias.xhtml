@@ -12,6 +12,7 @@
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">		
 		<ui:define name="content">			
 			#{controllerSolicitud.findAudiencia()}
+			<div class='content-wrapper' style="height:10px;overflow:auto">
 			<div class="content">
 				<div class="row">
 					<div class="col-md-12">
@@ -120,20 +121,21 @@
 					</div>
 				</div>
 			</div>
-		</ui:define>		
+		</div>
 		
-		<ui:define name="footer">
+		<div class='main-footer' style="height: 43.11111px;">
 			<div class="text-center">
 				<h:form id="formBotones">
 				
-					<h:commandButton styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')} btn-menu" value="Enviar Citaciones"></h:commandButton>
-					<h:button value="Desarrollar Audiencia" outcome="desarrolloaudiencia" disabled="#{modelAudiencia.audiencia}" styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')} btn-menu" ></h:button>
-					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Cambiar Conciliador"></h:commandButton>
-					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Modificar Acta" disabled="true"></h:commandButton>
-					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Expedir Acta" disabled="true"></h:commandButton>
-					
+					<h:commandButton styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')} btn-menu" value="Enviar Citaciones" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-CITACION','')}" ></h:commandButton>
+					<h:commandButton value="Desarrollar Audiencia" action="desarrolloaudiencia?faces-redirect=true"  disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-ENCURSO','')}" styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')} btn-menu"/>
+					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Cambiar Conciliador" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-PENDIENTE','AUDIENCIA-ENCURSO')}" ></h:commandButton>
+					<h:commandButton  value="Aplazar" actionListener="#{controllerSolicitud.aplazarAudiencia()}" styleClass="btn btn-sm btn-warning btn-menu" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-PENDIENTE','')}" action="listaaudiencias?faces-redirect=true"/>
+					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Modificar Acta" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-FINALIZADA','')}" ></h:commandButton>
+					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Expedir Acta" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-FINALIZADA','')}" ></h:commandButton>
 				</h:form>
 			</div>
+		</div>
 		</ui:define>
 	</ui:composition>
 </body>

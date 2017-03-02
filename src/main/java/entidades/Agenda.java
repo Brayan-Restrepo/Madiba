@@ -11,7 +11,10 @@ import java.util.Date;
  */
 @Entity
 @Table(name="\"Agenda\"")
-@NamedQuery(name="Agenda.findAll", query="SELECT a FROM Agenda a")
+@NamedQueries({
+	@NamedQuery(name="Agenda.findAll", query="SELECT a FROM Agenda a"),
+	@NamedQuery(name="Agenda.countAll", query="SELECT max(a.idAgenda) FROM Agenda a")
+})
 public class Agenda implements Serializable {
 	private static final long serialVersionUID = 1L;
 

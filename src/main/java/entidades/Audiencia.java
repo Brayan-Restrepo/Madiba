@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="\"Audiencia\"")
-@NamedQuery(name="Audiencia.findAll", query="SELECT a FROM Audiencia a")
+@NamedQueries({
+	@NamedQuery(name="Audiencia.findAll", query="SELECT a FROM Audiencia a"),
+	@NamedQuery(name="Audiencia.countAll", query="SELECT max(a.idAudiencia) FROM Audiencia a")
+})
 public class Audiencia implements Serializable {
 	private static final long serialVersionUID = 1L;
 

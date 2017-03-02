@@ -56,22 +56,32 @@
 				
 				<h:column>
 					<f:facet name="header">Banco</f:facet>
-					<h:outputText rendered="#{solicitud.estado!='GRABADA'}" value="#{controllerDominio.nombreDominio(solicitud.pagos.get(0).banco)}" />
+					<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+						<h:outputText value="#{controllerDominio.nombreDominio(pagos.banco)}" />
+					</ui:repeat>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">Referencia N°</f:facet>
-					<h:outputText rendered="#{solicitud.estado!='GRABADA'}" value="#{solicitud.pagos.get(0).referencia}" />
+					<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+						<h:outputText value="#{pagos.referencia}" />
+					</ui:repeat>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">Forma de Pago</f:facet>
-					<h:outputText rendered="#{solicitud.estado!='GRABADA'}" value="#{controllerDominio.nombreDominio(solicitud.pagos.get(0).formaPago)}" />
+					
+					<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+						<h:outputText value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
+					</ui:repeat>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">Valor Pagado</f:facet>
-					<h:outputText rendered="#{solicitud.estado!='GRABADA'}" value="#{solicitud.pagos.get(0).valor}" />
+					
+					<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+						<h:outputText value="#{pagos.valor}" />
+					</ui:repeat>
 				</h:column>          	
 			</h:dataTable>
 			
