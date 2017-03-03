@@ -42,28 +42,29 @@ public class ModelSolicitud {
 	//Hay que quitar esto es solo provicional
 	private boolean ficha; 
 
-	private List<Integer> selectSolicitud; 
+	private List<Long> selectSolicitud; 
 	private String statusSelect = "";
 	
 	public ModelSolicitud(){
 		this.ficha=true;
-		this.selectSolicitud=new ArrayList<Integer>();
+		this.selectSolicitud=new ArrayList<Long>();
 	}
 	
 	
-	public List<Integer> getSelectSolicitud() {
+	public List<Long> getSelectSolicitud() {
 		return selectSolicitud;
 	}
 
 
-	public void setSelectSolicitud(List<Integer> selectSolicitud) {
+	public void setSelectSolicitud(List<Long> selectSolicitud) {
 		this.selectSolicitud = selectSolicitud;
 	}
 	
-	public void addSelectSolicitud(Integer id, String estado) {
+	public void addSelectSolicitud(Long id, String estado) {
+		System.out.println("Entre al click select "+id);
 		if(!statusSelect.equals(estado)){
 			statusSelect = estado;
-			this.selectSolicitud = new ArrayList<Integer>();
+			this.selectSolicitud = new ArrayList<Long>();
 		}
 		if(estado.equalsIgnoreCase("AUDIENCIA-CITACION") || estado.equalsIgnoreCase("AUDIENCIA-FINALIZADA")){
 			boolean isSelect = false;
@@ -85,13 +86,13 @@ public class ModelSolicitud {
 		}
 		else{
 			if(this.selectSolicitud.size()>0){
-				Integer idSolicitudLista = this.selectSolicitud.get(0);
-				this.selectSolicitud = new ArrayList<Integer>();
+				Long idSolicitudLista = this.selectSolicitud.get(0);
+				this.selectSolicitud = new ArrayList<Long>();
 				if(idSolicitudLista != id){
 					this.selectSolicitud.add(id);
 				}
 			}else{
-				this.selectSolicitud = new ArrayList<Integer>();
+				this.selectSolicitud = new ArrayList<Long>();
 				this.selectSolicitud.add(id);
 				statusSelect = estado;
 			}

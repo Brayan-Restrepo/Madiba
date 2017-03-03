@@ -3,7 +3,7 @@
 <web-app>
 	
     
-    <!-- 192.166.0.16 Juan -->
+    <!-- 192.166.0.16 Juan 
     <context-param>
         <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
         <param-value>6LdsvRYUAAAAALYG8V_VnlnF20_FzOCY5oa8NXAB</param-value>
@@ -14,7 +14,7 @@
         <param-value>6LdsvRYUAAAAAMKJHqggwyNJAHZfa6rQmz5OQKxA</param-value>
     </context-param>
     
-     <!-- 192.166.0.13 Brayan-->
+    192.166.0.13 Brayan
     <context-param>
         <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
         <param-value>6LdbsxYUAAAAAMqkaUsvyT6ZaA-WyCp74SDRvEAS</param-value>
@@ -23,9 +23,9 @@
     <context-param>
         <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
         <param-value>6LdbsxYUAAAAABKuzsIgOvEqw4Zsdef8Q6tEHN4l</param-value>
-    </context-param>
+    </context-param> -->
     
-    	<!-- Localhost -->
+    <!-- Localhost -->
     <context-param>
         <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
         <param-value>6LeeTxQUAAAAAInP9teZ-_kAlaReoZlQxBIGSeM2</param-value>

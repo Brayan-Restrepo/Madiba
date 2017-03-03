@@ -25,10 +25,11 @@ public class SolicitudDAO {
 		for(int i=0;i<solicitud.size();i++){
 			solicitud.get(i).getPartes().size();
 			solicitud.get(i).getPagos().size();
-			
-			solicitud.get(i).getDesignacions().size();
-			
-		
+			solicitud.get(i).getDesignacions().size();			
+			solicitud.get(i).getAudiencias().size();
+			for(int j=0;j<solicitud.get(j).getAudiencias().size();j++){
+				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
+			}
 		}
 		return solicitud;
 	}
@@ -41,6 +42,10 @@ public class SolicitudDAO {
 			solicitud.get(i).getPartes().size();
 			solicitud.get(i).getPagos().size();
 			solicitud.get(i).getDesignacions().size();
+			solicitud.get(i).getAudiencias().size();
+			for(int j=0;j<solicitud.get(j).getAudiencias().size();j++){
+				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
+			}
 		}
 		return solicitud;
 	}
@@ -53,19 +58,24 @@ public class SolicitudDAO {
 			solicitud.get(i).getPartes().size();
 			solicitud.get(i).getPagos().size();
 			solicitud.get(i).getDesignacions().size();
-			
+			solicitud.get(i).getAudiencias().size();
+			for(int j=0;j<solicitud.get(j).getAudiencias().size();j++){
+				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
+			}
 		}
 		return solicitud;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public Solicitud findSolicitud(Long id){
-		Solicitud solicitud = this.manager.find(Solicitud.class,id);
-		
+		Solicitud solicitud = this.manager.find(Solicitud.class,id);		
 		solicitud.getPartes().size();
 		solicitud.getPagos().size();
 		solicitud.getDesignacions().size();
-		
+		solicitud.getAudiencias().size();
+		for(int j=0;j<solicitud.getAudiencias().size();j++){
+			solicitud.getAudiencias().get(j).getAgendas().size();
+		}
 		
 		return solicitud;
 	}

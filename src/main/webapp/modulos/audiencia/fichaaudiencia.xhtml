@@ -8,13 +8,15 @@
 
 <h:head></h:head> 
 <body> 
+	
 	<ui:composition>
 		<f:param name="lastAudiencia" value="#{solicitud.audiencias.size()-1}"></f:param>
 		<f:param name="lastAgenda" value="#{solicitud.audiencias.get(lastAudiencia).agendas.size()-1}"></f:param>
 		
 		
-		<h:panelGroup layout="block" styleClass="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 100%" >	
+		<h:panelGrid layout="block" styleClass="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 100%;width:47%;margin-left:2%;margin-rigth:1%" >	
 			<f:ajax event="click" listener="#{modelSolicitud.addSelectSolicitud(solicitud.idSolicitud,solicitud.estado)}" render="#{formulario}" ></f:ajax>
+
 			<h:panelGroup layout="block" class="box box-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} sombra #{controllerSolicitud.seleccionarSolicitud(solicitud.idSolicitud,solicitud.estado)}">
 				
 				<div class="box-header with-border" style="padding-bottom:0px">
@@ -92,7 +94,7 @@
 		          	</div>
 		        </h:panelGroup>
 			</h:panelGroup>
-		</h:panelGroup>
+		</h:panelGrid>
 	</ui:composition>
 </body> 
 </html>

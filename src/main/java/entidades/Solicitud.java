@@ -43,7 +43,7 @@ public class Solicitud implements Serializable {
 	private List<Anexo> anexos;
 
 	//bi-directional many-to-one association to Audiencia
-	@OneToMany(mappedBy="solicitud",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="solicitud")
 	private List<Audiencia> audiencias;
 
 	//bi-directional many-to-one association to Designacion

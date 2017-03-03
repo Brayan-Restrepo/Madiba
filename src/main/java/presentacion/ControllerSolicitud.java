@@ -215,7 +215,7 @@ public class ControllerSolicitud {
 		return null;
 	}
 	
-	public String seleccionarSolicitud(Integer idSolicitud,String estado){
+	public String seleccionarSolicitud(Long idSolicitud,String estado){
 		for(int i=0;i<this.consultaModelSolicitud.getSelectSolicitud().size();i++){
 			if(this.consultaModelSolicitud.getSelectSolicitud().get(i)==idSolicitud){
 				return "seleccionar-solicitud-"+this.coloresEstado.get(estado);

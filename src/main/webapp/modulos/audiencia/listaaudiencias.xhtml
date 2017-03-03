@@ -38,7 +38,7 @@
 
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
 												<h:panelGroup rendered="#{controllerSolicitud.listaSolicitud.size()>(n.index+1)}">						
-													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
 														<ui:include src="fichaaudiencia.xhtml"></ui:include>
 													</ui:repeat>
 												</h:panelGroup>
@@ -57,7 +57,7 @@
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
 												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION').size()>(n.index+1)}">							
-													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION')}">
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION')}">
 														<ui:include src="fichaaudiencia.xhtml"></ui:include>
 													</ui:repeat>
 												</h:panelGroup>
@@ -74,7 +74,7 @@
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
 												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE').size()>(n.index+1)}">							
-													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE')}">
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE')}">
 														<ui:include src="fichaaudiencia.xhtml"></ui:include>
 													</ui:repeat>
 												</h:panelGroup>
@@ -91,7 +91,7 @@
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
 												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO').size()>(n.index+1)}">						
-													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO')}">
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO')}">
 														<ui:include src="fichaaudiencia.xhtml"></ui:include>
 													</ui:repeat>
 												</h:panelGroup>
@@ -107,7 +107,7 @@
 											<div class="row">
 												<ui:include src="fichaaudiencia.xhtml"></ui:include>
 												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA').size()>(n.index+1)}">							
-													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}">
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}">
 														<ui:include src="fichaaudiencia.xhtml"></ui:include>
 													</ui:repeat>
 												</h:panelGroup>

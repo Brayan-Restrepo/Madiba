@@ -55,7 +55,7 @@
 												<h:panelGroup layout="block" class="row">
 													<ui:include src="fichasolicitud.xhtml"></ui:include> 
 													<h:panelGroup rendered="#{controllerSolicitud.listaSolicitud.size()>(n.index+1)}">							
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
 															<ui:include src="fichasolicitud.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
@@ -81,7 +81,7 @@
 													<ui:include src="fichasolicitud.xhtml"></ui:include>
 													<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('GRABADA').size()>(n.index+1)}">
 													
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('GRABADA')}">
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('GRABADA')}">
 															<ui:include src="fichasolicitud.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
@@ -106,7 +106,7 @@
 												<div class="row">
 													<ui:include src="fichasolicitud.xhtml"></ui:include>
 													<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('PAGADA').size()>(n.index+1)}">						
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('PAGADA')}">
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('PAGADA')}">
 															<ui:include src="fichasolicitud.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
@@ -131,7 +131,7 @@
 												<div class="row">
 													<ui:include src="fichasolicitud.xhtml"></ui:include>
 													<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('RADICADA').size()>(n.index+1)}">						
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('RADICADA')}">
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('RADICADA')}">
 															<ui:include src="fichasolicitud.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
@@ -157,7 +157,7 @@
 												<div class="row">
 													<ui:include src="fichasolicitud.xhtml"></ui:include>
 													<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('DESIGNACION').size()>(n.index+1)}">							
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('DESIGNACION')}">
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('DESIGNACION')}">
 															<ui:include src="fichasolicitud.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
@@ -185,7 +185,7 @@
 												<div class="row">
 													<ui:include src="fichasolicitud.xhtml"></ui:include>
 													<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA').size()>(n.index+1)}">						
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}">
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+1}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}">
 															<ui:include src="fichasolicitud.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>

@@ -28,7 +28,7 @@ public class Audiencia implements Serializable {
 	private String estado;
 
 	//bi-directional many-to-one association to Agenda
-	@OneToMany(mappedBy="audiencia",fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="audiencia")
 	private List<Agenda> agendas;
 
 	//bi-directional many-to-one association to Asistencia

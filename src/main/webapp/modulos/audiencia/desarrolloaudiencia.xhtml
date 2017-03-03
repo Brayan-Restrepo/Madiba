@@ -84,10 +84,10 @@
 															            	<h:outputText value="#{convocado.apellidos} #{convocado.nombres}" />
 														            	</td>
 															            <td class="text-center" style="width: 10%;">
-															            	<h:panelGroup class="btn btn-#{controllerAudiencia.changeColorButton(convocado.idParte)} btn-xs">
+															            	<h:panelGrid class="btn btn-#{controllerAudiencia.changeColorButton(convocado.idParte)} btn-xs">
 															            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocado.idParte)}" event="click"></f:ajax>
 															            		<i class="fa #{controllerAudiencia.changeIcon(convocado.idParte)}"></i>
-															            	</h:panelGroup>
+															            	</h:panelGrid>
 														            	</td>
 														            	 <td class="text-center" style="width: 10%;">
 															            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-edit"></i></h:panelGroup>
