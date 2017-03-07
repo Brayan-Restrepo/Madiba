@@ -9,7 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ModelAudiencia {
 
 	/**
@@ -25,7 +25,7 @@ public class ModelAudiencia {
 	/**
 	 * Depende de Acuerdo Parcial, si Acuerdo Parcial es true se toma en cuenta esto
 	 */
-	private String noAcuerd;
+	private String noAcuerdo;
 	
 	private String tipoResultado = "ACUERDO";
 	
@@ -41,6 +41,19 @@ public class ModelAudiencia {
 	 */
 	private boolean acuerdoParcial;
 	
+	/**
+	 * En la Vista de las Audiencias cambia de modo Ficha a Modo Tablas
+	 */
+	private boolean ficha;
+	
+	public boolean isFicha() {
+		return ficha;
+	}
+
+	public void setFicha(boolean ficha) {
+		this.ficha = ficha;
+	}
+
 	public String getAcuerdo() {
 		return acuerdo;
 	}
@@ -49,15 +62,16 @@ public class ModelAudiencia {
 		this.acuerdo = acuerdo;
 	}
 
-	public String getNoAcuerd() {
-		return noAcuerd;
+	public String getNoAcuerdo() {
+		return noAcuerdo;
 	}
 
-	public void setNoAcuerd(String noAcuerd) {
-		this.noAcuerd = noAcuerd;
+	public void setNoAcuerdo(String noAcuerdo) {
+		this.noAcuerdo = noAcuerdo;
 	}
 
 	public ModelAudiencia(){
+		this.ficha=true;
 		this.audiencia = false;
 		this.acuerdoParcial=false;
 		//this.valorAsistencias = new Long[2];

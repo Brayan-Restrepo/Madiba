@@ -17,7 +17,7 @@ import negocio.iAudienciaBean;
 import negocio.iSolicitudBean;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class ControllerAudiencia {
 
 	
@@ -68,19 +68,36 @@ public class ControllerAudiencia {
 	}
 	
 	/**
-	 * 	
+	 * 	Se Añade El resultado de La Audiencia Solo si es Finalzada (Fin da las Audiecias) 
+	 * 
 	 * @param estdoAudiencia -> FINALIZADA, APLAZADA, SUSPENDIDA
 	 */
 	public void addResultado(String estdoAudiencia){
 		
+		//Tipo de Resultado - Acuerdo - No Acuerdo - No Conciliabre
 		String tipoResultado = this.modelAudiencia.getTipoResultado();
+		//La Conclucion de La Audiencia
 		String observacion = this.modelAudiencia.getObservacion();
+
+		// Si es Acuerdo Parcial Hay Acuerdos y Desacuerdos
+		String acuerdos = this.modelAudiencia.getAcuerdo();
+		String noacuerdos = this.modelAudiencia.getNoAcuerdo();
+		
+		//La Ultima Audiencia de esa Solicitud. Una Solicitud puede tener Varias Audiencias
 		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
-		if((observacion!="" && observacion!=null) && tipoResultado!=null && tipoResultado!=""){
-			if(estdoAudiencia.equals("FINALIZADA")){
-				
-				this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
-				
+
+		System.out.println(this.modelAudiencia.isAcuerdoParcial());
+		//Sia hay un Acuerdo Parcial, es decir Hay Acuerdos pero tambien desacuerdos
+		if(estdoAudiencia.equals("FINALIZADA")){
+			if(this.modelAudiencia.isAcuerdoParcial()){
+				if((acuerdos!="" && acuerdos!=null) && (noacuerdos!="" && noacuerdos!=null)){
+					this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud());
+					this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud());
+				}
+			}else{
+				if((observacion!="" && observacion!=null) && tipoResultado!=null && tipoResultado!=""){
+					this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
+				}
 			}
 		}
 		//return "listaaudiencias";
@@ -157,4 +174,11 @@ public class ControllerAudiencia {
 		}
 		return color;
 	}
+	
+	public boolean cambiarFichaTabla(){
+		this.modelAudiencia.setFicha(!this.modelAudiencia.isFicha());
+		System.out.println(this.modelAudiencia.isFicha());
+		return this.modelAudiencia.isFicha();
+	}
+	
 }

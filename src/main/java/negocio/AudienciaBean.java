@@ -27,7 +27,6 @@ public class AudienciaBean implements iAudienciaBean {
 		resultado.setTipoResultado(tipoResultado);
 		resultado.setConclusion(conclusion);
 		resultado.setAudiencia(audiencia);
-		
 		this.audienciaDAO.addResultado(resultado);
 		
 		this.audienciaDAO.actualizarEstadoAudiencia(audiencia.getIdAudiencia(), "FINALIZADA");

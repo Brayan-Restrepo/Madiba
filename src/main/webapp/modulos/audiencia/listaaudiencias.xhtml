@@ -32,13 +32,13 @@
 								<div class="tab-pane active" id="todas">
 									<h:form id='formtodas'>
 										<ui:param name="formulario" value="@form :formcitacion :formpendientes :formencurso :formfinalizadas :formBotones"/>
-										<c:if test="#{!modelSolicitud.ficha}">
+										<c:if test="#{!modelAudiencia.ficha}">
 											<ui:include src="tablaaudiencia.xhtml">
 												<ui:param name="listaAudiencia" value="#{controllerSolicitud.listaSolicitud}" />
 											</ui:include>
 										</c:if>
 
-										<c:if test="#{modelSolicitud.ficha}">
+										<c:if test="#{modelAudiencia.ficha}">
 											<ui:repeat varStatus="n" var="solicitud"
 												value="#{controllerSolicitud.listaSolicitud}" step="2">
 												<h:panelGroup layout="block" class="row">
@@ -58,13 +58,13 @@
 								<div class="tab-pane" id="citacion">
 									<h:form id="formcitacion">
 										<ui:param name="formulario" value="@form :formtodas :formpendientes :formencurso :formfinalizadas :formBotones"/>
-										<c:if test="#{!modelSolicitud.ficha}">
+										<c:if test="#{!modelAudiencia.ficha}">
 											<ui:include src="tablaaudiencia.xhtml">
 												<ui:param name="listaAudiencia" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION')}" />
 											</ui:include>
 										</c:if>
 
-										<c:if test="#{modelSolicitud.ficha}">
+										<c:if test="#{modelAudiencia.ficha}">
 											<ui:repeat varStatus="n" var="solicitud"
 												value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION')}"
 												step="2">
@@ -83,13 +83,13 @@
 								<div class="tab-pane" id="pendientes">
 									<h:form id="formpendientes">
 										<ui:param name="formulario" value="@form :formtodas :formcitacion :formencurso :formfinalizadas :formBotones"/>
-										<c:if test="#{!modelSolicitud.ficha}">
+										<c:if test="#{!modelAudiencia.ficha}">
 											<ui:include src="tablaaudiencia.xhtml">
 												<ui:param name="listaAudiencia" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE')}" />
 											</ui:include>
 										</c:if>
 
-										<c:if test="#{modelSolicitud.ficha}">
+										<c:if test="#{modelAudiencia.ficha}">
 											<ui:repeat varStatus="n" var="solicitud"
 												value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE')}"
 												step="2">
@@ -108,13 +108,13 @@
 								<div class="tab-pane" id="encurso">
 									<h:form id="formencurso">
 										<ui:param name="formulario" value="@form :formtodas :formpendientes :formcitacion :formfinalizadas :formBotones"/>
-										<c:if test="#{!modelSolicitud.ficha}">
+										<c:if test="#{!modelAudiencia.ficha}">
 											<ui:include src="tablaaudiencia.xhtml">
 												<ui:param name="listaAudiencia" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO')}" />
 											</ui:include>
 										</c:if>
 
-										<c:if test="#{modelSolicitud.ficha}">
+										<c:if test="#{modelAudiencia.ficha}">
 											<ui:repeat varStatus="n" var="solicitud"
 												value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO')}"
 												step="2">
@@ -133,13 +133,13 @@
 								<div class="tab-pane" id="finalizadas">
 									<h:form id="formfinalizadas">
 										<ui:param name="formulario" value="@form :formtodas :formpendientes :formcitacion :formencurso :formBotones"/>
-										<c:if test="#{!modelSolicitud.ficha}">
+										<c:if test="#{!modelAudiencia.ficha}">
 											<ui:include src="tablaaudiencia.xhtml">
 												<ui:param name="listaAudiencia" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}" />
 											</ui:include>
 										</c:if>
 
-										<c:if test="#{modelSolicitud.ficha}">
+										<c:if test="#{modelAudiencia.ficha}">
 											<ui:repeat varStatus="n" var="solicitud"
 												value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}" step="2">
 												<div class="row">
@@ -166,12 +166,12 @@
 			<div class="text-center">
 				<h:form id="formBotones">
 					
-					<h:commandButton id="verTabla" rendered="#{modelSolicitud.ficha}" styleClass="btn btn-sm btn-success btn-menu" value="Ver Tablas">
-						<f:ajax render="@form :formtodas :formpendientes :formcitacion :formencurso :formfinalizadas" listener="#{controllerSolicitud.cambiarFichaTabla()}"></f:ajax>
+					<h:commandButton id="verTabla" rendered="#{modelAudiencia.ficha}" styleClass="btn btn-sm btn-success btn-menu" value="Ver Tablas">
+						<f:ajax render="@form :formtodas :formpendientes :formcitacion :formencurso :formfinalizadas" listener="#{controllerAudiencia.cambiarFichaTabla()}"></f:ajax>
 					</h:commandButton>
 					
-					<h:commandButton id="verFicha" rendered="#{!modelSolicitud.ficha}" styleClass="btn btn-sm btn-success btn-menu" value="Ver Ficha">
-						<f:ajax render="@form :formtodas :formpendientes :formcitacion :formencurso :formfinalizadas" listener="#{controllerSolicitud.cambiarFichaTabla()}"></f:ajax>
+					<h:commandButton id="verFicha" rendered="#{!modelAudiencia.ficha}" styleClass="btn btn-sm btn-success btn-menu" value="Ver Ficha">
+						<f:ajax render="@form :formtodas :formpendientes :formcitacion :formencurso :formfinalizadas" listener="#{controllerAudiencia.cambiarFichaTabla()}"></f:ajax>
 					</h:commandButton>
 					
 					<h:commandButton styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')} btn-menu" value="Enviar Citaciones" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-CITACION','')}" ></h:commandButton>
