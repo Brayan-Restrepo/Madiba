@@ -17,7 +17,7 @@ import negocio.iAudienciaBean;
 import negocio.iSolicitudBean;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ControllerAudiencia {
 
 	
@@ -32,15 +32,22 @@ public class ControllerAudiencia {
 	@ManagedProperty(value = "#{modelAudiencia}")
 	private ModelAudiencia modelAudiencia;
 	
-	
 	private Solicitud solicitud;
-	
+
 	public ModelAudiencia getModelAudiencia() {
 		return modelAudiencia;
 	}
 
 	public void setModelAudiencia(ModelAudiencia modelAudiencia) {
 		this.modelAudiencia = modelAudiencia;
+	}
+	
+	public Solicitud getSolicitud() {
+		return solicitud;
+	}
+
+	public void setSolicitud(Solicitud solicitud) {
+		this.solicitud = solicitud;
 	}
 
 	/**
@@ -50,9 +57,9 @@ public class ControllerAudiencia {
 	 */
 	public Solicitud findSolicitud(Long id){
 		this.solicitud = this.solicitudBean.findSolicitud(id);
-		Long[] valAsistencia= new Long[2];
 		List<Long[]> listaAsistencias= new ArrayList<Long[]>();
 		for(int i=0;i<this.solicitud.getPartes().size();i++){
+			Long[] valAsistencia= new Long[2];
 			valAsistencia[0] = this.solicitud.getPartes().get(i).getIdParte();
 			valAsistencia[1] = 0L;
 			listaAsistencias.add(valAsistencia);
@@ -88,11 +95,7 @@ public class ControllerAudiencia {
 	
 	
 	public void addAsistencia(Long idParte){
-		System.out.println(this.modelAudiencia.getListaAsistencias().size()+"  ANTES ANTES ANTES  "+this.modelAudiencia.getListaAsistencias().get(0)[1]);
-		System.out.println(this.modelAudiencia.getListaAsistencias().size()+"  ANTES ANTES ANTES  "+this.modelAudiencia.getListaAsistencias().get(1)[1]);
-		System.out.println(this.modelAudiencia.getListaAsistencias().size()+"  ANTES ANTES ANTES  "+this.modelAudiencia.getListaAsistencias().get(2)[1]);
-		Long[] valAsistencia= new Long[2];
-		List<Long[]> listaAsistencias= new ArrayList<Long[]>();
+		List<Long[]> listaAsistencias = new ArrayList<Long[]>();
 		Long valor = 0L;
 		int posicion = 0;
 		for(int i=0;i<this.modelAudiencia.getListaAsistencias().size();i++){
@@ -100,18 +103,17 @@ public class ControllerAudiencia {
 				valor = this.modelAudiencia.getListaAsistencias().get(i)[1];
 				posicion = i;
 			}
-			valAsistencia = this.modelAudiencia.getListaAsistencias().get(i);
-			listaAsistencias.add(valAsistencia);
+			listaAsistencias.add(this.modelAudiencia.getListaAsistencias().get(i));
 		}
-		if(valor==2){
+		if(valor==2L){
 			listaAsistencias.get(posicion)[1] = 0L;
+			System.out.println("Entre 2");
 		}else{
-			listaAsistencias.get(posicion)[1] = valor+1;
+			listaAsistencias.get(posicion)[1] = valor+1L;
+			System.out.println("Entre 0, 1");
 		}
+		
 		this.modelAudiencia.setListaAsistencias(listaAsistencias);
-		System.out.println(this.modelAudiencia.getListaAsistencias().size()+"  DESPUES DESPUES  "+this.modelAudiencia.getListaAsistencias().get(0)[1]);
-		System.out.println(this.modelAudiencia.getListaAsistencias().size()+"  DESPUES DESPUES  "+this.modelAudiencia.getListaAsistencias().get(1)[1]);
-		System.out.println(this.modelAudiencia.getListaAsistencias().size()+"  DESPUES DESPUES  "+this.modelAudiencia.getListaAsistencias().get(2)[1]);
 	}
 	
 	public String changeIcon(Long idParte){

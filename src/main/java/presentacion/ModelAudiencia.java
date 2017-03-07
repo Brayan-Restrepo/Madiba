@@ -9,7 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class ModelAudiencia {
 
 	/**
@@ -32,7 +32,6 @@ public class ModelAudiencia {
 	/**
 	 * Es el valor del los CheckBox True si asistieron y False si no
 	 */
-	private Long[] valorAsistencias;
 	private List<Long[]> listaAsistencias;
 	
 	private boolean audiencia;
@@ -61,7 +60,7 @@ public class ModelAudiencia {
 	public ModelAudiencia(){
 		this.audiencia = false;
 		this.acuerdoParcial=false;
-		this.valorAsistencias = new Long[2];
+		//this.valorAsistencias = new Long[2];
 	}
 	
 	public boolean isAcuerdoParcial() {
@@ -95,15 +94,7 @@ public class ModelAudiencia {
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
-
-	public Long[] getValorAsistencias() {
-		return valorAsistencias;
-	}
-
-	public void setValorAsistencias(Long[] valorAsistencias) {
-		this.valorAsistencias = valorAsistencias;
-	}
-
+	
 	public List<Long[]> getListaAsistencias() {
 		return listaAsistencias;
 	}
