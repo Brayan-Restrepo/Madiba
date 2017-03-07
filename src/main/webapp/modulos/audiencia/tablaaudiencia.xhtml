@@ -10,16 +10,13 @@
 <body> 
 	
 <ui:composition>
-  				
-	<f:param name="lastAudiencia" value="#{audiencia.audiencias.size()-1}"></f:param>
-	<f:param name="lastAgenda" value="#{audiencia.audiencias.get(lastAudiencia).agendas.size()-1}"></f:param>
-		
+  	
 	<div class="box-body table-responsive ">
 		<table class="table" style="white-space: nowrap;">
 			<thead>
 				<tr>
 					<th>Select</th>
-					<th>N Audiencia</th>
+					<th>N° Audiencia</th>
 					<th>Estado</th>
 					<th>Conciliador</th>	
 					<th>Convocados</th>
@@ -34,11 +31,12 @@
 				<ui:repeat var="audiencia" value="#{listaAudiencia}">
 					<tr class="#{controllerSolicitud.seleccionarSolicitud(audiencia.idSolicitud,audiencia.estado)}">
 						<td>
-							<h:commandButton value="Select" styleClass="btn btn-xs btn-primary">
-								<f:ajax event="click" listener="#{modelSolicitud.addSelectSolicitud(audiencia.idSolicitud,audiencia.estado)}" render="#{formulario}" ></f:ajax>
-							</h:commandButton>
+							<h:panelGrid class="btn btn-xs btn-primary">
+								<f:ajax event="click" listener="#{modelSolicitud.addSelectSolicitud(audiencia.idSolicitud,audiencia.estado)}" render="#{formulario}"></f:ajax>
+								<i class="fa #{controllerSolicitud.changeIconSelect(audiencia.idSolicitud)}"></i>
+		            		</h:panelGrid>
 						</td>
-						<td>#{audiencia.audiencias.get(lastAudiencia).audienciaNum}</td>
+						<td class="text-center">#{audiencia.audiencias.get(audiencia.audiencias.size()-1).audienciaNum}</td>
 						<td>
 							<h:outputLabel value="#{audiencia.estado}"  styleClass="label label-#{controllerSolicitud.colorSolicitudEstado(audiencia.estado)}"/>
 						</td>
@@ -61,17 +59,17 @@
 								</ui:repeat>
 							</ul>
 						</td>
-						<td>
-							#{audiencia.audiencias.get(lastAudiencia).agendas.get(lastAgenda).fecha}
+						<td class="text-center">
+							#{audiencia.audiencias.get(audiencia.audiencias.size()-1).agendas.get(audiencia.audiencias.get(audiencia.audiencias.size()-1).agendas.size()-1).fecha}
+						</td>
+						<td class="text-center">
+							#{controllerSolicitud.MascaraHora(audiencia.audiencias.get(audiencia.audiencias.size()-1).agendas.get(audiencia.audiencias.get(audiencia.audiencias.size()-1).agendas.size()-1).horaInicial)}
+						</td>
+						<td class="text-center">
+							#{controllerSolicitud.Duracion(audiencia.audiencias.get(audiencia.audiencias.size()-1).agendas.get(audiencia.audiencias.get(audiencia.audiencias.size()-1).agendas.size()-1).horaInicial,audiencia.audiencias.get(audiencia.audiencias.size()-1).agendas.get(audiencia.audiencias.get(audiencia.audiencias.size()-1).agendas.size()-1).horaFinal)}
 						</td>
 						<td>
-							#{controllerSolicitud.MascaraHora(audiencia.audiencias.get(lastAudiencia).agendas.get(lastAgenda).horaInicial)}
-						</td>
-						<td>
-							#{controllerSolicitud.Duracion(audiencia.audiencias.get(lastAudiencia).agendas.get(lastAgenda).horaInicial,audiencia.audiencias.get(lastAudiencia).agendas.get(lastAgenda).horaFinal)}
-						</td>
-						<td>
-							#{audiencia.audiencias.get(lastAudiencia).agendas.get(lastAgenda).sala.nombre}
+							#{audiencia.audiencias.get(audiencia.audiencias.size()-1).agendas.get(audiencia.audiencias.get(audiencia.audiencias.size()-1).agendas.size()-1).sala.nombre}
 						</td>
 					</tr>
 

@@ -69,7 +69,7 @@ public class ControllerSolicitud {
 	public void findSolicitudes(){
 		this.listaSolicitud = this.solicitudBean.findSolicitudes();
 	}
-	public void findAudiencia(){
+	public void findAudiencias(){
 		this.listaSolicitud = this.solicitudBean.findAudiencias();
 	}
 		
@@ -340,4 +340,14 @@ public class ControllerSolicitud {
 		this.solicitudBean.actualizarEstadoSolicitud(id, "DESIGNACION");
 	}
 	
+	public String changeIconSelect(Long idSolicitud){
+		
+		for(int i=0;i<this.consultaModelSolicitud.getSelectSolicitud().size();i++){
+			if(this.consultaModelSolicitud.getSelectSolicitud().get(i)==idSolicitud){
+				return "fa-check";
+			}
+		}
+		
+		return "fa-square";
+	}
 }

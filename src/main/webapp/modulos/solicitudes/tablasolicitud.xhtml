@@ -8,85 +8,96 @@
 
 <h:head></h:head> 
 <body>
-	<ui:composition>
-		<div class='box-body table-responsive'>
-						
-			<h:dataTable id="tablaSolicitud"  value="#{listaSolicitud}" var="solicitud" rowClasses="text-center" styleClass="table table-striped table-hover" style="white-space: nowrap;">
-				<h:column>
-					<f:facet name="header">Estado</f:facet>					
-					<h:outputLabel value="#{solicitud.estado}" styleClass="label label-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)}"/>
-				</h:column>
+<ui:composition>
+	<div class="box-body table-responsive ">
+		<table class="table" style="white-space: nowrap;">
+			<thead>
+				<tr>
+					<th>Select</th>
+					<th>N Audiencia</th>
+					<th>Estado</th>
+					<th>Pretenciones</th>
+					<th>Conciliador por</th>
+					<th>Conciliador</th>	
+					<th>Convocados</th>
+					<th>Convocantes</th>
+					<th>Banco</th>
+					<th>Referencia N°</th>
+					<th>Forma de Pago</th>
+					<th>Valor Pagado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<ui:repeat var="solicitud" value="#{listaSolicitud}">
+				<tr class="#{controllerSolicitud.seleccionarSolicitud(solicitud.idSolicitud,solicitud.estado)}">
+					<td>
+						<h:panelGrid class="btn btn-xs btn-primary">
+							<f:ajax event="click" listener="#{modelSolicitud.addSelectSolicitud(solicitud.idSolicitud,solicitud.estado)}" render="#{formulario}"></f:ajax>
+							<i class="fa #{controllerSolicitud.changeIconSelect(solicitud.idSolicitud)}"></i>
+	            		</h:panelGrid>
+					</td>
+					<td>					
+						<h:outputLabel value="#{solicitud.estado}" styleClass="label label-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)}"/>
+					</td>
 				
-				<h:column>
-					<f:facet name="header">Pretenciones</f:facet>
-					 <h:outputText value="#{solicitud.cuantia}"/>
-				</h:column>	
+					<td>
+						 <h:outputText value="#{solicitud.cuantia}"/>
+					</td>	
 				
-				<h:column>
-					<f:facet name="header">Conciliador por</f:facet>
-					 <h:outputText value="#{solicitud.designacions.get(solicitud.designacions.size()-1).tipoDesignacion}" />
-				</h:column>
+					<td>
+						 <h:outputText value="#{solicitud.designacions.get(solicitud.designacions.size()-1).tipoDesignacion}" />
+					</td>
 				
-				<h:column>
-					<f:facet name="header">Conciliador</f:facet>
-					<h:outputText value="#{solicitud.designacions.get(solicitud.designacions.size()-1).conciliador.nombres} #{solicitud.designacions.get(solicitud.designacions.size()-1).conciliador.apellidos}"/>
-				</h:column>
+					<td>
+						<h:outputText value="#{solicitud.designacions.get(solicitud.designacions.size()-1).conciliador.nombres} #{solicitud.designacions.get(solicitud.designacions.size()-1).conciliador.apellidos}"/>
+					</td>
 				
-				<h:column>
-					<f:facet name="header">Convocados</f:facet>
-					<ul>
-						<ui:repeat var="partes" value="#{solicitud.partes}" >
-							<h:panelGroup rendered="#{partes.tipoParte=='Convocado'}">
-								<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
-							</h:panelGroup>
+					<td>
+						<ul>
+							<ui:repeat var="partes" value="#{solicitud.partes}" >
+								<h:panelGroup rendered="#{partes.tipoParte=='Convocado'}">
+									<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+								</h:panelGroup>
+							</ui:repeat>
+						</ul>
+					</td>
+					<td>
+						<ul>
+							<ui:repeat var="partes" value="#{solicitud.partes}" >
+								<h:panelGroup rendered="#{partes.tipoParte=='Convocante'}">
+									<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+								</h:panelGroup>
+							</ui:repeat>
+						</ul>
+					</td>
+				
+					<td>
+						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+							<h:outputText value="#{controllerDominio.nombreDominio(pagos.banco)}" />
 						</ui:repeat>
-					</ul>
-				</h:column>
+					</td>
 				
-				<h:column>
-					<f:facet name="header">Convocantes</f:facet>
-					<ul>
-						<ui:repeat var="partes" value="#{solicitud.partes}" >
-							<h:panelGroup rendered="#{partes.tipoParte=='Convocante'}">
-								<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
-							</h:panelGroup>
+					<td>
+						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+							<h:outputText value="#{pagos.referencia}" />
 						</ui:repeat>
-					</ul>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Banco</f:facet>
-					<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-						<h:outputText value="#{controllerDominio.nombreDominio(pagos.banco)}" />
-					</ui:repeat>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Referencia N°</f:facet>
-					<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-						<h:outputText value="#{pagos.referencia}" />
-					</ui:repeat>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Forma de Pago</f:facet>
-					
-					<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-						<h:outputText value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
-					</ui:repeat>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Valor Pagado</f:facet>
-					
-					<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-						<h:outputText value="#{pagos.valor}" />
-					</ui:repeat>
-				</h:column>          	
-			</h:dataTable>
-			
-		</div>
-	</ui:composition>
+					</td>
+					<td>
+						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+							<h:outputText value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
+						</ui:repeat>
+					</td>
+					<td>
+						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+							<h:outputText value="#{pagos.valor}" />
+						</ui:repeat>					
+					</td>
+				</tr>	
+				</ui:repeat>				
+			</tbody>
+		</table>
+	</div>
+</ui:composition>
 
 </body> 
 </html>
