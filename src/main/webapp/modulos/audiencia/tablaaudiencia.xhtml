@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+	
+<ui:composition>
+  				
+	<f:param name="lastAudiencia" value="#{audiencia.audiencias.size()-1}"></f:param>
+	<f:param name="lastAgenda" value="#{audiencia.audiencias.get(lastAudiencia).agendas.size()-1}"></f:param>
+		
+	<div class="box-body table-responsive ">
+		<table class="table" style="white-space: nowrap;">
+			<thead>
+				<tr>
+					<th>Select</th>
+					<th>N Audiencia</th>
+					<th>Estado</th>
+					<th>Conciliador</th>	
+					<th>Convocados</th>
+					<th>Convocantes</th>
+					<th>Fecha Audiencia</th>
+					<th>Hora</th>
+					<th>Duracion</th>
+					<th>Sala</th>
+				</tr>
+			</thead>
+			<tbody>
+				<ui:repeat var="audiencia" value="#{listaAudiencia}">
+					<tr class="#{controllerSolicitud.seleccionarSolicitud(audiencia.idSolicitud,audiencia.estado)}">
+						<td>
+							<h:commandButton value="Select" styleClass="btn btn-xs btn-primary">
+								<f:ajax event="click" listener="#{modelSolicitud.addSelectSolicitud(audiencia.idSolicitud,audiencia.estado)}" render="#{formulario}" ></f:ajax>
+							</h:commandButton>
+						</td>
+						<td>#{audiencia.audiencias.get(lastAudiencia).audienciaNum}</td>
+						<td>
+							<h:outputLabel value="#{audiencia.estado}"  styleClass="label label-#{controllerSolicitud.colorSolicitudEstado(audiencia.estado)}"/>
+						</td>
+						<td>#{audiencia.designacions.get(audiencia.designacions.size()-1).conciliador.nombres} #{audiencia.designacions.get(audiencia.designacions.size()-1).conciliador.apellidos}</td>
+						<td>
+							<ul>
+								<ui:repeat var="partes" value="#{audiencia.partes}" >
+									<h:panelGroup rendered="#{partes.tipoParte=='Convocado'}">
+										<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+									</h:panelGroup>
+								</ui:repeat>
+							</ul>
+						</td>
+						<td>
+							<ul>
+								<ui:repeat var="partes" value="#{audiencia.partes}" >
+									<h:panelGroup rendered="#{partes.tipoParte=='Convocante'}">
+										<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+									</h:panelGroup>
+								</ui:repeat>
+							</ul>
+						</td>
+						<td>
+							#{audiencia.audiencias.get(lastAudiencia).agendas.get(lastAgenda).fecha}
+						</td>
+						<td>
+							#{controllerSolicitud.MascaraHora(audiencia.audiencias.get(lastAudiencia).agendas.get(lastAgenda).horaInicial)}
+						</td>
+						<td>
+							#{controllerSolicitud.Duracion(audiencia.audiencias.get(lastAudiencia).agendas.get(lastAgenda).horaInicial,audiencia.audiencias.get(lastAudiencia).agendas.get(lastAgenda).horaFinal)}
+						</td>
+						<td>
+							#{audiencia.audiencias.get(lastAudiencia).agendas.get(lastAgenda).sala.nombre}
+						</td>
+					</tr>
+
+				</ui:repeat>
+			</tbody>
+		</table>
+	</div>
+	</ui:composition>
+</body> 
+</html>

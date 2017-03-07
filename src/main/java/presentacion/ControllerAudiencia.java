@@ -74,7 +74,7 @@ public class ControllerAudiencia {
 			if(estdoAudiencia.equals("FINALIZADA")){
 				
 				this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
-	
+				
 			}
 		}
 		//return "listaaudiencias";

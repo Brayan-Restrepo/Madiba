@@ -39,18 +39,22 @@
 											        	</thead>
 											        	<tbody>
 					
-															<ui:repeat varStatus="n" var="convotante" value="#{solicitud.partes}">
-																<h:panelGroup rendered="#{convotante.tipoParte=='Convocante'}">
+															<ui:repeat varStatus="n" var="convocante" value="#{solicitud.partes}">
+																<h:panelGroup rendered="#{convocante.tipoParte=='Convocante'}">
 																	
 																 	<tr>
 															            <td style="width: 80%;">
 															            	<h:outputText value="#{convocante.apellidos} #{convocante.nombres}" />
 														            	</td>
-															            <td class="text-center" style="width: 80%;">
-															            	<h:panelGroup class="btn btn-success btn-xs">
-															            	</h:panelGroup>
+															            <td class="text-center" style="width: 10%;">
+															            
+															            <h:panelGrid class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs">
+														            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocante.idParte)}" render="@this" event="click"></f:ajax>
+														            		<i class="fa #{controllerAudiencia.changeIcon(convocante.idParte)}"></i>
+														            	</h:panelGrid>
+														            	
 														            	</td>
-														            	 <td class="text-center" style="width: 80%;">
+														            	 <td class="text-center" style="width: 10%;">
 															            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-edit"></i></h:panelGroup>
 														            	</td>
 														          	</tr>
@@ -85,7 +89,7 @@
 														            	</td>
 															            <td class="text-center" style="width: 10%;">
 															            	<h:panelGrid class="btn btn-#{controllerAudiencia.changeColorButton(convocado.idParte)} btn-xs">
-															            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocado.idParte)}" event="click"></f:ajax>
+															            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocado.idParte)}" render="@this" event="click"></f:ajax>
 															            		<i class="fa #{controllerAudiencia.changeIcon(convocado.idParte)}"></i>
 															            	</h:panelGrid>
 														            	</td>
@@ -112,11 +116,11 @@
 		                   				</i>
 		                   				<div class="pull-right">
 			                   				<h:outputLabel value="Acuerdo Parcial" style="margin-right:5px"/>
-			                   				<h:commandButton value="Si" styleClass="btn btn-success btn-xs" style="width:26px">
-			                   					<f:ajax render="desarrollo" listener="#{modelAudiencia.setAcuerdoParcial(true)}"></f:ajax>
+			                   				<h:commandButton value="Si" styleClass="btn btn-#{modelAudiencia.acuerdoParcial? 'success': 'danger'} btn-xs" style="width:26px">
+			                   					<f:ajax render="desarrollo @this" listener="#{modelAudiencia.setAcuerdoParcial(true)}"></f:ajax>
 			                 				</h:commandButton>
-			                   				<h:commandButton  value="No" styleClass="btn btn-success btn-xs" style="width:26px">
-			                   					<f:ajax render="desarrollo" listener="#{modelAudiencia.setAcuerdoParcial(false)}"></f:ajax>
+			                   				<h:commandButton  value="No" styleClass="btn btn-#{modelAudiencia.acuerdoParcial? 'danger': 'success'} btn-xs" style="width:26px">
+			                   					<f:ajax render="desarrollo @this" listener="#{modelAudiencia.setAcuerdoParcial(false)}"></f:ajax>
 			                 				</h:commandButton>
 		                 				</div>
 									</div>

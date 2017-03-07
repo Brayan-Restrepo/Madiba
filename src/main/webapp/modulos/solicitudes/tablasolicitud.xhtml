@@ -9,9 +9,9 @@
 <h:head></h:head> 
 <body>
 	<ui:composition>
-		<div class='box-body'>
+		<div class='box-body table-responsive'>
 						
-			<h:dataTable id="tablaSolicitud" rowClasses="text-center" class="table table-striped table-hover" value="#{listaSolicitud}" var="solicitud">
+			<h:dataTable id="tablaSolicitud"  value="#{listaSolicitud}" var="solicitud" rowClasses="text-center" styleClass="table table-striped table-hover" style="white-space: nowrap;">
 				<h:column>
 					<f:facet name="header">Estado</f:facet>					
 					<h:outputLabel value="#{solicitud.estado}" styleClass="label label-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)}"/>
@@ -33,7 +33,7 @@
 				</h:column>
 				
 				<h:column>
-					<f:facet name="header">Combocados</f:facet>
+					<f:facet name="header">Convocados</f:facet>
 					<ul>
 						<ui:repeat var="partes" value="#{solicitud.partes}" >
 							<h:panelGroup rendered="#{partes.tipoParte=='Convocado'}">
@@ -44,7 +44,7 @@
 				</h:column>
 				
 				<h:column>
-					<f:facet name="header">Combocantes</f:facet>
+					<f:facet name="header">Convocantes</f:facet>
 					<ul>
 						<ui:repeat var="partes" value="#{solicitud.partes}" >
 							<h:panelGroup rendered="#{partes.tipoParte=='Convocante'}">
