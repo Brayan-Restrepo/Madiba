@@ -10,12 +10,10 @@
 <body>
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">
 		<ui:define name="content">
-      
-			#{controllerAudiencia.findSolicitud(modelSolicitud.selectSolicitud.get(0))}
-			
   			<h:form id="desarrolloForm">
 				<div class='content-wrapper' style="height:10px;overflow:auto">
 					<div class="content">
+						#{controllerAudiencia.findSolicitud(modelSolicitud.selectSolicitud.get(0))}
 						<div class="row">
 							<div class="col-lg-12">
 				  				<h:panelGroup layout="block" class="box box-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} sombra">

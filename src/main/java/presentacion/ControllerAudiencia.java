@@ -55,7 +55,7 @@ public class ControllerAudiencia {
 	 * @param id -> idSolicitud
 	 * @return Solicitud
 	 */
-	public Solicitud findSolicitud(Long id){
+	public void findSolicitud(Long id){
 		this.solicitud = this.solicitudBean.findSolicitud(id);
 		List<Long[]> listaAsistencias= new ArrayList<Long[]>();
 		for(int i=0;i<this.solicitud.getPartes().size();i++){
@@ -65,7 +65,6 @@ public class ControllerAudiencia {
 			listaAsistencias.add(valAsistencia);
 		}
 		this.modelAudiencia.setListaAsistencias(listaAsistencias);
-		return this.solicitud;
 	}
 	
 	/**
