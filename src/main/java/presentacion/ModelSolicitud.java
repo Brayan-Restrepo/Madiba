@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 @ManagedBean
-@SessionScoped
-
+@ViewScoped
 public class ModelSolicitud {
 
 	private int id;

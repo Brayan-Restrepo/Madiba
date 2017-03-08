@@ -27,7 +27,7 @@ public class SolicitudDAO {
 			solicitud.get(i).getPagos().size();
 			solicitud.get(i).getDesignacions().size();			
 			solicitud.get(i).getAudiencias().size();
-			for(int j=0;j<solicitud.get(j).getAudiencias().size();j++){
+			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){
 				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
 			}
 		}
@@ -43,7 +43,7 @@ public class SolicitudDAO {
 			solicitud.get(i).getPagos().size();
 			solicitud.get(i).getDesignacions().size();
 			solicitud.get(i).getAudiencias().size();
-			for(int j=0;j<solicitud.get(j).getAudiencias().size();j++){
+			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){
 				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
 			}
 		}
@@ -59,7 +59,7 @@ public class SolicitudDAO {
 			solicitud.get(i).getPagos().size();
 			solicitud.get(i).getDesignacions().size();
 			solicitud.get(i).getAudiencias().size();
-			for(int j=0;j<solicitud.get(j).getAudiencias().size();j++){
+			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){
 				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
 			}
 		}

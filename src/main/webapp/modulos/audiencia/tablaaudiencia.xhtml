@@ -29,11 +29,11 @@
 			</thead>
 			<tbody>
 				<ui:repeat var="audiencia" value="#{listaAudiencia}">
-					<tr class="#{controllerSolicitud.seleccionarSolicitud(audiencia.idSolicitud,audiencia.estado)}">
+					<tr class="#{controllerAudiencia.seleccionarSolicitud(audiencia.idSolicitud,audiencia.estado)}">
 						<td>
 							<h:panelGrid class="btn btn-xs btn-primary">
-								<f:ajax event="click" listener="#{modelSolicitud.addSelectSolicitud(audiencia.idSolicitud,audiencia.estado)}" render="#{formulario}"></f:ajax>
-								<i class="fa #{controllerSolicitud.changeIconSelect(audiencia.idSolicitud)}"></i>
+								<f:ajax event="click" listener="#{modelAudiencia.addSelectSolicitud(audiencia.idSolicitud,audiencia.estado)}" render="#{formulario}"></f:ajax>
+								<i class="fa #{controllerAudiencia.changeIconSelect(audiencia.idSolicitud)}"></i>
 		            		</h:panelGrid>
 						</td>
 						<td class="text-center">#{audiencia.audiencias.get(audiencia.audiencias.size()-1).audienciaNum}</td>

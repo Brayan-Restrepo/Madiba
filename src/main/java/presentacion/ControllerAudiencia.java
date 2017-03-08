@@ -21,7 +21,19 @@ import negocio.iSolicitudBean;
 public class ControllerAudiencia {
 
 	
-	public ControllerAudiencia() {}
+	public ControllerAudiencia() {
+
+		this.coloresEstado = new HashMap<String, String>();
+		this.coloresEstado.put("GRABADA", "info");
+		this.coloresEstado.put("PAGADA", "primary");
+		this.coloresEstado.put("RADICADA", "warning");
+		this.coloresEstado.put("DESIGNACION", "success");
+		this.coloresEstado.put("AUDIENCIA-CITACION", "info");
+		this.coloresEstado.put("AUDIENCIA-PENDIENTE", "primary");
+		this.coloresEstado.put("AUDIENCIA-ENCURSO", "warning");
+		this.coloresEstado.put("AUDIENCIA-FINALIZADA", "success");
+		this.coloresEstado.put("REGISTRADA", "black");
+	}
 	
 	@EJB
 	public iSolicitudBean solicitudBean;
@@ -31,6 +43,8 @@ public class ControllerAudiencia {
 	
 	@ManagedProperty(value = "#{modelAudiencia}")
 	private ModelAudiencia modelAudiencia;
+	
+	private Map<String, String> coloresEstado;
 	
 	private Solicitud solicitud;
 
@@ -191,10 +205,39 @@ public class ControllerAudiencia {
 		return color;
 	}
 	
-	public boolean cambiarFichaTabla(){
-		this.modelAudiencia.setFicha(!this.modelAudiencia.isFicha());
-		System.out.println(this.modelAudiencia.isFicha());
-		return this.modelAudiencia.isFicha();
+	public String seleccionarSolicitud(Long idSolicitud,String estado){
+		for(int i=0;i<this.modelAudiencia.getSelectSolicitud().size();i++){
+			if(this.modelAudiencia.getSelectSolicitud().get(i)==idSolicitud){
+				return "seleccionar-solicitud-"+this.coloresEstado.get(estado);
+			}
+		}
+		return "";
 	}
 	
+	
+	public String changeIconSelect(Long idSolicitud){
+		
+		for(int i=0;i<this.modelAudiencia.getSelectSolicitud().size();i++){
+			if(this.modelAudiencia.getSelectSolicitud().get(i)==idSolicitud){
+				return "fa-check";
+			}
+		}
+		
+		return "fa-square";
+	}
+	
+	public boolean bloquearBoton(String estado1, String estado2){
+		
+		if(this.modelAudiencia.getSelectSolicitud().size()==0){
+			return true;
+		}else{
+			Long id = this.modelAudiencia.getSelectSolicitud().get(0)+0L;
+			String estadoSolicitud = this.solicitudBean.findSolicitud(id).getEstado();
+			if(estadoSolicitud.equals(estado1) || estadoSolicitud.equals(estado2) ){
+				return false;
+			}
+		}
+	
+	return true;
+}
 }

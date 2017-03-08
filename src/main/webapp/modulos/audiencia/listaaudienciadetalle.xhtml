@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+<ui:composition template="/resources/plantilla/plantilla.xhtml">		
+	<ui:define name="content">
+		<div class='content-wrapper' style="height:10px;overflow:auto">
+			<div class="content">
+				<div class="box box-primary">
+				#{modelAudiencia.selectSolicitud.get(0)}
+					<div class="box-body table-responsive ">
+						<table class="table" style="white-space: nowrap;">
+							<thead>
+								<tr>
+									<th>Select</th>
+									<th>N° Audiencia</th>
+									<th>Estado</th>
+									<th>Conciliador</th>	
+									<th>Convocados</th>
+									<th>Convocantes</th>
+									<th>Fecha Audiencia</th>
+									<th>Hora</th>
+									<th>Duracion</th>
+									<th>Sala</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</body> 
+</html>
