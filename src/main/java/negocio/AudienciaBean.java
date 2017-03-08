@@ -20,9 +20,6 @@ public class AudienciaBean implements iAudienciaBean {
 	
 	@Override
 	public void addResultado(String tipoResultado, Audiencia audiencia, String conclusion, Long idSolicitud) {
-		// TODO Auto-generated method stub
-		
-		
 		Resultado resultado = new Resultado();
 		resultado.setTipoResultado(tipoResultado);
 		resultado.setConclusion(conclusion);
@@ -34,9 +31,12 @@ public class AudienciaBean implements iAudienciaBean {
 	}
 
 	@Override
-	public void addAsistencia(int id, Asistencia asistencia) {
-		// TODO Auto-generated method stub
-		this.audienciaDAO.addAsistencia(id, asistencia);
+	public void addAsistencia(Audiencia audiencia, Long idParte, Boolean valAsistencia) {
+		Asistencia asistencia = new Asistencia();
+		asistencia.setAsistio(valAsistencia);
+		asistencia.setExcusa("");
+		asistencia.setAudiencia(audiencia);
+		this.audienciaDAO.addAsistencia(asistencia,idParte);
 	}
 
 	@Override

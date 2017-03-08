@@ -109,6 +109,22 @@ public class ControllerAudiencia {
 		this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "SUSPENDIDA");
 	}
 	
+	/**
+	 * 	Se Añade El resultado de La Audiencia Solo si es Finalzada (Fin da las Audiecias) 
+	 * 
+	 * @param estdoAudiencia -> FINALIZADA, APLAZADA, SUSPENDIDA
+	 */
+	public void guardarAsistencia(){
+		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
+		Audiencia audiencia = this.solicitud.getAudiencias().get(lastAudiencia);
+		for(int i=0;i<this.modelAudiencia.getListaAsistencias().size();i++){
+			Long idParte = this.modelAudiencia.getListaAsistencias().get(i)[0];
+			Boolean valAsistencia = false;
+			if(this.modelAudiencia.getListaAsistencias().get(i)[1] == 1L) valAsistencia = true;
+			this.audienciaBean.addAsistencia(audiencia,idParte,valAsistencia);
+		}
+	}
+	
 	
 	public void addAsistencia(Long idParte){
 		List<Long[]> listaAsistencias = new ArrayList<Long[]>();

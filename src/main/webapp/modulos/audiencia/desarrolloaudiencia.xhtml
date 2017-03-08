@@ -159,13 +159,11 @@
 				</div>
 				<div class='main-footer' style="height: 43.11111px;">
 					<div class="text-center">
-						<h:commandButton value="Registrar Asistencia" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
+						<h:commandButton immediate="true" value="Registrar Asistencia" actionListener="#{controllerAudiencia.guardarAsistencia()}" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
 						<h:commandButton value="Guardar Cambios" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
 						<h:commandButton value="Finalizar" actionListener="#{controllerAudiencia.addResultado('FINALIZADA')}" action="listaaudiencias?faces-redirect=true" styleClass="btn btn-success btn-menu" >
 						</h:commandButton>
 						<h:commandButton  value="Suspender" actionListener="#{controllerAudiencia.suspenderAudiencia()}" immediate="true" styleClass="btn btn-primary btn-menu" action="listaaudiencias?faces-redirect=true"/>
-					
-						
 					</div>
 				</div>
 			</h:form>

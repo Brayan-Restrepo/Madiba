@@ -9,6 +9,6 @@ import entidades.Audiencia;
 public interface iAudienciaBean {
 	
 	public void addResultado(String tipoResultado, Audiencia audiencia, String conclucion, Long idSolicitud);
-	public void addAsistencia(int id, Asistencia asistencia);
+	public void addAsistencia(Audiencia audiencia, Long idParte, Boolean valAsistencia);
 	public void actualizarEstadoAudiencia(Long idAudiencia, String nuevoEstado);
 }

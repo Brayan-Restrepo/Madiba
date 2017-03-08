@@ -9,8 +9,8 @@ import javax.persistence.PersistenceContext;
 
 import entidades.Asistencia;
 import entidades.Audiencia;
+import entidades.Parte;
 import entidades.Resultado;
-import entidades.Solicitud;
 
 public class AudienciaDAO {
 	
@@ -18,9 +18,12 @@ public class AudienciaDAO {
 	EntityManager manager;
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public void addAsistencia(int id, Asistencia asistencia){
-		Audiencia audiencia = this.manager.find(Audiencia.class, id);
-		audiencia.addAsistencia(asistencia);
+	public void addAsistencia(Asistencia asistencia, Long idParte){
+		Parte parte = this.manager.find(Parte.class, idParte);
+		asistencia.setParte(parte);
+		Long id = (Long)this.manager.createNamedQuery("Asistencia.countAll").getResultList().get(0);
+		asistencia.setIdAsistencia(id+1);
+		this.manager.persist(asistencia);
 	}
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
