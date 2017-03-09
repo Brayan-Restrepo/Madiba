@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+<ui:composition template="/resources/plantilla/plantilla.xhtml">		
+	<ui:define name="content">
+	<f:metadata>
+		<f:viewParam name="idAudiencia" value="#{controllerDesarrolloAudiencia.id}"></f:viewParam>
+	</f:metadata>
+	#{controllerAudiencia.findSolicitud(param['idAudiencia'])}
+		
+		
+		<div class='content-wrapper' style="height:10px;overflow:auto">
+			<div class="content">
+				<ui:repeat var="audiencia" value="#{controllerAudiencia.solicitud.audiencias}">	
+					<h:panelGrid layout="block" styleClass="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 100%;width:47%;margin-left:2%;margin-rigth:1%" >	
+						
+			
+						<h:panelGroup layout="block" class="box box-warning sombra">
+							
+							<div class="box-header with-border" style="padding-bottom:0px">
+								<i>
+									<h:outputLabel value="Radicado No. #{controllerAudiencia.solicitud.nroRadicado}" style="font-size:14pt; margin-left:1%"/>
+								</i>
+								<p:outputLabel value="#{audiencia.estado}" styleClass="label label-warning pull-right" />
+							</div>
+							<div class='box-body'>
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			              				<h:outputLabel value="Conciliador " /> 
+			              				<br/>
+										-----							
+										<br/>
+										<h:outputLabel value="Convocantes" />
+										<ul>
+											<ui:repeat var="convotante" value="#{controllerAudiencia.solicitud.partes}">
+												<h:panelGroup rendered="#{convotante.tipoParte=='Convocante'}"><li><h:outputText value="#{convotante.apellidos}" /></li></h:panelGroup>
+											</ui:repeat>
+										</ul>
+									</div>
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+										
+										<br/><br/>
+										<h:outputLabel value="Convocados" />
+										<ul>
+											<ui:repeat var="convocado" value="#{controllerAudiencia.solicitud.partes}">
+												<h:panelGroup rendered="#{convocado.tipoParte=='Convocado'}">
+													<li><h:outputText value="#{convocado.apellidos}"/></li>
+												</h:panelGroup>
+											</ui:repeat>
+										</ul>
+									</div>
+								</div>
+							</div>
+							
+							<h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
+								<div class="col-lg-6 col-sm-12 col-xs-12">
+						            <h:outputLabel value="Fecha Audiencia:" />
+						            
+					          	</div>
+					          	<div class="col-lg-6 col-sm-10 col-xs-10">
+						            <h:outputLabel value="Hora:" />
+
+					          	</div>
+					          	
+								<div class="col-lg-6 col-sm-12 col-xs-12">
+						            <h:outputLabel value="Audiencia Numero:" />
+						            <h:outputText style="padding-left:5%" value="#{audiencia.audienciaNum}" />
+					          	</div>
+					          	<div class="col-lg-6 col-sm-10 col-xs-10">
+						            <h:outputLabel value="Duración:" />
+						            
+					          	</div>
+					          	<div class="col-lg-6 col-sm-10 col-xs-10">
+						            <h:outputLabel value="Sala:" />
+
+					          	</div>			          	
+							</h:panelGroup>
+									        
+					        <h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
+					          	<div class="col-lg-6">
+						            <h:outputLabel value="Pretenciones:" />
+						            <h:outputText style="padding-left:5%" value=" $#{controllerAudiencia.solicitud.cuantia}" />
+					          	</div>
+					          	<div class="col-lg-6">
+						            <h:outputLabel value="Conciliador por:" />
+						            <h:outputText style="padding-left:5%" value="#{controllerAudiencia.solicitud.designacions.get(controllerAudiencia.solicitud.designacions.size()-1).tipoDesignacion}" />
+					          	</div>
+					        </h:panelGroup>
+						</h:panelGroup>
+					</h:panelGrid>			
+				</ui:repeat>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</body> 
+</html>
