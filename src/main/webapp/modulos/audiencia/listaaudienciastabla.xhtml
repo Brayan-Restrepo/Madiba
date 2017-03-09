@@ -96,7 +96,7 @@
 					<h:commandButton value="Audiencia Detalle" action="listaaudienciadetalle?faces-redirect=true" rendered="#{modelAudiencia.selectSolicitud.size()==1}" styleClass="btn btn-sm btn-primary btn-menu"/>
 					
 					<h:commandButton styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')} btn-menu" value="Enviar Citaciones" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-CITACION','')}" ></h:commandButton>
-					<h:commandButton value="Desarrollar Audiencia" action="desarrolloaudiencia?faces-redirect=true"  disabled="#{controllerAudiencia.bloquearBoton('AUDIENCIA-ENCURSO','')}" styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')} btn-menu"/>
+					<h:commandButton value="Desarrollar Audiencia" actionListener="#{controllerSession.setIdSolicitudDesarrolloAudiencia(modelAudiencia.selectSolicitud.get(0))}" action="desarrolloaudiencia?faces-redirect=true"  disabled="#{controllerAudiencia.bloquearBoton('AUDIENCIA-ENCURSO','')}" styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')} btn-menu"/>
 					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Cambiar Conciliador" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-PENDIENTE','AUDIENCIA-ENCURSO')}" ></h:commandButton>
 					<h:commandButton  value="Aplazar" actionListener="#{controllerSolicitud.aplazarAudiencia()}" styleClass="btn btn-sm btn-warning btn-menu" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-PENDIENTE','')}" action="listaaudiencias?faces-redirect=true"/>
 					<h:commandButton styleClass="btn btn-sm btn-success btn-menu" value="Modificar Acta" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-FINALIZADA','')}" ></h:commandButton>

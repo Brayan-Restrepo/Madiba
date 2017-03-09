@@ -13,12 +13,15 @@
 		<div class='content-wrapper' style="height:10px;overflow:auto">
 			<div class="content">
 				<div class="box box-primary">
-				#{modelAudiencia.selectSolicitud.get(0)}
+				<f:metadata>
+					<f:viewParam name="idAudiencia" value="#{controllerDesarrolloAudiencia.id}"></f:viewParam>
+				</f:metadata>
+					#{controllerAudiencia.findSolicitud(param['idAudiencia'])}
 					<div class="box-body table-responsive ">
 						<table class="table" style="white-space: nowrap;">
 							<thead>
 								<tr>
-									<th>Select</th>
+									<th></th>
 									<th>N° Audiencia</th>
 									<th>Estado</th>
 									<th>Conciliador</th>	
@@ -31,7 +34,52 @@
 								</tr>
 							</thead>
 							<tbody>
-								
+								<ui:repeat var="audiencia" value="#{controllerAudiencia.solicitud.audiencias}">
+									<tr>
+										<td>
+											<h:panelGrid class="btn btn-xs btn-primary">
+												<i class="fa fa-check"></i>
+						            		</h:panelGrid>
+										</td>
+										<td class="text-center">
+											<h:outputText value="#{audiencia.audienciaNum}" />
+										</td>
+										<td>
+											<h:outputText value="#{audiencia.estado}" />
+										</td>
+										<td>
+											<h:outputText value="#{controllerAudiencia.solicitud.designacions.get(controllerAudiencia.solicitud.designacions.size()-1).conciliador.apellidos} #{controllerAudiencia.solicitud.designacions.get(controllerAudiencia.solicitud.designacions.size()-1).conciliador.nombres}" />
+										</td>
+										<td>
+											<ul>
+												<ui:repeat var="convocado" value="#{controllerAudiencia.solicitud.partes}">
+													<h:panelGroup  rendered="#{convocado.tipoParte=='Convocado'}">
+														<li>
+															<h:outputText value="#{convocado.apellidos} #{convocado.nombres}"/>
+														</li>
+													</h:panelGroup>
+												</ui:repeat>
+											</ul>
+										</td>
+										<td>
+											<ul>
+												<ui:repeat var="convocante" value="#{controllerAudiencia.solicitud.partes}">
+													<h:panelGroup  rendered="#{convocante.tipoParte=='Convocante'}">
+														<li>
+															<h:outputText value="#{convocante.apellidos} #{convocante.nombres}"/>
+														</li>
+													</h:panelGroup>
+												</ui:repeat>
+											</ul>
+										</td>
+										<td>
+											
+										</td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</ui:repeat>
 							</tbody>
 						</table>
 					</div>
