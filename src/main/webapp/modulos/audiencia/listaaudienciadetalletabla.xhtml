@@ -13,10 +13,7 @@
 		<div class='content-wrapper' style="height:10px;overflow:auto">
 			<div class="content">
 				<div class="box box-primary">
-				<f:metadata>
-					<f:viewParam name="idAudiencia" value="#{controllerDesarrolloAudiencia.id}"></f:viewParam>
-				</f:metadata>
-					#{controllerAudiencia.findSolicitud(param['idAudiencia'])}
+					#{controllerAudiencia.findSolicitud(controllerSession.idSolicitudAudienciaDetalle)}
 					<div class="box-body table-responsive ">
 						<table class="table" style="white-space: nowrap;">
 							<thead>
@@ -37,8 +34,8 @@
 								<ui:repeat var="audiencia" value="#{controllerAudiencia.solicitud.audiencias}">
 									<tr>
 										<td>
-											<h:panelGrid class="btn btn-xs btn-primary">
-												<i class="fa fa-hand-pointer-o"></i>
+											<h:panelGrid class="btn btn-xs btn-success">
+												<i class="fa fa-eye"></i>
 						            		</h:panelGrid>
 										</td>
 										<td class="text-center">
@@ -73,11 +70,45 @@
 											</ul>
 										</td>
 										<td>
-											
+											<ul>
+												<ui:repeat varStatus="n" var="fecha" value="#{audiencia.agendas}">
+													<li>
+														<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="label label-primary" value="Aplazada: " />
+														<h:outputText value="#{fecha.fecha}" />
+													</li>
+												</ui:repeat>
+											</ul>		
 										</td>
-										<td></td>
-										<td></td>
-										<td></td>
+										<td>
+											<ul>
+												<ui:repeat varStatus="n" var="hora" value="#{audiencia.agendas}">
+													<li>
+														<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="label label-primary" value="Aplazada: " />
+														<h:outputText value="#{controllerSolicitud.MascaraHora(hora.horaInicial)}" />
+													</li>
+												</ui:repeat>
+											</ul>
+										</td>
+										<td>
+											<ul>
+												<ui:repeat varStatus="n" var="duracion" value="#{audiencia.agendas}">
+													<li>
+														<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="label label-primary" value="Aplazada: " />
+														<h:outputText value="#{controllerSolicitud.Duracion(duracion.horaInicial,duracion.horaFinal)}" />
+													</li>
+												</ui:repeat>
+											</ul>
+										</td>
+										<td>
+											<ul>
+												<ui:repeat varStatus="n" var="sala" value="#{audiencia.agendas}">
+													<li>
+														<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="label label-primary" value="Aplazada: " />
+														<h:outputText value="#{sala.sala.nombre}" />
+													</li>
+												</ui:repeat>
+											</ul>
+										</td>
 									</tr>
 								</ui:repeat>
 							</tbody>

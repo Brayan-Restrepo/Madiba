@@ -10,12 +10,7 @@
 <body> 
 <ui:composition template="/resources/plantilla/plantilla.xhtml">		
 	<ui:define name="content">
-	<f:metadata>
-		<f:viewParam name="idAudiencia" value="#{controllerDesarrolloAudiencia.id}"></f:viewParam>
-	</f:metadata>
-	#{controllerAudiencia.findSolicitud(param['idAudiencia'])}
-		
-		
+		#{controllerAudiencia.findSolicitud(controllerSession.idSolicitudAudienciaDetalle)}
 		<div class='content-wrapper' style="height:10px;overflow:auto">
 			<div class="content">
 				<ui:repeat var="audiencia" value="#{controllerAudiencia.solicitud.audiencias}">	
@@ -35,7 +30,7 @@
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 			              				<h:outputLabel value="Conciliador " /> 
 			              				<br/>
-										-----							
+										<h:outputText value="#{controllerAudiencia.solicitud.designacions.get(controllerAudiencia.solicitud.designacions.size()-1).conciliador.nombres} #{controllerAudiencia.solicitud.designacions.get(controllerAudiencia.solicitud.designacions.size()-1).conciliador.apellidos}" />
 										<br/>
 										<h:outputLabel value="Convocantes" />
 										<ul>

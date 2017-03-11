@@ -133,7 +133,7 @@
 
 					<h:commandButton value="Tabla" action="listaaudienciastabla?faces-redirect=true" styleClass="btn btn-sm btn-primary btn-menu"/>
 										
-					<h:commandButton value="Audiencia Detalle" action="#{controllerDesarrolloAudiencia.SendId('listaaudienciadetalletabla',modelAudiencia.selectSolicitud.get(0))}" rendered="#{modelAudiencia.selectSolicitud.size()==1}" styleClass="btn btn-sm btn-primary btn-menu"/>
+					<h:commandButton value="Audiencia Detalle" action="listaaudienciadetalletabla?faces-redirect=true" actionListener="#{controllerSession.setIdSolicitudAudienciaDetalle(modelAudiencia.selectSolicitud.get(0))}" rendered="#{modelAudiencia.selectSolicitud.size()==1}" styleClass="btn btn-sm btn-primary btn-menu"/>
 					
 					<h:commandButton styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')} btn-menu" value="Enviar Citaciones" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-CITACION','')}" ></h:commandButton>
 					<h:commandButton value="Desarrollar Audiencia" actionListener="#{controllerSession.setIdSolicitudDesarrolloAudiencia(modelAudiencia.selectSolicitud.get(0))}" action="desarrolloaudiencia?faces-redirect=true"  disabled="#{controllerAudiencia.bloquearBoton('AUDIENCIA-ENCURSO','')}" styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')} btn-menu"/>
