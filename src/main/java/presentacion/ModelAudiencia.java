@@ -28,7 +28,7 @@ public class ModelAudiencia {
 	 */
 	private String noAcuerdo;
 	
-	private String tipoResultado = "ACUERDO";
+	private String tipoResultado;
 	
 	/**
 	 * Es el valor del los CheckBox True si asistieron y False si no
@@ -101,7 +101,11 @@ public class ModelAudiencia {
 	}
 
 	public void setTipoResultado(String tipoResultado) {
-		this.tipoResultado = tipoResultado;
+		if(this.tipoResultado == tipoResultado){
+			this.tipoResultado = "";
+		}else{
+			this.tipoResultado = tipoResultado;
+		}
 	}
 
 	public boolean isAudiencia() {

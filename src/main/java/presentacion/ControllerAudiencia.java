@@ -105,8 +105,8 @@ public class ControllerAudiencia {
 		if(estdoAudiencia.equals("FINALIZADA")){
 			if(this.modelAudiencia.isAcuerdoParcial()){
 				if((acuerdos!="" && acuerdos!=null) && (noacuerdos!="" && noacuerdos!=null)){
-					this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud());
-					this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud());
+					this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud());
+					this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud());
 				}
 			}else{
 				if((observacion!="" && observacion!=null) && tipoResultado!=null && tipoResultado!=""){

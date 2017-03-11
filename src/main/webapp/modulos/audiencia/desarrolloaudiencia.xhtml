@@ -16,10 +16,10 @@
 						#{controllerAudiencia.findSolicitud(controllerSession.idSolicitudDesarrolloAudiencia)}
 						<div class="row">
 							<div class="col-lg-12">
-				  				<h:panelGroup layout="block" class="box box-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} sombra">
+				  				<h:panelGroup layout="block" class="box box-primary sombra">
 									<div class="box-header with-border" style="padding-bottom:0px">
 		                				<i>
-			              					<h:outputLabel value="Asistencia" style="font-size:14pt; margin-left:1%"/>
+			              					<h:outputLabel value="Desarrollo Audiencia" style="font-size:14pt; margin-left:1%"/>
 		                  				</i>
 		               				</div>
 		               				<div class="box-body">
@@ -103,57 +103,89 @@
 												</div>
 								  			</div>
 							  			</div>
+							  			<div class="col-lg-12" style="margin-top: 25px">
+								  			<h:panelGroup layout="block" id="desarrollo" class="box box-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} sombra">
+												<div class="box-header with-border" style="padding-bottom:0px">
+					                 				<i>
+							              				<h:outputLabel value="Conclusión" style="font-size:14pt; margin-left:1%"/>
+					                   				</i>
+					                   				<div class="pull-right">
+						                   				<h:outputLabel value="Acuerdo Parcial" style="margin-right:5px"/>
+						                   				<h:commandButton value="Si" styleClass="btn btn-xs" style="width:26px;#{modelAudiencia.acuerdoParcial? 'background-color:green;color:white': 'background-color:#ff000080;'}">
+						                   					<f:ajax render="desarrollo @this" listener="#{modelAudiencia.setAcuerdoParcial(true)}"></f:ajax>
+						                 				</h:commandButton>
+						                   				<h:commandButton  value="No" styleClass="btn btn-xs" style="width:26px;#{modelAudiencia.acuerdoParcial? 'background-color:#ff000080;': 'background-color:green;color:white'}">
+						                   					<f:ajax render="desarrollo @this" listener="#{modelAudiencia.setAcuerdoParcial(false)}"></f:ajax>
+						                 				</h:commandButton>
+					                 				</div>
+												</div>
+												
+												<h:panelGroup layout="block" rendered="#{!modelAudiencia.acuerdoParcial}" styleClass="box-body">
+													<h:panelGroup class="col-lg-2" id="asunto" style="padding-left: 40px">
+														<br/><br/>
+														<h:commandButton value="Acuerdo" styleClass="btn btn-#{modelAudiencia.tipoResultado=='ACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+						                   					<f:ajax render="asunto @this" listener="#{modelAudiencia.setTipoResultado('ACUERDO')}"></f:ajax>
+						                 				</h:commandButton>
+														<br/>
+														<h:commandButton value="No Acuerdo" styleClass="btn btn-#{modelAudiencia.tipoResultado=='NOACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+						                   					<f:ajax render="asunto @this" listener="#{modelAudiencia.setTipoResultado('NOACUERDO')}"></f:ajax>
+						                 				</h:commandButton>
+						                 				<br/>
+														<h:commandButton value="No Conciliable" styleClass="btn btn-#{modelAudiencia.tipoResultado=='NOCONCILIABLE'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+						                   					<f:ajax render="asunto @this" listener="#{modelAudiencia.setTipoResultado('NOCONCILIABLE')}"></f:ajax>
+						                 				</h:commandButton>
+													</h:panelGroup>
+													<div class="form-group has-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} col-lg-10">
+														<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Observación  </label>
+														<h:inputTextarea requiredMessage="ff" required="true" id="observacion" value="#{modelAudiencia.observacion}" styleClass="form-control" style="resize:none;background-color:#f39c1280;" rows="6"/>
+													</div>
+												</h:panelGroup>
+												
+												<h:panelGroup layout="block" rendered="#{modelAudiencia.acuerdoParcial}" styleClass="box-body">
+													<div class="col-lg-2" style="padding-left: 40px">
+														<br/><br/>
+														<h:commandButton value="Acuerdo" styleClass="btn btn-success" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+															<f:ajax listener="#{modelAudiencia.setTipoResultado('ACUERDO')}"></f:ajax>
+						                 				</h:commandButton>
+														<br/>
+														<h:commandButton value="No Acuerdo" styleClass="btn btn-primary" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px;cursor:not-allowed">
+															<f:ajax listener="#{modelAudiencia.setTipoResultado('ACUERDO')}"></f:ajax>
+						                 				</h:commandButton>
+						                 				<br/>
+														<h:commandButton value="No Conciliable" styleClass="btn btn-primary" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px;cursor:not-allowed">
+															<f:ajax listener="#{modelAudiencia.setTipoResultado('ACUERDO')}"></f:ajax>
+						                 				</h:commandButton>
+													</div>
+													<div class="form-group has-success col-lg-10 box-body">
+														<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Acuerdos  </label>
+														<h:inputTextarea id="acuerdos" value="#{modelAudiencia.acuerdo}" styleClass="form-control" style="resize:none;background-color:#00a65a66;" rows="6"/>
+													</div>
+													
+													<div class="col-lg-2" style="padding-left: 40px">
+														<br/><br/>
+														<h:commandButton value="Acuerdo" styleClass="btn btn-primary" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px;cursor:not-allowed">
+															<f:ajax listener="#{modelAudiencia.setTipoResultado('NOACUERDO')}"></f:ajax>
+						                 				</h:commandButton>
+														<br/>
+														<h:commandButton value="No Acuerdo" styleClass="btn btn-success" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+															<f:ajax listener="#{modelAudiencia.setTipoResultado('NOACUERDO')}"></f:ajax>
+						                 				</h:commandButton>
+						                 				<br/>
+														<h:commandButton value="No Conciliable" styleClass="btn btn-primary" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px;cursor:not-allowed">
+															<f:ajax listener="#{modelAudiencia.setTipoResultado('NOACUERDO')}"></f:ajax>
+						                 				</h:commandButton>
+													</div>
+													<div class="form-group has-error col-lg-10 box-body">
+														<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Desacuerdos  </label>
+														<h:inputTextarea id="noacuerdos" value="#{modelAudiencia.noAcuerdo}" styleClass="form-control" style="resize:none;background-color:#df4b3980;" rows="6"/>
+													</div>
+													
+												</h:panelGroup>	
+											</h:panelGroup>
+										</div>
 						  			</div>
 					  			</h:panelGroup>
 				  			</div>
-							<div class="col-lg-12">
-					  			<h:panelGroup layout="block" id="desarrollo" class="box box-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} sombra">
-									<div class="box-header with-border" style="padding-bottom:0px">
-		                 				<i>
-				              				<h:outputLabel value="Desarrollo" style="font-size:14pt; margin-left:1%"/>
-		                   				</i>
-		                   				<div class="pull-right">
-			                   				<h:outputLabel value="Acuerdo Parcial" style="margin-right:5px"/>
-			                   				<h:commandButton value="Si" styleClass="btn btn-#{modelAudiencia.acuerdoParcial? 'success': 'danger'} btn-xs" style="width:26px">
-			                   					<f:ajax render="desarrollo @this" listener="#{modelAudiencia.setAcuerdoParcial(true)}"></f:ajax>
-			                 				</h:commandButton>
-			                   				<h:commandButton  value="No" styleClass="btn btn-#{modelAudiencia.acuerdoParcial? 'danger': 'success'} btn-xs" style="width:26px">
-			                   					<f:ajax render="desarrollo @this" listener="#{modelAudiencia.setAcuerdoParcial(false)}"></f:ajax>
-			                 				</h:commandButton>
-		                 				</div>
-									</div>
-									
-									<h:panelGroup layout="block" rendered="#{!modelAudiencia.acuerdoParcial}" styleClass="box-body">
-										
-										<div class="col-lg-2">
-											<h:outputLabel value=" " />
-											<h:outputLabel value="Asunto:" />
-											<p:selectOneRadio required="true" requiredMessage="Es " id="tipoResultado" value="#{modelAudiencia.tipoResultado}" layout="grid" columns="1">
-												<f:selectItem itemLabel=" Acuerdo" itemValue="ACUERDO"/>
-												<f:selectItem itemLabel=" No Acuerdo" itemValue="NOACUERDO"/>
-												<f:selectItem itemLabel=" No Conciliable" itemValue="NOCONCILIABLE"/>
-											</p:selectOneRadio>
-										</div>
-										<div class="form-group has-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} col-lg-10">
-											<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Observación  </label>
-											<h:inputTextarea requiredMessage="ff" required="true" id="observacion" value="#{modelAudiencia.observacion}" styleClass="form-control" style="resize:none" rows="6"/>
-										</div>
-									</h:panelGroup>
-									
-									<h:panelGroup layout="block" rendered="#{modelAudiencia.acuerdoParcial}" styleClass="box-body">
-										<div class="form-group has-success col-lg-10 box-body">
-											<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Acuerdos  </label>
-											<h:inputTextarea id="acuerdos" value="#{modelAudiencia.acuerdo}" styleClass="form-control" style="resize:none" rows="6"/>
-										</div>
-										
-										<div class="form-group has-error col-lg-10 box-body">
-											<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Desacuerdos  </label>
-											<h:inputTextarea id="noacuerdos" value="#{modelAudiencia.noAcuerdo}" styleClass="form-control" style="resize:none" rows="6"/>
-										</div>
-										
-									</h:panelGroup>	
-								</h:panelGroup>
-							</div>
 						</div>
 					</div>
 				</div>
