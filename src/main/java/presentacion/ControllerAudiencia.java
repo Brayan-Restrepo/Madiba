@@ -71,6 +71,10 @@ public class ControllerAudiencia {
 	 */
 	public void findSolicitud(Long id){
 		this.solicitud = this.solicitudBean.findSolicitud(id);
+	}
+	
+	public void cargarDatosSolicitud(Long id){
+		this.solicitud = this.solicitudBean.findSolicitud(id);
 		List<Long[]> listaAsistencias= new ArrayList<Long[]>();
 		for(int i=0;i<this.solicitud.getPartes().size();i++){
 			Long[] valAsistencia= new Long[2];

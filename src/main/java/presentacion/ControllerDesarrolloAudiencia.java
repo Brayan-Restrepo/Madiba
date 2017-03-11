@@ -1,10 +1,7 @@
 package presentacion;
 
-import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 @ManagedBean
 @ViewScoped
@@ -28,4 +25,5 @@ public class ControllerDesarrolloAudiencia {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 }
