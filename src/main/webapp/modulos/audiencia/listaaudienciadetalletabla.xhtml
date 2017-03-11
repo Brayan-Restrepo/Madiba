@@ -10,111 +10,141 @@
 <body> 
 <ui:composition template="/resources/plantilla/plantilla.xhtml">		
 	<ui:define name="content">
+		#{controllerAudienciaDetalle.findSolicitud(controllerSession.idSolicitudAudienciaDetalle)}
 		<div class='content-wrapper' style="height:10px;overflow:auto">
 			<div class="content">
 				<div class="box box-primary">
-					#{controllerAudiencia.findSolicitud(controllerSession.idSolicitudAudienciaDetalle)}
-					<div class="box-body table-responsive ">
-						<table class="table" style="white-space: nowrap;">
-							<thead>
-								<tr>
-									<th></th>
-									<th>N° Audiencia</th>
-									<th>Estado</th>
-									<th>Conciliador</th>	
-									<th>Convocados</th>
-									<th>Convocantes</th>
-									<th>Fecha Audiencia</th>
-									<th>Hora</th>
-									<th>Duracion</th>
-									<th>Sala</th>
-								</tr>
-							</thead>
-							<tbody>
-								<ui:repeat var="audiencia" value="#{controllerAudiencia.solicitud.audiencias}">
-									<tr>
-										<td>
-											<h:panelGrid class="btn btn-xs btn-success">
-												<i class="fa fa-eye"></i>
-						            		</h:panelGrid>
-										</td>
-										<td class="text-center">
-											<h:outputText value="#{audiencia.audienciaNum}" />
-										</td>
-										<td>
-											<h:outputText value="#{audiencia.estado}" />
-										</td>
-										<td>
-											<h:outputText value="#{controllerAudiencia.solicitud.designacions.get(controllerAudiencia.solicitud.designacions.size()-1).conciliador.apellidos} #{controllerAudiencia.solicitud.designacions.get(controllerAudiencia.solicitud.designacions.size()-1).conciliador.nombres}" />
-										</td>
-										<td>
-											<ul>
-												<ui:repeat var="convocado" value="#{controllerAudiencia.solicitud.partes}">
-													<h:panelGroup  rendered="#{convocado.tipoParte=='Convocado'}">
+					<div class="box-header with-border" style="padding-bottom:0px">
+						<i>
+							<h:outputLabel value="Detalle Audiencias" style="font-size:14pt; margin-left:1%"/>
+							<h:outputLabel value="Radicado No. #{controllerAudienciaDetalle.solicitud.nroRadicado}" styleClass="pull-right" />
+						</i>
+					</div>
+					<div class='box-body'>
+						<div class="box box-warning">
+							<h:panelGroup id="tablaAudienciaDetalle" layout="block" styleClass="box-body table-responsive ">
+								<table class="table" style="white-space: nowrap;">
+									<thead>
+										<tr>
+											<th></th>
+											<th>N° Audiencia</th>
+											<th>Estado</th>
+											
+											<th>Fecha Audiencia</th>
+											<th>Hora</th>
+											<th>Duracion</th>
+											<th>Sala</th>
+											
+											<th>Conciliador</th>	
+											<th>Convocados</th>
+											<th>Convocantes</th>
+										</tr>
+									</thead>
+									<tbody>
+										<ui:repeat var="audiencia" value="#{controllerAudienciaDetalle.solicitud.audiencias}">
+											<tr class="#{controllerAudienciaDetalle.seleccionarAudiencia(audiencia.idAudiencia)}">
+												<td>
+													<h:panelGrid class="btn btn-xs btn-warning">
+														<f:ajax event="click" listener="#{controllerAudienciaDetalle.setIdAudienciaSelect(audiencia.idAudiencia)}" render=":tablaAudienciaDetalle :formBotones"></f:ajax>
+														<i class="fa #{controllerAudienciaDetalle.changeIconSelect(audiencia.idAudiencia)}"></i>
+								            		</h:panelGrid>
+												</td>
+												<td class="text-center">
+													<h:outputText value="#{audiencia.audienciaNum}" />
+												</td>
+												<td>
+													<ul class="list-unstyled">
+														<ui:repeat varStatus="n" var="fecha" value="#{audiencia.agendas}">
+															<li>
+																<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="badge bg-red" value="Aplazada: " />
+															</li>
+														</ui:repeat>
 														<li>
-															<h:outputText value="#{convocado.apellidos} #{convocado.nombres}"/>
+															<h:outputText value="#{audiencia.estado}" styleClass="badge bg-blue"/>
 														</li>
-													</h:panelGroup>
-												</ui:repeat>
-											</ul>
-										</td>
-										<td>
-											<ul>
-												<ui:repeat var="convocante" value="#{controllerAudiencia.solicitud.partes}">
-													<h:panelGroup  rendered="#{convocante.tipoParte=='Convocante'}">
-														<li>
-															<h:outputText value="#{convocante.apellidos} #{convocante.nombres}"/>
-														</li>
-													</h:panelGroup>
-												</ui:repeat>
-											</ul>
-										</td>
-										<td>
-											<ul>
-												<ui:repeat varStatus="n" var="fecha" value="#{audiencia.agendas}">
-													<li>
-														<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="label label-primary" value="Aplazada: " />
-														<h:outputText value="#{fecha.fecha}" />
-													</li>
-												</ui:repeat>
-											</ul>		
-										</td>
-										<td>
-											<ul>
-												<ui:repeat varStatus="n" var="hora" value="#{audiencia.agendas}">
-													<li>
-														<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="label label-primary" value="Aplazada: " />
-														<h:outputText value="#{controllerSolicitud.MascaraHora(hora.horaInicial)}" />
-													</li>
-												</ui:repeat>
-											</ul>
-										</td>
-										<td>
-											<ul>
-												<ui:repeat varStatus="n" var="duracion" value="#{audiencia.agendas}">
-													<li>
-														<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="label label-primary" value="Aplazada: " />
-														<h:outputText value="#{controllerSolicitud.Duracion(duracion.horaInicial,duracion.horaFinal)}" />
-													</li>
-												</ui:repeat>
-											</ul>
-										</td>
-										<td>
-											<ul>
-												<ui:repeat varStatus="n" var="sala" value="#{audiencia.agendas}">
-													<li>
-														<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="label label-primary" value="Aplazada: " />
-														<h:outputText value="#{sala.sala.nombre}" />
-													</li>
-												</ui:repeat>
-											</ul>
-										</td>
-									</tr>
-								</ui:repeat>
-							</tbody>
-						</table>
+														
+													</ul>
+												</td>
+												<td class="text-center">
+													<ul class="list-unstyled">
+														<ui:repeat varStatus="n" var="fecha" value="#{audiencia.agendas}">
+															<li>
+																<h:outputText value="#{fecha.fecha}" />
+															</li>
+														</ui:repeat>
+													</ul>		
+												</td>
+												<td class="text-center">
+													<ul class="list-unstyled">
+														<ui:repeat varStatus="n" var="hora" value="#{audiencia.agendas}">
+															<li>
+																<h:outputText value="#{controllerSolicitud.MascaraHora(hora.horaInicial)}" />
+															</li>
+														</ui:repeat>
+													</ul>
+												</td>
+												<td class="text-center">
+													<ul class="list-unstyled">
+														<ui:repeat varStatus="n" var="duracion" value="#{audiencia.agendas}">
+															<li>														
+																<h:outputText value="#{controllerSolicitud.Duracion(duracion.horaInicial,duracion.horaFinal)}" />
+															</li>
+														</ui:repeat>
+													</ul>
+												</td>
+												<td>
+													<ul class="list-unstyled">
+														<ui:repeat varStatus="n" var="sala" value="#{audiencia.agendas}">
+															<li>
+																<h:outputText value="#{sala.sala.nombre}" />
+															</li>
+														</ui:repeat>
+													</ul>
+												</td>
+												<td>
+													<h:outputText value="#{controllerAudienciaDetalle.solicitud.designacions.get(controllerAudienciaDetalle.solicitud.designacions.size()-1).conciliador.apellidos} #{controllerAudienciaDetalle.solicitud.designacions.get(controllerAudienciaDetalle.solicitud.designacions.size()-1).conciliador.nombres}" />
+												</td>
+												<td>
+													<ul class="list-unstyled">
+														<ui:repeat var="convocado" value="#{controllerAudienciaDetalle.solicitud.partes}">
+															<h:panelGroup  rendered="#{convocado.tipoParte=='Convocado'}">
+																<li>
+																	<h:outputText value="#{convocado.apellidos} #{convocado.nombres}"/>
+																</li>
+															</h:panelGroup>
+														</ui:repeat>
+													</ul>
+												</td>
+												<td>
+													<ul class="list-unstyled">
+														<ui:repeat var="convocante" value="#{controllerAudienciaDetalle.solicitud.partes}">
+															<h:panelGroup  rendered="#{convocante.tipoParte=='Convocante'}">
+																<li>
+																	<h:outputText value="#{convocante.apellidos} #{convocante.nombres}"/>
+																</li>
+															</h:panelGroup>
+														</ui:repeat>
+													</ul>
+												</td>
+												
+											</tr>
+										</ui:repeat>
+									</tbody>
+								</table>
+							</h:panelGroup>
+						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+		
+				
+		<div class='main-footer' style="height: 43.11111px;">
+			<div class="text-center">
+				<h:form id="formBotones">
+					<h:commandButton value="Ficha" action="listaaudienciadetalleficha?faces-redirect=true" styleClass="btn btn-sm btn-primary btn-menu"/>
+					<h:commandButton value="Desarrollo" disabled="#{controllerAudienciaDetalle.bloquearBotonDesarrolloAudiencia()}" action="listaaudienciadetalleficha?faces-redirect=true" styleClass="btn btn-sm btn-primary btn-menu"/>
+				</h:form>				
 			</div>
 		</div>
 	</ui:define>
