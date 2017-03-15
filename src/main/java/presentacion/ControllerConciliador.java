@@ -5,14 +5,17 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
 import entidades.Conciliador;
+import entidades.Reparto;
+import entidades.Solicitud;
 import negocio.iConciliadorBean;
+import negocio.iSolicitudBean;
 
 import java.util.List;
 import java.util.ArrayList;
 
 @ManagedBean
 public class ControllerConciliador {
-
+	
 	@ManagedProperty(value = "#{modelConciliador}")
 	private ModelConciliador conciliador;
 
@@ -29,6 +32,10 @@ public class ControllerConciliador {
 	
 	@EJB
 	public iConciliadorBean conciliadorBean;
+	
+	@EJB
+	public iSolicitudBean solicitudBean;
+	
 	
 	public ModelConciliador getConciliador() {
 		return conciliador;
@@ -49,23 +56,24 @@ public class ControllerConciliador {
 	//Designa un conciliador al caso, sea por solicitud o por reparto
 	public void designarConciliador(String conciliador){
 		if(conciliador.equals("Por Reparto")){
-			reparto();
+			//reparto();
 		}else{
 			solicitado(conciliador);
 		}
 	}
 	
 	//Designa el conciliador que este esperando el turno y lo manda al final de la cola
-	public void reparto() {
-		ModelConciliador mCon = ControllerConciliador.listaConciliador.get(0);
-		ControllerConciliador.listaConciliador.remove(0);
-		ControllerConciliador.listaConciliador.add(mCon);
-
-		//Asigna los nuevos turnos
-		int size = ControllerConciliador.listaConciliador.size();
-		for (int i = 0; i < size; i++) {
-			ControllerConciliador.listaConciliador.get(i).setId(i + 1);
+	public void reparto(Long idSolicitud) {
+		List<Reparto> reparto = this.conciliadorBean.allReparto();
+		Solicitud solicitudDesignacion = this.solicitudBean.findSolicitud(idSolicitud);
+		
+		String tipoDesignacion = solicitudDesignacion.getDesignacions().get(solicitudDesignacion.getDesignacions().size()-1).getTipoDesignacion();
+		
+		if(tipoDesignacion.equals("Reparto")){
+			this.conciliadorBean.removeAllReparto();
+			this.conciliadorBean.reparto(idSolicitud,reparto);
 		}
+		
 	}
 	
 	//Designa el conciliador que fue seleccionado y lo manda al final de la cola
@@ -102,5 +110,5 @@ public class ControllerConciliador {
 		}
 		return nombre;
 	}
-
+	
 }
