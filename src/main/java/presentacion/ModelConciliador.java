@@ -2,8 +2,16 @@ package presentacion;
 
 import javax.faces.bean.ManagedBean;
 
+import entidades.Conciliador;
+
 @ManagedBean
 public class ModelConciliador {
+	
+	/**
+	 * Estos datos se acceden desde el modalAsignar Conciliador
+	 */
+	private Conciliador conciliador;
+	private String tipoDesignacion;
 	
 	private int id;
 	private String cedula;
@@ -15,21 +23,22 @@ public class ModelConciliador {
 	private String email;
 	private String foto;
 	
-	public ModelConciliador() {
-		
-	}
+	public ModelConciliador() {}
 	
-	public ModelConciliador(int id,String cedula, String nombre, String apellido, String telefono,String especialidad, 
-			String experiencia, String email, String foto) {
-		this.id = id;
-		this.cedula = cedula;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.telefono = telefono;
-		this.especialidad = especialidad;
-		this.experiencia = experiencia;
-		this.email = email;
-		this.foto = foto;
+	public String getTipoDesignacion() {
+		return tipoDesignacion;
+	}
+
+	public void setTipoDesignacion(String tipoDesignacion) {
+		this.tipoDesignacion = tipoDesignacion;
+	}
+
+	public Conciliador getConciliador() {
+		return conciliador;
+	}
+
+	public void setConciliador(Conciliador conciliador) {
+		this.conciliador = conciliador;
 	}
 
 	public String getCedula() {

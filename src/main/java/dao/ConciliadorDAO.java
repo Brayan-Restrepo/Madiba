@@ -29,6 +29,16 @@ public class ConciliadorDAO {
 		
 	}
 	
+	public List<Conciliador> allConciliadorReparto(){
+		@SuppressWarnings("unchecked")
+		List<Conciliador> conciliadores = this.manager.createNamedQuery("Conciliador.findAllReparto").getResultList();
+		for(int i=0;i<conciliadores.size();i++){
+			conciliadores.get(i).getConciliadorEspecialidads().size();
+			conciliadores.get(i).getRepartos().size();
+		}
+		return conciliadores;
+	}
+	
 	public Conciliador consultarConciliador (Integer idConciliador){
 		
 		return manager.find(Conciliador.class, idConciliador);
@@ -45,17 +55,44 @@ public class ConciliadorDAO {
 		}
 	}
 	
-	public void reparto(Long idSolicitud,List<Reparto> reparto){
-		for(int i=1;i<reparto.size();i++){
-			reparto.get(i).setTurno(i+0L);
-			this.manager.persist(reparto.get(i));
-		}
-		reparto.get(0).setTurno(reparto.size()+0L);
-		this.manager.persist(reparto.get(0));
-		
+	public Conciliador reparto(Long idSolicitud,List<Reparto> reparto){
 		Solicitud solicitud = this.manager.find(Solicitud.class, idSolicitud);
-		solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).setConciliador(reparto.get(0).getConciliador());
-		
+		if(solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).getTipoDesignacion().equals("Reparto")){
+			
+			for(int i=1;i<reparto.size();i++){
+				reparto.get(i).setTurno(i+0L);
+				this.manager.persist(reparto.get(i));
+			}
+			
+			reparto.get(0).setTurno(reparto.size()+0L);
+			this.manager.persist(reparto.get(0));
+			
+			
+			solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).setConciliador(reparto.get(0).getConciliador());
+			solicitud.setEstado("DESIGNACION");
+					
+			return reparto.get(0).getConciliador();
+		}else{
+			int j = 0;
+			int corimiento=0;
+			for(int i=0;i<reparto.size();i++){
+				if(solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).getConciliador().getIdConciliador()==reparto.get(i).getConciliador().getIdConciliador()){
+					j=i;
+					corimiento=1;
+				}else{
+					reparto.get(i).setTurno(i+1L-corimiento);
+					this.manager.persist(reparto.get(i));
+				}
+			}
+			reparto.get(j).setTurno(reparto.size()+1L-corimiento);
+			this.manager.persist(reparto.get(j));
+			
+			
+			solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).setConciliador(reparto.get(j).getConciliador());
+			solicitud.setEstado("DESIGNACION");
+					
+			return reparto.get(j).getConciliador();
+		}
 		
 	}
 }

@@ -169,7 +169,7 @@
 					<h:commandButton styleClass="btn btn-sm btn-primary btn-menu "	value="Radicar" disabled="true"></h:commandButton>
 						
 					<h:commandButton id="btn-asignarConciliador" onclick="$('#modalAsignarConciliador').modal();" styleClass="btn btn-sm btn-warning btn-menu" value="Designar Conciliador" disabled="#{controllerSolicitud.bloquearBoton('RADICADA','')}">
-						<f:ajax render=":formModalAsignarConciliador" listener="#{controllerConciliador.reparto(modelSolicitud.selectSolicitud.get(0))}"></f:ajax>
+						<f:ajax  listener="#{controllerConciliador.reparto(modelSolicitud.selectSolicitud.get(0))}" render=":formModalAsignarConciliador"></f:ajax>
 					</h:commandButton>
 					
 					<h:commandButton styleClass="btn btn-sm btn-purple btn-menu " value="Programar Audiencia" disabled="true"></h:commandButton>

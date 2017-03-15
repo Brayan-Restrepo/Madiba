@@ -11,7 +11,7 @@
 
 	<ui:composition>
 	
-		<div class="modal inmodal" id="modalAsignarConciliador" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal inmodal" id="modalAsignarConciliador" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="animated flipInY">
 					<div class="box box-primary box-solid animated flipInY">
@@ -24,18 +24,16 @@
 									<div class="col-lg-12 text-center">
 										<h:outputLabel style="font-size: 18px;" value="Radicado No. 23122016002" />
 										<br/>
-										<h:outputLabel style="font-size: 16px;" value="Se ha signado el Conciliador por Reparto" />
+										<h:outputLabel style="font-size: 16px;" value="Se ha signado el Conciliador por #{modelConciliador.tipoDesignacion}" />
 										<br/>
-										<h:outputLabel style="font-size: 16px;" value="BARAJAS TORRES MARISOL" />
+										<h:outputLabel style="font-size: 16px;" value="#{modelConciliador.conciliador.apellidos} #{modelConciliador.conciliador.nombres}" />
 									</div>
 								</div>
 							</div>
 							
 							<div class="box-footer">
 							
-								<h:commandButton onclick="$('#modalAsignarConciliador').modal('hide');" styleClass="btn btn-success pull-right" value="Aceptar">
-									<f:ajax render="#{formulario}" listener="#{controllerSolicitud.cambiarEstado(this, 7)}"/>
-								</h:commandButton>
+								<h:commandButton onclick="$('#modalAsignarConciliador').modal('hide');" styleClass="btn btn-success pull-right" value="Aceptar" render=":formtodas :formliquidar :formradicar :formasignarconciliador :formaudiencia :formregistrar"></h:commandButton>
 								
 							</div>
 						</h:form>

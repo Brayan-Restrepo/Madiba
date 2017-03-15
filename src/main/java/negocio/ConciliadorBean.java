@@ -19,11 +19,19 @@ public class ConciliadorBean implements iConciliadorBean {
 	public List<Conciliador> allConciliador() {
 		return conciliadorDAO.allConciliador();
 	}
-
+	
 	@Override
-	public void reparto(Long idSolicitud, List<Reparto> reparto) {
+	public List<Conciliador> allConciliadorReparto() {
+		return conciliadorDAO.allConciliadorReparto();
+	}
+
+	/**
+	 * Retrona el Conciliador signado
+	 */
+	@Override
+	public Conciliador reparto(Long idSolicitud, List<Reparto> reparto) {
 		// TODO Auto-generated method stub
-		this.conciliadorDAO.reparto(idSolicitud, reparto);
+		return this.conciliadorDAO.reparto(idSolicitud, reparto);
 	}
 
 	@Override

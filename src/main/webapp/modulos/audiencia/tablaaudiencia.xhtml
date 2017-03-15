@@ -40,7 +40,7 @@
 						<td>
 							<h:outputLabel value="#{audiencia.estado}"  styleClass="label label-#{controllerSolicitud.colorSolicitudEstado(audiencia.estado)}"/>
 						</td>
-						<td>#{audiencia.designacions.get(audiencia.designacions.size()-1).conciliador.nombres} #{audiencia.designacions.get(audiencia.designacions.size()-1).conciliador.apellidos}</td>
+						<td>#{audiencia.designacions.get(audiencia.designacions.size()-1).conciliador.apellidos} #{audiencia.designacions.get(audiencia.designacions.size()-1).conciliador.nombres} </td>
 						<td>
 							<ul>
 								<ui:repeat var="partes" value="#{audiencia.partes}" >

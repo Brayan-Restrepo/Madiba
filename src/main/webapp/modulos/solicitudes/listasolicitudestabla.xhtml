@@ -41,7 +41,7 @@
 								<div class="tab-pane active" id="todas">
 
 									<h:form id='formtodas'>
-										<ui:param name="formulario" value="@form :formliquidar :formradicar :formasignarconciliador :formaudiencia :formregistrar" />
+										<ui:param name="formulario" value="@form :formliquidar :formradicar :formasignarconciliador :formaudiencia :formregistrar :formBotones" />
 										<ui:include src="tablasolicitud.xhtml">
 											<ui:param name="listaSolicitud" value="#{controllerSolicitud.listaSolicitud}" />
 										</ui:include>
@@ -51,7 +51,7 @@
 								
 								<div class="tab-pane" id="liquidar">
 									<h:form id='formliquidar'>
-										<ui:param name="formulario" value="@form :formtodas :formradicar :formasignarconciliador :formaudiencia :formregistrar" />
+										<ui:param name="formulario" value="@form :formtodas :formradicar :formasignarconciliador :formaudiencia :formregistrar :formBotones" />
 											
 										<ui:include src="tablasolicitud.xhtml">
 											<ui:param name="listaSolicitud" value="#{controllerSolicitud.solicitudesPorEstado('GRABADA')}" />
@@ -61,7 +61,8 @@
 								
 								<div class="tab-pane" id="radicar">
 									<h:form id='formradicar'>
-
+										<ui:param name="formulario" value="@form :formtodas :formliquidar :formasignarconciliador :formaudiencia :formregistrar :formBotones" />
+										
 										<ui:include src="tablasolicitud.xhtml">
 											<ui:param name="listaSolicitud" value="#{controllerSolicitud.solicitudesPorEstado('PAGADA')}" />
 										</ui:include>
@@ -71,7 +72,7 @@
 								
 								<div class="tab-pane" id="asignarConciliador">
 									<h:form id='formasignarconciliador'>
-
+										<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formaudiencia :formregistrar :formBotones" />
 										<ui:include src="tablasolicitud.xhtml">
 											<ui:param name="listaSolicitud" value="#{controllerSolicitud.solicitudesPorEstado('RADICADA')}" />
 										</ui:include>
@@ -81,7 +82,7 @@
 								
 								<div class="tab-pane" id="audiencia">
 									<h:form id='formaudiencia'>
-
+										<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formasignarconciliador :formregistrar :formBotones" />
 										<ui:include src="tablasolicitud.xhtml">
 											<ui:param name="listaSolicitud" value="#{controllerSolicitud.solicitudesPorEstado('DESIGNACION')}" />
 										</ui:include>
@@ -93,7 +94,7 @@
 								<div class="tab-pane" id="registrar">
 
 									<h:form id='formregistrar'>
-
+										<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formasignarconciliador :formaudiencia :formBotones" />
 										<ui:include src="tablasolicitud.xhtml">
 											<ui:param name="listaSolicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}" />
 										</ui:include>
@@ -118,8 +119,7 @@
 
 					<h:commandButton styleClass="btn btn-sm btn-primary btn-menu "	value="Radicar" disabled="true"></h:commandButton>
 						
-					<h:commandButton id="btn-asignarConciliador" onclick="$('#modalAsignarConciliador').modal();" styleClass="btn btn-sm btn-warning btn-menu" value="Designar Conciliador" disabled="#{controllerSolicitud.estadoSelect('Radicada')}">
-						<f:ajax render=":modalAsignarConciliador"></f:ajax>
+					<h:commandButton actionListener="#{controllerConciliador.reparto(modelSolicitud.selectSolicitud.get(0))}" onclick="$('#modalAsignarConciliador').modal();" styleClass="btn btn-sm btn-warning btn-menu" value="Designar Conciliador" disabled="#{controllerSolicitud.bloquearBoton('RADICADA','')}" render=":formModalAsignarConciliador :formtodas :formliquidar :formradicar :formasignarconciliador :formaudiencia :formregistrar" id="btn-asignarConciliador">
 					</h:commandButton>
 					
 					<h:commandButton styleClass="btn btn-sm btn-purple btn-menu " value="Programar Audiencia" disabled="true"></h:commandButton>

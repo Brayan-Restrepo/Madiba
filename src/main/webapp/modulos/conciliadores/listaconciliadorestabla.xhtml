@@ -16,49 +16,61 @@
 				<div class="content">
 					<div class="col-md-12">
 						<div class="box box-primary">
-							<div class="box-header with-border">
-								<h2>Lista de Conciliadores</h2>
+							<div class="box-header with-border" style="padding-bottom:0px">
+								<i>
+									<h:outputLabel value="Lista de Conciliadores" style="font-size:14pt; margin-left:1%"/>
+								</i>
 							</div>
-							<div class='box-body'>
-								<h:dataTable class="table table-striped table-hover" value="#{controllerConciliador.listaConciliador()}" var="conciliador">
-									<h:column>
-										<f:facet name="header">#</f:facet>
-										#{conciliador.idConciliador}
-									</h:column>
-									<h:column>
-										<f:facet name="header">Apellido</f:facet>
-										<h:graphicImage library="img" name="#{conciliador.foto}" alt="" class="avatar user-image" />
-										<span class="hidden-xs">#{conciliador.apellidos}</span>
-									</h:column>
-									<h:column>
-										<f:facet name="header">Nombre</f:facet>
-										#{conciliador.nombres}
-									</h:column>
-									<h:column>
-										<f:facet name="header">Especialidad</f:facet>
-											<ul>
-												<ui:repeat var="especialidad" value="#{conciliador.conciliadorEspecialidads}">
-													<li> #{especialidad.especialidad.nombre} </li>
-												</ui:repeat>
-											</ul>
-									</h:column>
-									<h:column>
-										<f:facet name="header">Experiencia</f:facet>
-										#{conciliador.experiencia}
-									</h:column>
-									<h:column>
-										<f:facet name="header">Telefono</f:facet>
-										#{conciliador.telefono}
-									</h:column>
-									<h:column>
-										<f:facet name="header">Email</f:facet>
-										#{conciliador.correo}
-									</h:column>
-									<h:column>
-										<f:facet name="header">Egresado</f:facet>
-										#{conciliador.egresado}
-									</h:column>
-								</h:dataTable>
+							<div class="box-body table-responsive ">
+								<table class="table table-striped table-hover" style="white-space: nowrap;">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Apellido</th>
+											<th>Nombre</th>
+											<th>Especialidad</th>
+											<th>Experiencia</th>
+											<th>Telefono</th>	
+											<th>Email</th>
+											<th>Egresado</th>
+										</tr>
+									</thead>
+									<tbody>
+										<ui:repeat varStatus="n" value="#{controllerConciliador.listaConciliador()}" var="conciliador">
+											<tr>
+												<td>
+													#{n.index+1}
+												</td>
+												<td>
+													<h:graphicImage library="img" name="#{conciliador.foto}" alt="" class="avatar user-image" />
+													<span class="hidden-xs">#{conciliador.apellidos}</span>
+												</td>
+												<td>
+													#{conciliador.nombres}
+												</td>
+												<td>
+													<ul>
+														<ui:repeat var="especialidad" value="#{conciliador.conciliadorEspecialidads}">
+															<li> #{especialidad.especialidad.nombre} </li>
+														</ui:repeat>
+													</ul>
+												</td>
+												<td>
+													#{conciliador.experiencia}
+												</td>
+												<td>
+													#{conciliador.telefono}
+												</td>
+												<td>
+													#{conciliador.correo}
+												</td>
+												<td>
+													#{conciliador.egresado}
+												</td>
+											</tr>
+										</ui:repeat>
+									</tbody>
+								</table>
 							</div>
 						</div>
 					</div>

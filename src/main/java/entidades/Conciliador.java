@@ -12,7 +12,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="\"Conciliador\"")
-@NamedQuery(name="Conciliador.findAll", query="SELECT c FROM Conciliador c ORDER BY c.apellidos, c.nombres")
+@NamedQueries({
+	@NamedQuery(name="Conciliador.findAll", query="SELECT c FROM Conciliador c ORDER BY c.apellidos, c.nombres"),
+	@NamedQuery(name="Conciliador.findAllReparto", query="SELECT c FROM Conciliador c,Reparto r WHERE c.idConciliador = r.conciliador.idConciliador ORDER BY r.turno")
+})
 public class Conciliador implements Serializable {
 	private static final long serialVersionUID = 1L;
 

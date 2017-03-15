@@ -14,6 +14,8 @@ public interface iConciliadorBean {
 	
 	public List<Reparto> allReparto();
 	public void removeAllReparto();
-	public void reparto(Long idSolicitud, List<Reparto> reparto);
+	public Conciliador reparto(Long idSolicitud, List<Reparto> reparto);
+	
+	public List<Conciliador> allConciliadorReparto();
 	
 }
