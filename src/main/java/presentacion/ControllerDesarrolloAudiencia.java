@@ -1,12 +1,16 @@
 package presentacion;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import entidades.Audiencia;
+import entidades.Parte;
 import negocio.iAudienciaBean;
 
 
@@ -32,6 +36,17 @@ public class ControllerDesarrolloAudiencia {
 
 	public void cargarDatosDesarrolloAudiencia(Long idAudiencia){
 		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
+		
+		List<String[]> listParte = new ArrayList<String[]>();
+		for(int i=0;i<audiencia.getAsistencias().size();i++){
+			String[] asistenciaVector = new String[3];
+			asistenciaVector[0]=audiencia.getAsistencias().get(i).getParte().getTipoParte();
+			asistenciaVector[1]=audiencia.getAsistencias().get(i).getParte().getApellidos()+" "+audiencia.getAsistencias().get(i).getParte().getNombres();
+			asistenciaVector[2]=String.valueOf(audiencia.getAsistencias().get(i).getAsistio());
+			listParte.add(asistenciaVector);
+		}
+		this.modelDesarrolloAudiencia.setAsistencia(listParte);
+		
 		if(audiencia.getResultados().size()==1){
 			this.modelDesarrolloAudiencia.setAcuerdoParcial(false);
 			this.modelDesarrolloAudiencia.setObservacion(audiencia.getResultados().get(0).getConclusion());

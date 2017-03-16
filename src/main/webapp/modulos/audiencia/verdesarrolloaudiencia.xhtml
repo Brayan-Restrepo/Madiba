@@ -37,23 +37,22 @@
 											        	</thead>
 											        	<tbody>
 					
-															<ui:repeat varStatus="n" var="convocante" value="#{controllerAudiencia.solicitud.partes}">
-																<h:panelGroup rendered="#{convocante.tipoParte=='Convocante'}">
+															<ui:repeat varStatus="n" var="convocante" value="#{modelDesarrolloAudiencia.asistencia}">
+																<h:panelGroup rendered="#{convocante[0]=='Convocante'}">
 																	
 																 	<tr>
 															            <td style="width: 80%;">
-															            	<h:outputText value="#{convocante.apellidos} #{convocante.nombres}" />
+															            	<h:outputText value="#{convocante[1]}" />
 														            	</td>
 															            <td class="text-center" style="width: 10%;">
 															            
-															            <h:panelGrid class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs">
-														            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocante.idParte)}" render="@this" event="click"></f:ajax>
-														            		<i class="fa #{controllerAudiencia.changeIcon(convocante.idParte)}"></i>
+															            <h:panelGrid class="btn btn-#{convocante[2]? 'success' : 'danger'} btn-xs">
+														            		<i class="fa #{convocante[2]? 'fa-check' : 'fa-close'}"></i>
 														            	</h:panelGrid>
 														            	
 														            	</td>
 														            	 <td class="text-center" style="width: 10%;">
-															            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-edit"></i></h:panelGroup>
+															            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-download"></i></h:panelGroup>
 														            	</td>
 														          	</tr>
 													          	</h:panelGroup>
@@ -78,21 +77,20 @@
 											        	</thead>
 											        	<tbody>
 					
-															<ui:repeat varStatus="n" var="convocado" value="#{controllerAudiencia.solicitud.partes}">
-																<h:panelGroup rendered="#{convocado.tipoParte=='Convocado'}">
+															<ui:repeat varStatus="n" var="convocado" value="#{modelDesarrolloAudiencia.asistencia}">
+																<h:panelGroup rendered="#{convocado[0]=='Convocado'}">
 																
 																 	<tr>
 															            <td style="width: 80%;">
-															            	<h:outputText value="#{convocado.apellidos} #{convocado.nombres}" />
+															            	<h:outputText value="#{convocado[1]}" />
 														            	</td>
 															            <td class="text-center" style="width: 10%;">
-															            	<h:panelGrid class="btn btn-#{controllerAudiencia.changeColorButton(convocado.idParte)} btn-xs">
-															            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocado.idParte)}" render="@this" event="click"></f:ajax>
-															            		<i class="fa #{controllerAudiencia.changeIcon(convocado.idParte)}"></i>
+															            	<h:panelGrid class="btn btn-#{convocado[2]? 'success' : 'danger'} btn-xs">
+															            		<i class="fa #{convocado[2]? 'fa-check' : 'fa-close'}"></i>
 															            	</h:panelGrid>
 														            	</td>
 														            	 <td class="text-center" style="width: 10%;">
-															            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-edit"></i></h:panelGroup>
+															            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-download"></i></h:panelGroup>
 														            	</td>
 														          	</tr>
 													          	</h:panelGroup>
@@ -169,8 +167,7 @@
 				</div>
 				<div class='main-footer' style="height: 43.11111px;">
 					<div class="text-center">
-						<h:commandButton immediate="true" value="XXX - XXX" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
-						
+						<h:commandButton value="Atras" action="listaaudienciadetalletabla?faces-redirect=true" styleClass="btn btn-sm btn-primary btn-menu"/>
 					</div>
 				</div>
 			</h:form>
