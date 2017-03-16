@@ -36,4 +36,8 @@
         <param-value>6LeeTxQUAAAAAJBt1_paEU248ePTD7yh6NqKT_qR</param-value>
     </context-param>
     
+    <error-page>
+		<error-code>404</error-code>
+		<location>/index.jsf</location>
+	</error-page>
 </web-app>
