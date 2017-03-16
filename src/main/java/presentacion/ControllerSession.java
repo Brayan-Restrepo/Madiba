@@ -16,8 +16,21 @@ public class ControllerSession {
 	 * Id de la Solicitud para ver el detalle de esa Audiencia
 	 */
 	private Long idSolicitudAudienciaDetalle;
+
+	/**
+	 * Id de la Audiencia para ver el Desarrollo de Esa Audiencia (verdesarrolloaudiencia)
+	 */
+	private Long idAudienciaDesarroloAudiencia;
 	
 	public ControllerSession(){}
+	
+	public Long getIdAudienciaDesarroloAudiencia() {
+		return idAudienciaDesarroloAudiencia;
+	}
+
+	public void setIdAudienciaDesarroloAudiencia(Long idAudienciaDesarroloAudiencia) {
+		this.idAudienciaDesarroloAudiencia = idAudienciaDesarroloAudiencia;
+	}
 
 	public Long getIdSolicitudDesarrolloAudiencia() {
 		return idSolicitudDesarrolloAudiencia;

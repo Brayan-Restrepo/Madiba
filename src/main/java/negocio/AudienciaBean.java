@@ -43,4 +43,10 @@ public class AudienciaBean implements iAudienciaBean {
 	public void actualizarEstadoAudiencia(Long idAudiencia, String nuevoEstado){
 		this.audienciaDAO.actualizarEstadoAudiencia(idAudiencia, nuevoEstado);
 	}
+
+	@Override
+	public Audiencia findAudienciaResultadoAsistenia(Long idAudiencia) {
+
+		return this.audienciaDAO.findAudienciaResultadoAsistenia(idAudiencia);
+	}
 }

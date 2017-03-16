@@ -143,7 +143,7 @@
 			<div class="text-center">
 				<h:form id="formBotones">
 					<h:commandButton value="Ficha" action="listaaudienciadetalleficha?faces-redirect=true" styleClass="btn btn-sm btn-primary btn-menu"/>
-					<h:commandButton value="Desarrollo Audiencia" styleClass="btn btn-sm btn-primary btn-menu" actionListener="#{controllerSession.setIdSolicitudDesarrolloAudiencia(controllerAudienciaDetalle.solicitud.idSolicitud)}" action="desarrolloaudiencia?faces-redirect=true"  disabled="#{controllerAudienciaDetalle.bloquearBotonDesarrolloAudiencia()}" />
+					<h:commandButton value="Desarrollo Audiencia" actionListener="#{controllerSession.setIdAudienciaDesarroloAudiencia(controllerAudienciaDetalle.idAudienciaSelect)}" action="verdesarrolloaudiencia?faces-redirect=true"  disabled="#{controllerAudienciaDetalle.bloquearBotonDesarrolloAudiencia()}" styleClass="btn btn-sm btn-primary btn-menu" />
 				</h:form>				
 			</div>
 		</div>

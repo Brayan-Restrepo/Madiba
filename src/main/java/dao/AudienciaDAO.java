@@ -43,4 +43,16 @@ public class AudienciaDAO {
 		Audiencia audiencia = this.manager.find(Audiencia.class, idAudiencia);
 		audiencia.setEstado(nuevoEstado);
 	}
+	
+	/**
+	 * Busca la Audiencia y retorna la audiencia con la lista de asitencia y resultado
+	 * @param idAudiencia
+	 * @return
+	 */
+	public Audiencia findAudienciaResultadoAsistenia(Long idAudiencia){
+		Audiencia audiencia = this.manager.find(Audiencia.class, idAudiencia);
+		audiencia.getResultados().size();
+		audiencia.getAsistencias().size();
+		return audiencia;
+	}
 }

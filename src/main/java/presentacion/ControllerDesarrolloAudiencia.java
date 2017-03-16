@@ -1,29 +1,51 @@
 package presentacion;
 
+
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+
+import entidades.Audiencia;
+import negocio.iAudienciaBean;
+
 
 @ManagedBean
 @ViewScoped
 public class ControllerDesarrolloAudiencia {
 	
-	public ControllerDesarrolloAudiencia(){
+	public ControllerDesarrolloAudiencia(){	}
+
+	@EJB
+	public iAudienciaBean audienciaBean;
+	
+	@ManagedProperty(value = "#{modelDesarrolloAudiencia}")
+	private ModelDesarrolloAudiencia modelDesarrolloAudiencia;
 		
-	}
-	
-	private Long id;
-	
-	public String SendId(String pagina, Long id){
-		setId(id);
-		return pagina+"?faces-redirect=true&includeViewParams=true";
+	public ModelDesarrolloAudiencia getModelDesarrolloAudiencia() {
+		return modelDesarrolloAudiencia;
 	}
 
-	public Long getId() {
-		return id;
+	public void setModelDesarrolloAudiencia(ModelDesarrolloAudiencia modelDesarrolloAudiencia) {
+		this.modelDesarrolloAudiencia = modelDesarrolloAudiencia;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void cargarDatosDesarrolloAudiencia(Long idAudiencia){
+		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
+		if(audiencia.getResultados().size()==1){
+			this.modelDesarrolloAudiencia.setAcuerdoParcial(false);
+			this.modelDesarrolloAudiencia.setObservacion(audiencia.getResultados().get(0).getConclusion());
+			this.modelDesarrolloAudiencia.setTipoResultado(audiencia.getResultados().get(0).getTipoResultado());
+		}else if(audiencia.getResultados().size()==2){
+			this.modelDesarrolloAudiencia.setAcuerdoParcial(true);
+			for(int i=0;i<audiencia.getResultados().size();i++){
+				if(audiencia.getResultados().get(i).getTipoResultado().equals("NOACUERDO")){
+					this.modelDesarrolloAudiencia.setNoAcuerdo(audiencia.getResultados().get(i).getConclusion());
+				}else if(audiencia.getResultados().get(i).getTipoResultado().equals("ACUERDO")){
+					this.modelDesarrolloAudiencia.setAcuerdo(audiencia.getResultados().get(i).getConclusion());
+				}
+			}
+			
+		}
 	}
-	
 }
