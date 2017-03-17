@@ -12,10 +12,9 @@ public class LoginBean implements iLoginBean{
 	@Inject
 	LoginDAO loginDAO;
 
-	public LoginBean(){
-		
-	}
-
+	public LoginBean(){}
+	
+	@Override
 	public boolean autenticarUsuario(String nickname, String password){
 		boolean usuarioValido = false;
 		Usuario usuarioBD = loginDAO.consultarUsuario(nickname);
@@ -25,5 +24,14 @@ public class LoginBean implements iLoginBean{
 			}
 		}
 		return usuarioValido;
+	}
+
+	@Override
+	public String userRole(String nickname, String password) {
+		Usuario usuarioBD = loginDAO.consultarUsuario(nickname);
+		if(usuarioBD != null){
+			return usuarioBD.getRole();
+		}
+		return null;
 	}
 }

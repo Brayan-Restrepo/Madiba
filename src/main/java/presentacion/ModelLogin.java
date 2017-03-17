@@ -9,7 +9,25 @@ public class ModelLogin {
 	
 	private String nickname;
 	private String password;
-	
+	private String role;
+	private boolean validado;
+		
+	public boolean isValidado() {
+		return validado;
+	}
+
+	public void setValidado(boolean validado) {
+		this.validado = validado;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public String getNickname() {
 		return nickname;
 	}

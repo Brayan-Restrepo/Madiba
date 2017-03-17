@@ -1,5 +1,7 @@
 package presentacion;
 
+import java.io.IOException;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -11,17 +13,14 @@ import negocio.iLoginBean;
 
 @ManagedBean
 public class ControllerLogin {
-	private boolean validado;
-	
+		
 	@ManagedProperty(value="#{modelLogin}")
 	private ModelLogin login;
 	
 	@EJB
 	iLoginBean loginBean;
 
-	public ControllerLogin(){
-		
-	}
+	public ControllerLogin(){}
 
 	public ModelLogin getLogin() {
 		return login;
@@ -32,28 +31,43 @@ public class ControllerLogin {
 	}
 
 	public void autenticar() {	
-		String nickname = login.getNickname();
-		String password = login.getPassword();
+		String nickname = this.login.getNickname();
+		String password = this.login.getPassword();
+		
 		
 		boolean usuarioValido = loginBean.autenticarUsuario(nickname,password);
 		FacesMessage msg;
 		
 		if(usuarioValido){
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario: "+nickname+" Correcto", null);
-			validado = true;
+			this.login.setValidado(true);
+			//Si el Usuario es Autenticado se Le Asigna su Rol
+			this.login.setRole(loginBean.userRole(nickname, password));
 		}else{
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario: "+nickname+" Incorrecto", null);
-			validado = false;
+			this.login.setValidado(false);
 		}
 		FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 	
 	public String entrar(){
-		if(validado){
+		if(this.login.isValidado()){
 			return "index";
 		}else{
 			return "login"; 
 		}
+	}
+	
+
+	public void redirect(){
+		if(!this.login.isValidado()){
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("login.jsf");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }

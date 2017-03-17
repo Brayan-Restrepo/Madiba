@@ -195,11 +195,10 @@
 					<div class="text-center">
 						
 						<ui:include src="modalfinalizardesarrolloaudiencia.xhtml"></ui:include>
-																
-						
-						<h:commandButton immediate="true" value="Registrar Asistencia" actionListener="#{controllerAudiencia.guardarAsistencia()}" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
+											
+						<h:commandButton immediate="true" rendered="#{modelLogin.role=='conalbos'}" value="Registrar Asistencia" actionListener="#{controllerAudiencia.guardarAsistencia()}" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
 						<h:commandButton value="Guardar Cambios" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
-						<h:commandButton id="btn-finalizar" disabled="#{controllerAudiencia.activarBotonFinalizar()}" onclick="$('#modalfinalizardesarrolloaudiencia').modal();" value="Finalizar" styleClass="btn btn-success btn-menu" >
+						<h:commandButton id="btn-finalizar" rendered="#{modelLogin.role=='conciliador'}" disabled="#{controllerAudiencia.activarBotonFinalizar()}" onclick="$('#modalfinalizardesarrolloaudiencia').modal();" value="Finalizar" styleClass="btn btn-success btn-menu" >
 							<f:ajax></f:ajax>
 						</h:commandButton>
 						<h:commandButton  value="Suspender" actionListener="#{controllerAudiencia.suspenderAudiencia()}" immediate="true" styleClass="btn btn-primary btn-menu" action="listaaudiencias?faces-redirect=true"/>
