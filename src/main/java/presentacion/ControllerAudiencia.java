@@ -242,6 +242,21 @@ public class ControllerAudiencia {
 			}
 		}
 	
-	return true;
-}
+		return true;
+	}
+	
+	/**
+	 * Activa el Boton finalizar DesarrolloAudiencia
+	 */
+	public boolean activarBotonFinalizar(){
+		if(this.modelAudiencia.isAcuerdoParcial()){
+			return false;
+		}
+		if(this.modelAudiencia.getTipoResultado()=="" || modelAudiencia.getTipoResultado()==null){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
 }
