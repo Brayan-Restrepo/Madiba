@@ -23,7 +23,9 @@
 					<h:panelGroup id="fichaAudienciaDetalle" layout="block" styleClass='box-body'>
 						<ui:repeat var="audiencia" value="#{controllerAudienciaDetalle.solicitud.audiencias}">	
 							<h:panelGrid layout="block" styleClass="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 100%;width:47%;margin-left:2%;margin-rigth:1%" >
-								<f:ajax event="click" listener="#{controllerAudienciaDetalle.setIdAudienciaSelect(audiencia.idAudiencia)}" render=":fichaAudienciaDetalle :formBotones"></f:ajax>
+								
+								<f:ajax event="click" listener="#{controllerAudienciaDetalle.setIdAudienciaSelect(audiencia.idAudiencia)}" disabled="#{!controllerAudienciaDetalle.verificarAsistencias(audiencia.idAudiencia)}" render=":fichaAudienciaDetalle :formBotones"></f:ajax>
+								
 								<h:panelGroup layout="block" class="box box-warning sombra #{controllerAudienciaDetalle.seleccionarAudiencia(audiencia.idAudiencia)}">
 									
 									<div class="box-header with-border" style="padding-bottom:0px">

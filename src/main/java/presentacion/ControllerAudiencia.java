@@ -125,6 +125,10 @@ public class ControllerAudiencia {
 		this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "DESIGNACION");
 		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
 		this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "SUSPENDIDA");
+		
+
+		String observacion = this.modelAudiencia.getObservacion();
+		this.audienciaBean.addResultado("SUSPENDIDA", this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
 	}
 	
 	/**
@@ -256,6 +260,21 @@ public class ControllerAudiencia {
 			return true;
 		}else{
 			return false;
+		}
+		
+	}
+	
+	/**
+	 * Activa el Boton Suspender DesarrolloAudiencia
+	 */
+	public boolean activarBotonSuspender(){
+		if(this.modelAudiencia.isAcuerdoParcial()){
+			return true;
+		}
+		if(this.modelAudiencia.getTipoResultado()=="" || modelAudiencia.getTipoResultado()==null){
+			return false;
+		}else{
+			return true;
 		}
 		
 	}

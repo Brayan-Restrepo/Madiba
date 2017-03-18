@@ -55,4 +55,20 @@ public class AudienciaDAO {
 		audiencia.getAsistencias().size();
 		return audiencia;
 	}
+	
+	/**
+	 * Verifica si en una Audiencia hay registros de Asistencias
+	 * Si hay Registro -> True
+	 * No hay Registro -> False
+	 * @param idAudiencia
+	 * @return
+	 */
+	public boolean verificarAsistencias(Long idAudiencia){
+		Audiencia audiencia = this.manager.find(Audiencia.class, idAudiencia);
+		if(audiencia.getAsistencias().size()==0){
+			return false;
+		}else{
+			return true;
+		}
+	}
 }

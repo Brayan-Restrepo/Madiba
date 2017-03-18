@@ -11,4 +11,5 @@ public interface iAudienciaBean {
 	public void addAsistencia(Audiencia audiencia, Long idParte, Boolean valAsistencia);
 	public void actualizarEstadoAudiencia(Long idAudiencia, String nuevoEstado);
 	public Audiencia findAudienciaResultadoAsistenia(Long idAudiencia);
+	public boolean verificarAsistencias(Long idAudiencia);
 }

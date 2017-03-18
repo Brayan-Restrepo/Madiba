@@ -12,7 +12,6 @@
 		<ui:define name="content">
   			<h:form id="desarrolloForm">
   				
-				
 				<div class='content-wrapper' style="height:10px;overflow:auto">
 					<div class="content">
 						#{controllerAudiencia.cargarDatosSolicitud(controllerSession.idSolicitudDesarrolloAudiencia)}
@@ -25,87 +24,24 @@
 		                  				</i>
 		               				</div>
 		               				<div class="box-body">
-										<div class="col-lg-6">
-											<div class="box box-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} sombra">
-					
-											    <div class="box-body no-padding">
-											      	<table id="layout-skins-list" class="table table-striped table-hover">
-										       	 		<thead>
-											          		<tr>
-											            		<th style="width: 80%;">Convocantes</th>
-											            		<th class="text-center" style="width: 10%;">Asistencia</th>
-											            		<th class="text-center" style="width: 10%;">Excusa</th>
-											          		</tr>
-											        	</thead>
-											        	<tbody>
-					
-															<ui:repeat varStatus="n" var="convocante" value="#{controllerAudiencia.solicitud.partes}">
-																<h:panelGroup rendered="#{convocante.tipoParte=='Convocante'}">
-																	
-																 	<tr>
-															            <td style="width: 80%;">
-															            	<h:outputText value="#{convocante.apellidos} #{convocante.nombres}" />
-														            	</td>
-															            <td class="text-center" style="width: 10%;">
-															            
-															            <h:panelGrid class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs">
-														            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocante.idParte)}" render="@this" event="click"></f:ajax>
-														            		<i class="fa #{controllerAudiencia.changeIcon(convocante.idParte)}"></i>
-														            	</h:panelGrid>
-														            	
-														            	</td>
-														            	 <td class="text-center" style="width: 10%;">
-															            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-edit"></i></h:panelGroup>
-														            	</td>
-														          	</tr>
-													          	</h:panelGroup>
-															</ui:repeat>
-					
-								        				</tbody>
-								   					</table>
-												</div>
-								  			</div>
-						  				</div>
-						  				<div class="col-lg-6">
-						  					<div class="box box-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} sombra">
-					
-											    <div class="box-body no-padding">
-											      	<table id="layout-skins-list" class="table table-striped table-hover">
-										       	 		<thead>
-											          		<tr>
-											            		<th style="width: 80%;">Convocados</th>
-											            		<th class="text-center" style="width: 10%;">Asistencia</th>
-											            		<th class="text-center" style="width: 10%;"> Excusa</th>
-											          		</tr>
-											        	</thead>
-											        	<tbody>
-					
-															<ui:repeat varStatus="n" var="convocado" value="#{controllerAudiencia.solicitud.partes}">
-																<h:panelGroup rendered="#{convocado.tipoParte=='Convocado'}">
-																
-																 	<tr>
-															            <td style="width: 80%;">
-															            	<h:outputText value="#{convocado.apellidos} #{convocado.nombres}" />
-														            	</td>
-															            <td class="text-center" style="width: 10%;">
-															            	<h:panelGrid class="btn btn-#{controllerAudiencia.changeColorButton(convocado.idParte)} btn-xs">
-															            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocado.idParte)}" render="@this" event="click"></f:ajax>
-															            		<i class="fa #{controllerAudiencia.changeIcon(convocado.idParte)}"></i>
-															            	</h:panelGrid>
-														            	</td>
-														            	 <td class="text-center" style="width: 10%;">
-															            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-edit"></i></h:panelGroup>
-														            	</td>
-														          	</tr>
-													          	</h:panelGroup>
-															</ui:repeat>
-					
-								        				</tbody>
-								   					</table>
-												</div>
-								  			</div>
-							  			</div>
-							  			<div class="col-lg-12" style="margin-top: 25px">
+									<h:panelGroup rendered="#{modelLogin.role=='conciliador'}">
+										#{controllerDesarrolloAudiencia.cargarAsistencia(controllerAudiencia.solicitud.audiencias.get(controllerAudiencia.solicitud.audiencias.size()-1).idAudiencia)}
+										<ui:include src="asistencia.xhtml">
+		               						<ui:param name="asistenciaParte" value="Convocante" />
+		               					</ui:include>
+		               					<ui:include src="asistencia.xhtml">
+		               						<ui:param name="asistenciaParte" value="Convocado" />
+		               					</ui:include>
+	               					</h:panelGroup>
+	               					<h:panelGroup rendered="#{modelLogin.role=='conalbos'}">
+										<ui:include src="tomarasistencia.xhtml">
+		               						<ui:param name="asistenciaParte" value="Convocante" />
+		               					</ui:include>
+		               					<ui:include src="tomarasistencia.xhtml">
+		               						<ui:param name="asistenciaParte" value="Convocado" />
+		               					</ui:include>
+	               					</h:panelGroup>
+   						  				<div class="col-lg-12" style="margin-top: 25px">
 								  			<h:panelGroup layout="block" id="desarrollo" class="box box-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} sombra">
 												<div class="box-header with-border" style="padding-bottom:0px">
 					                 				<i>
@@ -114,10 +50,10 @@
 					                   				<div class="pull-right">
 						                   				<h:outputLabel value="Acuerdo Parcial" style="margin-right:5px"/>
 						                   				<h:commandButton value="Si" styleClass="btn btn-xs" style="width:26px;#{modelAudiencia.acuerdoParcial? 'background-color:green;color:white': 'background-color:#ff000080;'}">
-						                   					<f:ajax render="desarrollo btn-finalizar @this" listener="#{modelAudiencia.setAcuerdoParcial(true)}"></f:ajax>
+						                   					<f:ajax render="desarrollo btn-suspender btn-finalizar @this" listener="#{modelAudiencia.setAcuerdoParcial(true)}"></f:ajax>
 						                 				</h:commandButton>
 						                   				<h:commandButton  value="No" styleClass="btn btn-xs" style="width:26px;#{modelAudiencia.acuerdoParcial? 'background-color:#ff000080;': 'background-color:green;color:white'}">
-						                   					<f:ajax render="desarrollo btn-finalizar @this" listener="#{modelAudiencia.setAcuerdoParcial(false)}"></f:ajax>
+						                   					<f:ajax render="desarrollo btn-suspender btn-finalizar @this" listener="#{modelAudiencia.setAcuerdoParcial(false)}"></f:ajax>
 						                 				</h:commandButton>
 					                 				</div>
 												</div>
@@ -126,15 +62,15 @@
 													<h:panelGroup class="col-lg-2" id="asunto" style="padding-left: 40px">
 														<br/><br/>
 														<h:commandButton value="Acuerdo" styleClass="btn btn-#{modelAudiencia.tipoResultado=='ACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
-						                   					<f:ajax render="asunto btn-finalizar @this" listener="#{modelAudiencia.setTipoResultado('ACUERDO')}"></f:ajax>
+						                   					<f:ajax render="asunto btn-suspender btn-finalizar @this" listener="#{modelAudiencia.setTipoResultado('ACUERDO')}"></f:ajax>
 						                 				</h:commandButton>
 														<br/>
 														<h:commandButton value="No Acuerdo" styleClass="btn btn-#{modelAudiencia.tipoResultado=='NOACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
-						                   					<f:ajax render="asunto btn-finalizar @this" listener="#{modelAudiencia.setTipoResultado('NOACUERDO')}"></f:ajax>
+						                   					<f:ajax render="asunto btn-suspender btn-finalizar @this" listener="#{modelAudiencia.setTipoResultado('NOACUERDO')}"></f:ajax>
 						                 				</h:commandButton>
 						                 				<br/>
 														<h:commandButton value="No Conciliable" styleClass="btn btn-#{modelAudiencia.tipoResultado=='NOCONCILIABLE'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
-						                   					<f:ajax render="asunto btn-finalizar @this" listener="#{modelAudiencia.setTipoResultado('NOCONCILIABLE')}"></f:ajax>
+						                   					<f:ajax render="asunto btn-suspender btn-finalizar @this" listener="#{modelAudiencia.setTipoResultado('NOCONCILIABLE')}"></f:ajax>
 						                 				</h:commandButton>
 													</h:panelGroup>
 													<div class="form-group has-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} col-lg-10">
@@ -198,10 +134,11 @@
 											
 						<h:commandButton immediate="true" rendered="#{modelLogin.role=='conalbos'}" value="Registrar Asistencia" actionListener="#{controllerAudiencia.guardarAsistencia()}" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
 						<h:commandButton value="Guardar Cambios" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
+						<h:commandButton id="btn-suspender" rendered="#{modelLogin.role=='conciliador'}" disabled="#{controllerAudiencia.activarBotonSuspender()}" value="Suspender" actionListener="#{controllerAudiencia.suspenderAudiencia()}" styleClass="btn btn-primary btn-menu" action="listaaudiencias?faces-redirect=true"/>
 						<h:commandButton id="btn-finalizar" rendered="#{modelLogin.role=='conciliador'}" disabled="#{controllerAudiencia.activarBotonFinalizar()}" onclick="$('#modalfinalizardesarrolloaudiencia').modal();" value="Finalizar" styleClass="btn btn-success btn-menu" >
 							<f:ajax></f:ajax>
 						</h:commandButton>
-						<h:commandButton  value="Suspender" actionListener="#{controllerAudiencia.suspenderAudiencia()}" immediate="true" styleClass="btn btn-primary btn-menu" action="listaaudiencias?faces-redirect=true"/>
+						
 						
 					</div>
 				</div>

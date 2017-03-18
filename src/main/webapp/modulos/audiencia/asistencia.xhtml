@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+
+<ui:composition>
+	<div class="col-lg-6">
+		<div class="box box-success sombra">
+	
+		    <div class="box-body no-padding">
+		      	<table id="layout-skins-list" class="table table-striped table-hover">
+	       	 		<thead>
+		          		<tr>
+		            		<th style="width: 80%;">#{asistenciaParte}s</th>
+		            		<th class="text-center" style="width: 10%;">Asistencia</th>
+		            		<th class="text-center" style="width: 10%;">Excusa</th>
+		          		</tr>
+		        	</thead>
+		        	<tbody>
+						<ui:repeat varStatus="n" var="convocante" value="#{modelDesarrolloAudiencia.asistencia}">
+							<h:panelGroup rendered="#{convocante[0]==asistenciaParte}">
+								
+							 	<tr>
+						            <td style="width: 80%;">
+						            	<h:outputText value="#{convocante[1]}" />
+					            	</td>
+						            <td class="text-center" style="width: 10%;">
+						            
+						            <h:panelGrid class="btn btn-#{convocante[2]? 'success' : 'danger'} btn-xs">
+					            		<i class="fa #{convocante[2]? 'fa-check' : 'fa-close'}"></i>
+					            	</h:panelGrid>
+					            	
+					            	</td>
+					            	 <td class="text-center" style="width: 10%;">
+						            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-download"></i></h:panelGroup>
+					            	</td>
+					          	</tr>
+				          	</h:panelGroup>
+						</ui:repeat>	
+      				</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</ui:composition>
+</body> 
+</html>

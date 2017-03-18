@@ -23,85 +23,13 @@
 		                  				</i>
 		               				</div>
 		               				<div class="box-body">
-										<div class="col-lg-6">
-											<div class="box box-success sombra">
-					
-											    <div class="box-body no-padding">
-											      	<table id="layout-skins-list" class="table table-striped table-hover">
-										       	 		<thead>
-											          		<tr>
-											            		<th style="width: 80%;">Convocantes</th>
-											            		<th class="text-center" style="width: 10%;">Asistencia</th>
-											            		<th class="text-center" style="width: 10%;">Excusa</th>
-											          		</tr>
-											        	</thead>
-											        	<tbody>
-					
-															<ui:repeat varStatus="n" var="convocante" value="#{modelDesarrolloAudiencia.asistencia}">
-																<h:panelGroup rendered="#{convocante[0]=='Convocante'}">
-																	
-																 	<tr>
-															            <td style="width: 80%;">
-															            	<h:outputText value="#{convocante[1]}" />
-														            	</td>
-															            <td class="text-center" style="width: 10%;">
-															            
-															            <h:panelGrid class="btn btn-#{convocante[2]? 'success' : 'danger'} btn-xs">
-														            		<i class="fa #{convocante[2]? 'fa-check' : 'fa-close'}"></i>
-														            	</h:panelGrid>
-														            	
-														            	</td>
-														            	 <td class="text-center" style="width: 10%;">
-															            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-download"></i></h:panelGroup>
-														            	</td>
-														          	</tr>
-													          	</h:panelGroup>
-															</ui:repeat>
-					
-								        				</tbody>
-								   					</table>
-												</div>
-								  			</div>
-						  				</div>
-						  				<div class="col-lg-6">
-						  					<div class="box box-success sombra">
-					
-											    <div class="box-body no-padding">
-											      	<table id="layout-skins-list" class="table table-striped table-hover">
-										       	 		<thead>
-											          		<tr>
-											            		<th style="width: 80%;">Convocados</th>
-											            		<th class="text-center" style="width: 10%;">Asistencia</th>
-											            		<th class="text-center" style="width: 10%;"> Excusa</th>
-											          		</tr>
-											        	</thead>
-											        	<tbody>
-					
-															<ui:repeat varStatus="n" var="convocado" value="#{modelDesarrolloAudiencia.asistencia}">
-																<h:panelGroup rendered="#{convocado[0]=='Convocado'}">
-																
-																 	<tr>
-															            <td style="width: 80%;">
-															            	<h:outputText value="#{convocado[1]}" />
-														            	</td>
-															            <td class="text-center" style="width: 10%;">
-															            	<h:panelGrid class="btn btn-#{convocado[2]? 'success' : 'danger'} btn-xs">
-															            		<i class="fa #{convocado[2]? 'fa-check' : 'fa-close'}"></i>
-															            	</h:panelGrid>
-														            	</td>
-														            	 <td class="text-center" style="width: 10%;">
-															            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-download"></i></h:panelGroup>
-														            	</td>
-														          	</tr>
-													          	</h:panelGroup>
-															</ui:repeat>
-					
-								        				</tbody>
-								   					</table>
-												</div>
-								  			</div>
-							  			</div>
-							  			<div class="col-lg-12" style="margin-top: 25px">
+		               					<ui:include src="asistencia.xhtml">
+		               						<ui:param name="asistenciaParte" value="Convocante" />
+		               					</ui:include>
+		               					<ui:include src="asistencia.xhtml">
+		               						<ui:param name="asistenciaParte" value="Convocado" />
+		               					</ui:include>
+					  					<div class="col-lg-12" style="margin-top: 25px">
 								  			<h:panelGroup layout="block" id="desarrollo" class="box box-success sombra">
 												<div class="box-header with-border" style="padding-bottom:0px">
 					                 				<i>
@@ -109,21 +37,31 @@
 					                   				</i>
 					                   				<div class="pull-right">
 						                   				<h:outputLabel value="Acuerdo Parcial" style="margin-right:5px"/>
-						                   				<h:commandButton value="Si" styleClass="btn btn-xs" style="width:26px;#{modelDesarrolloAudiencia.acuerdoParcial? 'background-color:green;color:white': 'background-color:#ff000080;'}"/>
-						                   				<h:commandButton  value="No" styleClass="btn btn-xs" style="width:26px;#{modelDesarrolloAudiencia.acuerdoParcial? 'background-color:#ff000080;': 'background-color:green;color:white'}"/>
+						                   				<h:commandButton value="Si" styleClass="btn btn-xs" style="width:26px;#{modelDesarrolloAudiencia.acuerdoParcial? 'background-color:green;color:white': 'background-color:#ff000080;'}">
+						                   					<f:ajax></f:ajax>
+						                   				</h:commandButton>
+						                   				<h:commandButton  value="No" styleClass="btn btn-xs" style="width:26px;#{modelDesarrolloAudiencia.acuerdoParcial? 'background-color:#ff000080;': 'background-color:green;color:white'}">
+						                   					<f:ajax></f:ajax>
+						                   				</h:commandButton>
 					                 				</div>
 												</div>
 												
 												<h:panelGroup layout="block" rendered="#{!modelDesarrolloAudiencia.acuerdoParcial}" styleClass="box-body">
 													<h:panelGroup class="col-lg-2" id="asunto" style="padding-left: 40px">
 														<br/><br/>
-														<h:commandButton value="Acuerdo" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='ACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px"/>
+														<h:commandButton value="Acuerdo" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='ACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+															<f:ajax></f:ajax>
+														</h:commandButton>
 														<br/>
-														<h:commandButton value="No Acuerdo" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='NOACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px"/>
+														<h:commandButton value="No Acuerdo" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='NOACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+															<f:ajax></f:ajax>
+														</h:commandButton>
 						                 				<br/>
-														<h:commandButton value="No Conciliable" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='NOCONCILIABLE'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px"/>
+														<h:commandButton value="No Conciliable" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='NOCONCILIABLE'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+															<f:ajax></f:ajax>
+														</h:commandButton>
 													</h:panelGroup>
-													<div class="form-group has-success col-lg-10">
+													<div class="form-group has-warning col-lg-10">
 														<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Observación  </label>
 														<h:inputTextarea required="true" readonly="true" id="observacion" value="#{modelDesarrolloAudiencia.observacion}" styleClass="form-control" style="resize:none;background-color:#f39c121a;" rows="6"/>
 													</div>

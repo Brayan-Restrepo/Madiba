@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import entidades.Solicitud;
+import negocio.iAudienciaBean;
 import negocio.iSolicitudBean;
 
 @ManagedBean
@@ -18,6 +19,9 @@ public class ControllerAudienciaDetalle {
 	
 	@EJB
 	public iSolicitudBean solicitudBean;
+	
+	@EJB
+	public iAudienciaBean audienciaBean;
 	
 	private Solicitud solicitud;
 	
@@ -85,5 +89,10 @@ public class ControllerAudienciaDetalle {
 			}
 		
 		return "fa-square";
+	}
+	
+
+	public boolean verificarAsistencias(Long idAudiencia){
+		return this.audienciaBean.verificarAsistencias(idAudiencia);
 	}
 }

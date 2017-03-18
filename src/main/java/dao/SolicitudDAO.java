@@ -75,6 +75,7 @@ public class SolicitudDAO {
 		solicitud.getAudiencias().size();
 		for(int j=0;j<solicitud.getAudiencias().size();j++){
 			solicitud.getAudiencias().get(j).getAgendas().size();
+			solicitud.getAudiencias().get(j).getAsistencias().size();
 		}
 		
 		return solicitud;

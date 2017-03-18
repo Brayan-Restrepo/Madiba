@@ -49,4 +49,9 @@ public class AudienciaBean implements iAudienciaBean {
 
 		return this.audienciaDAO.findAudienciaResultadoAsistenia(idAudiencia);
 	}
+
+	@Override
+	public boolean verificarAsistencias(Long idAudiencia) {
+		return this.audienciaDAO.verificarAsistencias(idAudiencia);
+	}
 }

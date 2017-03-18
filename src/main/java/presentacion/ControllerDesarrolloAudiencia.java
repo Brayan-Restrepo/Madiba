@@ -11,7 +11,9 @@ import javax.faces.bean.ViewScoped;
 
 import entidades.Audiencia;
 import entidades.Parte;
+import entidades.Solicitud;
 import negocio.iAudienciaBean;
+import negocio.iSolicitudBean;
 
 
 @ManagedBean
@@ -23,9 +25,23 @@ public class ControllerDesarrolloAudiencia {
 	@EJB
 	public iAudienciaBean audienciaBean;
 	
+	@EJB
+	public iSolicitudBean solicitudBean;
+	
 	@ManagedProperty(value = "#{modelDesarrolloAudiencia}")
 	private ModelDesarrolloAudiencia modelDesarrolloAudiencia;
-		
+
+	@ManagedProperty(value = "#{modelLogin}")
+	private ModelLogin modelLogin;
+	
+	public ModelLogin getModelLogin() {
+		return modelLogin;
+	}
+
+	public void setModelLogin(ModelLogin modelLogin) {
+		this.modelLogin = modelLogin;
+	}
+
 	public ModelDesarrolloAudiencia getModelDesarrolloAudiencia() {
 		return modelDesarrolloAudiencia;
 	}
@@ -34,9 +50,8 @@ public class ControllerDesarrolloAudiencia {
 		this.modelDesarrolloAudiencia = modelDesarrolloAudiencia;
 	}
 
-	public void cargarDatosDesarrolloAudiencia(Long idAudiencia){
+	public void cargarAsistencia(Long idAudiencia){
 		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
-		
 		List<String[]> listParte = new ArrayList<String[]>();
 		for(int i=0;i<audiencia.getAsistencias().size();i++){
 			String[] asistenciaVector = new String[3];
@@ -47,6 +62,10 @@ public class ControllerDesarrolloAudiencia {
 		}
 		this.modelDesarrolloAudiencia.setAsistencia(listParte);
 		
+	}
+	public void cargarDatosDesarrolloAudiencia(Long idAudiencia){
+		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
+		this.cargarAsistencia(idAudiencia);
 		if(audiencia.getResultados().size()==1){
 			this.modelDesarrolloAudiencia.setAcuerdoParcial(false);
 			this.modelDesarrolloAudiencia.setObservacion(audiencia.getResultados().get(0).getConclusion());
@@ -62,5 +81,27 @@ public class ControllerDesarrolloAudiencia {
 			}
 			
 		}
+	}
+	
+	public boolean bloquearBoton(List<Long> selectSolicitud){
+		
+		if(selectSolicitud.size()==0){
+			return true;
+		}else{
+			Long id = selectSolicitud.get(0)+0L;
+			Solicitud solicitud = this.solicitudBean.findSolicitud(id);
+			if(solicitud.getEstado().equals("AUDIENCIA-ENCURSO") ){
+				System.out.println(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getAsistencias()+"<<<<<<<<<<->>>>>>>>>");
+				if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getAsistencias().size()==0 && this.modelLogin.getRole().equals("conciliador")){
+					System.out.println("True");
+					return true;
+				}else{
+					System.out.println("False");
+					return false;
+				}
+			}
+		}
+	
+		return true;
 	}
 }

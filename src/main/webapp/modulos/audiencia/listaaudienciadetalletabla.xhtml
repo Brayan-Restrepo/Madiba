@@ -44,9 +44,12 @@
 										<ui:repeat var="audiencia" value="#{controllerAudienciaDetalle.solicitud.audiencias}">
 											<tr class="#{controllerAudienciaDetalle.seleccionarAudiencia(audiencia.idAudiencia)}">
 												<td>
-													<h:panelGrid class="btn btn-xs btn-warning">
+													<h:panelGrid class="btn btn-xs btn-warning" rendered="#{controllerAudienciaDetalle.verificarAsistencias(audiencia.idAudiencia)}">
 														<f:ajax event="click" listener="#{controllerAudienciaDetalle.setIdAudienciaSelect(audiencia.idAudiencia)}" render=":tablaAudienciaDetalle :formBotones"></f:ajax>
 														<i class="fa #{controllerAudienciaDetalle.changeIconSelect(audiencia.idAudiencia)}"></i>
+								            		</h:panelGrid>
+								            		<h:panelGrid class="btn btn-xs btn-danger" rendered="#{!controllerAudienciaDetalle.verificarAsistencias(audiencia.idAudiencia)}">
+														<i class="fa fa-close"></i>
 								            		</h:panelGrid>
 												</td>
 												<td class="text-center">
