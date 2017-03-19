@@ -329,17 +329,7 @@ public class ControllerSolicitud {
 		
 		return true;
 	}
-	
-	public void aplazarAudiencia(){
-				
-		Long id = this.consultaModelSolicitud.getSelectSolicitud().get(0)+0L;
-		List<Audiencia> audiencia = this.solicitudBean.findSolicitud(id).getAudiencias();
-		Long idAudiencia = audiencia.get(audiencia.size()-1).getIdAudiencia();
 		
-		this.audienciaBean.actualizarEstadoAudiencia(idAudiencia, "APLAZADA");
-		this.solicitudBean.actualizarEstadoSolicitud(id, "DESIGNACION");
-	}
-	
 	public String changeIconSelect(Long idSolicitud){
 		
 		for(int i=0;i<this.consultaModelSolicitud.getSelectSolicitud().size();i++){
