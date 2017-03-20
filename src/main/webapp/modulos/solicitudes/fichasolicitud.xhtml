@@ -11,7 +11,7 @@
 <body>
 	<ui:composition>
 		
-		<h:panelGrid layout="block" styleClass="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="height: 100%;width:47%;margin-left:2%;margin-rigth:1%" >	
+		<h:panelGroup layout="block" styleClass="col-lg-6 col-md-12 col-sm-12 col-xs-12">	
 			<f:ajax event="click" listener="#{modelSolicitud.addSelectSolicitud(solicitud.idSolicitud,solicitud.estado)}" render="#{formulario}" ></f:ajax>	 
 			<h:panelGroup layout="block" styleClass="box box-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} sombra #{controllerSolicitud.seleccionarSolicitud(solicitud.idSolicitud,solicitud.estado)}">
 				
@@ -90,7 +90,7 @@
 		          	</div>
 		        </h:panelGroup>
 			</h:panelGroup>
-		</h:panelGrid>
+		</h:panelGroup>
 	</ui:composition>
 </body>
 </html>

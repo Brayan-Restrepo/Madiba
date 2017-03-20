@@ -24,7 +24,7 @@
 	        	<tbody>
 
 					<ui:repeat varStatus="n" var="convocante" value="#{controllerAudiencia.solicitud.partes}">
-						<h:panelGroup rendered="#{convocante.tipoParte==asistenciaParte}">
+						<h:panelGroup layout="block" rendered="#{convocante.tipoParte==asistenciaParte}">
 							
 						 	<tr>
 					            <td style="width: 80%;">
@@ -32,14 +32,14 @@
 				            	</td>
 					            <td class="text-center" style="width: 10%;">
 					            
-					            <h:panelGrid class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs">
-				            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocante.idParte)}" render="@this" event="click"></f:ajax>
+					            <h:panelGroup class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs">
+				            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocante.idParte)}" render="@this btn-escusa" event="click"></f:ajax>
 				            		<i class="fa #{controllerAudiencia.changeIcon(convocante.idParte)}"></i>
-				            	</h:panelGrid>
+				            	</h:panelGroup>
 				            	
 				            	</td>
 				            	 <td class="text-center" style="width: 10%;">
-					            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-edit"></i></h:panelGroup>
+					            	<h:panelGroup id="btn-escusa" class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs"><i class="fa fa-upload"></i></h:panelGroup>
 				            	</td>
 				          	</tr>
 			          	</h:panelGroup>

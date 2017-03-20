@@ -30,6 +30,17 @@
 				           	</h:panelGroup>
 			           	</h:form>
 			        </li> -->
+			        <li class="dropdown">
+			        	<h:commandButton value="Conciliador" styleClass="btn btn-xs btn-warning" >
+			        		<f:ajax listener="#{modelLogin.setRole('conciliador')}"></f:ajax>
+			        	</h:commandButton>
+			        </li>
+			        <li class="dropdown">
+			        	<h:commandButton value="Conalbos" styleClass="btn btn-xs btn-danger" >
+			        		<f:ajax listener="#{modelLogin.setRole('conalbos')}"></f:ajax>
+			        	</h:commandButton>
+			        
+			        </li>
 					<li class="dropdown user user-menu">
 						<a href="#"	class="dropdown-toggle"> 
 							<!--<h:graphicImage library="img/png" name="girl.png" class="user-image" alt="User Image" />-->
