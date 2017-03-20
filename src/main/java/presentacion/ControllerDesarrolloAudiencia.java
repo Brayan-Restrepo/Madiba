@@ -83,6 +83,14 @@ public class ControllerDesarrolloAudiencia {
 		}
 	}
 	
+	public boolean hayAsistencias(Long idAudiencia){
+		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
+		if(audiencia.getAsistencias().size()==0){
+			return false;
+		}
+		return true;
+	}
+	
 	public boolean bloquearBoton(List<Long> selectSolicitud){
 		
 		if(selectSolicitud.size()==0){
@@ -91,7 +99,6 @@ public class ControllerDesarrolloAudiencia {
 			Long id = selectSolicitud.get(0)+0L;
 			Solicitud solicitud = this.solicitudBean.findSolicitud(id);
 			if(solicitud.getEstado().equals("AUDIENCIA-ENCURSO") ){
-				System.out.println(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getAsistencias()+"<<<<<<<<<<->>>>>>>>>");
 				if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getAsistencias().size()==0 && this.modelLogin.getRole().equals("conciliador")){
 					System.out.println("True");
 					return true;

@@ -59,7 +59,7 @@
 													<ul class="list-unstyled">
 														<ui:repeat varStatus="n" var="fecha" value="#{audiencia.agendas}">
 															<li>
-																<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="badge bg-red" value="Aplazada: " />
+																<h:outputText rendered="#{(audiencia.agendas.size()>1) and (audiencia.agendas.size()>(n.index+1))}" styleClass="badge bg-red" value="Aplazada " />
 															</li>
 														</ui:repeat>
 														<li>

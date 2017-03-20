@@ -130,6 +130,16 @@ public class ControllerAudiencia {
 		String observacion = this.modelAudiencia.getObservacion();
 		this.audienciaBean.addResultado("SUSPENDIDA", this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
 	}
+
+	public void aplazarAudiencia(){
+				
+		Long id = this.modelAudiencia.getSelectSolicitud().get(0)+0L;
+		List<Audiencia> audiencia = this.solicitudBean.findSolicitud(id).getAudiencias();
+		Long idAudiencia = audiencia.get(audiencia.size()-1).getIdAudiencia();
+		
+		this.audienciaBean.actualizarEstadoAudiencia(idAudiencia, "APLAZADA");
+		this.solicitudBean.actualizarEstadoSolicitud(id, "DESIGNACION");
+	}
 	
 	/**
 	 * 	Se Añade El resultado de La Audiencia Solo si es Finalzada (Fin da las Audiecias) 
@@ -239,6 +249,19 @@ public class ControllerAudiencia {
 		if(this.modelAudiencia.getSelectSolicitud().size()==0){
 			return true;
 		}else{
+			Long id = this.modelAudiencia.getSelectSolicitud().get(0)+0L;
+			String estadoSolicitud = this.solicitudBean.findSolicitud(id).getEstado();
+			if(estadoSolicitud.equals(estado1) || estadoSolicitud.equals(estado2) ){
+				return false;
+			}
+		}
+	
+		return true;
+	}
+	
+	public boolean bloquearBotonAplazar(String estado1, String estado2){
+		
+		if(this.modelAudiencia.getSelectSolicitud().size()==1){
 			Long id = this.modelAudiencia.getSelectSolicitud().get(0)+0L;
 			String estadoSolicitud = this.solicitudBean.findSolicitud(id).getEstado();
 			if(estadoSolicitud.equals(estado1) || estadoSolicitud.equals(estado2) ){
