@@ -3,9 +3,9 @@ cnectar el proyecto con wildfly
 
 Importal el plugin wildfly
 <plugin>
-		 <groupId>org.wildfly.plugins</groupId>
-		 <artifactId>wildfly-maven-plugin</artifactId>
-		 <version>1.1.0.Beta1</version>
+    <groupId>org.wildfly.plugins</groupId>
+    <artifactId>wildfly-maven-plugin</artifactId>
+    <version>1.1.0.Final</version>
 </plugin>
 
 ejecutar el proyecto y subirlo al servidor wildfly
@@ -43,7 +43,23 @@ JSF Viejo
 
 JSF Nuevo
 <dependency>
-    <groupId>com.sun.faces</groupId>
-    <artifactId>jsf-api</artifactId>
+    <groupId>org.jboss.spec.javax.faces</groupId>
+    <artifactId>jboss-jsf-api_2.2_spec</artifactId>
     <version>2.2.13</version>
 </dependency>
+
+
+Configuracion de puerto para envio de correos ssl
+ARchivo standalone del servidor wildfly
+<outbound-socket-binding name="mail-smtp">
+    <remote-destination host="smtp.gmail.com" port="465"/>
+</outbound-socket-binding>
+
+
+Configuarion del pom para cargar y descargar archivos
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>3.0.1</version>
+    <scope>provided</scope>
+</dependency> 

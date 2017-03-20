@@ -151,11 +151,10 @@
             </exclusions>
         </dependency>
 
-        <!-- Import the JSF API, we use provided scope as the API is included in
-            JBoss AS 7 -->
+        <!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.faces/jboss-jsf-api_2.2_spec -->
 		<dependency>
-		    <groupId>com.sun.faces</groupId>
-		    <artifactId>jsf-api</artifactId>
+		    <groupId>org.jboss.spec.javax.faces</groupId>
+		    <artifactId>jboss-jsf-api_2.2_spec</artifactId>
 		    <version>2.2.13</version>
 		</dependency>
 
@@ -173,6 +172,14 @@
 		    <groupId>javax.mail</groupId>
 		    <artifactId>javax.mail-api</artifactId>
 		    <version>1.5.4</version>
+		</dependency>
+		
+		
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.0.1</version>
+		    <scope>provided</scope>
 		</dependency>
 		
         <!-- Annotation processor to generate the JPA 2.0 metamodel classes for
@@ -235,11 +242,12 @@
                 <artifactId>jboss-as-maven-plugin</artifactId>
                 <version>${version.jboss.maven.plugin}</version>
             </plugin>
-            <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>1.1.0.Beta1</version>
-            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.wildfly.plugins/wildfly-maven-plugin -->
+			<plugin>
+			    <groupId>org.wildfly.plugins</groupId>
+			    <artifactId>wildfly-maven-plugin</artifactId>
+			    <version>1.1.0.Final</version>
+			</plugin>
         </plugins>
     </build>
 

@@ -17,7 +17,7 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean 
 public class SendMail
 {
-    @Resource(mappedName="java:jboss/mail/Gmail")
+	@Resource(mappedName="java:jboss/mail/Gmail")
     private Session mailSession;
  
     public void emailJboss() {
@@ -37,7 +37,7 @@ public class SendMail
             	multiParte.addBodyPart(adjunto);
             	
             	MimeMessage m = new MimeMessage(mailSession);
-                Address from = new InternetAddress("brayan2293@gmail.com");
+                Address from = new InternetAddress("conalbos.madiba@gmail.com");
                 Address[] to = new InternetAddress[] {new InternetAddress("juanseca94@gmail.com") };
  
                m.setFrom(from);

@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:pt="http://java.sun.com/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+ <h:head>
+ 	<h:outputStylesheet library="css" name="bootstrap.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="AdminLTE.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="_all-skins.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="madiba.css"/>
+	<h:outputStylesheet library="css" name="animate.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>  
+ </h:head>  
+ 
+ <h:body>  
+ 		<h:form>
+		    <h:commandButton value="Download" icon="ui-icon-arrowthick-1-s" action="#{fileUtilities.download('C:/Users/Juan/Desktop','boy','png')}" />
+		</h:form>
+		<br /><br /><br /><br /><br />
+		<h:form id="form3" enctype="multipart/form-data">
+			<h:panelGrid id="panelInput3" class="btn btn-success btn-xs" onclick="document.getElementById('form3:input2').click()">
+           		<h:inputFile id="input3" value="#{fileUtilities.file}" styleClass="hidden"/>
+           		<i class="fa fa-edit"></i>
+           	</h:panelGrid>
+            <br /><br /><br />
+            <h:commandButton value="Upload File" actionListener="#{fileUtilities.upload(fileUtilities.file,'C:/Users/Juan/Desktop','archivo')}" />
+		</h:form>
+		<br /><br /><br /><br /><br /><br />
+		<h:form enctype="multipart/form-data">
+            <h:commandButton value="Save File" actionListener="#{fileUtilities.createFolder('C:/Users/Juan/Desktop','carpeta')}" />
+		</h:form>
+		<br /><br /><br /><br /><br /><br />
+		
+		
+		
+		
+		<h:form id="form1" enctype="multipart/form-data">
+			<h:panelGrid id="panelInput1" class="btn btn-success btn-xs" onclick="document.getElementById('form1:input1').click()">
+           		<h:inputFile id="input1" value="#{fileUtilities.file}" styleClass="hidden"/>
+           		<i class="fa fa-edit"></i>
+           	</h:panelGrid>
+       	</h:form>
+       	<h:form id="form2" enctype="multipart/form-data">
+           	<h:panelGrid id="panelInput2" class="btn btn-success btn-xs" onclick="document.getElementById('form2:input2').click()">
+           		<h:inputFile id="input2" value="#{fileUtilities.file}" styleClass="hidden"/>
+           		<i class="fa fa-edit"></i>
+           	</h:panelGrid>
+            <br/>
+		</h:form>
+		<h:commandButton value="Guardar Excusa" actionListener="#{fileUtilities.GuardarExcusas()}" />
+ </h:body>  
+</html>
