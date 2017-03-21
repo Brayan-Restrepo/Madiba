@@ -18,27 +18,47 @@ import java.io.InputStream;
  *
  * @author Murad R. Imanbayli <muradimanbayli at gmail.com>
  */
-@ViewScoped
 @ManagedBean
+@ViewScoped
 public class FileUtilities {
+	
+	public FileUtilities(){
+		this.nombresFile = new ArrayList<String>();
+	}
+	
 	private Part file;
 	private List<Part> files;
 	
+	private List<String> nombresFile;
+	private Long nambreFile;
+	
+	public Long getNambreFile() {
+		return nambreFile;
+	}
+
+	public void setNambreFile(Long nambreFile) {
+		this.nambreFile = nambreFile;
+		System.out.println("setNambreFile ->"+nambreFile);
+		this.nombresFile.add(this.nambreFile+"");
+
+	}
+
 	public Part getFile() {
 		System.out.println("getFile");
 	    return file;
 	}
 	
 	public void setFile(Part file) {
-		if(file != null){
+			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 			if(files == null){
-				files = new ArrayList<Part>();	
+				files = new ArrayList<Part>();
 				files.add(file);
+		
 			}else{
 				files.add(file);
+		
 			}
 		    this.file = file;
-		}
 	}
 
     public void upload(Part file, String path, String name){
@@ -131,13 +151,22 @@ public class FileUtilities {
 		upload(this.file,path+"/"+folderName,fileName);
 	}
 	
-	public void GuardarExcusas(Long idSolicitud, Long idAudiencia){
-		for(int i=0; i<this.files.size(); i++){
-			String path = "C:/Conalbos-Madiba/Solicitud #"+idSolicitud+"/Audiencia #"+idAudiencia;
-			String folderName = "Excusas";
-			String fileName = nombreExcusa(this.files.get(i));
-			createFolder(path,folderName);
-			upload(this.files.get(i),path+"/"+folderName,fileName);
+	public void GuardarExcusas(){
+		Long idSolicitud=5L;
+		Long idAudiencia=7L;
+		if(this.nombresFile.size()==this.files.size()){
+			for(int i=0; i<this.files.size(); i++){
+				if(this.files.get(i)!=null){
+					String path = "C:/Conalbos-Madiba/Solicitud #"+idSolicitud+"/Audiencia #"+idAudiencia;
+					String folderName = "Excusas";
+					//String fileName = nombreExcusa(this.files.get(i));
+					String fileName = this.nombresFile.get(i);
+					createFolder(path,folderName);
+					upload(this.files.get(i),path+"/"+folderName,fileName);
+				}
+			}
+		}else {
+			System.out.println(this.nombresFile.size()+" ERROR  "+this.files.size());
 		}
 	}
 	
