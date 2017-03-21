@@ -17,40 +17,22 @@
  </h:head>  
  
  <h:body>  
- 		<h:form>
-		    <h:commandButton value="Download" icon="ui-icon-arrowthick-1-s" action="#{fileUtilities.download('C:/Users/Juan/Desktop','boy','png')}" />
-		</h:form>
-		<br /><br /><br /><br /><br />
-		<h:form id="form3" enctype="multipart/form-data">
-			<h:panelGrid id="panelInput3" class="btn btn-success btn-xs" onclick="document.getElementById('form3:input2').click()">
-           		<h:inputFile id="input3" value="#{fileUtilities.file}" styleClass="hidden"/>
-           		<i class="fa fa-edit"></i>
-           	</h:panelGrid>
-            <br /><br /><br />
-            <h:commandButton value="Upload File" actionListener="#{fileUtilities.upload(fileUtilities.file,'C:/Users/Juan/Desktop','archivo')}" />
-		</h:form>
-		<br /><br /><br /><br /><br /><br />
-		<h:form enctype="multipart/form-data">
-            <h:commandButton value="Save File" actionListener="#{fileUtilities.createFolder('C:/Users/Juan/Desktop','carpeta')}" />
-		</h:form>
-		<br /><br /><br /><br /><br /><br />
-		
-		
-		
-		
+ 			
 		<h:form id="form1" enctype="multipart/form-data">
-			<h:panelGrid id="panelInput1" class="btn btn-success btn-xs" onclick="document.getElementById('form1:input1').click()">
+			
+			
+           	<h:panelGroup  id="panelInput1" class="btn btn-success btn-xs" onclick="document.getElementById('form1:input1').click()">
            		<h:inputFile id="input1" value="#{fileUtilities.file}" styleClass="hidden"/>
            		<i class="fa fa-edit"></i>
-           	</h:panelGrid>
-       	</h:form>
-       	<h:form id="form2" enctype="multipart/form-data">
-           	<h:panelGrid id="panelInput2" class="btn btn-success btn-xs" onclick="document.getElementById('form2:input2').click()">
+           	</h:panelGroup>
+           	<h:panelGroup  id="panelInput2" class="btn btn-success btn-xs" onclick="document.getElementById('form1:input2').click()">
            		<h:inputFile id="input2" value="#{fileUtilities.file}" styleClass="hidden"/>
            		<i class="fa fa-edit"></i>
-           	</h:panelGrid>
+           	</h:panelGroup>
             <br/>
+            <h:commandButton value="Guardar Excusa" actionListener="#{fileUtilities.GuardarExcusas()}">
+            </h:commandButton>
 		</h:form>
-		<h:commandButton value="Guardar Excusa" actionListener="#{fileUtilities.GuardarExcusas()}" />
+		
  </h:body>  
 </html>

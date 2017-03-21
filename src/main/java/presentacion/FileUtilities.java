@@ -1,4 +1,4 @@
-package pruebas;
+package presentacion;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,36 +7,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
  *
  * @author Murad R. Imanbayli <muradimanbayli at gmail.com>
  */
-@SessionScoped
+@ViewScoped
 @ManagedBean
 public class FileUtilities {
 	private Part file;
 	private List<Part> files;
-	 
+	
 	public Part getFile() {
+		System.out.println("getFile");
 	    return file;
 	}
 	
 	public void setFile(Part file) {
-		if(files == null){
-			files = new ArrayList<Part>();	
-			files.add(this.file);
-		}else{
-			files.add(this.file);
+		if(file != null){
+			if(files == null){
+				files = new ArrayList<Part>();	
+				files.add(file);
+			}else{
+				files.add(file);
+			}
+		    this.file = file;
 		}
-	    this.file = file;
 	}
 
     public void upload(Part file, String path, String name){
@@ -129,13 +131,20 @@ public class FileUtilities {
 		upload(this.file,path+"/"+folderName,fileName);
 	}
 	
-	public void GuardarExcusas(){
+	public void GuardarExcusas(Long idSolicitud, Long idAudiencia){
 		for(int i=0; i<this.files.size(); i++){
-			String path = "C:/Conalbos-Madiba/Solicitud #1/Audiencia #1";
-			String folderName = "Excusa NombreParte";
-			String fileName = "excusaFecha"+i;
+			String path = "C:/Conalbos-Madiba/Solicitud #"+idSolicitud+"/Audiencia #"+idAudiencia;
+			String folderName = "Excusas";
+			String fileName = nombreExcusa(this.files.get(i));
 			createFolder(path,folderName);
 			upload(this.files.get(i),path+"/"+folderName,fileName);
 		}
 	}
+	
+	public String nombreExcusa(Part file){
+		String nombre = file.getName();
+		nombre = nombre.split("[:]")[nombre.split("[:]").length-1];
+		return nombre;
+	}
+	
 }

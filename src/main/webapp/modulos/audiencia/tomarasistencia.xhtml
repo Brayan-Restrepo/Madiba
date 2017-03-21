@@ -4,6 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:hh="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"> 
 
 <h:head></h:head> 
@@ -23,7 +24,7 @@
 	        	</thead>
 	        	<tbody>
 
-					<ui:repeat varStatus="n" var="convocante" value="#{controllerAudiencia.solicitud.partes}">
+					<ui:repeat id="#{asistenciaParte}" varStatus="n" var="convocante" value="#{controllerAudiencia.solicitud.partes}">
 						<h:panelGroup layout="block" rendered="#{convocante.tipoParte==asistenciaParte}">
 							
 						 	<tr>
@@ -33,13 +34,22 @@
 					            <td class="text-center" style="width: 10%;">
 					            
 					            <h:panelGroup class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs">
-				            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocante.idParte)}" render="@this btn-escusa" event="click"></f:ajax>
+				            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocante.idParte)}" render="@this btn-escusa1 btn-escusa2" event="click"></f:ajax>
 				            		<i class="fa #{controllerAudiencia.changeIcon(convocante.idParte)}"></i>
 				            	</h:panelGroup>
 				            	
 				            	</td>
-				            	 <td class="text-center" style="width: 10%;">
-					            	<h:panelGroup id="btn-escusa" class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs"><i class="fa fa-upload"></i></h:panelGroup>
+				            	 <td class="text-center" style="width: 10%;">   		
+					            	
+					            	<h:panelGroup onclick="document.getElementById('desarrolloForm:#{asistenciaParte}:#{n.index}:parte').click()" id="btn-escusa1" class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs #{controllerAudiencia.changeColorButton(convocante.idParte)=='danger'?' ':'hidden'}">
+           								<hh:inputFile id="parte" value="#{fileUtilities.file}" styleClass="hidden"/>
+					            		<i class="fa fa-#{controllerAudiencia.changeColorButton(convocante.idParte)=='danger'? 'upload':'square'}"></i>
+					            	</h:panelGroup>
+					            	   		
+					            	<h:panelGroup id="btn-escusa2" class="btn btn-warning btn-xs #{controllerAudiencia.changeColorButton(convocante.idParte)!='danger'?' ':'hidden'}">
+           								<i class="fa fa-square"></i>
+					            	</h:panelGroup>
+					            	
 				            	</td>
 				          	</tr>
 			          	</h:panelGroup>

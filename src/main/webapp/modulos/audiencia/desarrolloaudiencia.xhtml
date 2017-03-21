@@ -33,7 +33,7 @@
 		               						<ui:param name="asistenciaParte" value="Convocado" />
 		               					</ui:include>
 	               					</h:panelGroup>
-	               					<h:panelGroup rendered="#{modelLogin.role=='conalbos' and !controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud.audiencias.get(controllerAudiencia.solicitud.audiencias.size()-1).idAudiencia)}">
+	               					<h:panelGroup id="tomarasistencia" rendered="#{modelLogin.role=='conalbos' and !controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud.audiencias.get(controllerAudiencia.solicitud.audiencias.size()-1).idAudiencia)}">
 										<ui:include src="tomarasistencia.xhtml">
 		               						<ui:param name="asistenciaParte" value="Convocante" />
 		               					</ui:include>
