@@ -24,7 +24,7 @@
 	        	</thead>
 	        	<tbody>
 
-					<ui:repeat id="#{asistenciaParte}" varStatus="n" var="convocante" value="#{controllerAudiencia.solicitud.partes}">
+					<ui:repeat id="tomarasistencia-#{asistenciaParte}" varStatus="n" var="convocante" value="#{controllerAudiencia.solicitud.partes}">
 						<h:panelGroup layout="block" rendered="#{convocante.tipoParte==asistenciaParte}">
 							
 						 	<tr>
@@ -40,11 +40,10 @@
 				            	
 				            	</td>
 				            	 <td class="text-center" style="width: 10%;">   		
-				            		<hh:inputFile immediate="true" id="parte#{convocante.idParte}" value="#{fileUtilities.file}" styleClass="hidden">
+				            		<hh:inputFile id="parte" value="#{fileUtilities.file}" styleClass="hidden">
 				            		</hh:inputFile>
-				            		#{fileUtilities.setNambreFile(convocante.idParte)}
-				            		#{convocante.idParte}
-					            	<h:panelGroup onclick="document.getElementById('desarrolloForm:#{asistenciaParte}:#{n.index}:parte').click()" id="btn-escusa1" class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs #{controllerAudiencia.changeColorButton(convocante.idParte)=='danger'?' ':'hidden'}">
+				            		#{fileUtilities.setNombreFile(convocante.idParte)}
+					            	<h:panelGroup onclick="document.getElementById('desarrolloForm:tomarasistencia-#{asistenciaParte}:#{n.index}:parte').click()" id="btn-escusa1" class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs #{controllerAudiencia.changeColorButton(convocante.idParte)=='danger'?' ':'hidden'}">
        									<i class="fa fa-#{controllerAudiencia.changeColorButton(convocante.idParte)=='danger'? 'upload':'square'}"></i>
 					            	</h:panelGroup>
 					            	   		

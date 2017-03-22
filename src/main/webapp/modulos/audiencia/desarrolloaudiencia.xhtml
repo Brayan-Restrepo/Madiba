@@ -132,8 +132,8 @@
 						
 						<ui:include src="modalfinalizardesarrolloaudiencia.xhtml"></ui:include>
 											
-						<h:commandButton immediate="true" rendered="#{modelLogin.role=='conalbos'}" disabled="#{controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud.audiencias.get(controllerAudiencia.solicitud.audiencias.size()-1).idAudiencia)}" value="Registrar Asistencia" actionListener="#{controllerAudiencia.guardarAsistencia()}" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
-					   	<h:commandButton value="Guardar Excusa" actionListener="#{fileUtilities.GuardarExcusas()}">
+						<h:commandButton rendered="#{modelLogin.role=='conalbos'}" disabled="#{controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud.audiencias.get(controllerAudiencia.solicitud.audiencias.size()-1).idAudiencia)}" value="Registrar Asistencia" actionListener="#{controllerAudiencia.guardarAsistencia()}" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
+					   	<h:commandButton value="Guardar Excusa" actionListener="#{controllerAudiencia.GuardarExcusas()}">
            				</h:commandButton>
 						<h:commandButton id="btn-suspender" rendered="#{modelLogin.role=='conciliador'}" disabled="#{controllerAudiencia.activarBotonSuspender()}" value="Suspender" actionListener="#{controllerAudiencia.suspenderAudiencia()}" styleClass="btn btn-primary btn-menu" action="listaaudiencias?faces-redirect=true"/>
 						<h:commandButton id="btn-finalizar" rendered="#{modelLogin.role=='conciliador'}" disabled="#{controllerAudiencia.activarBotonFinalizar()}" onclick="$('#modalfinalizardesarrolloaudiencia').modal();" value="Finalizar" styleClass="btn btn-success btn-menu" >

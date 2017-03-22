@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.servlet.http.Part;
 
 import entidades.Audiencia;
 import entidades.Solicitud;
@@ -122,13 +123,13 @@ public class ControllerAudiencia {
 	}
 	
 	public void suspenderAudiencia(){
+		System.out.println("-------------------> "+"DESIGNACION");
 		this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "DESIGNACION");
 		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
 		this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "SUSPENDIDA");
 		
-
 		String observacion = this.modelAudiencia.getObservacion();
-		this.audienciaBean.addResultado("SUSPENDIDA", this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
+		this.audienciaBean.addResultadoSuspender("SUSPENDIDA", this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
 	}
 
 	public void aplazarAudiencia(){
@@ -155,6 +156,7 @@ public class ControllerAudiencia {
 			if(this.modelAudiencia.getListaAsistencias().get(i)[1] == 1L) valAsistencia = true;
 			this.audienciaBean.addAsistencia(audiencia,idParte,valAsistencia);
 		}
+		this.GuardarExcusas();
 	}
 	
 	
@@ -300,5 +302,53 @@ public class ControllerAudiencia {
 			return true;
 		}
 		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	@ManagedProperty(value = "#{fileUtilities}")
+	private FileUtilities fileUtilities;
+	
+	public FileUtilities getFileUtilities() {
+		return fileUtilities;
+	}
+
+	public void setFileUtilities(FileUtilities fileUtilities) {
+		this.fileUtilities = fileUtilities;
+	}
+
+	public void GuardarExcusas(){
+		Long idSolicitud=this.solicitud.getIdSolicitud();
+		Long idAudiencia=this.solicitud.getAudiencias().get(this.solicitud.getAudiencias().size()-1).getIdAudiencia();
+		
+		if(this.fileUtilities.getNombresFile().size()==this.fileUtilities.getFiles().size()){
+			for(int i=0; i<this.fileUtilities.getFiles().size(); i++){
+				if(this.fileUtilities.getFiles().get(i)!=null){
+					String path = "C:/Conalbos-Madiba/Solicitud #"+idSolicitud+"/Audiencia #"+idAudiencia;
+					String folderName = "Excusas";
+					//String fileName = nombreExcusa(this.files.get(i));
+					String fileName = this.fileUtilities.getNombresFile().get(i);
+					this.fileUtilities.createFolder(path,folderName);
+					this.fileUtilities.upload(this.fileUtilities.getFiles().get(i),path+"/"+folderName,fileName);
+					Long idParte = Long.valueOf(this.fileUtilities.getNombresFile().get(i));
+					String ruta = path+"/"+folderName+"/"+idParte+this.fileUtilities.getFileExtention(this.fileUtilities.getFileName(this.fileUtilities.getFiles().get(i)));
+					this.audienciaBean.guardarEscusaParte(idAudiencia, idParte, ruta);
+					//System.out.println(idAudiencia+"     -      "+idParte+"   -   "+ path+"/"+folderName);
+				}
+			}
+		}
+	}
+	public String nombreExcusa(Part file){
+		String nombre = file.getName();
+		nombre = nombre.split("[:]")[nombre.split("[:]").length-1];
+		return nombre;
 	}
 }

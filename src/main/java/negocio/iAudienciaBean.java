@@ -12,4 +12,7 @@ public interface iAudienciaBean {
 	public void actualizarEstadoAudiencia(Long idAudiencia, String nuevoEstado);
 	public Audiencia findAudienciaResultadoAsistenia(Long idAudiencia);
 	public boolean verificarAsistencias(Long idAudiencia);
+	public void guardarEscusaParte(Long idAudiencia, Long idParte, String excusa);
+	public void addResultadoSuspender(String tipoResultado, Audiencia audiencia, String conclucion, Long idSolicitud);
+	
 }

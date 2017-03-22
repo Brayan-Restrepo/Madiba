@@ -29,7 +29,16 @@ public class AudienciaBean implements iAudienciaBean {
 		this.audienciaDAO.actualizarEstadoAudiencia(audiencia.getIdAudiencia(), "FINALIZADA");
 		this.solicitudDAO.actualizarEstadoSolicitud(idSolicitud, "AUDIENCIA-FINALIZADA");
 	}
-
+	
+	@Override
+	public void addResultadoSuspender(String tipoResultado, Audiencia audiencia, String conclusion, Long idSolicitud) {
+		Resultado resultado = new Resultado();
+		resultado.setTipoResultado(tipoResultado);
+		resultado.setConclusion(conclusion);
+		resultado.setAudiencia(audiencia);
+		this.audienciaDAO.addResultado(resultado);
+	}
+	
 	@Override
 	public void addAsistencia(Audiencia audiencia, Long idParte, Boolean valAsistencia) {
 		Asistencia asistencia = new Asistencia();
@@ -53,5 +62,11 @@ public class AudienciaBean implements iAudienciaBean {
 	@Override
 	public boolean verificarAsistencias(Long idAudiencia) {
 		return this.audienciaDAO.verificarAsistencias(idAudiencia);
+	}
+
+	@Override
+	public void guardarEscusaParte(Long idAudiencia, Long idParte, String excusa) {
+		this.audienciaDAO.guardarEscusaParte(idAudiencia, idParte, excusa);
+		
 	}
 }

@@ -54,10 +54,12 @@ public class ControllerDesarrolloAudiencia {
 		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
 		List<String[]> listParte = new ArrayList<String[]>();
 		for(int i=0;i<audiencia.getAsistencias().size();i++){
-			String[] asistenciaVector = new String[3];
+			String[] asistenciaVector = new String[5];
 			asistenciaVector[0]=audiencia.getAsistencias().get(i).getParte().getTipoParte();
 			asistenciaVector[1]=audiencia.getAsistencias().get(i).getParte().getApellidos()+" "+audiencia.getAsistencias().get(i).getParte().getNombres();
 			asistenciaVector[2]=String.valueOf(audiencia.getAsistencias().get(i).getAsistio());
+			asistenciaVector[3]=String.valueOf(audiencia.getAsistencias().get(i).getParte().getIdParte());
+			asistenciaVector[4]=audiencia.getAsistencias().get(i).getExcusa();
 			listParte.add(asistenciaVector);
 		}
 		this.modelDesarrolloAudiencia.setAsistencia(listParte);

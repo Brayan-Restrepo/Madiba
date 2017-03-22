@@ -10,7 +10,7 @@
 <body>
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">
 		<ui:define name="content">
-  			<h:form id="desarrolloForm">
+  			<h:form id="desarrolloForm" enctype="multipart/form-data">
 				<div class='content-wrapper' style="height:10px;overflow:auto">
 					<div class="content">
 						#{controllerDesarrolloAudiencia.cargarDatosDesarrolloAudiencia(controllerSession.idAudienciaDesarroloAudiencia)}

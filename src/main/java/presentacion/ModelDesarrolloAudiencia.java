@@ -19,6 +19,8 @@ public class ModelDesarrolloAudiencia {
 	 * La primera pocicion es tipoParte
 	 * La Segunda Pocicion Apellido y Nombre
 	 * La Tercera Posicion es la Asistencia
+	 * La Cuarta Posicion es la IdParte
+	 * La Quinta Posicion es la Excusa
 	 */
 	private List<String[]> Asistencia;
 	

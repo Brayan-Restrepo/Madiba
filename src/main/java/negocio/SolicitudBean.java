@@ -40,6 +40,7 @@ public class SolicitudBean implements iSolicitudBean {
 	}
 	@Override
 	public void actualizarEstadoSolicitud(Long id, String nuevoEstado){
+		System.out.println(nuevoEstado);
 		this.solicitudDAO.actualizarEstadoSolicitud(id, nuevoEstado);
 	}
 	

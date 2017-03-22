@@ -4,6 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:hh="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"> 
 
 <h:head></h:head> 
@@ -23,7 +24,7 @@
 		          		</tr>
 		        	</thead>
 		        	<tbody>
-						<ui:repeat varStatus="n" var="convocante" value="#{modelDesarrolloAudiencia.asistencia}">
+						<ui:repeat varStatus="n" var="convocante" id="asistencia-#{asistenciaParte}" value="#{modelDesarrolloAudiencia.asistencia}">
 							<h:panelGroup rendered="#{convocante[0]==asistenciaParte}">
 								
 							 	<tr>
@@ -38,7 +39,27 @@
 					            	
 					            	</td>
 					            	 <td class="text-center" style="width: 10%;">
-						            	<h:panelGroup class="btn btn-success btn-xs"><i class="fa fa-download"></i></h:panelGroup>
+					            	 <h:panelGroup rendered="#{convocante[2]}" class="btn btn-warning btn-xs">
+						            		<i class="fa fa-square"></i>
+						            	</h:panelGroup >
+						            	<h:panelGroup rendered="#{!convocante[2]}">
+	
+						            		<h:panelGroup rendered="#{convocante[4]!='' and convocante[4]!=null}" onclick="document.getElementById('desarrolloForm:asistencia-#{asistenciaParte}:#{n.index}:download').click()" class="btn btn-success btn-xs">
+						            			<i class="fa fa-download"></i>
+							            	</h:panelGroup>
+	
+							            	<h:commandButton id="download" action="#{fileUtilities.download(convocante[4], convocante[3])}" styleClass="hidden" />
+											
+											<hh:inputFile id="parte" value="#{fileUtilities.file}" styleClass="hidden">
+						            		</hh:inputFile>
+						            		#{fileUtilities.setNombreFile(convocante[3])}
+											<h:panelGroup onclick="document.getElementById('desarrolloForm:asistencia-#{asistenciaParte}:#{n.index}:parte').click()" rendered="#{convocante[4]=='' || convocante[4]==null}" class="btn btn-danger btn-xs">
+						            			<i class="fa fa-upload"></i>
+							            	</h:panelGroup>							            	
+
+						            	</h:panelGroup>
+						            	
+						            	
 					            	</td>
 					          	</tr>
 				          	</h:panelGroup>

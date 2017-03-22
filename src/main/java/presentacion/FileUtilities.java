@@ -24,23 +24,25 @@ public class FileUtilities {
 	
 	public FileUtilities(){
 		this.nombresFile = new ArrayList<String>();
+		this.files = new ArrayList<Part>();
 	}
+	
 	
 	private Part file;
 	private List<Part> files;
 	
 	private List<String> nombresFile;
-	private Long nambreFile;
+	private Long nombreFile;
 	
-	public Long getNambreFile() {
-		return nambreFile;
+	public Long getNombreFile() {
+		return nombreFile;
 	}
 
-	public void setNambreFile(Long nambreFile) {
-		this.nambreFile = nambreFile;
-		System.out.println("setNambreFile ->"+nambreFile);
-		this.nombresFile.add(this.nambreFile+"");
-
+	public void setNombreFile(Long nombreFile) {
+		
+		this.nombreFile = nombreFile;
+		System.out.println("setNambreFile ->"+nombreFile);
+		this.nombresFile.add(this.nombreFile+"");
 	}
 
 	public Part getFile() {
@@ -50,18 +52,27 @@ public class FileUtilities {
 	
 	public void setFile(Part file) {
 			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-			if(files == null){
-				files = new ArrayList<Part>();
-				files.add(file);
-		
-			}else{
-				files.add(file);
-		
-			}
 		    this.file = file;
+			files.add(file);
+	}
+	
+    public List<Part> getFiles() {
+		return files;
 	}
 
-    public void upload(Part file, String path, String name){
+	public void setFiles(List<Part> files) {
+		this.files = files;
+	}
+
+	public List<String> getNombresFile() {
+		return nombresFile;
+	}
+
+	public void setNombresFile(List<String> nombresFile) {
+		this.nombresFile = nombresFile;
+	}
+
+	public void upload(Part file, String path, String name){
     	try{
             InputStream input=file.getInputStream();
             File f=new File(path+"/"+name+getFileExtention(getFileName(file)));
@@ -82,7 +93,7 @@ public class FileUtilities {
         }
     }
     
-    private String getFileName(Part part) {
+    public String getFileName(Part part) {
         for (String cd : part.getHeader("content-disposition").split(";")) {
             if (cd.trim().startsWith("filename")) {
                 String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
@@ -92,8 +103,14 @@ public class FileUtilities {
         return null;
     }
     
-    private String getFileExtention(String fileName) {
+    public String getFileExtention(String fileName) {
         String extention = ".";
+        String[] name = fileName.split("[.]");
+        extention += name[name.length-1];
+        return extention;
+    }
+    public String getFileExtentionSinPunto(String fileName) {
+        String extention = "";
         String[] name = fileName.split("[.]");
         extention += name[name.length-1];
         return extention;
@@ -105,8 +122,50 @@ public class FileUtilities {
     		folder.mkdirs(); 
         }
     }
+    
 
-	public void download(String path, String name, String extention) {
+	public void download(String path, String name) {
+		System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddd");
+		String Type = "";
+		//String name="18";
+		String extention=getFileExtentionSinPunto(path);
+		
+		if(extention.equalsIgnoreCase("jpg") || extention.equalsIgnoreCase("png")){
+			Type = "image/"+extention;
+		}else {
+			if (extention.equalsIgnoreCase("pdf")){
+				Type = "application/pdf";
+			}else{
+				Type = "application/zip";
+			}
+		}
+		
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = context.getExternalContext();
+
+            externalContext.responseReset();
+            externalContext.setResponseContentType(Type);
+            externalContext.setResponseHeader("Content-Disposition", "attachment;filename=\""+name+"."+extention+"\"");
+            FileInputStream inputStream = new FileInputStream(new File(path));
+            OutputStream outputStream = externalContext.getResponseOutputStream();
+
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+
+            inputStream.close();
+            context.responseComplete();
+
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+        }
+    }
+
+	
+	public void download2(String path, String name, String extention) {
 		String Type = "";
 		if(extention.equalsIgnoreCase("jpg") || extention.equalsIgnoreCase("png")){
 			Type = "image/"+extention;
@@ -143,7 +202,7 @@ public class FileUtilities {
     }
 	
 	// -----------------------------------------------------------------------------------
-	public void GuardarExcusa(){
+	/*
 		String path = "C:/Conalbos-Madiba/Solicitud #1/Audiencia #1";
 		String folderName = "Excusa NombreParte";
 		String fileName = "excusaFecha";
@@ -169,11 +228,12 @@ public class FileUtilities {
 			System.out.println(this.nombresFile.size()+" ERROR  "+this.files.size());
 		}
 	}
-	
 	public String nombreExcusa(Part file){
 		String nombre = file.getName();
 		nombre = nombre.split("[:]")[nombre.split("[:]").length-1];
 		return nombre;
 	}
+	*/
+	
 	
 }

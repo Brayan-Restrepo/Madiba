@@ -71,4 +71,21 @@ public class AudienciaDAO {
 			return true;
 		}
 	}
+	
+	/**
+	 * Guarda la Ruta de la escusa de la inacistencia de la Parte
+	 * @param idAudiencia 
+	 * @param idParte
+	 * @param excusa Ruta de la escusa
+	 */
+	public void guardarEscusaParte(Long idAudiencia, Long idParte, String excusa){
+		Audiencia audiencia = this.manager.find(Audiencia.class, idAudiencia);
+		
+		for (int i = 0; i < audiencia.getAsistencias().size(); i++) {
+			if(audiencia.getAsistencias().get(i).getParte().getIdParte()==idParte && !audiencia.getAsistencias().get(i).getAsistio()){
+				audiencia.getAsistencias().get(i).setExcusa(excusa);
+				System.out.println("Entrar");
+			}
+		}
+	}
 }
