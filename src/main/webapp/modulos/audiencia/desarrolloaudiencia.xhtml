@@ -24,7 +24,7 @@
 		                  				</i>
 		               				</div>
 		               				<div class="box-body">
-									<h:panelGroup rendered="#{modelLogin.role=='conciliador' or controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud.audiencias.get(controllerAudiencia.solicitud.audiencias.size()-1).idAudiencia)}">
+									<h:panelGroup rendered="#{controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud)}">
 										#{controllerDesarrolloAudiencia.cargarAsistencia(controllerAudiencia.solicitud.audiencias.get(controllerAudiencia.solicitud.audiencias.size()-1).idAudiencia)}
 										<ui:include src="asistencia.xhtml">
 		               						<ui:param name="asistenciaParte" value="Convocante" />
@@ -33,7 +33,7 @@
 		               						<ui:param name="asistenciaParte" value="Convocado" />
 		               					</ui:include>
 	               					</h:panelGroup>
-	               					<h:panelGroup id="tomarasistencia" rendered="#{modelLogin.role=='conalbos' and !controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud.audiencias.get(controllerAudiencia.solicitud.audiencias.size()-1).idAudiencia)}">
+	               					<h:panelGroup id="tomarasistencia" rendered="#{!controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud)}">
 										<ui:include src="tomarasistencia.xhtml">
 		               						<ui:param name="asistenciaParte" value="Convocante" />
 		               					</ui:include>
@@ -130,17 +130,21 @@
 				<div class='main-footer' style="height: 43.11111px;">
 					<div class="text-center">
 						
-						<ui:include src="modalfinalizardesarrolloaudiencia.xhtml"></ui:include>
+						<ui:include src="modal/modalfinalizardesarrolloaudiencia.xhtml"></ui:include>
+						<ui:include src="modal/modalregistrarasistencia.xhtml"></ui:include>
 											
-						<h:commandButton rendered="#{modelLogin.role=='conalbos'}" disabled="#{controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud.audiencias.get(controllerAudiencia.solicitud.audiencias.size()-1).idAudiencia)}" value="Registrar Asistencia" actionListener="#{controllerAudiencia.guardarAsistencia()}" styleClass="btn btn-success btn-menu" action="listaaudiencias?faces-redirect=true"/>
-					   	<h:commandButton value="Guardar Excusa" actionListener="#{controllerAudiencia.GuardarExcusas()}">
-           				</h:commandButton>
-						<h:commandButton id="btn-suspender" rendered="#{modelLogin.role=='conciliador'}" disabled="#{controllerAudiencia.activarBotonSuspender()}" value="Suspender" actionListener="#{controllerAudiencia.suspenderAudiencia()}" styleClass="btn btn-primary btn-menu" action="listaaudiencias?faces-redirect=true"/>
-						<h:commandButton id="btn-finalizar" rendered="#{modelLogin.role=='conciliador'}" disabled="#{controllerAudiencia.activarBotonFinalizar()}" onclick="$('#modalfinalizardesarrolloaudiencia').modal();" value="Finalizar" styleClass="btn btn-success btn-menu" >
-							<f:ajax></f:ajax>
+						<h:commandButton disabled="#{controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud)}" onclick="$('#modalregistrarasistencia').modal();" value="Registrar Asistencia" styleClass="btn btn-success btn-menu" >
+							<f:ajax></f:ajax> 
 						</h:commandButton>
 						
+					   	<h:commandButton disabled="#{!controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud)}" value="Guardar Excusa" actionListener="#{controllerAudiencia.GuardarExcusas()}" styleClass="btn btn-success btn-menu"></h:commandButton>
+						<h:commandButton disabled="#{!controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud)}" value="Reprogramar" styleClass="btn btn-success btn-menu"></h:commandButton>
 						
+						<h:commandButton id="btn-suspender" disabled="#{controllerAudiencia.activarBotonSuspender(controllerDesarrolloAudiencia.hayAsistencias(controllerAudiencia.solicitud),controllerDesarrolloAudiencia.hayInasistencias(controllerAudiencia.solicitud))}" value="Suspender" actionListener="#{controllerAudiencia.suspenderAudiencia()}" styleClass="btn btn-primary btn-menu" action="listaaudiencias?faces-redirect=true"/>
+						<h:commandButton id="btn-finalizar" disabled="#{controllerAudiencia.activarBotonFinalizar()}" onclick="$('#modalfinalizardesarrolloaudiencia').modal();" value="Finalizar" styleClass="btn btn-success btn-menu" >
+							<f:ajax></f:ajax>
+						</h:commandButton>
+										
 					</div>
 				</div>
 			</h:form>

@@ -85,12 +85,26 @@ public class ControllerDesarrolloAudiencia {
 		}
 	}
 	
-	public boolean hayAsistencias(Long idAudiencia){
+	public boolean hayAsistencias(Solicitud solicitud){
+		Long idAudiencia = solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getIdAudiencia();
 		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
 		if(audiencia.getAsistencias().size()==0){
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean hayInasistencias(Solicitud solicitud){
+		Long idAudiencia = solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getIdAudiencia();
+		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
+		Boolean inasistencia = false;
+		for(int i=0; i<audiencia.getAsistencias().size(); i++){
+			if(!audiencia.getAsistencias().get(i).getAsistio()){
+				inasistencia = true;
+				break;
+			}
+		}
+		return inasistencia;
 	}
 	
 	public boolean bloquearBoton(List<Long> selectSolicitud){
@@ -101,16 +115,17 @@ public class ControllerDesarrolloAudiencia {
 			Long id = selectSolicitud.get(0)+0L;
 			Solicitud solicitud = this.solicitudBean.findSolicitud(id);
 			if(solicitud.getEstado().equals("AUDIENCIA-ENCURSO") ){
-				if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getAsistencias().size()==0 && this.modelLogin.getRole().equals("conciliador")){
-					System.out.println("True");
-					return true;
-				}else{
-					System.out.println("False");
+				//if(this.modelLogin.getRole().equals("conalbos")){
+				//	System.out.println("True");
+					//return true;
+				//}else{
+					//System.out.println("False");
 					return false;
-				}
+				//}
 			}
 		}
 	
 		return true;
 	}
+		
 }

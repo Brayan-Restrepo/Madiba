@@ -11,14 +11,13 @@
 
 	<ui:composition>
 	
-		<div class="modal inmodal" id="modalfinalizardesarrolloaudiencia" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal inmodal" id="modalregistrarasistencia" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="animated flipInY">
 					<div class="box box-primary box-solid animated flipInY">
 						<div class="box-header text-center with-border">
-							<h3 class="box-title">Asignacion de Conciliador.</h3>
+							<h3 class="box-title">Esta Seguro de Registrar la Asistencia</h3>
 						</div>
-						<h:form>
 							<div class="box-body" style="background-color: aliceblue;">
 								<div class="row">
 									<div class="col-lg-12 text-center">
@@ -30,14 +29,13 @@
 							
 							<div class="box-footer">
 							
-								<h:commandButton actionListener="#{controllerAudiencia.addResultado('FINALIZADA')}" action="listaaudiencias?faces-redirect=true"  onclick="$('#modalfinalizardesarrolloaudiencia').modal('hide');" styleClass="btn btn-success pull-right" value="Aceptar" >									
+								<h:commandButton actionListener="#{controllerAudiencia.guardarAsistencia()}" action="desarrolloaudiencia?faces-redirect=true"  onclick="$('#modalregistrarasistencia').modal('hide');" styleClass="btn btn-success pull-right" value="Aceptar" >									
 								</h:commandButton>
-								<h:commandButton onclick="$('#modalfinalizardesarrolloaudiencia').modal('hide');" styleClass="btn btn-danger pull-right" value="Cancelar" >
+								<h:commandButton onclick="$('#modalregistrarasistencia').modal('hide');" styleClass="btn btn-danger pull-right" value="Cancelar" >
 									<f:ajax></f:ajax>
 								</h:commandButton>
 								
 							</div>
-						</h:form>
 					</div>
 				</div>
 			</div>

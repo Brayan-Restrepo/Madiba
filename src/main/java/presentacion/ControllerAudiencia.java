@@ -292,16 +292,23 @@ public class ControllerAudiencia {
 	/**
 	 * Activa el Boton Suspender DesarrolloAudiencia
 	 */
-	public boolean activarBotonSuspender(){
-		if(this.modelAudiencia.isAcuerdoParcial()){
-			return true;
-		}
-		if(this.modelAudiencia.getTipoResultado()=="" || modelAudiencia.getTipoResultado()==null){
+	public boolean activarBotonSuspender(Boolean hayAsistencia, Boolean hayInasistencia){
+		if(hayAsistencia){
 			return false;
 		}else{
-			return true;
+			if(hayInasistencia){
+				return true;
+			}else{
+				if(this.modelAudiencia.isAcuerdoParcial()){
+					return true;
+				}
+				if(this.modelAudiencia.getTipoResultado()=="" || modelAudiencia.getTipoResultado()==null){
+					return false;
+				}else{
+					return true;
+				}
+			}
 		}
-		
 	}
 	
 	
