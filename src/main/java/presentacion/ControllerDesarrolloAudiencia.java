@@ -8,9 +8,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.servlet.http.Part;
 
 import entidades.Audiencia;
-import entidades.Parte;
 import entidades.Solicitud;
 import negocio.iAudienciaBean;
 import negocio.iSolicitudBean;
@@ -21,7 +21,9 @@ import negocio.iSolicitudBean;
 public class ControllerDesarrolloAudiencia {
 	
 	public ControllerDesarrolloAudiencia(){	}
-
+	
+	private Solicitud solicitud;
+	
 	@EJB
 	public iAudienciaBean audienciaBean;
 	
@@ -34,6 +36,14 @@ public class ControllerDesarrolloAudiencia {
 	@ManagedProperty(value = "#{modelLogin}")
 	private ModelLogin modelLogin;
 	
+	public Solicitud getSolicitud() {
+		return solicitud;
+	}
+
+	public void setSolicitud(Solicitud solicitud) {
+		this.solicitud = solicitud;
+	}
+
 	public ModelLogin getModelLogin() {
 		return modelLogin;
 	}
@@ -85,8 +95,154 @@ public class ControllerDesarrolloAudiencia {
 		}
 	}
 	
-	public boolean hayAsistencias(Solicitud solicitud){
-		Long idAudiencia = solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getIdAudiencia();
+	
+	public void cargarDatosSolicitud(Long id){
+		this.solicitud = this.solicitudBean.findSolicitud(id);
+		List<Long[]> listaAsistencias= new ArrayList<Long[]>();
+		for(int i=0;i<this.solicitud.getPartes().size();i++){
+			Long[] valAsistencia= new Long[2];
+			valAsistencia[0] = this.solicitud.getPartes().get(i).getIdParte();
+			valAsistencia[1] = 0L;
+			listaAsistencias.add(valAsistencia);
+		}
+		this.modelDesarrolloAudiencia.setListaAsistencias(listaAsistencias);
+	}
+	
+	
+	
+	/**
+	 * 	Se Añade El resultado de La Audiencia Solo si es Finalzada (Fin da las Audiecias) 
+	 * 
+	 * @param estdoAudiencia -> FINALIZADA, APLAZADA, SUSPENDIDA
+	 */
+	public void addResultado(String estdoAudiencia){
+		
+		//Tipo de Resultado - Acuerdo - No Acuerdo - No Conciliabre
+		String tipoResultado = this.modelDesarrolloAudiencia.getTipoResultado();
+		//La Conclucion de La Audiencia
+		String observacion = this.modelDesarrolloAudiencia.getObservacion();
+
+		// Si es Acuerdo Parcial Hay Acuerdos y Desacuerdos
+		String acuerdos = this.modelDesarrolloAudiencia.getAcuerdo();
+		String noacuerdos = this.modelDesarrolloAudiencia.getNoAcuerdo();
+		
+		//La Ultima Audiencia de esa Solicitud. Una Solicitud puede tener Varias Audiencias
+		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
+
+		System.out.println(this.modelDesarrolloAudiencia.isAcuerdoParcial());
+		//Sia hay un Acuerdo Parcial, es decir Hay Acuerdos pero tambien desacuerdos
+		if(estdoAudiencia.equals("FINALIZADA")){
+			if(this.modelDesarrolloAudiencia.isAcuerdoParcial()){
+				if((acuerdos!="" && acuerdos!=null) && (noacuerdos!="" && noacuerdos!=null)){
+					this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud());
+					this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud());
+				}
+			}else{
+				if((observacion!="" && observacion!=null) && tipoResultado!=null && tipoResultado!=""){
+					this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
+				}
+			}
+		}
+		//return "listaaudiencias";
+	}
+	
+	public void suspenderAudiencia(){
+		System.out.println("-------------------> "+"DESIGNACION");
+		this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "DESIGNACION");
+		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
+		this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "SUSPENDIDA");
+		
+		String observacion = this.modelDesarrolloAudiencia.getObservacion();
+		this.audienciaBean.addResultadoSuspender("SUSPENDIDA", this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
+	}
+	
+	/**
+	 * 	Se Añade El resultado de La Audiencia Solo si es Finalzada (Fin da las Audiecias) 
+	 * 
+	 * @param estdoAudiencia -> FINALIZADA, APLAZADA, SUSPENDIDA
+	 */
+	public void guardarAsistencia(){
+		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
+		Audiencia audiencia = this.solicitud.getAudiencias().get(lastAudiencia);
+		for(int i=0;i<this.modelDesarrolloAudiencia.getListaAsistencias().size();i++){
+			Long idParte = this.modelDesarrolloAudiencia.getListaAsistencias().get(i)[0];
+			Boolean valAsistencia = false;
+			if(this.modelDesarrolloAudiencia.getListaAsistencias().get(i)[1] == 1L) valAsistencia = true;
+			this.audienciaBean.addAsistencia(audiencia,idParte,valAsistencia);
+		}
+		this.GuardarExcusas();
+	}
+	
+	
+	public void addAsistencia(Long idParte){
+		List<Long[]> listaAsistencias = new ArrayList<Long[]>();
+		Long valor = 0L;
+		int posicion = 0;
+		for(int i=0;i<this.modelDesarrolloAudiencia.getListaAsistencias().size();i++){
+			if(this.modelDesarrolloAudiencia.getListaAsistencias().get(i)[0]==idParte){
+				valor = this.modelDesarrolloAudiencia.getListaAsistencias().get(i)[1];
+				posicion = i;
+			}
+			listaAsistencias.add(this.modelDesarrolloAudiencia.getListaAsistencias().get(i));
+		}
+		if(valor==2L){
+			listaAsistencias.get(posicion)[1] = 0L;
+			System.out.println("Entre 2");
+		}else{
+			listaAsistencias.get(posicion)[1] = valor+1L;
+			System.out.println("Entre 0, 1");
+		}
+		
+		this.modelDesarrolloAudiencia.setListaAsistencias(listaAsistencias);
+	}
+	
+
+	@ManagedProperty(value = "#{fileUtilities}")
+	private FileUtilities fileUtilities;
+	
+	public FileUtilities getFileUtilities() {
+		return fileUtilities;
+	}
+
+	public void setFileUtilities(FileUtilities fileUtilities) {
+		this.fileUtilities = fileUtilities;
+	}
+
+	public void GuardarExcusas(){
+		Long idSolicitud=this.solicitud.getIdSolicitud();
+		Long idAudiencia=this.solicitud.getAudiencias().get(this.solicitud.getAudiencias().size()-1).getIdAudiencia();
+		
+		if(this.fileUtilities.getNombresFile().size()==this.fileUtilities.getFiles().size()){
+			for(int i=0; i<this.fileUtilities.getFiles().size(); i++){
+				if(this.fileUtilities.getFiles().get(i)!=null){
+					String path = "C:/Conalbos-Madiba/Solicitud #"+idSolicitud+"/Audiencia #"+idAudiencia;
+					String folderName = "Excusas";
+					//String fileName = nombreExcusa(this.files.get(i));
+					String fileName = this.fileUtilities.getNombresFile().get(i);
+					this.fileUtilities.createFolder(path,folderName);
+					this.fileUtilities.upload(this.fileUtilities.getFiles().get(i),path+"/"+folderName,fileName);
+					Long idParte = Long.valueOf(this.fileUtilities.getNombresFile().get(i));
+					String ruta = path+"/"+folderName+"/"+idParte+this.fileUtilities.getFileExtention(this.fileUtilities.getFileName(this.fileUtilities.getFiles().get(i)));
+					this.audienciaBean.guardarEscusaParte(idAudiencia, idParte, ruta);
+					//System.out.println(idAudiencia+"     -      "+idParte+"   -   "+ path+"/"+folderName);
+				}
+			}
+		}
+	}
+	
+	public String nombreExcusa(Part file){
+		String nombre = file.getName();
+		nombre = nombre.split("[:]")[nombre.split("[:]").length-1];
+		return nombre;
+	}
+	
+	/**
+	 ******************************************************************
+	 ******************Aciones Botones********************************
+	 ******************************************************************
+	 */
+	public boolean hayAsistencias(){
+		Long idAudiencia = this.solicitud.getAudiencias().get(this.solicitud.getAudiencias().size()-1).getIdAudiencia();
 		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
 		if(audiencia.getAsistencias().size()==0){
 			return false;
@@ -94,8 +250,8 @@ public class ControllerDesarrolloAudiencia {
 		return true;
 	}
 	
-	public boolean hayInasistencias(Solicitud solicitud){
-		Long idAudiencia = solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getIdAudiencia();
+	public boolean hayInasistencias(){
+		Long idAudiencia = this.solicitud.getAudiencias().get(this.solicitud.getAudiencias().size()-1).getIdAudiencia();
 		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
 		Boolean inasistencia = false;
 		for(int i=0; i<audiencia.getAsistencias().size(); i++){
@@ -107,7 +263,52 @@ public class ControllerDesarrolloAudiencia {
 		return inasistencia;
 	}
 	
-	public boolean bloquearBoton(List<Long> selectSolicitud){
+
+	/**
+	 * Activa el Boton finalizar DesarrolloAudiencia
+	 */
+	public boolean activarBotonFinalizar(){
+		if(this.modelDesarrolloAudiencia.isAcuerdoParcial()){
+			return false;
+		}
+		if(this.modelDesarrolloAudiencia.getTipoResultado()=="" || this.modelDesarrolloAudiencia.getTipoResultado()==null){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
+	/**
+	 * Activa el Boton Suspender DesarrolloAudiencia
+	 */
+	public boolean activarBotonSuspender(){
+		Boolean hayAsistencia = this.hayAsistencias();
+		Boolean hayInasistencia = this.hayInasistencias();
+		if(hayAsistencia){
+			return false;
+		}else{
+			if(hayInasistencia){
+				return true;
+			}else{
+				if(this.modelDesarrolloAudiencia.isAcuerdoParcial()){
+					return true;
+				}
+				if(this.modelDesarrolloAudiencia.getTipoResultado()=="" || modelDesarrolloAudiencia.getTipoResultado()==null){
+					return false;
+				}else{
+					return true;
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Bloquea El boton Desarrollar audiencia de la vista ListaAudiencias 
+	 * @param selectSolicitud
+	 * @return
+	 */
+	public boolean bloquearBotonDesarrollarAudiencia(List<Long> selectSolicitud){
 		
 		if(selectSolicitud.size()==0){
 			return true;
@@ -127,5 +328,49 @@ public class ControllerDesarrolloAudiencia {
 	
 		return true;
 	}
-		
+
+	public String changeIcon(Long idParte){
+		String icono="fa-square";
+		Long valor = 0L;
+		for(int i=0;i<this.modelDesarrolloAudiencia.getListaAsistencias().size();i++){
+			if(this.modelDesarrolloAudiencia.getListaAsistencias().get(i)[0]==idParte){
+				valor = this.modelDesarrolloAudiencia.getListaAsistencias().get(i)[1];
+				break;
+			}
+		}
+		//System.out.println("asdasdasdasdasdasdasds  "+valor);
+		if(valor==0){
+			icono = "fa-square";
+		}
+		if(valor==1){
+			icono = "fa-check";
+		}
+		if(valor==2){
+			icono = "fa-close";
+		}
+		return icono;
+	}
+	
+	public String changeColorButton(Long idParte){
+		String color="warning";
+		Long valor = 0L;
+		for(int i=0;i<this.modelDesarrolloAudiencia.getListaAsistencias().size();i++){
+			if(this.modelDesarrolloAudiencia.getListaAsistencias().get(i)[0]==idParte){
+				valor = this.modelDesarrolloAudiencia.getListaAsistencias().get(i)[1];
+				break;
+			}
+		}
+		if(valor==0){
+			color = "warning";
+		}
+		if(valor==1){
+			color = "success";
+		}
+		if(valor==2){
+			color = "danger";
+		}
+		return color;
+	}
+	
+	
 }

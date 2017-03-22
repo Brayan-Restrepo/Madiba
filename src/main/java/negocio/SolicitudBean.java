@@ -6,8 +6,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import dao.SolicitudDAO;
-import entidades.Asistencia;
-import entidades.Resultado;
 import entidades.Solicitud;
 
 @Stateless

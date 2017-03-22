@@ -11,7 +11,6 @@ import negocio.iConciliadorBean;
 import negocio.iSolicitudBean;
 
 import java.util.List;
-import java.util.ArrayList;
 
 @ManagedBean
 public class ControllerConciliador {

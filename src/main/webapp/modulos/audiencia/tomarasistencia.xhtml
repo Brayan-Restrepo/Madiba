@@ -11,7 +11,7 @@
 <body> 
 <ui:composition>
 <div class="col-lg-6">
-	<div class="box box-#{controllerSolicitud.colorSolicitudEstado(controllerAudiencia.solicitud.estado)} sombra">
+	<div class="box box-#{controllerSolicitud.colorSolicitudEstado(controllerDesarrolloAudiencia.solicitud.estado)} sombra">
 
 	    <div class="box-body no-padding">
 	      	<table id="layout-skins-list" class="table table-striped table-hover">
@@ -24,7 +24,7 @@
 	        	</thead>
 	        	<tbody>
 
-					<ui:repeat id="tomarasistencia-#{asistenciaParte}" varStatus="n" var="convocante" value="#{controllerAudiencia.solicitud.partes}">
+					<ui:repeat id="tomarasistencia-#{asistenciaParte}" varStatus="n" var="convocante" value="#{controllerDesarrolloAudiencia.solicitud.partes}">
 						<h:panelGroup layout="block" rendered="#{convocante.tipoParte==asistenciaParte}">
 							
 						 	<tr>
@@ -33,9 +33,9 @@
 				            	</td>
 					            <td class="text-center" style="width: 10%;">
 					            
-					            <h:panelGroup class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs">
-				            		<f:ajax listener="#{controllerAudiencia.addAsistencia(convocante.idParte)}" render="@this btn-escusa1 btn-escusa2" event="click"></f:ajax>
-				            		<i class="fa #{controllerAudiencia.changeIcon(convocante.idParte)}"></i>
+					            <h:panelGroup class="btn btn-#{controllerDesarrolloAudiencia.changeColorButton(convocante.idParte)} btn-xs">
+				            		<f:ajax listener="#{controllerDesarrolloAudiencia.addAsistencia(convocante.idParte)}" render="@this btn-escusa1 btn-escusa2" event="click"></f:ajax>
+				            		<i class="fa #{controllerDesarrolloAudiencia.changeIcon(convocante.idParte)}"></i>
 				            	</h:panelGroup>
 				            	
 				            	</td>
@@ -43,11 +43,11 @@
 				            		<hh:inputFile id="parte" value="#{fileUtilities.file}" styleClass="hidden">
 				            		</hh:inputFile>
 				            		#{fileUtilities.setNombreFile(convocante.idParte)}
-					            	<h:panelGroup onclick="document.getElementById('desarrolloForm:tomarasistencia-#{asistenciaParte}:#{n.index}:parte').click()" id="btn-escusa1" class="btn btn-#{controllerAudiencia.changeColorButton(convocante.idParte)} btn-xs #{controllerAudiencia.changeColorButton(convocante.idParte)=='danger'?' ':'hidden'}">
-       									<i class="fa fa-#{controllerAudiencia.changeColorButton(convocante.idParte)=='danger'? 'upload':'square'}"></i>
+					            	<h:panelGroup onclick="document.getElementById('desarrolloForm:tomarasistencia-#{asistenciaParte}:#{n.index}:parte').click()" id="btn-escusa1" class="btn btn-#{controllerDesarrolloAudiencia.changeColorButton(convocante.idParte)} btn-xs #{controllerDesarrolloAudiencia.changeColorButton(convocante.idParte)=='danger'?' ':'hidden'}">
+       									<i class="fa fa-#{controllerDesarrolloAudiencia.changeColorButton(convocante.idParte)=='danger'? 'upload':'square'}"></i>
 					            	</h:panelGroup>
 					            	   		
-					            	<h:panelGroup id="btn-escusa2" class="btn btn-warning btn-xs #{controllerAudiencia.changeColorButton(convocante.idParte)!='danger'?' ':'hidden'}">
+					            	<h:panelGroup id="btn-escusa2" class="btn btn-warning btn-xs #{controllerDesarrolloAudiencia.changeColorButton(convocante.idParte)!='danger'?' ':'hidden'}">
            								<i class="fa fa-square"></i>
 					            	</h:panelGroup>
 					            	

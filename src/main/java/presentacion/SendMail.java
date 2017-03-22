@@ -22,7 +22,6 @@ import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 
 import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;

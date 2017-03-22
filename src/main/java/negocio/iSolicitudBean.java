@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import entidades.Asistencia;
-import entidades.Resultado;
 import entidades.Solicitud;
 
 @Remote

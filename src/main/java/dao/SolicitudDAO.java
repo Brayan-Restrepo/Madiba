@@ -2,14 +2,9 @@ package dao;
 
 import java.util.List;
 
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import entidades.Asistencia;
-import entidades.Audiencia;
-import entidades.Resultado;
 import entidades.Solicitud;
 
 

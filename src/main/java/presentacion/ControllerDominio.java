@@ -1,15 +1,11 @@
 package presentacion;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.event.AjaxBehaviorEvent;
 
-import entidades.Dominio;
 import negocio.iDominioBean;
 
 

@@ -5,13 +5,14 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import entidades.Parte;
 
 @ManagedBean
 @ViewScoped
 public class ModelDesarrolloAudiencia {
 	
-	public ModelDesarrolloAudiencia(){}
+	public ModelDesarrolloAudiencia(){
+		this.acuerdoParcial=false;
+	}
 	
 	/**
 	 * Lista de Asistencia
@@ -25,15 +26,46 @@ public class ModelDesarrolloAudiencia {
 	private List<String[]> Asistencia;
 	
 	private Long idAudiencia;
+		
+	/**
+	 * Depende de Acuerdo Parcial, si Acuerdo Parcial es False se toma en cuenta esto
+	 */
+	private String observacion;
 	
-	private boolean acuerdoParcial;
+	/**
+	 * Depende de Acuerdo Parcial, si Acuerdo Parcial es true se toma en cuenta esto
+	 */
+	private String acuerdo;
+
+	/**
+	 * Depende de Acuerdo Parcial, si Acuerdo Parcial es true se toma en cuenta esto
+	 */
+	private String noAcuerdo;
 	
 	private String tipoResultado;
-	private String noAcuerdo;
-	private String acuerdo;
-	private String observacion;
-		
 	
+	/**
+	 * Es el valor del los CheckBox True si asistieron y False si no
+	 */
+	private List<Long[]> listaAsistencias;
+	
+	//private boolean audiencia;
+	
+	/**
+	 * Variable que define si se debe mostrar componente para acuerdo parcial o no
+	 */
+	private boolean acuerdoParcial;
+	
+	
+	
+	public List<Long[]> getListaAsistencias() {
+		return listaAsistencias;
+	}
+
+	public void setListaAsistencias(List<Long[]> listaAsistencias) {
+		this.listaAsistencias = listaAsistencias;
+	}
+
 	public List<String[]> getAsistencia() {
 		return Asistencia;
 	}
@@ -47,7 +79,11 @@ public class ModelDesarrolloAudiencia {
 	}
 
 	public void setTipoResultado(String tipoResultado) {
-		this.tipoResultado = tipoResultado;
+		if(this.tipoResultado == tipoResultado){
+			this.tipoResultado = "";
+		}else{
+			this.tipoResultado = tipoResultado;
+		}
 	}
 
 	public Long getIdAudiencia() {

@@ -1,7 +1,5 @@
 package dao;
 
-import java.util.List;
-
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
