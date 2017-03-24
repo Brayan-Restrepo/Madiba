@@ -162,6 +162,9 @@
 					
 					<h:commandButton value="Tabla" action="listasolicitudestabla?faces-redirect=true" styleClass="btn btn-sm btn-primary btn-menu"/>	
 
+<h:commandButton value="Audiencia Detalle" action="listaaudienciadetalletabla" actionListener="#{controllerSession.setIdSolicitudAudienciaDetalle(modelSolicitud.selectSolicitud.get(0))}" disabled="#{modelSolicitud.selectSolicitud.size()==1? 'false': 'true'}" styleClass="btn btn-sm btn-primary btn-menu"/>
+					
+					
 					<h:commandButton id="btn-liquidar" onclick="$('#modalRadicar').modal();" styleClass="btn btn-sm btn-info btn-menu" value="Registrar Pago" disabled="false">
 						<f:ajax render=":modalradicar" listener="#{controllerSolicitud.cambiarFichaTabla()}"></f:ajax>
 					</h:commandButton>

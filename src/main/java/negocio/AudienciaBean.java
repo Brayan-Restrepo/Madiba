@@ -26,8 +26,6 @@ public class AudienciaBean implements iAudienciaBean {
 		resultado.setAudiencia(audiencia);
 		this.audienciaDAO.addResultado(resultado);
 		
-		this.audienciaDAO.actualizarEstadoAudiencia(audiencia.getIdAudiencia(), "FINALIZADA");
-		this.solicitudDAO.actualizarEstadoSolicitud(idSolicitud, "AUDIENCIA-FINALIZADA");
 	}
 	
 	@Override

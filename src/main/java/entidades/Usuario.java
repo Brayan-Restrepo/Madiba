@@ -20,8 +20,18 @@ public class Usuario implements Serializable {
 	private String password;
 
 	private String role;
+	
+	private String idConciliador;
 
 	public Usuario() {
+	}
+	
+	public String getIdConciliador() {
+		return idConciliador;
+	}
+
+	public void setIdConciliador(String idConciliador) {
+		this.idConciliador = idConciliador;
 	}
 
 	public String getNickname() {

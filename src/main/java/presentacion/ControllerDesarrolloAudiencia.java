@@ -116,34 +116,59 @@ public class ControllerDesarrolloAudiencia {
 	 * @param estdoAudiencia -> FINALIZADA, APLAZADA, SUSPENDIDA
 	 */
 	public void addResultado(String estdoAudiencia){
-		
-		//Tipo de Resultado - Acuerdo - No Acuerdo - No Conciliabre
-		String tipoResultado = this.modelDesarrolloAudiencia.getTipoResultado();
-		//La Conclucion de La Audiencia
-		String observacion = this.modelDesarrolloAudiencia.getObservacion();
+		Boolean hayAsistencia = this.hayAsistencias();
+		Boolean hayInasistencia = this.hayInasistencias();
 
-		// Si es Acuerdo Parcial Hay Acuerdos y Desacuerdos
-		String acuerdos = this.modelDesarrolloAudiencia.getAcuerdo();
-		String noacuerdos = this.modelDesarrolloAudiencia.getNoAcuerdo();
-		
 		//La Ultima Audiencia de esa Solicitud. Una Solicitud puede tener Varias Audiencias
 		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
-
-		System.out.println(this.modelDesarrolloAudiencia.isAcuerdoParcial());
-		//Sia hay un Acuerdo Parcial, es decir Hay Acuerdos pero tambien desacuerdos
-		if(estdoAudiencia.equals("FINALIZADA")){
-			if(this.modelDesarrolloAudiencia.isAcuerdoParcial()){
-				if((acuerdos!="" && acuerdos!=null) && (noacuerdos!="" && noacuerdos!=null)){
-					this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud());
-					this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud());
-				}
-			}else{
-				if((observacion!="" && observacion!=null) && tipoResultado!=null && tipoResultado!=""){
-					this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
+		
+		if(hayAsistencia && hayInasistencia){//SI HAY INASISTENCIAS SE FINALIZA LA CONCILIACION
+			this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "INASISTENCIA");
+			
+			this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
+			
+			this.audienciaBean.addResultado("INASISTENCIA", this.solicitud.getAudiencias().get(lastAudiencia), "INASISTENCIA", this.solicitud.getIdSolicitud());
+		}else{
+			//Tipo de Resultado - Acuerdo - No Acuerdo - No Conciliabre
+			String tipoResultado = this.modelDesarrolloAudiencia.getTipoResultado();
+			//La Conclucion de La Audiencia
+			String observacion = this.modelDesarrolloAudiencia.getObservacion();
+	
+			// Si es Acuerdo Parcial Hay Acuerdos y Desacuerdos
+			String acuerdos = this.modelDesarrolloAudiencia.getAcuerdo();
+			String noacuerdos = this.modelDesarrolloAudiencia.getNoAcuerdo();
+			
+	
+			System.out.println(this.modelDesarrolloAudiencia.isAcuerdoParcial());
+			//Sia hay un Acuerdo Parcial, es decir Hay Acuerdos pero tambien desacuerdos
+			if(estdoAudiencia.equals("FINALIZADA")){
+				if(this.modelDesarrolloAudiencia.isAcuerdoParcial()){
+					if((acuerdos!="" && acuerdos!=null) && (noacuerdos!="" && noacuerdos!=null)){					
+						this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "FINALIZADA");
+	
+						this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
+						
+						this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud());
+						this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud());
+					}
+				}else{
+					if((observacion!="" && observacion!=null) && tipoResultado!=null && tipoResultado!=""){
+						this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "FINALIZADA");
+						
+						this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
+						
+						this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
+					}
 				}
 			}
 		}
 		//return "listaaudiencias";
+	}
+	
+	public void reprogramarAudiencia(){
+		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
+		this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "DESIGNACION");
+		this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "REPROGRAMADA");
 	}
 	
 	public void suspenderAudiencia(){
@@ -195,7 +220,6 @@ public class ControllerDesarrolloAudiencia {
 		
 		this.modelDesarrolloAudiencia.setListaAsistencias(listaAsistencias);
 	}
-	
 
 	@ManagedProperty(value = "#{fileUtilities}")
 	private FileUtilities fileUtilities;
@@ -250,6 +274,10 @@ public class ControllerDesarrolloAudiencia {
 		return true;
 	}
 	
+	/**
+	 * SI hay inasistencia return true
+	 * @return
+	 */
 	public boolean hayInasistencias(){
 		Long idAudiencia = this.solicitud.getAudiencias().get(this.solicitud.getAudiencias().size()-1).getIdAudiencia();
 		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
@@ -263,11 +291,40 @@ public class ControllerDesarrolloAudiencia {
 		return inasistencia;
 	}
 	
+	public boolean bloquearComponete(){
+		Boolean hayAsistencia = this.hayAsistencias();
+		Boolean hayInasistencia = this.hayInasistencias();
+		if(hayAsistencia==false || hayInasistencia){
+			return true;
+		}
+		return false;
+	}
 
+	public Boolean activarBotonGuardarExcusa(){
+		if(this.hayAsistencias() && this.hayInasistencias()){
+			return false;
+		}else{
+			return true;
+		}
+		
+	}
+	
+	public Boolean activarBotonReprogramar(){
+		if(this.hayAsistencias() && this.hayInasistencias()){
+			return false;
+		}else{
+			return true;
+		}
+	}
 	/**
 	 * Activa el Boton finalizar DesarrolloAudiencia
 	 */
 	public boolean activarBotonFinalizar(){
+		Boolean hayAsistencia = this.hayAsistencias();
+		Boolean hayInasistencia = this.hayInasistencias();
+		if(hayAsistencia && hayInasistencia){
+			return false;
+		}
 		if(this.modelDesarrolloAudiencia.isAcuerdoParcial()){
 			return false;
 		}
@@ -285,20 +342,16 @@ public class ControllerDesarrolloAudiencia {
 	public boolean activarBotonSuspender(){
 		Boolean hayAsistencia = this.hayAsistencias();
 		Boolean hayInasistencia = this.hayInasistencias();
-		if(hayAsistencia){
-			return false;
+		if(hayAsistencia==false || hayInasistencia){
+			return true;
 		}else{
-			if(hayInasistencia){
+			if(this.modelDesarrolloAudiencia.isAcuerdoParcial()){
 				return true;
+			}
+			if(this.modelDesarrolloAudiencia.getTipoResultado()=="" || modelDesarrolloAudiencia.getTipoResultado()==null){
+				return false;
 			}else{
-				if(this.modelDesarrolloAudiencia.isAcuerdoParcial()){
-					return true;
-				}
-				if(this.modelDesarrolloAudiencia.getTipoResultado()=="" || modelDesarrolloAudiencia.getTipoResultado()==null){
-					return false;
-				}else{
-					return true;
-				}
+				return true;
 			}
 		}
 	}
@@ -316,13 +369,13 @@ public class ControllerDesarrolloAudiencia {
 			Long id = selectSolicitud.get(0)+0L;
 			Solicitud solicitud = this.solicitudBean.findSolicitud(id);
 			if(solicitud.getEstado().equals("AUDIENCIA-ENCURSO") ){
-				//if(this.modelLogin.getRole().equals("conalbos")){
+				if(this.modelLogin.getRole().equals("conalbos")){
 				//	System.out.println("True");
-					//return true;
-				//}else{
+					return true;
+				}else{
 					//System.out.println("False");
 					return false;
-				//}
+				}
 			}
 		}
 	

@@ -49,10 +49,10 @@
 					                   				</i>
 					                   				<div class="pull-right">
 						                   				<h:outputLabel value="Acuerdo Parcial" style="margin-right:5px"/>
-						                   				<h:commandButton value="Si" styleClass="btn btn-xs" style="width:26px;#{modelDesarrolloAudiencia.acuerdoParcial? 'background-color:green;color:white': 'background-color:#ff000080;'}">
+						                   				<h:commandButton disabled="#{controllerDesarrolloAudiencia.bloquearComponete()}" value="Si" styleClass="btn btn-xs" style="width:26px;#{modelDesarrolloAudiencia.acuerdoParcial? 'background-color:green;color:white': 'background-color:#ff000080;'}">
 						                   					<f:ajax render="desarrollo btn-suspender btn-finalizar @this" listener="#{modelDesarrolloAudiencia.setAcuerdoParcial(true)}"></f:ajax>
 						                 				</h:commandButton>
-						                   				<h:commandButton  value="No" styleClass="btn btn-xs" style="width:26px;#{modelDesarrolloAudiencia.acuerdoParcial? 'background-color:#ff000080;': 'background-color:green;color:white'}">
+						                   				<h:commandButton disabled="#{controllerDesarrolloAudiencia.bloquearComponete()}" value="No" styleClass="btn btn-xs" style="width:26px;#{modelDesarrolloAudiencia.acuerdoParcial? 'background-color:#ff000080;': 'background-color:green;color:white'}">
 						                   					<f:ajax render="desarrollo btn-suspender btn-finalizar @this" listener="#{modelDesarrolloAudiencia.setAcuerdoParcial(false)}"></f:ajax>
 						                 				</h:commandButton>
 					                 				</div>
@@ -61,21 +61,21 @@
 												<h:panelGroup layout="block" rendered="#{!modelDesarrolloAudiencia.acuerdoParcial}" styleClass="box-body">
 													<h:panelGroup class="col-lg-2" id="asunto" style="padding-left: 40px">
 														<br/><br/>
-														<h:commandButton value="Acuerdo" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='ACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+														<h:commandButton disabled="#{controllerDesarrolloAudiencia.bloquearComponete()}" value="Acuerdo" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='ACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
 						                   					<f:ajax render="asunto btn-suspender btn-finalizar @this" listener="#{modelDesarrolloAudiencia.setTipoResultado('ACUERDO')}"></f:ajax>
 						                 				</h:commandButton>
 														<br/>
-														<h:commandButton value="No Acuerdo" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='NOACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+														<h:commandButton disabled="#{controllerDesarrolloAudiencia.bloquearComponete()}" value="No Acuerdo" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='NOACUERDO'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
 						                   					<f:ajax render="asunto btn-suspender btn-finalizar @this" listener="#{modelDesarrolloAudiencia.setTipoResultado('NOACUERDO')}"></f:ajax>
 						                 				</h:commandButton>
 						                 				<br/>
-														<h:commandButton value="No Conciliable" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='NOCONCILIABLE'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
+														<h:commandButton disabled="#{controllerDesarrolloAudiencia.bloquearComponete()}" value="No Conciliable" styleClass="btn btn-#{modelDesarrolloAudiencia.tipoResultado=='NOCONCILIABLE'? 'success': 'primary'}" style="margin:2px;width:110px;border-radius: 140px 140px 140px 140px">
 						                   					<f:ajax render="asunto btn-suspender btn-finalizar @this" listener="#{modelDesarrolloAudiencia.setTipoResultado('NOCONCILIABLE')}"></f:ajax>
 						                 				</h:commandButton>
 													</h:panelGroup>
 													<div class="form-group has-#{controllerSolicitud.colorSolicitudEstado(controllerDesarrolloAudiencia.solicitud.estado)} col-lg-10">
 														<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Observación  </label>
-														<h:inputTextarea id="observacion" value="#{modelDesarrolloAudiencia.observacion}" styleClass="form-control" style="resize:none;background-color:#f39c121a;" rows="6"/>
+														<h:inputTextarea readonly="#{controllerDesarrolloAudiencia.bloquearComponete()}" id="observacion" value="#{modelDesarrolloAudiencia.observacion}" styleClass="form-control" style="resize:none;background-color:#f39c121a;" rows="6"/>
 													</div>
 												</h:panelGroup>
 												
@@ -137,10 +137,11 @@
 							<f:ajax></f:ajax> 
 						</h:commandButton>
 						
-					   	<h:commandButton disabled="#{!controllerDesarrolloAudiencia.hayAsistencias()}" value="Guardar Excusa" actionListener="#{controllerDesarrolloAudiencia.GuardarExcusas()}"  action="desarrolloaudiencia?faces-redirect=true" styleClass="btn btn-success btn-menu"></h:commandButton>
-						<h:commandButton disabled="#{!controllerDesarrolloAudiencia.hayAsistencias()}" value="Reprogramar" styleClass="btn btn-success btn-menu"></h:commandButton>
+					   	<h:commandButton disabled="#{controllerDesarrolloAudiencia.activarBotonGuardarExcusa()}" value="Guardar Excusa" actionListener="#{controllerDesarrolloAudiencia.GuardarExcusas()}" action="desarrolloaudiencia?faces-redirect=true" styleClass="btn btn-success btn-menu"></h:commandButton>
+						<h:commandButton disabled="#{controllerDesarrolloAudiencia.activarBotonReprogramar()}" value="Reprogramar" actionListener="#{controllerDesarrolloAudiencia.reprogramarAudiencia()}" action="listaaudiencias?faces-redirect=true" styleClass="btn btn-success btn-menu"></h:commandButton>
 						
 						<h:commandButton id="btn-suspender" disabled="#{controllerDesarrolloAudiencia.activarBotonSuspender()}" value="Suspender" actionListener="#{controllerDesarrolloAudiencia.suspenderAudiencia()}" styleClass="btn btn-primary btn-menu" action="listaaudiencias?faces-redirect=true"/>
+						
 						<h:commandButton id="btn-finalizar" disabled="#{controllerDesarrolloAudiencia.activarBotonFinalizar()}" onclick="$('#modalfinalizardesarrolloaudiencia').modal();" value="Finalizar" styleClass="btn btn-success btn-menu" >
 							<f:ajax></f:ajax>
 						</h:commandButton>

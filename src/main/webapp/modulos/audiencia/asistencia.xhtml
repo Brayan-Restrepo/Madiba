@@ -50,10 +50,10 @@
 	
 							            	<h:commandButton id="download" action="#{fileUtilities.download(convocante[4], convocante[3])}" styleClass="hidden" />
 											
-											<hh:inputFile id="parte" value="#{fileUtilities.file}" styleClass="hidden">
+											<hh:inputFile disabled="#{controllerDesarrolloAudiencia.solicitud.estado!='AUDIENCIA-ENCURSO'}" id="parte" value="#{fileUtilities.file}" styleClass="hidden">
 						            		</hh:inputFile>
 						            		#{fileUtilities.setNombreFile(convocante[3])}
-											<h:panelGroup onclick="document.getElementById('desarrolloForm:asistencia-#{asistenciaParte}:#{n.index}:parte').click()" rendered="#{convocante[4]=='' || convocante[4]==null}" class="btn btn-danger btn-xs">
+											<h:panelGroup  onclick="document.getElementById('desarrolloForm:asistencia-#{asistenciaParte}:#{n.index}:parte').click()" rendered="#{convocante[4]=='' || convocante[4]==null}" class="btn btn-danger btn-xs">
 						            			<i class="fa fa-upload"></i>
 							            	</h:panelGroup>							            	
 

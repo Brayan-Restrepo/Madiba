@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess"/>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#modulos#solicitudes#listasolicitudes.xhtml"
+  PATH="/modulos/solicitudes/listasolicitudes.xhtml" SHAPE="105,57,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#modulos#solicitudes#listasolicitudes.xhtml:0"
+   NAME="item" PATH="/modulos/solicitudes/listasolicitudes.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="listaaudienciadetalletabla::#modulos#audiencia#listaaudienciadetalletabla.xhtml"
+    NAME="output"
+    PATH="/modulos/audiencia/listaaudienciadetalletabla.xhtml"
+    TARGET="rules:#modulos#audiencia#listaaudienciadetalletabla.xhtml"
+    TITLE="listaaudienciadetalletabla" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#modulos#audiencia#listaaudienciadetalletabla.xhtml"
+  PATH="/modulos/audiencia/listaaudienciadetalletabla.xhtml"
+  SHAPE="242,179,0,0" model-entity="JSFProcessGroup" persistent="true"/>
+</PROCESS>
