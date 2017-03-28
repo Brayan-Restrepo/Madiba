@@ -1,10 +1,14 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import entidades.Devolucione;
 import entidades.Solicitud;
 
 
@@ -54,6 +58,7 @@ public class SolicitudDAO {
 			solicitud.get(i).getPagos().size();
 			solicitud.get(i).getDesignacions().size();
 			solicitud.get(i).getAudiencias().size();
+			solicitud.get(i).getDevoluciones().size();
 			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){
 				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
 			}
@@ -68,12 +73,18 @@ public class SolicitudDAO {
 		solicitud.getPagos().size();
 		solicitud.getDesignacions().size();
 		solicitud.getAudiencias().size();
+		solicitud.getDevoluciones().size();
 		for(int j=0;j<solicitud.getAudiencias().size();j++){
 			solicitud.getAudiencias().get(j).getAgendas().size();
 			solicitud.getAudiencias().get(j).getAsistencias().size();
+			solicitud.getAudiencias().get(j).getResultados().size();
 		}
 		
 		return solicitud;
+	}
+	
+	public String findSolicitudEstado(Long id){
+		return this.manager.find(Solicitud.class,id).getEstado();
 	}
 	
 	/**
@@ -87,4 +98,15 @@ public class SolicitudDAO {
 		solicitud.setEstado(nuevoEstado);
 	}
 	
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void addDevolucion(Devolucione devolucione){
+		this.manager.persist(devolucione);
+	}
+	
+	public void actualizarDevolucion(Long idDevolucion, boolean devolucion, Date fecha){
+		Devolucione devolucione = this.manager.find(Devolucione.class, idDevolucion);
+		devolucione.setDevolucion(devolucion);
+		devolucione.setFecha(fecha);
+	}
 }

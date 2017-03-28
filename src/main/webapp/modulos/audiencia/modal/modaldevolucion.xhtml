@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+
+	<ui:composition>
+	
+		<div class="modal inmodal" id="modaldevolucion" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="animated flipInY">
+					<div class="box box-primary box-solid animated flipInY">
+						<div class="box-header text-center with-border">
+							<h3 class="box-title">Subir </h3>
+						</div>
+							<div class="box-body" style="background-color: aliceblue;">
+								<div class="row">
+									<div class="col-lg-12 text-center">
+										<h:outputLabel style="font-size: 18px;" value="Esta Seguro de subir" />
+										<br/>
+									</div>
+								</div>
+							</div>
+							
+							<div class="box-footer">
+            				            		
+								<h:commandButton actionListener="#{controllerAudiencia.devolucion()}" action="listaaudiencias" styleClass="btn btn-success pull-right" value="Aceptar" >
+								</h:commandButton>
+					
+								<h:commandButton onclick="$('#modaldevolucion').modal('hide');" action="listaaudiencias" styleClass="btn btn-danger pull-right" value="Cancelar" >
+									<f:ajax></f:ajax>
+								</h:commandButton>
+								
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</ui:composition>
+</body> 
+</html>

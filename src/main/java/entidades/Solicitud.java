@@ -37,6 +37,9 @@ public class Solicitud implements Serializable {
 
 	@Column(name="nro_radicado")
 	private Long nroRadicado;
+	
+	@Column(name="valor_pagar")
+	private double valorPagar;
 
 	//bi-directional many-to-one association to Anexo
 	@OneToMany(mappedBy="solicitud")
@@ -57,6 +60,14 @@ public class Solicitud implements Serializable {
 	//bi-directional many-to-one association to Parte
 	@OneToMany(mappedBy="solicitud")
 	private List<Parte> partes;
+
+	//bi-directional many-to-one association to Actas_Conciliacione
+	@OneToMany(mappedBy="solicitud")
+	private List<Actas_Conciliacione> actasConciliaciones;
+
+	//bi-directional many-to-one association to Devolucione
+	@OneToMany(mappedBy="solicitud")
+	private List<Devolucione> devoluciones;
 
 	public Solicitud() {
 	}
@@ -115,6 +126,14 @@ public class Solicitud implements Serializable {
 
 	public void setNroRadicado(Long nroRadicado) {
 		this.nroRadicado = nroRadicado;
+	}
+	
+	public double getValorPagar() {
+		return valorPagar;
+	}
+
+	public void setValorPagar(double valorPagar) {
+		this.valorPagar = valorPagar;
 	}
 
 	public List<Anexo> getAnexos() {
@@ -225,6 +244,49 @@ public class Solicitud implements Serializable {
 		parte.setSolicitud(null);
 
 		return parte;
+	}
+	public List<Actas_Conciliacione> getActasConciliaciones() {
+		return this.actasConciliaciones;
+	}
+
+	public void setActasConciliaciones(List<Actas_Conciliacione> actasConciliaciones) {
+		this.actasConciliaciones = actasConciliaciones;
+	}
+
+	public Actas_Conciliacione addActasConciliacione(Actas_Conciliacione actasConciliacione) {
+		getActasConciliaciones().add(actasConciliacione);
+		actasConciliacione.setSolicitud(this);
+
+		return actasConciliacione;
+	}
+
+	public Actas_Conciliacione removeActasConciliacione(Actas_Conciliacione actasConciliacione) {
+		getActasConciliaciones().remove(actasConciliacione);
+		actasConciliacione.setSolicitud(null);
+
+		return actasConciliacione;
+	}
+
+	public List<Devolucione> getDevoluciones() {
+		return this.devoluciones;
+	}
+
+	public void setDevoluciones(List<Devolucione> devoluciones) {
+		this.devoluciones = devoluciones;
+	}
+
+	public Devolucione addDevolucione(Devolucione devolucione) {
+		getDevoluciones().add(devolucione);
+		devolucione.setSolicitud(this);
+
+		return devolucione;
+	}
+
+	public Devolucione removeDevolucione(Devolucione devolucione) {
+		getDevoluciones().remove(devolucione);
+		devolucione.setSolicitud(null);
+
+		return devolucione;
 	}
 
 }

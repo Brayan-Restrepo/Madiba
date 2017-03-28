@@ -4,6 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:hh="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"> 
 
 <h:head></h:head> 
@@ -129,18 +130,31 @@
 		
 		<div class='main-footer' style="height: 43.11111px;">
 			<div class="text-center">
-				<h:form id="formBotones">
+				<h:form id="formBotones" enctype="multipart/form-data">
 
 					<h:commandButton value="Tabla" action="listaaudienciastabla?faces-redirect=true" styleClass="btn btn-sm btn-primary btn-menu"/>
 										
-					<h:commandButton value="Audiencia Detalle" action="listaaudienciadetalletabla?faces-redirect=true" actionListener="#{controllerSession.setIdSolicitudAudienciaDetalle(modelAudiencia.selectSolicitud.get(0))}" disabled="#{modelAudiencia.selectSolicitud.size()==1? 'false': 'true'}" styleClass="btn btn-sm btn-primary btn-menu"/>
+					<h:commandButton value="Detalle Audiencias" action="listaaudienciadetalletabla?faces-redirect=true" actionListener="#{controllerSession.setIdSolicitudAudienciaDetalle(modelAudiencia.selectSolicitud.get(0))}" disabled="#{modelAudiencia.selectSolicitud.size()==1? 'false': 'true'}" styleClass="btn btn-sm btn-primary btn-menu"/>
 					
 					<h:commandButton value="Enviar Citaciones" actionListener="#{sendMail.enviarCitacion(modelAudiencia.selectSolicitud)}" disabled="#{controllerAudiencia.bloquearBoton('AUDIENCIA-CITACION','')}" styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')} btn-menu"></h:commandButton>
 					<h:commandButton value="Desarrollar Audiencia" actionListener="#{controllerSession.setIdSolicitudDesarrolloAudiencia(modelAudiencia.selectSolicitud.get(0))}" action="desarrolloaudiencia?faces-redirect=true"  disabled="#{controllerDesarrolloAudiencia.bloquearBotonDesarrollarAudiencia(modelAudiencia.selectSolicitud)}" styleClass="btn btn-sm btn-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')} btn-menu"/>
 					
 					<h:commandButton value="Aplazar" actionListener="#{controllerAudiencia.aplazarAudiencia()}" styleClass="btn btn-sm btn-warning btn-menu" disabled="#{controllerAudiencia.bloquearBotonAplazar('AUDIENCIA-PENDIENTE','AUDIENCIA-CITACION')}" action="listaaudiencias?faces-redirect=true"/>
-					<h:commandButton value="Modificar Acta" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-FINALIZADA','')}" styleClass="btn btn-sm btn-success btn-menu"></h:commandButton>
-					<h:commandButton value="Expedir Acta" disabled="#{controllerSolicitud.bloquearBoton('AUDIENCIA-FINALIZADA','')}" styleClass="btn btn-sm btn-success btn-menu"></h:commandButton>
+					
+					<h:commandButton value="Expedir #{controllerAudiencia.nombreBotonActaConstancia()}" disabled="#{controllerAudiencia.bloquearBotonExpedir()}" styleClass="btn btn-sm btn-success btn-menu"></h:commandButton>
+
+            		<h:commandButton value="Subir #{controllerAudiencia.nombreBotonActaConstancia()}" onclick="$('#modalsubiracta').modal();" disabled="#{controllerAudiencia.bloquearBotonSubir()}" class="btn btn-success btn-menu">
+            			<f:ajax></f:ajax>
+            		</h:commandButton>
+            		
+            		<h:commandButton id="download" action="#{controllerAudiencia.downloadActa()}" value="Expedir Copia" styleClass="btn btn-success btn-menu"/>
+            		
+            		<h:commandButton value="Devolucion" onclick="$('#modaldevolucion').modal();" disabled="#{controllerAudiencia.bloquearBotonDevolucion()}" class="btn btn-success btn-menu">
+            			<f:ajax></f:ajax>
+            		</h:commandButton>
+            		
+            		<ui:include src="modal/modalsubiracta.xhtml"></ui:include>
+            		<ui:include src="modal/modaldevolucion.xhtml"></ui:include>
 				</h:form>
 			</div>
 		</div>

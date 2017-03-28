@@ -41,9 +41,11 @@
       <class>entidades.Reparto</class>
       <class>entidades.Resultado</class>
       <class>entidades.Sala</class>
-      <class>entidades.Sancion</class>
       <class>entidades.Solicitud</class>
       <class>entidades.Usuario</class>
+      <class>entidades.Actas_Conciliacione</class>
+      <class>entidades.Copia</class>
+      <class>entidades.Devolucione</class>
       <validation-mode>CALLBACK</validation-mode>
       <properties>
          <!-- Properties for Hibernate -->

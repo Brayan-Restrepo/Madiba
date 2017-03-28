@@ -21,16 +21,16 @@ public class Usuario implements Serializable {
 
 	private String role;
 	
-	private String idConciliador;
+	private Long idConciliador;
 
 	public Usuario() {
 	}
 	
-	public String getIdConciliador() {
+	public Long getIdConciliador() {
 		return idConciliador;
 	}
 
-	public void setIdConciliador(String idConciliador) {
+	public void setIdConciliador(Long idConciliador) {
 		this.idConciliador = idConciliador;
 	}
 

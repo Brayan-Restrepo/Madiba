@@ -1,7 +1,9 @@
 package presentacion;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -11,6 +13,7 @@ import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
 
 import entidades.Audiencia;
+import entidades.Devolucione;
 import entidades.Solicitud;
 import negocio.iAudienciaBean;
 import negocio.iSolicitudBean;
@@ -128,6 +131,17 @@ public class ControllerDesarrolloAudiencia {
 			this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
 			
 			this.audienciaBean.addResultado("INASISTENCIA", this.solicitud.getAudiencias().get(lastAudiencia), "INASISTENCIA", this.solicitud.getIdSolicitud());
+			if(this.solicitud.getAudiencias().get(lastAudiencia).getAudienciaNum()==1){
+				
+				Devolucione devolucione = new Devolucione();
+				//Date fechaActual = new Date();
+				//devolucione.setFecha(fechaActual);
+				devolucione.setValor(this.solicitud.getValorPagar()*0.7);
+				devolucione.setDevolucion(false);
+				devolucione.setSolicitud(this.solicitud);
+				
+				this.solicitudBean.addDevolucion(devolucione);
+			}
 		}else{
 			//Tipo de Resultado - Acuerdo - No Acuerdo - No Conciliabre
 			String tipoResultado = this.modelDesarrolloAudiencia.getTipoResultado();

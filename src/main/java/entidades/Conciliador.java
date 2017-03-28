@@ -61,10 +61,6 @@ public class Conciliador implements Serializable {
 	@OneToMany(mappedBy="conciliador")
 	private List<Designacion> designacions;
 
-	//bi-directional many-to-one association to Sancion
-	@OneToMany(mappedBy="conciliador")
-	private List<Sancion> sancions;
-
 	public Conciliador() {
 	}
 
@@ -212,28 +208,6 @@ public class Conciliador implements Serializable {
 		designacion.setConciliador(null);
 
 		return designacion;
-	}
-
-	public List<Sancion> getSancions() {
-		return this.sancions;
-	}
-
-	public void setSancions(List<Sancion> sancions) {
-		this.sancions = sancions;
-	}
-
-	public Sancion addSancion(Sancion sancion) {
-		getSancions().add(sancion);
-		sancion.setConciliador(this);
-
-		return sancion;
-	}
-
-	public Sancion removeSancion(Sancion sancion) {
-		getSancions().remove(sancion);
-		sancion.setConciliador(null);
-
-		return sancion;
 	}
 
 }

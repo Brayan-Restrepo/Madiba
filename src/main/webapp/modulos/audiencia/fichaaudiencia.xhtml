@@ -78,7 +78,25 @@
 			            <h:outputText style="padding-left:5%" value="#{solicitud.audiencias.get(solicitud.audiencias.size()-1).agendas.get(solicitud.audiencias.get(solicitud.audiencias.size()-1).agendas.size()-1).sala.nombre}" />
 		          	</div>			          	
 				</h:panelGroup>
-						        
+				<h:panelGroup layout="block" rendered="#{solicitud.devoluciones.size()==1}" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
+					
+					<h:panelGroup layout="block" rendered="#{!solicitud.devoluciones.get(0).devolucion}" class="col-lg-12">
+			            <h:outputLabel value="Por Devolucion" styleClass="label label-danger pull-right"/>
+		            </h:panelGroup>
+		            <h:panelGroup layout="block" rendered="#{solicitud.devoluciones.get(0).devolucion}" class="col-lg-12">
+			            <h:outputLabel value="Pagada" styleClass="label label-success pull-right"/>
+		            </h:panelGroup>
+		          	
+		          	<h:panelGroup layout="block" rendered="#{solicitud.devoluciones.get(0).fecha!=null}" class="col-lg-6">
+			            <h:outputLabel value="Fecha:" />
+			            <h:outputText style="padding-left:5%" value=" #{solicitud.devoluciones.get(0).fecha}" />
+		            </h:panelGroup>
+		            <div class="col-lg-6">
+			            <h:outputLabel value="Valor: " />
+			            <h:outputText style="padding-left:5%" value=" $#{solicitud.devoluciones.get(0).valor}" />
+		            </div>
+				</h:panelGroup>
+				
 		        <h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Pretenciones:" />

@@ -1,11 +1,13 @@
 package negocio;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import dao.SolicitudDAO;
+import entidades.Devolucione;
 import entidades.Solicitud;
 
 @Stateless
@@ -38,8 +40,24 @@ public class SolicitudBean implements iSolicitudBean {
 	}
 	@Override
 	public void actualizarEstadoSolicitud(Long id, String nuevoEstado){
-		System.out.println(nuevoEstado);
 		this.solicitudDAO.actualizarEstadoSolicitud(id, nuevoEstado);
+	}
+
+	@Override
+	public String findSolicitudEstado(Long id) {
+		// TODO Auto-generated method stub
+		return this.solicitudDAO.findSolicitudEstado(id);
+	}
+
+	@Override
+	public void addDevolucion(Devolucione devolucione) {
+		this.solicitudDAO.addDevolucion(devolucione);
+		
+	}
+	
+	@Override
+	public void actualizarDevolucion(Long idDevolucion, boolean devolucion, Date fecha){
+		this.solicitudDAO.actualizarDevolucion(idDevolucion, devolucion, fecha);
 	}
 	
 }
