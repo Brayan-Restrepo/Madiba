@@ -2,6 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head></h:head>
@@ -30,16 +32,17 @@
 				           	</h:panelGroup>
 			           	</h:form>
 			        </li> -->
-			        <li class="dropdown">
-			        	<h:commandButton value="Conciliador" styleClass="btn btn-xs btn-warning" >
-			        		<f:ajax listener="#{modelLogin.setRole('conciliador')}"></f:ajax>
-			        	</h:commandButton>
+			        <li class='dropdown'>
+			       		<p:outputLabel for="popup" value="Popup:" />
+        				<p:calendar id="popup" value="#{controllerBusqueda.date2}" />
 			        </li>
-			        <li class="dropdown">
-			        	<h:commandButton value="Conalbos" styleClass="btn btn-xs btn-danger" >
-			        		<f:ajax listener="#{modelLogin.setRole('conalbos')}"></f:ajax>
-			        	</h:commandButton>
-			        
+					<li class='dropdown'>
+			       		<div class="input-group">
+                  			<div class="input-group-addon">
+                   				<i class="fa fa-calendar"></i>
+	                  		</div>
+                  			<h:inputText value="" class="form-control" a:data-inputmask="'alias': 'dd/mm/yyyy'" a:data-mask=""/>
+                  		</div>
 			        </li>
 					<li class="dropdown user user-menu">
 						<a href="#"	class="dropdown-toggle"> 

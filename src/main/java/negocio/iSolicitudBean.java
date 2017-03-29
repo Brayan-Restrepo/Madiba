@@ -13,7 +13,7 @@ public interface iSolicitudBean {
 	
 	public List<Solicitud> allSolicitud(String estado);
 	public List<Solicitud> findSolicitudes();
-	public List<Solicitud> findAudiencias();
+	public List<Solicitud> findAudiencias(String role, Long idConciliador);
 	public Solicitud findSolicitud(Long id);
 	public void actualizarEstadoSolicitud(Long id,String nuevoEstado);
 	

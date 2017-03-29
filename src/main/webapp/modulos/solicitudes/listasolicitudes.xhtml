@@ -11,7 +11,12 @@
 </h:head>
 
 <body>
-	<ui:composition template="/resources/plantilla/plantilla.xhtml">		
+	<ui:composition template="/resources/plantilla/plantilla.xhtml">	
+	
+		<ui:define name="titulo">
+			 <title>Lista Solicitudes</title>	
+		</ui:define>
+			
 		<ui:define name="content">	
 			#{controllerSolicitud.findSolicitudes()}
 			
@@ -160,7 +165,7 @@
 			<div class="text-center">
 				<h:form id='formBotones'>
 					
-					<h:commandButton value="Tabla" action="listasolicitudestabla?faces-redirect=true" styleClass="btn btn-sm btn-primary btn-menu"/>	
+					<h:commandButton value="Tabla" action="listasolicitudestabla" styleClass="btn btn-sm btn-primary btn-menu"/>	
 
 					<h:commandButton value="Detalle Audiencias" action="listaaudienciadetalletabla" actionListener="#{controllerSession.setIdSolicitudAudienciaDetalle(modelSolicitud.selectSolicitud.get(0))}" disabled="#{modelSolicitud.selectSolicitud.size()==1? 'false': 'true'}" styleClass="btn btn-sm btn-primary btn-menu"/>
 					

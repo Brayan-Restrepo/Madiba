@@ -50,9 +50,15 @@ public class SolicitudDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Solicitud> findAudiencias(){
-
-		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findAudiencias").getResultList();
+	public List<Solicitud> findAudiencias(String role, Long idConciliador){
+		
+		List<Solicitud> solicitud;
+		if(role.equalsIgnoreCase("Conciliador")){
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasConciliador").setParameter("idConciliador", idConciliador).getResultList();
+		}else{
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudiencias").getResultList();
+		}
+		
 		for(int i=0;i<solicitud.size();i++){
 			solicitud.get(i).getPartes().size();
 			solicitud.get(i).getPagos().size();

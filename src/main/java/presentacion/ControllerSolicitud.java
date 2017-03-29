@@ -30,6 +30,9 @@ public class ControllerSolicitud {
 	@ManagedProperty(value = "#{modelSolicitud}")
 	private ModelSolicitud consultaModelSolicitud;
 	
+	@ManagedProperty(value = "#{modelLogin}")
+	private ModelLogin modelLogin;
+	
 	//Contiene la lista de solicitudes con datos quemados
 	public List<Solicitud> listaSolicitud;
 
@@ -41,8 +44,15 @@ public class ControllerSolicitud {
 	
 	private Map<String, String> coloresEstado;
 	
+		
+	public ModelLogin getModelLogin() {
+		return modelLogin;
+	}
 
-	
+	public void setModelLogin(ModelLogin modelLogin) {
+		this.modelLogin = modelLogin;
+	}
+
 	/**
 	 * Constructor: 
 	 */
@@ -70,7 +80,7 @@ public class ControllerSolicitud {
 		this.listaSolicitud = this.solicitudBean.findSolicitudes();
 	}
 	public void findAudiencias(){
-		this.listaSolicitud = this.solicitudBean.findAudiencias();
+		this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador());
 	}
 		
 	public List<Solicitud> getListaSolicitud() {

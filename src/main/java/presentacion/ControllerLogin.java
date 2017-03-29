@@ -35,14 +35,20 @@ public class ControllerLogin {
 		String password = this.login.getPassword();
 		
 		
-		boolean usuarioValido = loginBean.autenticarUsuario(nickname,password);
+		boolean usuarioValido = this.loginBean.autenticarUsuario(nickname,password);
 		FacesMessage msg;
 		
 		if(usuarioValido){
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario: "+nickname+" Correcto", null);
 			this.login.setValidado(true);
 			//Si el Usuario es Autenticado se Le Asigna su Rol
-			this.login.setRole(loginBean.userRole(nickname, password));
+			String[] datos = this.loginBean.userRole(nickname, password);
+			this.login.setRole(datos[0]);
+			if(datos[1].equals("")){
+				this.login.setIdConciliador(null);
+			}else{
+				this.login.setIdConciliador(Long.valueOf(datos[1]));
+			}
 		}else{
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario: "+nickname+" Incorrecto", null);
 			this.login.setValidado(false);

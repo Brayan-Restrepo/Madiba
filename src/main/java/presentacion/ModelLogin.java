@@ -10,8 +10,17 @@ public class ModelLogin {
 	private String nickname;
 	private String password;
 	private String role;
+	private Long idConciliador;
 	private boolean validado;
-		
+	
+	public Long getIdConciliador() {
+		return idConciliador;
+	}
+
+	public void setIdConciliador(Long idConciliador) {
+		this.idConciliador = idConciliador;
+	}
+
 	public boolean isValidado() {
 		return validado;
 	}

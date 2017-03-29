@@ -28,9 +28,9 @@ public class SolicitudBean implements iSolicitudBean {
 	}
 
 	@Override
-	public List<Solicitud> findAudiencias() {
+	public List<Solicitud> findAudiencias(String role, Long idConciliador){
 		// TODO Auto-generated method stub
-		return this.solicitudDAO.findAudiencias();
+		return this.solicitudDAO.findAudiencias(role, idConciliador);
 	}
 	
 	@Override

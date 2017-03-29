@@ -27,11 +27,18 @@ public class LoginBean implements iLoginBean{
 	}
 
 	@Override
-	public String userRole(String nickname, String password) {
+	public String[] userRole(String nickname, String password) {
 		Usuario usuarioBD = loginDAO.consultarUsuario(nickname);
+		String[] datos = new String[2];
 		if(usuarioBD != null){
-			return usuarioBD.getRole();
+		 datos[0]=usuarioBD.getRole();
+		 if(usuarioBD.getIdConciliador()!=null){
+			 datos[1]=usuarioBD.getIdConciliador().toString();
+		 }else{
+			 datos[1]="";
+		 }
+		 
 		}
-		return null;
+		return datos;
 	}
 }
