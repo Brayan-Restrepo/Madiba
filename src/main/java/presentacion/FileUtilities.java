@@ -125,7 +125,6 @@ public class FileUtilities {
     
 
 	public void download(String path, String name) {
-		System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddd");
 		String Type = "";
 		//String name="18";
 		String extention=getFileExtentionSinPunto(path);

@@ -191,12 +191,15 @@
             			<f:ajax></f:ajax>
             		</h:commandButton>
             		
-            		<h:commandButton id="download" rendered="#{modelLogin.role=='conalbos'}" action="#{controllerAudiencia.downloadActa()}" value="Expedir Copia" styleClass="btn btn-success btn-menu"/>
+            		<h:commandButton id="download" rendered="#{modelLogin.role=='conalbos'}"  onclick="$('#modalcopia').modal();" disabled="#{controllerAudiencia.bloquearBotonExpedirCopia()}" value="Expedir Copia" styleClass="btn btn-success btn-menu">
+            			<f:ajax></f:ajax>
+            		</h:commandButton>
             		
             		<h:commandButton value="Devolucion" rendered="#{modelLogin.role=='conalbos'}" onclick="$('#modaldevolucion').modal();" disabled="#{controllerAudiencia.bloquearBotonDevolucion()}" class="btn btn-success btn-menu">
             			<f:ajax></f:ajax>
             		</h:commandButton>
             		
+            		<ui:include src="modal/modalcopia.xhtml"></ui:include>
             		<ui:include src="modal/modalsubiracta.xhtml"></ui:include>
             		<ui:include src="modal/modaldevolucion.xhtml"></ui:include>
 				</h:form>

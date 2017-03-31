@@ -37,9 +37,9 @@
 			            		
 								<h:commandButton actionListener="#{controllerAudiencia.GuardarActa()}" action="listaaudiencias" styleClass="btn btn-success pull-right" value="Aceptar" >
 								</h:commandButton>
-								<h:commandButton onclick="$('#modalsubiracta').modal('hide');" action="listaaudiencias" styleClass="btn btn-danger pull-right" value="Cancelar" >
-									<f:ajax></f:ajax>
-								</h:commandButton>
+								
+								<h:panelGroup onclick="$('#modalsubiracta').modal('hide');" styleClass="btn btn-danger pull-right">Cancelar</h:panelGroup>
+								
 								
 							</div>
 					</div>

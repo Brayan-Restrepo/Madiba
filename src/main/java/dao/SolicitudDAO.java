@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entidades.Actas_Conciliacione;
+import entidades.Copia;
 import entidades.Devolucione;
 import entidades.Resultado;
 import entidades.Solicitud;
@@ -28,6 +29,7 @@ public class SolicitudDAO {
 			solicitud.get(i).getPagos().size();
 			solicitud.get(i).getDesignacions().size();			
 			solicitud.get(i).getAudiencias().size();
+			solicitud.get(i).getActasConciliaciones().size();
 			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){
 				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
 			}
@@ -161,6 +163,10 @@ public class SolicitudDAO {
 		solicitud.getDesignacions().size();
 		solicitud.getAudiencias().size();
 		solicitud.getDevoluciones().size();
+		solicitud.getActasConciliaciones().size();
+		for(int j=0;j<solicitud.getActasConciliaciones().size();j++){
+			solicitud.getActasConciliaciones().get(j).getCopias().size();
+		}
 		for(int j=0;j<solicitud.getAudiencias().size();j++){
 			solicitud.getAudiencias().get(j).getAgendas().size();
 			solicitud.getAudiencias().get(j).getAsistencias().size();
@@ -200,5 +206,10 @@ public class SolicitudDAO {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void guardarActaConstancia(Actas_Conciliacione actaConstancia){
 		this.manager.persist(actaConstancia);
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void guardarCopia(Copia copia){
+		this.manager.persist(copia);
 	}
 }

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import dao.SolicitudDAO;
 import entidades.Actas_Conciliacione;
+import entidades.Copia;
 import entidades.Devolucione;
 import entidades.Solicitud;
 
@@ -89,6 +90,11 @@ public class SolicitudBean implements iSolicitudBean {
 	@Override
 	public void guardarActaConstancia(Actas_Conciliacione actaConstancia) {
 		this.solicitudDAO.guardarActaConstancia(actaConstancia);		
+	}
+
+	@Override
+	public void guardarCopia(Copia copia) {
+		this.solicitudDAO.guardarCopia(copia);
 	}
 	
 }

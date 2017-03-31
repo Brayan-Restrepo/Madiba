@@ -16,6 +16,7 @@ import javax.faces.bean.ViewScoped;
 
 import entidades.Actas_Conciliacione;
 import entidades.Audiencia;
+import entidades.Copia;
 import entidades.Devolucione;
 import entidades.Solicitud;
 import negocio.iAudienciaBean;
@@ -259,8 +260,21 @@ public class ControllerAudiencia {
 	
 	public boolean bloquearBotonSubir(){
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
-			if(this.solicitudBean.findSolicitudEstado(this.modelAudiencia.getSelectSolicitud().get(0)).equals("AUDIENCIA-FINALIZADA")){
-				
+			Solicitud solicitud=this.solicitudBean.findSolicitud(this.modelAudiencia.getSelectSolicitud().get(0));
+			
+			if(solicitud.getEstado().equals("AUDIENCIA-FINALIZADA") && solicitud.getActasConciliaciones().size()==0){
+				return false;
+			}
+	
+		}
+		return true;	
+	}
+	
+	public boolean bloquearBotonExpedirCopia(){
+		if(this.modelAudiencia.getSelectSolicitud().size()==1){
+			Solicitud solicitud=this.solicitudBean.findSolicitud(this.modelAudiencia.getSelectSolicitud().get(0));
+			
+			if(solicitud.getEstado().equals("AUDIENCIA-FINALIZADA") && solicitud.getActasConciliaciones().size()==1){
 				return false;
 			}
 	
@@ -297,8 +311,6 @@ public class ControllerAudiencia {
 			Long idSolicitud=this.modelAudiencia.getSelectSolicitud().get(0);
 			Solicitud solicitud = this.solicitudBean.findSolicitud(idSolicitud);
 			
-			
-
 				if(this.fileUtilities.getFile()!=null){
 					
 					String folderName="Resultado";
@@ -330,8 +342,9 @@ public class ControllerAudiencia {
 					actaConstancia.setLimiteCopias(3);
 					actaConstancia.setSolicitud(solicitud);
 					actaConstancia.setRuta(ruta);
+					actaConstancia.setTipo(folderName);
 					
-					//this.solicitudBean.guardarActaConstancia(actaConstancia);
+					this.solicitudBean.guardarActaConstancia(actaConstancia);
 				}
 
 		}
@@ -341,12 +354,25 @@ public class ControllerAudiencia {
 	public void downloadActa(){
 
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
+			
 			Long idSolicitud=this.modelAudiencia.getSelectSolicitud().get(0);
 			Solicitud solicitud = this.solicitudBean.findSolicitud(idSolicitud);
-		
-			String path = "C:/Conalbos-Madiba/Solicitud #8/Acta/2017013000006.jpg";
-			String name = solicitud.getNroRadicado().toString();
-			this.fileUtilities.download(path, name);
+			
+			//Solo se permite descargar 3 veces
+			if(solicitud.getActasConciliaciones().get(0).getCopias().size() < solicitud.getActasConciliaciones().get(0).getLimiteCopias()){
+				String path = solicitud.getActasConciliaciones().get(0).getRuta();
+				
+				String name = solicitud.getNroRadicado().toString();
+				this.fileUtilities.download(path, name);
+				
+				Copia copia = new Copia();
+				Date fecha = new Date();
+				copia.setActasConciliacione(solicitud.getActasConciliaciones().get(0));
+				copia.setFechaGeneracion(fecha);
+				copia.setNumCopia(solicitud.getActasConciliaciones().get(0).getCopias().size()+1);
+				this.solicitudBean.guardarCopia(copia);
+			}
+			
 		}
 	}
 	

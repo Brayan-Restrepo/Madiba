@@ -37,9 +37,16 @@
 					<li class="dropdown user user-menu">
 						<a href="#"	class="dropdown-toggle"> 
 							<!--<h:graphicImage library="img/png" name="girl.png" class="user-image" alt="User Image" />-->
-							<h:graphicImage library="img" name="png/girl.png" class="user-image" alt="User Image" />
+							<h:graphicImage library="img" name="png/girl.png" class="user-image" alt="User Image" style="width:35px;height:35px;margin-top:-8px;margin-right:4px"/>
 							<span class="hidden-xs">#{modelLogin.nickname}</span>
 						</a>
+					</li>
+					
+					<li>
+						<h:outputLink value="/Madiba/login.jsf" style="background: #285f80;">
+							<f:ajax event="click" listener="#{controllerLogin.logout()}"></f:ajax>
+					        <i class="fa fa-power-off fa-lg"></i>
+					    </h:outputLink>
 					</li>
 				</ul>
 			</div>

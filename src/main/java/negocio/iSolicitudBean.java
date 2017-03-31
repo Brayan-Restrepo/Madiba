@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import entidades.Actas_Conciliacione;
+import entidades.Copia;
 import entidades.Devolucione;
 import entidades.Solicitud;
 
@@ -23,6 +24,7 @@ public interface iSolicitudBean {
 	public void actualizarDevolucion(Long idDevolucion, boolean devolucion, Date fecha);
 	
 	public void guardarActaConstancia(Actas_Conciliacione actaConstancia);
+	public void guardarCopia(Copia copia);
 	
 	public List<Solicitud> findSolicitudes();
 	public List<Solicitud> findSolicitudesFiltroParteFecha(Date fechaInicial, Date fechaFinal, String ccParte, String tipoParte);

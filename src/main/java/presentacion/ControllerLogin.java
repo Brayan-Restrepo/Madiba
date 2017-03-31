@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import negocio.iLoginBean;
  
@@ -58,7 +59,7 @@ public class ControllerLogin {
 	
 	public String entrar(){
 		if(this.login.isValidado()){
-			return "index";
+			return "index?faces-redirect=true";
 		}else{
 			return "login"; 
 		}
@@ -73,7 +74,12 @@ public class ControllerLogin {
 				e.printStackTrace();
 			}
 		}
-		
+	}
+	
+	public void logout(){
+		Object session = FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+		HttpSession httpSession = (HttpSession)session;
+		httpSession.invalidate();
 	}
 
 }
