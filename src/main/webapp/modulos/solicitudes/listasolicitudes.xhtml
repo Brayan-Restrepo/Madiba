@@ -15,36 +15,44 @@
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">	
 		
 		<ui:define name="busqueda">
+			<ul class="sidebar-menu main-footer">
+				<li class="header"><i class="fa fa-search"></i>  BUSQUEDA</li>
+			</ul>
 			<h:form>
-      			<div class="has-success" style="padding-top: 6px;padding-left:10%">
-			        <h:selectOneMenu id="tipoParte" value="#{modelBusqueda.tipoParte}" styleClass="form-control"> 
-			            
-			            <f:selectItem itemValue = "Convocante" itemLabel = "Convocante" />  
-			            <f:selectItem itemValue = "Convocado" itemLabel = "Convocado" /> 
-			            <f:selectItem itemValue = "Conciliador" itemLabel = "Conciliador" />
-			         </h:selectOneMenu>
-		         </div>
-		        <div class="has-success" style="padding-top: 6px;padding-left:10%">
-		        	<h:inputText id="cc" value="#{modelBusqueda.cc}" styleClass="form-control"/>	
-	        	</div>
-	        	
-	       		<h:outputLabel value="Desde: " style="padding-top: 15px;padding-left:10%;color: white"/>
-       		
-	       		<div class="" style="padding-top: 6px;padding-left:10%">                  			
-           			<h:inputText value="#{modelBusqueda.fechaInicio}" id="fechaInicio" class="form-control" style="width: 100px;" a:data-inputmask="'alias': 'dd/mm/yyyy'" a:data-mask=""/>
-           			
-           		</div>
-	       		<h:outputLabel value="Hasta: " style="padding-top: 15px;padding-left:10%;color: white"/>
-       		
-	       		<div class="" style="padding-top: 6px;padding-left:10%">                  			
-          			<h:inputText value="#{modelBusqueda.fechaFinal}" id="fechaFinal" class="form-control" style="width: 100px;"  a:data-inputmask="'alias': 'dd/mm/yyyy'" a:data-mask=""/>
-           			
-           		</div>
-				<div style="padding-top: 6px;padding-left:10%">  
-					<h:commandButton value="Buscar" action="listasolicitudes" styleClass="btn btn-success" >
-					</h:commandButton>
-				</div>
-		</h:form>
+				<h:panelGroup class="has-success" layout="block">
+					<h:panelGrid columns="1" style="margin:15px">
+				        <h:selectOneMenu class="fa form-control" id="tipoParteConalbos" rendered="#{modelLogin.role=='conalbos'}" value="#{modelBusqueda.tipoParte}" style="width:195px"> 
+				            <f:selectItem itemValue = "Convocante" itemLabel = "Convocante" />
+				            <f:selectItem itemValue = "Convocado" itemLabel = "Convocado" />  
+				            <f:selectItem itemValue = "Conciliador" itemLabel = "Conciliador"  /> 
+				        </h:selectOneMenu>
+				         
+				        <h:selectOneMenu class="fa form-control" id="tipoParteConciliador" rendered="#{modelLogin.role=='conciliador'}" value="#{modelBusqueda.tipoParte}" style="width:195px"> 
+				            <f:selectItem itemValue = "Convocante" itemLabel = "Convocante" />
+				            <f:selectItem itemValue = "Convocado" itemLabel = "Convocado" /> 
+				        </h:selectOneMenu>
+				    </h:panelGrid>
+				    
+					<h:panelGrid columns="2" style="margin:15px">
+						<p:outputLabel value="Cédula" style="color: white;width:80px" />    
+			        	<p:inputText id="cc" class="fa" value="#{modelBusqueda.cc}" style="width:115px;text-align:center"/>	
+					</h:panelGrid>
+				    
+					<h:panelGrid columns="2" style="margin:15px">
+		       			<p:outputLabel value="Desde" style="color: white;width:80px"/>     			
+	           			<p:inputText class="fa" value="#{modelBusqueda.fechaInicio}" id="fechaInicio" style="width:115px;text-align:center" a:data-inputmask="'alias': 'dd/mm/yyyy'" a:data-mask=""/>
+					</h:panelGrid>
+				    
+					<h:panelGrid columns="2" style="margin:15px">
+		       			<p:outputLabel value="Hasta" style="color: white;width:80px"/>
+	          			<p:inputText class="fa" value="#{modelBusqueda.fechaFinal}" id="fechaFinal" style="width:115px;text-align:center" a:data-inputmask="'alias': 'dd/mm/yyyy'" a:data-mask="" />
+					</h:panelGrid>
+					
+					<h:panelGrid columns="1" style="margin:15px">
+						<p:commandButton value="Buscar" action="listaaudiencias" styleClass="btn btn-success" style="width:195px" />
+					</h:panelGrid>
+				</h:panelGroup>
+			</h:form>
 		</ui:define>
 		
 		<ui:define name="titulo">
