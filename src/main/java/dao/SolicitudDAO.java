@@ -8,7 +8,9 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import entidades.Actas_Conciliacione;
 import entidades.Devolucione;
+import entidades.Resultado;
 import entidades.Solicitud;
 
 
@@ -48,6 +50,38 @@ public class SolicitudDAO {
 		}
 		return solicitud;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Solicitud> findSolicitudesFiltroParteFecha(Date fechaInicial, Date fechaFinal, String ccParte, String tipoParte){
+		
+		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findSolicitudesFiltroParteFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("identificacion", ccParte).setParameter("tipoParte", tipoParte).getResultList();
+		for(int i=0;i<solicitud.size();i++){
+			solicitud.get(i).getPartes().size();
+			solicitud.get(i).getPagos().size();
+			solicitud.get(i).getDesignacions().size();
+			solicitud.get(i).getAudiencias().size();
+			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){
+				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
+			}
+		}
+		return solicitud;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Solicitud> findSolicitudesFiltroConciliadorFecha(Date fechaInicial, Date fechaFinal, String identificacion){
+		
+		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findSolicitudesFiltroConciliadorFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("identificacion", identificacion).getResultList();
+		for(int i=0;i<solicitud.size();i++){
+			solicitud.get(i).getPartes().size();
+			solicitud.get(i).getPagos().size();
+			solicitud.get(i).getDesignacions().size();
+			solicitud.get(i).getAudiencias().size();
+			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){
+				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
+			}
+		}
+		return solicitud;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Solicitud> findAudiencias(String role, Long idConciliador){
@@ -72,6 +106,53 @@ public class SolicitudDAO {
 		return solicitud;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Solicitud> findAudienciasFiltroParteFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, String identificacion, String tipoParte){
+		
+		List<Solicitud> solicitud;
+		if(role.equalsIgnoreCase("Conciliador")){
+			//Falta Filtros
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasConciliador").setParameter("idConciliador", idConciliador).getResultList();
+		}else{
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasFiltroParteFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("identificacion", identificacion).setParameter("tipoParte", tipoParte).getResultList();
+		}
+		
+		for(int i=0;i<solicitud.size();i++){
+			solicitud.get(i).getPartes().size();
+			solicitud.get(i).getPagos().size();
+			solicitud.get(i).getDesignacions().size();
+			solicitud.get(i).getAudiencias().size();
+			solicitud.get(i).getDevoluciones().size();
+			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){
+				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
+			}
+		}
+		return solicitud;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Solicitud> findAudienciasFiltroConciliadorFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, String identificacion){
+		
+		List<Solicitud> solicitud;
+		if(role.equalsIgnoreCase("Conciliador")){
+			//Falta Filtros
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasConciliador").setParameter("idConciliador", idConciliador).getResultList();
+		}else{
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasFiltroConciliadorFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("identificacion", identificacion).getResultList();
+		}
+		
+		for(int i=0;i<solicitud.size();i++){
+			solicitud.get(i).getPartes().size();
+			solicitud.get(i).getPagos().size();
+			solicitud.get(i).getDesignacions().size();
+			solicitud.get(i).getAudiencias().size();
+			solicitud.get(i).getDevoluciones().size();
+			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){
+				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
+			}
+		}
+		return solicitud;
+	}
 	@SuppressWarnings("unchecked")
 	public Solicitud findSolicitud(Long id){
 		Solicitud solicitud = this.manager.find(Solicitud.class,id);		
@@ -114,5 +195,10 @@ public class SolicitudDAO {
 		Devolucione devolucione = this.manager.find(Devolucione.class, idDevolucion);
 		devolucione.setDevolucion(devolucion);
 		devolucione.setFecha(fecha);
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void guardarActaConstancia(Actas_Conciliacione actaConstancia){
+		this.manager.persist(actaConstancia);
 	}
 }

@@ -5,27 +5,71 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:hh="http://xmlns.jcp.org/jsf/html"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui"> 
 
 <h:head></h:head> 
 
 <body>
-	<ui:composition template="/resources/plantilla/plantilla.xhtml">		
+	<ui:composition template="/resources/plantilla/plantilla.xhtml">	
+	
+			<ui:define name="busqueda">
+			<h:form>
+      			<div class="has-success" style="padding-top: 6px;padding-left:10%">
+			        <h:selectOneMenu id="tipoParteConalbos" rendered="#{modelLogin.role=='conalbos'}" value="#{modelBusqueda.tipoParte}" styleClass="form-control" style="width: 90%;"> 
+			            <f:selectItem itemValue = "Convocante" itemLabel = "Convocante" />
+			            <f:selectItem itemValue = "Convocado" itemLabel = "Convocado" />  
+			            <f:selectItem itemValue = "Conciliador" itemLabel = "Conciliador"  /> 
+			         </h:selectOneMenu>
+			         
+			         <h:selectOneMenu id="tipoParteConciliador" rendered="#{modelLogin.role=='conciliador'}" value="#{modelBusqueda.tipoParte}" styleClass="form-control" style="width: 90%;"> 
+			            <f:selectItem itemValue = "Convocante" itemLabel = "Convocante" />
+			            <f:selectItem itemValue = "Convocado" itemLabel = "Convocado" /> 
+			         </h:selectOneMenu>
+		         </div>
+		        <div class="has-success" style="padding-top: 6px;padding-left:10%">
+		        	<h:inputText id="cc" value="#{modelBusqueda.cc}" styleClass="form-control" style="width: 90%;"/>	
+	        	</div>
+	        	
+	       		<h:outputLabel value="Desde: " class="col-lg-2" style="padding-top: 10px;padding-right:10%;color: white"/>
+       		
+	       		<div class="col-lg-10" style="padding-top: 6px;padding-left:10%">                  			
+           			<h:inputText value="#{modelBusqueda.fechaInicio}" id="fechaInicio" class="form-control" style="width: 100px;" a:data-inputmask="'alias': 'dd/mm/yyyy'" a:data-mask=""/>
+           			
+           		</div>
+	       		<h:outputLabel value="Hasta: " class="col-lg-2" style="padding-top: 10px;padding-right:10%;color: white"/>
+       		
+	       		<div class="col-lg-10" style="padding-top: 6px;padding-left:10%">                  			
+          			<h:inputText value="#{modelBusqueda.fechaFinal}" id="fechaFinal" class="form-control" style="width: 100px;"  a:data-inputmask="'alias': 'dd/mm/yyyy'" a:data-mask=""/>
+           			
+           		</div>
+				<div class="col-lg-12 text-center" style="padding-top: 16px;padding-left:10%">  
+					<h:commandButton value="Buscar" action="listaaudiencias" styleClass="btn btn-success" >
+					</h:commandButton>
+				</div>
+		</h:form>
+		</ui:define>
+		
+		<ui:define name="titulo">
+			 <title>Lista Audiencias</title>	
+		</ui:define>
+		
 		<ui:define name="content">			
-			#{controllerSolicitud.findAudiencias()}
+			
 			<div class='content-wrapper' style="height:10px;overflow:auto">
 			<div class="content">
 				<div class="row">
+					#{controllerAudiencia.findAudiencias()}
 					<div class="col-md-12">
 						<div class="nav-tabs-custom">
 							<ul class="nav nav-tabs" style="border-color: blue">
-								<li class="active"><a href="#todas" data-toggle="tab">Todas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('REGISTRADA')}">#{controllerSolicitud.listaSolicitud.size()}</span></a>
+								<li class="active"><a href="#todas" data-toggle="tab">Todas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('REGISTRADA')}">#{controllerAudiencia.listaSolicitud.size()}</span></a>
 								</li>
-								<li><a href="#citacion" data-toggle="tab">Por citación <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')}">#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION').size()}</span></a>
+								<li><a href="#citacion" data-toggle="tab">Por citación <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')}">#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-CITACION').size()}</span></a>
 								</li>
-								<li><a href="#pendientes" data-toggle="tab">Pendientes <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-PENDIENTE')}">#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE').size()}</span></a></li>
-								<li><a href="#encurso" data-toggle="tab">En curso <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')}">#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO').size()}</span></a></li>
-								<li><a href="#finalizadas" data-toggle="tab">Finalizadas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-FINALIZADA')}">#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA').size()}</span></a></li>
+								<li><a href="#pendientes" data-toggle="tab">Pendientes <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-PENDIENTE')}">#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-PENDIENTE').size()}</span></a></li>
+								<li><a href="#encurso" data-toggle="tab">En curso <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')}">#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-ENCURSO').size()}</span></a></li>
+								<li><a href="#finalizadas" data-toggle="tab">Finalizadas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-FINALIZADA')}">#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-FINALIZADA').size()}</span></a></li>
 								
 							</ul>
 							<div class="tab-content">
@@ -35,12 +79,12 @@
 										<ui:param name="formulario" value="@form :formcitacion :formpendientes :formencurso :formfinalizadas :formBotones"/>
 										
 											<ui:repeat varStatus="n" var="solicitud"
-												value="#{controllerSolicitud.listaSolicitud}" step="2">
+												value="#{controllerAudiencia.listaSolicitud}" step="2">
 												<h:panelGroup layout="block" class="row">
 	
 													<ui:include src="fichaaudiencia.xhtml"></ui:include>
-													<h:panelGroup rendered="#{controllerSolicitud.listaSolicitud.size()>(n.index+1)}">						
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.listaSolicitud}">
+													<h:panelGroup rendered="#{controllerAudiencia.listaSolicitud.size()>(n.index+1)}">						
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerAudiencia.listaSolicitud}">
 															<ui:include src="fichaaudiencia.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
@@ -54,12 +98,12 @@
 										<ui:param name="formulario" value="@form :formtodas :formpendientes :formencurso :formfinalizadas :formBotones"/>
 										
 											<ui:repeat varStatus="n" var="solicitud"
-												value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION')}"
+												value="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-CITACION')}"
 												step="2">
 												<div class="row">
 													<ui:include src="fichaaudiencia.xhtml"></ui:include>
-													<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION').size()>(n.index+1)}">							
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-CITACION')}">
+													<h:panelGroup rendered="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-CITACION').size()>(n.index+1)}">							
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-CITACION')}">
 															<ui:include src="fichaaudiencia.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
@@ -72,12 +116,12 @@
 										<ui:param name="formulario" value="@form :formtodas :formcitacion :formencurso :formfinalizadas :formBotones"/>
 										
 											<ui:repeat varStatus="n" var="solicitud"
-												value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE')}"
+												value="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-PENDIENTE')}"
 												step="2">
 												<div class="row">
 													<ui:include src="fichaaudiencia.xhtml"></ui:include>
-													<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE').size()>(n.index+1)}">							
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-PENDIENTE')}">
+													<h:panelGroup rendered="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-PENDIENTE').size()>(n.index+1)}">							
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-PENDIENTE')}">
 															<ui:include src="fichaaudiencia.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
@@ -90,12 +134,12 @@
 										<ui:param name="formulario" value="@form :formtodas :formpendientes :formcitacion :formfinalizadas :formBotones"/>
 										
 											<ui:repeat varStatus="n" var="solicitud"
-												value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO')}"
+												value="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-ENCURSO')}"
 												step="2">
 												<div class="row">
 													<ui:include src="fichaaudiencia.xhtml"></ui:include>
-													<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO').size()>(n.index+1)}">						
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-ENCURSO')}">
+													<h:panelGroup rendered="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-ENCURSO').size()>(n.index+1)}">						
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-ENCURSO')}">
 															<ui:include src="fichaaudiencia.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
@@ -108,11 +152,11 @@
 										<ui:param name="formulario" value="@form :formtodas :formpendientes :formcitacion :formencurso :formBotones"/>
 										
 											<ui:repeat varStatus="n" var="solicitud"
-												value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}" step="2">
+												value="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}" step="2">
 												<div class="row">
 													<ui:include src="fichaaudiencia.xhtml"></ui:include>
-													<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA').size()>(n.index+1)}">							
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}">
+													<h:panelGroup rendered="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-FINALIZADA').size()>(n.index+1)}">							
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-FINALIZADA')}">
 															<ui:include src="fichaaudiencia.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
@@ -143,7 +187,7 @@
 					
 					<h:commandButton value="Expedir #{controllerAudiencia.nombreBotonActaConstancia()}" rendered="#{modelLogin.role=='conciliador'}" disabled="#{controllerAudiencia.bloquearBotonExpedir()}" styleClass="btn btn-sm btn-success btn-menu"></h:commandButton>
 
-            		<h:commandButton value="Subir  #{controllerAudiencia.nombreBotonActaConstancia()}" rendered="#{modelLogin.role=='conalbos'}" onclick="$('#modalsubiracta').modal();" disabled="#{controllerAudiencia.bloquearBotonSubir()}" class="btn btn-success btn-menu">
+            		<h:commandButton value="Guardar  #{controllerAudiencia.nombreBotonActaConstancia()}" rendered="#{modelLogin.role=='conalbos'}" onclick="$('#modalsubiracta').modal();" disabled="#{controllerAudiencia.bloquearBotonSubir()}" class="btn btn-success btn-menu">
             			<f:ajax></f:ajax>
             		</h:commandButton>
             		

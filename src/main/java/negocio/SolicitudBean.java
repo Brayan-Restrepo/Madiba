@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import dao.SolicitudDAO;
+import entidades.Actas_Conciliacione;
 import entidades.Devolucione;
 import entidades.Solicitud;
 
@@ -58,6 +59,36 @@ public class SolicitudBean implements iSolicitudBean {
 	@Override
 	public void actualizarDevolucion(Long idDevolucion, boolean devolucion, Date fecha){
 		this.solicitudDAO.actualizarDevolucion(idDevolucion, devolucion, fecha);
+	}
+
+	@Override
+	public List<Solicitud> findSolicitudesFiltroParteFecha(Date fechaInicial, Date fechaFinal, String ccParte,
+			String tipoParte) {
+		return this.solicitudDAO.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, ccParte, tipoParte);
+	}
+
+	@Override
+	public List<Solicitud> findSolicitudesFiltroConciliadorFecha(Date fechaInicial, Date fechaFinal,
+			String identificacion) {
+		
+		return this.solicitudDAO.findSolicitudesFiltroConciliadorFecha(fechaInicial, fechaFinal, identificacion);
+	}
+
+	@Override
+	public List<Solicitud> findAudienciasFiltroParteFecha(String role, Long idConciliador, Date fechaInicial,
+			Date fechaFinal, String identificacion, String tipoParte) {		
+		return this.solicitudDAO.findAudienciasFiltroParteFecha(role, idConciliador, fechaInicial, fechaFinal, identificacion, tipoParte);
+	}
+
+	@Override
+	public List<Solicitud> findAudienciasFiltroConciliadorFecha(String role, Long idConciliador, Date fechaInicial,
+			Date fechaFinal, String identificacion) {
+		return this.solicitudDAO.findAudienciasFiltroConciliadorFecha(role, idConciliador, fechaInicial, fechaFinal, identificacion);
+	}
+
+	@Override
+	public void guardarActaConstancia(Actas_Conciliacione actaConstancia) {
+		this.solicitudDAO.guardarActaConstancia(actaConstancia);		
 	}
 	
 }

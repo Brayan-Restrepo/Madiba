@@ -1,7 +1,11 @@
 package presentacion;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,10 +16,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 
-import entidades.Audiencia;
 import entidades.Solicitud;
 import negocio.iAudienciaBean;
-import negocio.iConciliadorBean;
 import negocio.iSolicitudBean;
 
 
@@ -33,6 +35,9 @@ public class ControllerSolicitud {
 	@ManagedProperty(value = "#{modelLogin}")
 	private ModelLogin modelLogin;
 	
+	@ManagedProperty(value = "#{modelBusqueda}")
+	private ModelBusqueda modelBusqueda;
+	
 	//Contiene la lista de solicitudes con datos quemados
 	public List<Solicitud> listaSolicitud;
 
@@ -43,8 +48,15 @@ public class ControllerSolicitud {
 	public iAudienciaBean audienciaBean;
 	
 	private Map<String, String> coloresEstado;
-	
-		
+			
+	public ModelBusqueda getModelBusqueda() {
+		return modelBusqueda;
+	}
+
+	public void setModelBusqueda(ModelBusqueda modelBusqueda) {
+		this.modelBusqueda = modelBusqueda;
+	}
+
 	public ModelLogin getModelLogin() {
 		return modelLogin;
 	}
@@ -76,12 +88,67 @@ public class ControllerSolicitud {
 		return this.listaSolicitud;
 	}
 	*/
+
 	public void findSolicitudes(){
-		this.listaSolicitud = this.solicitudBean.findSolicitudes();
+		
+		System.out.println("**********> "+this.modelBusqueda.getCc());
+		System.out.println("**********> "+this.modelBusqueda.getTipoParte());
+		System.out.println("**********> "+this.modelBusqueda.getFechaInicio());
+		System.out.println("**********> "+this.modelBusqueda.getFechaFinal());
+				
+		String ccParte = this.modelBusqueda.getCc();
+		String tipoParte = this.modelBusqueda.getTipoParte();
+		
+		if((this.modelBusqueda.getFechaInicio() == null || this.modelBusqueda.getFechaInicio().equals("")) && 
+				(this.modelBusqueda.getFechaFinal() == null || this.modelBusqueda.getFechaFinal().equals("")) && 
+				(ccParte == null || ccParte.equals(""))){
+			this.listaSolicitud = this.solicitudBean.findSolicitudes();
+		}else{
+			if(ccParte == null || ccParte.equals("")){
+				this.listaSolicitud = this.solicitudBean.findSolicitudes();
+			}else{
+				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
+						(this.modelBusqueda.getFechaFinal() != null && !this.modelBusqueda.getFechaFinal().equals(""))){
+					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
+					Date fechaInicial = null;
+					Date fechaFinal = null;
+					try {
+						 fechaInicial = formatoDelTexto.parse(this.modelBusqueda.getFechaInicio());
+						 fechaFinal = formatoDelTexto.parse(this.modelBusqueda.getFechaFinal());
+					} catch (ParseException ex) {
+					     ex.printStackTrace();
+					}
+					if(tipoParte.equals("Conciliador")){
+						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroConciliadorFecha(fechaInicial, fechaFinal, ccParte);
+					}else {
+						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, ccParte, tipoParte);
+					}
+				}else {
+					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
+					Date fechaInicial = null;
+					Date fechaFinal = null;
+					
+					Date fechaActual = new Date();
+			    	Calendar calendar = Calendar.getInstance();
+			    	calendar.setTime(fechaActual);
+			    	calendar.add(Calendar.MONTH, -3); 
+					try {
+						 fechaInicial = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
+						 fechaFinal = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechaActual));
+					} catch (ParseException ex) {
+					     ex.printStackTrace();
+					}
+					if(tipoParte.equals("Conciliador")){
+						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroConciliadorFecha(fechaInicial, fechaFinal, ccParte);
+					}else {
+						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, ccParte, tipoParte);
+					}
+				}
+			}
+		}
 	}
-	public void findAudiencias(){
-		this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador());
-	}
+	
+	
 		
 	public List<Solicitud> getListaSolicitud() {
 		return listaSolicitud;

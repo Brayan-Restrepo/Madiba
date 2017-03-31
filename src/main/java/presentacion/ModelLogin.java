@@ -7,6 +7,10 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class ModelLogin {
 	
+	public ModelLogin(){
+		nickname="conalbos";
+		role="conalbos";
+	}
 	private String nickname;
 	private String password;
 	private String role;

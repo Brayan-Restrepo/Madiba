@@ -1,5 +1,9 @@
 package presentacion;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import entidades.Actas_Conciliacione;
 import entidades.Audiencia;
 import entidades.Devolucione;
 import entidades.Solicitud;
@@ -44,8 +49,42 @@ public class ControllerAudiencia {
 	@ManagedProperty(value = "#{modelAudiencia}")
 	private ModelAudiencia modelAudiencia;
 	
+	@ManagedProperty(value = "#{modelLogin}")
+	private ModelLogin modelLogin;
+	
+	@ManagedProperty(value = "#{modelBusqueda}")
+	private ModelBusqueda modelBusqueda;
+	
 	private Map<String, String> coloresEstado;
 	
+	//Contiene la lista de solicitudes con datos quemados
+	public List<Solicitud> listaSolicitud;
+
+	
+	public ModelLogin getModelLogin() {
+		return modelLogin;
+	}
+
+	public void setModelLogin(ModelLogin modelLogin) {
+		this.modelLogin = modelLogin;
+	}
+
+	public ModelBusqueda getModelBusqueda() {
+		return modelBusqueda;
+	}
+
+	public void setModelBusqueda(ModelBusqueda modelBusqueda) {
+		this.modelBusqueda = modelBusqueda;
+	}
+
+	public List<Solicitud> getListaSolicitud() {
+		return listaSolicitud;
+	}
+
+	public void setListaSolicitud(List<Solicitud> listaSolicitud) {
+		this.listaSolicitud = listaSolicitud;
+	}
+
 	public ModelAudiencia getModelAudiencia() {
 		return modelAudiencia;
 	}
@@ -54,6 +93,82 @@ public class ControllerAudiencia {
 		this.modelAudiencia = modelAudiencia;
 	}
 
+	
+	
+	/**
+	 * 
+	 */
+	public void findAudiencias(){
+		String ccParte = this.modelBusqueda.getCc();
+		String tipoParte = this.modelBusqueda.getTipoParte();
+		
+		if((this.modelBusqueda.getFechaInicio() == null || this.modelBusqueda.getFechaInicio().equals("")) && 
+				(this.modelBusqueda.getFechaFinal() == null || this.modelBusqueda.getFechaFinal().equals("")) && 
+				(ccParte == null || ccParte.equals(""))){
+			this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador());
+		}else{
+			if(ccParte == null || ccParte.equals("")){
+				this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador());
+			}else{
+				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
+						(this.modelBusqueda.getFechaFinal() != null && !this.modelBusqueda.getFechaFinal().equals(""))){
+					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
+					Date fechaInicial = null;
+					Date fechaFinal = null;
+					try {
+						 fechaInicial = formatoDelTexto.parse(this.modelBusqueda.getFechaInicio());
+						 fechaFinal = formatoDelTexto.parse(this.modelBusqueda.getFechaFinal());
+					} catch (ParseException ex) {
+					     ex.printStackTrace();
+					}
+					if(tipoParte.equals("Conciliador")){
+						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, ccParte);
+					}else {
+						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroParteFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, ccParte, tipoParte);
+					}
+				}else {
+					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
+					Date fechaInicial = null;
+					Date fechaFinal = null;
+					
+					Date fechaActual = new Date();
+			    	Calendar calendar = Calendar.getInstance();
+			    	calendar.setTime(fechaActual);
+			    	calendar.add(Calendar.MONTH, -3); 
+					try {
+						 fechaInicial = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
+						 fechaFinal = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechaActual));
+					} catch (ParseException ex) {
+					     ex.printStackTrace();
+					}
+					if(tipoParte.equals("Conciliador")){
+						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, ccParte);
+					}else {
+						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroParteFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, ccParte, tipoParte);
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Filtra las solicitudes por su estado
+	 * 
+	 * @param El estado de la Solicitud (Grabada -> Pagada -> Radicada -> Designacion -> Audiencia)
+	 * @return
+	 */
+	
+	public List<Solicitud> solicitudesPorEstado(String estado){
+		List<Solicitud> listaPorEstado = new ArrayList<Solicitud>();
+		int size = this.listaSolicitud.size();
+		for(int i=0; i<size; i++){
+			if(this.listaSolicitud.get(i).getEstado().equals(estado)){
+				listaPorEstado.add(this.listaSolicitud.get(i));
+			}
+		}
+		return listaPorEstado;
+	}
+	
 	public void aplazarAudiencia(){
 				
 		Long id = this.modelAudiencia.getSelectSolicitud().get(0)+0L;
@@ -178,23 +293,45 @@ public class ControllerAudiencia {
 
 	public void GuardarActa(){
 		
-		
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
 			Long idSolicitud=this.modelAudiencia.getSelectSolicitud().get(0);
 			Solicitud solicitud = this.solicitudBean.findSolicitud(idSolicitud);
-
+			
+			
 
 				if(this.fileUtilities.getFile()!=null){
+					
+					String folderName="Resultado";
+					
+					if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().size()==2){
+						folderName= "Acta";
+					}else if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().size()==1){
+						if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().get(0).getTipoResultado().equalsIgnoreCase("ACUERDO")){
+							folderName= "Acta";
+						}else{
+							folderName= "Constancia";
+						}
+					}
+					
 					String path = "C:/Conalbos-Madiba/Solicitud #"+idSolicitud;
-					String folderName = "Acta";
+					//String folderName = "Resultado";
 					//String fileName = nombreExcusa(this.files.get(i));
 					String fileName = solicitud.getNroRadicado().toString();
 					this.fileUtilities.createFolder(path,folderName);
 					this.fileUtilities.upload(this.fileUtilities.getFile(),path+"/"+folderName,fileName);
-					//Long idParte = Long.valueOf(this.fileUtilities.getNombresFile().get(i));
-					//String ruta = path+"/"+folderName+"/"+idParte+this.fileUtilities.getFileExtention(this.fileUtilities.getFileName(this.fileUtilities.getFiles().get(i)));
-					//this.audienciaBean.guardarEscusaParte(idAudiencia, idParte, ruta);
-					//System.out.println(idAudiencia+"     -      "+idParte+"   -   "+ path+"/"+folderName);
+					
+					Actas_Conciliacione actaConstancia = new Actas_Conciliacione();
+					
+					String ruta = path+"/"+folderName+"/"+fileName+this.fileUtilities.getFileExtention(this.fileUtilities.getFileName(this.fileUtilities.getFile()));
+					Date fecha = new Date();
+					
+					actaConstancia.setFechaExpedicion(fecha);
+					actaConstancia.setRuta(ruta);
+					actaConstancia.setLimiteCopias(3);
+					actaConstancia.setSolicitud(solicitud);
+					actaConstancia.setRuta(ruta);
+					
+					//this.solicitudBean.guardarActaConstancia(actaConstancia);
 				}
 
 		}
