@@ -99,13 +99,20 @@ public class ControllerSolicitud {
 		String ccParte = this.modelBusqueda.getCc();
 		String tipoParte = this.modelBusqueda.getTipoParte();
 		
+		String fechIn = "";
+		String fechFn = "";
+		
 		if((this.modelBusqueda.getFechaInicio() == null || this.modelBusqueda.getFechaInicio().equals("")) && 
 				(this.modelBusqueda.getFechaFinal() == null || this.modelBusqueda.getFechaFinal().equals("")) && 
 				(ccParte == null || ccParte.equals(""))){
 			this.listaSolicitud = this.solicitudBean.findSolicitudes();
+			// Activa el mensaje
+			this.modelBusqueda.setMensaje(true);
 		}else{
 			if(ccParte == null || ccParte.equals("")){
 				this.listaSolicitud = this.solicitudBean.findSolicitudes();
+				// Activa el mensaje
+				this.modelBusqueda.setMensaje(true);
 			}else{
 				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
 						(this.modelBusqueda.getFechaFinal() != null && !this.modelBusqueda.getFechaFinal().equals(""))){
@@ -135,6 +142,9 @@ public class ControllerSolicitud {
 					try {
 						 fechaInicial = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
 						 fechaFinal = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechaActual));
+						 
+						 fechIn = fechaInicial.toString();
+						 fechFn = fechaFinal.toString();
 					} catch (ParseException ex) {
 					     ex.printStackTrace();
 					}
@@ -143,9 +153,17 @@ public class ControllerSolicitud {
 					}else {
 						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, ccParte, tipoParte);
 					}
+					// Activa el mensaje
+					this.modelBusqueda.setMensaje(true);
 				}
 			}
 		}
+		
+		// Resetea los inputs
+		this.modelBusqueda.setCc("");
+		this.modelBusqueda.setTipoParte("Convocante");
+		this.modelBusqueda.setFechaInicio(fechIn);
+		this.modelBusqueda.setFechaFinal(fechFn);
 	}
 	
 	

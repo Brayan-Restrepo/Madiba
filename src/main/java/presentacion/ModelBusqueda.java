@@ -16,8 +16,10 @@ public class ModelBusqueda {
     private String fechaFinal;
     private String cc;
     private String tipoParte;
+    
+    private boolean mensaje = false;
 
-    public ModelBusqueda(){
+	public ModelBusqueda(){
 		Date fechaActual = new Date();
     	Calendar calendar = Calendar.getInstance();
     	calendar.setTime(fechaActual);
@@ -60,5 +62,11 @@ public class ModelBusqueda {
 		this.tipoParte = tipoParte;
 	}
 	    
-    
+	public boolean isMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(boolean mensaje) {
+		this.mensaje = mensaje;
+	}
 }
