@@ -171,29 +171,32 @@ public class ControllerAudiencia {
 	}
 	
 	public void aplazarAudiencia(){
-				
-		Long id = this.modelAudiencia.getSelectSolicitud().get(0)+0L;
-		List<Audiencia> audiencia = this.solicitudBean.findSolicitud(id).getAudiencias();
-		Long idAudiencia = audiencia.get(audiencia.size()-1).getIdAudiencia();
-		
-		this.audienciaBean.actualizarEstadoAudiencia(idAudiencia, "APLAZADA");
-		this.solicitudBean.actualizarEstadoSolicitud(id, "DESIGNACION");
+		if(this.modelAudiencia.getSelectSolicitud().size()==1){
+			
+			int lastAudiencia = this.modelAudiencia.getSelectSolicitud().get(0).getAudiencias().size()-1;
+			Long idAudiencia = this.modelAudiencia.getSelectSolicitud().get(0).getAudiencias().get(lastAudiencia).getIdAudiencia();
+						
+			this.audienciaBean.actualizarEstadoAudiencia(idAudiencia, "APLAZADA");
+			this.solicitudBean.actualizarEstadoSolicitud(this.modelAudiencia.getSelectSolicitud().get(0).getIdSolicitud(), "DESIGNACION");
+		}		
 	}
 	
-	public String seleccionarSolicitud(Long idSolicitud,String estado){
+	public String seleccionarSolicitud(Solicitud auxSolicitud,String estado){
+		
 		for(int i=0;i<this.modelAudiencia.getSelectSolicitud().size();i++){
-			if(this.modelAudiencia.getSelectSolicitud().get(i)==idSolicitud){
+			if(this.modelAudiencia.getSelectSolicitud().get(i).getIdSolicitud()==auxSolicitud.getIdSolicitud()){
 				return "seleccionar-solicitud-"+this.coloresEstado.get(estado);
 			}
 		}
+		
 		return "";
 	}
 	
 	
-	public String changeIconSelect(Long idSolicitud){
+	public String changeIconSelect(Solicitud auxSolicitud){
 		
 		for(int i=0;i<this.modelAudiencia.getSelectSolicitud().size();i++){
-			if(this.modelAudiencia.getSelectSolicitud().get(i)==idSolicitud){
+			if(this.modelAudiencia.getSelectSolicitud().get(i).getIdSolicitud()==auxSolicitud.getIdSolicitud()){
 				return "fa-check";
 			}
 		}
@@ -206,8 +209,7 @@ public class ControllerAudiencia {
 		if(this.modelAudiencia.getSelectSolicitud().size()==0){
 			return true;
 		}else{
-			Long id = this.modelAudiencia.getSelectSolicitud().get(0)+0L;
-			String estadoSolicitud = this.solicitudBean.findSolicitud(id).getEstado();
+			String estadoSolicitud = this.modelAudiencia.getSelectSolicitud().get(0).getEstado();
 			if(estadoSolicitud.equals(estado1) || estadoSolicitud.equals(estado2) ){
 				return false;
 			}
@@ -219,8 +221,7 @@ public class ControllerAudiencia {
 	public boolean bloquearBotonAplazar(String estado1, String estado2){
 		
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
-			Long id = this.modelAudiencia.getSelectSolicitud().get(0)+0L;
-			String estadoSolicitud = this.solicitudBean.findSolicitud(id).getEstado();
+			String estadoSolicitud = this.modelAudiencia.getSelectSolicitud().get(0).getEstado();
 			if(estadoSolicitud.equals(estado1) || estadoSolicitud.equals(estado2) ){
 				return false;
 			}
@@ -231,8 +232,9 @@ public class ControllerAudiencia {
 	
 	public boolean bloquearBotonExpedir(){
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
-
-			if(this.solicitudBean.findSolicitudEstado(this.modelAudiencia.getSelectSolicitud().get(0)).equals("AUDIENCIA-FINALIZADA")){
+			String estadoSolicitud = this.modelAudiencia.getSelectSolicitud().get(0).getEstado();
+			
+			if(estadoSolicitud.equals("AUDIENCIA-FINALIZADA")){
 				
 				return false;
 			}
@@ -243,12 +245,12 @@ public class ControllerAudiencia {
 	
 	public String nombreBotonActaConstancia(){
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
-			Solicitud solicitud = this.solicitudBean.findSolicitud(this.modelAudiencia.getSelectSolicitud().get(0));
+			Solicitud auxSolicitud = this.modelAudiencia.getSelectSolicitud().get(0);
 			
-			if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().size()==2){
+			if(auxSolicitud.getAudiencias().get(auxSolicitud.getAudiencias().size()-1).getResultados().size()==2){
 				return "Acta";
-			}else if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().size()==1){
-				if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().get(0).getTipoResultado().equalsIgnoreCase("ACUERDO")){
+			}else if(auxSolicitud.getAudiencias().get(auxSolicitud.getAudiencias().size()-1).getResultados().size()==1){
+				if(auxSolicitud.getAudiencias().get(auxSolicitud.getAudiencias().size()-1).getResultados().get(0).getTipoResultado().equalsIgnoreCase("ACUERDO")){
 					return "Acta";
 				}else{
 					return "Constancia";
@@ -260,9 +262,9 @@ public class ControllerAudiencia {
 	
 	public boolean bloquearBotonSubir(){
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
-			Solicitud solicitud=this.solicitudBean.findSolicitud(this.modelAudiencia.getSelectSolicitud().get(0));
+			Solicitud auxSolicitud = this.modelAudiencia.getSelectSolicitud().get(0);
 			
-			if(solicitud.getEstado().equals("AUDIENCIA-FINALIZADA") && solicitud.getActasConciliaciones().size()==0){
+			if(auxSolicitud.getEstado().equals("AUDIENCIA-FINALIZADA") && auxSolicitud.getActasConciliaciones().size()==0){
 				return false;
 			}
 	
@@ -272,9 +274,9 @@ public class ControllerAudiencia {
 	
 	public boolean bloquearBotonExpedirCopia(){
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
-			Solicitud solicitud=this.solicitudBean.findSolicitud(this.modelAudiencia.getSelectSolicitud().get(0));
+			Solicitud auxSolicitud = this.modelAudiencia.getSelectSolicitud().get(0);
 			
-			if(solicitud.getEstado().equals("AUDIENCIA-FINALIZADA") && solicitud.getActasConciliaciones().size()==1){
+			if(auxSolicitud.getEstado().equals("AUDIENCIA-FINALIZADA") && auxSolicitud.getActasConciliaciones().size()==1){
 				return false;
 			}
 	
@@ -284,9 +286,10 @@ public class ControllerAudiencia {
 	
 	public boolean bloquearBotonDevolucion(){
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
-			Solicitud solicitud = this.solicitudBean.findSolicitud(this.modelAudiencia.getSelectSolicitud().get(0));
-			if(solicitud.getDevoluciones().size()==1){
-				if(solicitud.getEstado().equals("AUDIENCIA-FINALIZADA") && !solicitud.getDevoluciones().get(0).isDevolucion()){
+			Solicitud auxSolicitud = this.modelAudiencia.getSelectSolicitud().get(0);
+			
+			if(auxSolicitud.getDevoluciones().size()==1){
+				if(auxSolicitud.getEstado().equals("AUDIENCIA-FINALIZADA") && !auxSolicitud.getDevoluciones().get(0).isDevolucion()){
 					return false;
 				}
 			}			
@@ -308,44 +311,43 @@ public class ControllerAudiencia {
 	public void GuardarActa(){
 		
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
-			Long idSolicitud=this.modelAudiencia.getSelectSolicitud().get(0);
-			Solicitud solicitud = this.solicitudBean.findSolicitud(idSolicitud);
+			Solicitud auxSolicitud = this.modelAudiencia.getSelectSolicitud().get(0);
 			
-				if(this.fileUtilities.getFile()!=null){
-					
-					String folderName="Resultado";
-					
-					if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().size()==2){
+			if(this.fileUtilities.getFile()!=null){
+				
+				String folderName="Resultado";
+				int lastAudiencia = auxSolicitud.getAudiencias().size()-1;
+				if(auxSolicitud.getAudiencias().get(lastAudiencia).getResultados().size()==2){
+					folderName= "Acta";
+				}else if(auxSolicitud.getAudiencias().get(lastAudiencia).getResultados().size()==1){
+					if(auxSolicitud.getAudiencias().get(lastAudiencia).getResultados().get(0).getTipoResultado().equalsIgnoreCase("ACUERDO")){
 						folderName= "Acta";
-					}else if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().size()==1){
-						if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().get(0).getTipoResultado().equalsIgnoreCase("ACUERDO")){
-							folderName= "Acta";
-						}else{
-							folderName= "Constancia";
-						}
+					}else{
+						folderName= "Constancia";
 					}
-					
-					String path = "C:/Conalbos-Madiba/Solicitud #"+idSolicitud;
-					//String folderName = "Resultado";
-					//String fileName = nombreExcusa(this.files.get(i));
-					String fileName = solicitud.getNroRadicado().toString();
-					this.fileUtilities.createFolder(path,folderName);
-					this.fileUtilities.upload(this.fileUtilities.getFile(),path+"/"+folderName,fileName);
-					
-					Actas_Conciliacione actaConstancia = new Actas_Conciliacione();
-					
-					String ruta = path+"/"+folderName+"/"+fileName+this.fileUtilities.getFileExtention(this.fileUtilities.getFileName(this.fileUtilities.getFile()));
-					Date fecha = new Date();
-					
-					actaConstancia.setFechaExpedicion(fecha);
-					actaConstancia.setRuta(ruta);
-					actaConstancia.setLimiteCopias(3);
-					actaConstancia.setSolicitud(solicitud);
-					actaConstancia.setRuta(ruta);
-					actaConstancia.setTipo(folderName);
-					
-					this.solicitudBean.guardarActaConstancia(actaConstancia);
 				}
+				
+				String path = "C:/Conalbos-Madiba/Solicitud #"+auxSolicitud.getIdSolicitud();
+				//String folderName = "Resultado";
+				//String fileName = nombreExcusa(this.files.get(i));
+				String fileName = auxSolicitud.getNroRadicado().toString();
+				this.fileUtilities.createFolder(path,folderName);
+				this.fileUtilities.upload(this.fileUtilities.getFile(),path+"/"+folderName,fileName);
+				
+				Actas_Conciliacione actaConstancia = new Actas_Conciliacione();
+				
+				String ruta = path+"/"+folderName+"/"+fileName+this.fileUtilities.getFileExtention(this.fileUtilities.getFileName(this.fileUtilities.getFile()));
+				Date fecha = new Date();
+				
+				actaConstancia.setFechaExpedicion(fecha);
+				actaConstancia.setRuta(ruta);
+				actaConstancia.setLimiteCopias(3);
+				actaConstancia.setSolicitud(auxSolicitud);
+				actaConstancia.setRuta(ruta);
+				actaConstancia.setTipo(folderName);
+				
+				this.solicitudBean.guardarActaConstancia(actaConstancia);
+			}
 
 		}
 		
@@ -354,22 +356,21 @@ public class ControllerAudiencia {
 	public void downloadActa(){
 
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
-			
-			Long idSolicitud=this.modelAudiencia.getSelectSolicitud().get(0);
-			Solicitud solicitud = this.solicitudBean.findSolicitud(idSolicitud);
+
+			Solicitud auxSolicitud = this.modelAudiencia.getSelectSolicitud().get(0);
 			
 			//Solo se permite descargar 3 veces
-			if(solicitud.getActasConciliaciones().get(0).getCopias().size() < solicitud.getActasConciliaciones().get(0).getLimiteCopias()){
-				String path = solicitud.getActasConciliaciones().get(0).getRuta();
+			if(auxSolicitud.getActasConciliaciones().get(0).getCopias().size() < auxSolicitud.getActasConciliaciones().get(0).getLimiteCopias()){
+				String path = auxSolicitud.getActasConciliaciones().get(0).getRuta();
 				
-				String name = solicitud.getNroRadicado().toString();
+				String name = auxSolicitud.getNroRadicado().toString();
 				this.fileUtilities.download(path, name);
 				
 				Copia copia = new Copia();
 				Date fecha = new Date();
-				copia.setActasConciliacione(solicitud.getActasConciliaciones().get(0));
+				copia.setActasConciliacione(auxSolicitud.getActasConciliaciones().get(0));
 				copia.setFechaGeneracion(fecha);
-				copia.setNumCopia(solicitud.getActasConciliaciones().get(0).getCopias().size()+1);
+				copia.setNumCopia(auxSolicitud.getActasConciliaciones().get(0).getCopias().size()+1);
 				this.solicitudBean.guardarCopia(copia);
 			}
 			
@@ -381,13 +382,15 @@ public class ControllerAudiencia {
 	 * una Audiencia y hubo Inacistencia
 	 */
 	public void devolucion(){
-		Solicitud solicitud = this.solicitudBean.findSolicitud(this.modelAudiencia.getSelectSolicitud().get(0));
-		
-		Date fecha = new Date();
-		boolean devolucion = true;
+		if(this.modelAudiencia.getSelectSolicitud().size()==1){
+			Solicitud auxSolicitud = this.modelAudiencia.getSelectSolicitud().get(0);
+			
+			Date fecha = new Date();
+			boolean devolucion = true;
 
-		Long idDevolucion = solicitud.getDevoluciones().get(0).getIdDevolucion();
-		
-		this.solicitudBean.actualizarDevolucion(idDevolucion, devolucion, fecha);
+			Long idDevolucion = auxSolicitud.getDevoluciones().get(0).getIdDevolucion();
+			
+			this.solicitudBean.actualizarDevolucion(idDevolucion, devolucion, fecha);
+		}
 	}
 }

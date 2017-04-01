@@ -54,15 +54,14 @@ public class ControllerConciliador {
 	}
 	
 	//Designa el conciliador que este esperando el turno y lo manda al final de la cola
-	public void reparto(Long idSolicitud) {
+	public void reparto(Solicitud auxSolicitud) {
 		List<Reparto> reparto = this.conciliadorBean.allReparto();
-		Solicitud solicitudDesignacion = this.solicitudBean.findSolicitud(idSolicitud);
 		
-		String tipoDesignacion = solicitudDesignacion.getDesignacions().get(solicitudDesignacion.getDesignacions().size()-1).getTipoDesignacion();
+		String tipoDesignacion = auxSolicitud.getDesignacions().get(auxSolicitud.getDesignacions().size()-1).getTipoDesignacion();
 		this.modelConciliador.setTipoDesignacion(tipoDesignacion);
 		
 		this.conciliadorBean.removeAllReparto();
-		this.modelConciliador.setConciliador(this.conciliadorBean.reparto(idSolicitud,reparto));
+		this.modelConciliador.setConciliador(this.conciliadorBean.reparto(auxSolicitud.getIdSolicitud(),reparto));
 		
 		
 	}

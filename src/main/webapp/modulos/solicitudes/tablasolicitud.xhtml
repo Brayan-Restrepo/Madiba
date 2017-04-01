@@ -15,6 +15,7 @@
 				<tr>
 					<th>Select</th>
 					<th>Estado</th>
+					<th>N° Radicado</th>
 					<th>Pretenciones</th>
 					<th>Conciliador por</th>
 					<th>Conciliador</th>	
@@ -28,17 +29,19 @@
 			</thead>
 			<tbody>
 				<ui:repeat var="solicitud" value="#{listaSolicitud}">
-				<tr class="#{controllerSolicitud.seleccionarSolicitud(solicitud.idSolicitud,solicitud.estado)}">
+				<tr class="#{controllerSolicitud.seleccionarSolicitud(solicitud,solicitud.estado)}">
 					<td>
 						<h:panelGrid class="btn btn-xs btn-primary">
-							<f:ajax event="click" listener="#{modelSolicitud.addSelectSolicitud(solicitud.idSolicitud,solicitud.estado)}" render="#{formulario}"></f:ajax>
-							<i class="fa #{controllerSolicitud.changeIconSelect(solicitud.idSolicitud)}"></i>
+							<f:ajax event="click" listener="#{modelSolicitud.addSelectSolicitud(solicitud,solicitud.estado)}" render="#{formulario}"></f:ajax>
+							<i class="fa #{controllerSolicitud.changeIconSelect(solicitud)}"></i>
 	            		</h:panelGrid>
 					</td>
 					<td>					
 						<h:outputLabel value="#{solicitud.estado}" styleClass="label label-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)}"/>
 					</td>
-				
+					
+					<td>#{solicitud.nroRadicado}</td>
+					
 					<td>
 						 <h:outputText value="#{solicitud.cuantia}"/>
 					</td>	

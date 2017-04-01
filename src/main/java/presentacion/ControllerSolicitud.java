@@ -292,9 +292,9 @@ public class ControllerSolicitud {
 		return null;
 	}
 	
-	public String seleccionarSolicitud(Long idSolicitud,String estado){
+	public String seleccionarSolicitud(Solicitud auxSolicitud,String estado){
 		for(int i=0;i<this.consultaModelSolicitud.getSelectSolicitud().size();i++){
-			if(this.consultaModelSolicitud.getSelectSolicitud().get(i)==idSolicitud){
+			if(this.consultaModelSolicitud.getSelectSolicitud().get(i).getIdSolicitud()==auxSolicitud.getIdSolicitud()){
 				return "seleccionar-solicitud-"+this.coloresEstado.get(estado);
 			}
 		}
@@ -366,7 +366,6 @@ public class ControllerSolicitud {
 	
 	public boolean cambiarFichaTabla(){
 		this.consultaModelSolicitud.setFicha(!this.consultaModelSolicitud.isFicha());
-		System.out.println(this.consultaModelSolicitud.isFicha());
 		return this.consultaModelSolicitud.isFicha();
 	}
 	
@@ -397,8 +396,7 @@ public class ControllerSolicitud {
 			if(this.consultaModelSolicitud.getSelectSolicitud().size()==0){
 				return true;
 			}else{
-				Long id = this.consultaModelSolicitud.getSelectSolicitud().get(0)+0L;
-				String estadoSolicitud = this.solicitudBean.findSolicitud(id).getEstado();
+				String estadoSolicitud = this.consultaModelSolicitud.getSelectSolicitud().get(0).getEstado();
 				if(estadoSolicitud.equals(estado1) || estadoSolicitud.equals(estado2) ){
 					return false;
 				}
@@ -407,10 +405,10 @@ public class ControllerSolicitud {
 		return true;
 	}
 		
-	public String changeIconSelect(Long idSolicitud){
+	public String changeIconSelect(Solicitud auxSolicitud){
 		
 		for(int i=0;i<this.consultaModelSolicitud.getSelectSolicitud().size();i++){
-			if(this.consultaModelSolicitud.getSelectSolicitud().get(i)==idSolicitud){
+			if(this.consultaModelSolicitud.getSelectSolicitud().get(i).getIdSolicitud()==auxSolicitud.getIdSolicitud()){
 				return "fa-check";
 			}
 		}

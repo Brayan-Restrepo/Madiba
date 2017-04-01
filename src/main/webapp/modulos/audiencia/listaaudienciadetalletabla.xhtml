@@ -145,8 +145,8 @@
 		<div class='main-footer' style="height: 43.11111px;">
 			<div class="text-center">
 				<h:form id="formBotones">
-					<h:commandButton value="Ficha" action="listaaudienciadetalleficha?faces-redirect=true" styleClass="btn btn-sm btn-primary btn-menu"/>
-					<h:commandButton value="Desarrollo Audiencia" actionListener="#{controllerSession.setIdAudienciaDesarroloAudiencia(controllerAudienciaDetalle.idAudienciaSelect)}" action="verdesarrolloaudiencia?faces-redirect=true"  disabled="#{controllerAudienciaDetalle.bloquearBotonDesarrolloAudiencia()}" styleClass="btn btn-sm btn-primary btn-menu" />
+					<h:commandButton value="Ficha" action="listaaudienciadetalleficha" styleClass="btn btn-sm btn-primary btn-menu"/>
+					<h:commandButton value="Desarrollo Audiencia" actionListener="#{controllerSession.setIdAudienciaDesarroloAudiencia(controllerAudienciaDetalle.idAudienciaSelect)}" action="verdesarrolloaudiencia"  disabled="#{controllerAudienciaDetalle.bloquearBotonDesarrolloAudiencia()}" styleClass="btn btn-sm btn-primary btn-menu" />
 				</h:form>				
 			</div>
 		</div>

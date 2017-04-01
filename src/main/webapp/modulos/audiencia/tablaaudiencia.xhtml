@@ -16,6 +16,8 @@
 			<thead>
 				<tr>
 					<th></th>
+					
+					<th>N° Radicado</th>
 					<th>N° Audiencia</th>
 					<th>Estado</th>
 					<th>Conciliador</th>	
@@ -29,13 +31,14 @@
 			</thead>
 			<tbody>
 				<ui:repeat var="audiencia" value="#{listaAudiencia}">
-					<tr class="#{controllerAudiencia.seleccionarSolicitud(audiencia.idSolicitud,audiencia.estado)}">
+					<tr class="#{controllerAudiencia.seleccionarSolicitud(audiencia,audiencia.estado)}">
 						<td>
 							<h:panelGrid class="btn btn-xs btn-primary">
-								<f:ajax event="click" listener="#{modelAudiencia.addSelectSolicitud(audiencia.idSolicitud,audiencia.estado)}" render="#{formulario}"></f:ajax>
-								<i class="fa #{controllerAudiencia.changeIconSelect(audiencia.idSolicitud)}"></i>
+								<f:ajax event="click" listener="#{modelAudiencia.addSelectSolicitud(audiencia,audiencia.estado)}" render="#{formulario}"></f:ajax>
+								<i class="fa #{controllerAudiencia.changeIconSelect(audiencia)}"></i>
 		            		</h:panelGrid>
 						</td>
+						<td>#{audiencia.nroRadicado}</td>
 						<td class="text-center">#{audiencia.audiencias.get(audiencia.audiencias.size()-1).audienciaNum}</td>
 						<td>
 							<h:outputLabel value="#{audiencia.estado}"  styleClass="label label-#{controllerSolicitud.colorSolicitudEstado(audiencia.estado)}"/>

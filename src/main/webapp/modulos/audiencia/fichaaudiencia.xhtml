@@ -11,9 +11,9 @@
 	
 	<ui:composition>
 		<h:panelGroup layout="block" styleClass="col-lg-6 col-md-12 col-sm-12 col-xs-12">	
-			<f:ajax event="click" listener="#{modelAudiencia.addSelectSolicitud(solicitud.idSolicitud,solicitud.estado)}" render="#{formulario}" ></f:ajax>
+			<f:ajax event="click" listener="#{modelAudiencia.addSelectSolicitud(solicitud,solicitud.estado)}" render="#{formulario}" ></f:ajax>
 
-			<h:panelGroup layout="block" class="box box-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} sombra #{controllerAudiencia.seleccionarSolicitud(solicitud.idSolicitud,solicitud.estado)}">
+			<h:panelGroup layout="block" class="box box-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} sombra #{controllerAudiencia.seleccionarSolicitud(solicitud,solicitud.estado)}">
 				
 				<div class="box-header with-border" style="padding-bottom:0px">
 					<i>

@@ -218,7 +218,7 @@
 					
 					<h:commandButton value="Tabla" action="listasolicitudestabla" styleClass="btn btn-sm btn-primary btn-menu"/>	
 
-					<h:commandButton value="Detalle Audiencias" action="listaaudienciadetalletabla" actionListener="#{controllerSession.setIdSolicitudAudienciaDetalle(modelSolicitud.selectSolicitud.get(0))}" disabled="#{modelSolicitud.selectSolicitud.size()==1? 'false': 'true'}" styleClass="btn btn-sm btn-primary btn-menu"/>
+					<h:commandButton value="Detalle Audiencias" action="listaaudienciadetalletabla" actionListener="#{controllerSession.setIdSolicitudAudienciaDetalle(modelSolicitud.selectSolicitud.get(0).idSolicitud)}" disabled="#{modelSolicitud.selectSolicitud.size()==1? 'false': 'true'}" styleClass="btn btn-sm btn-primary btn-menu"/>
 					
 					
 					<h:commandButton id="btn-liquidar" styleClass="btn btn-sm btn-default btn-menu" value="Registrar Pago" disabled="true">

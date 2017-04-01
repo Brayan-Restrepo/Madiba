@@ -6,6 +6,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import entidades.Solicitud;
+
 @ManagedBean
 @ViewScoped
 public class ModelSolicitud {
@@ -41,36 +43,35 @@ public class ModelSolicitud {
 	//Hay que quitar esto es solo provicional
 	private boolean ficha; 
 
-	private List<Long> selectSolicitud; 
+	private List<Solicitud> selectSolicitud; 
 	private String statusSelect = "";
 	
 	public ModelSolicitud(){
 		this.ficha=true;
-		this.selectSolicitud=new ArrayList<Long>();
+		this.selectSolicitud=new ArrayList<Solicitud>();
 	}
 	
 	
-	public List<Long> getSelectSolicitud() {
+	public List<Solicitud> getSelectSolicitud() {
 		return selectSolicitud;
 	}
 
 
-	public void setSelectSolicitud(List<Long> selectSolicitud) {
+	public void setSelectSolicitud(List<Solicitud> selectSolicitud) {
 		this.selectSolicitud = selectSolicitud;
 	}
 	
-	public void addSelectSolicitud(Long id, String estado) {
-		System.out.println("Entre al click select "+id);
+	public void addSelectSolicitud(Solicitud auxSolicitud, String estado) {
 		if(!statusSelect.equals(estado)){
 			statusSelect = estado;
-			this.selectSolicitud = new ArrayList<Long>();
+			this.selectSolicitud = new ArrayList<Solicitud>();
 		}
 		if(estado.equalsIgnoreCase("AUDIENCIA-CITACION") || estado.equalsIgnoreCase("AUDIENCIA-FINALIZADA")){
 			boolean isSelect = false;
 			int position = 0;
 			
 			for(int i=0;i<this.selectSolicitud.size();i++){
-				if(this.selectSolicitud.get(i)==id){
+				if(this.selectSolicitud.get(i).getIdSolicitud()==auxSolicitud.getIdSolicitud()){
 					isSelect = true;
 					position = i;
 					break;
@@ -79,24 +80,24 @@ public class ModelSolicitud {
 			if(isSelect){
 				this.selectSolicitud.remove(position);
 			}else{
-				this.selectSolicitud.add(id);
+				this.selectSolicitud.add(auxSolicitud);
 			}
 			System.out.println(isSelect);
 		}
 		else{
 			if(this.selectSolicitud.size()>0){
-				Long idSolicitudLista = this.selectSolicitud.get(0);
-				this.selectSolicitud = new ArrayList<Long>();
-				if(idSolicitudLista != id){
-					this.selectSolicitud.add(id);
+				Long idSolicitudLista = this.selectSolicitud.get(0).getIdSolicitud();
+				this.selectSolicitud = new ArrayList<Solicitud>();
+				
+				if(idSolicitudLista != auxSolicitud.getIdSolicitud()){
+					this.selectSolicitud.add(auxSolicitud);
 				}
 			}else{
-				this.selectSolicitud = new ArrayList<Long>();
-				this.selectSolicitud.add(id);
+				this.selectSolicitud = new ArrayList<Solicitud>();
+				this.selectSolicitud.add(auxSolicitud);
 				statusSelect = estado;
 			}
 		}
-		System.out.println(	this.selectSolicitud.toString());
 	}
 
 	public String getPretenciones() {
