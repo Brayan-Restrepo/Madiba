@@ -18,6 +18,14 @@
 			<ul class="sidebar-menu main-footer">
 				<li class="header"><i class="fa fa-search"></i>  BUSQUEDA</li>
 			</ul>
+			<h:panelGroup rendered="true" class="box box-header box-danger" style="margin: 15px;width:195px;height:25px;background-color: #DD4B39">
+	        	<p style="margin-top: -10px;color: white">Mensaje</p>
+	        	<div class="box-tools pull-right">
+	            	<button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove" style="margin-top: -13px;margin-right: -10px">
+	              		<i class="fa fa-times" style="color: white"></i>
+	              	</button>
+              	</div>
+		    </h:panelGroup>
 			<h:form>
 				<h:panelGroup class="has-success" layout="block">
 					<h:panelGrid columns="1" style="margin:15px">
@@ -35,7 +43,7 @@
 				    
 					<h:panelGrid columns="2" style="margin:15px">
 						<p:outputLabel value="Cédula" style="color: white;width:80px" />    
-			        	<p:inputText id="cc" class="fa" value="#{modelBusqueda.cc}" style="width:115px;text-align:center"/>	
+			        	<p:inputText id="cc" class="fa" value="#{modelBusqueda.cc}" style="width:115px;text-align:center" required="true"/>	
 					</h:panelGrid>
 				    
 					<h:panelGrid columns="2" style="margin:15px">
