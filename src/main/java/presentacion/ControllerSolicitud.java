@@ -95,24 +95,26 @@ public class ControllerSolicitud {
 		System.out.println("**********> "+this.modelBusqueda.getTipoParte());
 		System.out.println("**********> "+this.modelBusqueda.getFechaInicio());
 		System.out.println("**********> "+this.modelBusqueda.getFechaFinal());
+		System.out.println("**********> "+this.modelBusqueda.isMensaje());
 				
 		String ccParte = this.modelBusqueda.getCc();
 		String tipoParte = this.modelBusqueda.getTipoParte();
+
+		Date fechaActual = new Date();
+    	Calendar calendar = Calendar.getInstance();
+    	calendar.setTime(fechaActual);
+    	calendar.add(Calendar.MONTH, -3);   
+    	String fechFn = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual);
+    	String fechIn = new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());
 		
-		String fechIn = "";
-		String fechFn = "";
 		
 		if((this.modelBusqueda.getFechaInicio() == null || this.modelBusqueda.getFechaInicio().equals("")) && 
 				(this.modelBusqueda.getFechaFinal() == null || this.modelBusqueda.getFechaFinal().equals("")) && 
 				(ccParte == null || ccParte.equals(""))){
 			this.listaSolicitud = this.solicitudBean.findSolicitudes();
-			// Activa el mensaje
-			this.modelBusqueda.setMensaje(true);
 		}else{
 			if(ccParte == null || ccParte.equals("")){
 				this.listaSolicitud = this.solicitudBean.findSolicitudes();
-				// Activa el mensaje
-				this.modelBusqueda.setMensaje(true);
 			}else{
 				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
 						(this.modelBusqueda.getFechaFinal() != null && !this.modelBusqueda.getFechaFinal().equals(""))){
@@ -134,17 +136,9 @@ public class ControllerSolicitud {
 					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
 					Date fechaInicial = null;
 					Date fechaFinal = null;
-					
-					Date fechaActual = new Date();
-			    	Calendar calendar = Calendar.getInstance();
-			    	calendar.setTime(fechaActual);
-			    	calendar.add(Calendar.MONTH, -3); 
 					try {
-						 fechaInicial = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
-						 fechaFinal = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechaActual));
-						 
-						 fechIn = fechaInicial.toString();
-						 fechFn = fechaFinal.toString();
+						 fechaInicial = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechIn));
+						 fechaFinal = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechFn));
 					} catch (ParseException ex) {
 					     ex.printStackTrace();
 					}
@@ -153,8 +147,6 @@ public class ControllerSolicitud {
 					}else {
 						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, ccParte, tipoParte);
 					}
-					// Activa el mensaje
-					this.modelBusqueda.setMensaje(true);
 				}
 			}
 		}
@@ -164,6 +156,7 @@ public class ControllerSolicitud {
 		this.modelBusqueda.setTipoParte("Convocante");
 		this.modelBusqueda.setFechaInicio(fechIn);
 		this.modelBusqueda.setFechaFinal(fechFn);
+		this.modelBusqueda.setMensaje(false);
 	}
 	
 	

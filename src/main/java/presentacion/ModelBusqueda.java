@@ -69,4 +69,26 @@ public class ModelBusqueda {
 	public void setMensaje(boolean mensaje) {
 		this.mensaje = mensaje;
 	}
+	
+	public void valFechIn(){
+		Date fechaActual = new Date();
+    	Calendar calendar = Calendar.getInstance();
+    	calendar.setTime(fechaActual);
+    	calendar.add(Calendar.MONTH, -3);
+		
+		if( this.fechaInicio==null || this.fechaInicio.equals("")){
+			this.fechaInicio = new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());
+		}
+	}
+	
+	public void valFechFn(){
+		Date fechaActual = new Date();
+    	Calendar calendar = Calendar.getInstance();
+    	calendar.setTime(fechaActual);
+    	calendar.add(Calendar.MONTH, -3);   
+    	
+		if( this.fechaFinal==null || this.fechaFinal.equals("")){
+			this.fechaFinal = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual);
+		}
+	}
 }
