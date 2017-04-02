@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import entidades.Asistencia;
 import entidades.Audiencia;
+import entidades.Pago;
 import entidades.Parte;
 import entidades.Resultado;
 
@@ -29,6 +30,11 @@ public class AudienciaDAO {
 		Long res = (Long)this.manager.createNamedQuery("Resultado.countAll").getResultList().get(0);
 		resultado.setIdResultado(res+1);
 		this.manager.persist(resultado);
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void addSobreCosto(Pago pago){
+		this.manager.persist(pago);
 	}
 	
 	

@@ -56,8 +56,16 @@ public class ModelDesarrolloAudiencia {
 	 */
 	private boolean acuerdoParcial;
 	
+	private double nuevaCuantia;
 	
-	
+	public double getNuevaCuantia() {
+		return nuevaCuantia;
+	}
+
+	public void setNuevaCuantia(double nuevaCuantia) {
+		this.nuevaCuantia = nuevaCuantia;
+	}
+
 	public List<Long[]> getListaAsistencias() {
 		return listaAsistencias;
 	}

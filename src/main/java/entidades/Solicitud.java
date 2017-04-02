@@ -40,7 +40,7 @@ public class Solicitud implements Serializable {
 
 	private Boolean conciliable;
 
-	private Integer cuantia;
+	private double cuantia;
 
 	private String estado;
 
@@ -108,11 +108,11 @@ public class Solicitud implements Serializable {
 		this.conciliable = conciliable;
 	}
 
-	public Integer getCuantia() {
+	public double getCuantia() {
 		return this.cuantia;
 	}
 
-	public void setCuantia(Integer cuantia) {
+	public void setCuantia(double cuantia) {
 		this.cuantia = cuantia;
 	}
 

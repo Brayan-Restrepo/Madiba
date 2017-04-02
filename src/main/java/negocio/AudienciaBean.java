@@ -8,6 +8,7 @@ import dao.SolicitudDAO;
 import entidades.Asistencia;
 import entidades.Resultado;
 import entidades.Audiencia;
+import entidades.Pago;
 
 @Stateless
 public class AudienciaBean implements iAudienciaBean {
@@ -19,13 +20,19 @@ public class AudienciaBean implements iAudienciaBean {
 	SolicitudDAO solicitudDAO;
 	
 	@Override
-	public void addResultado(String tipoResultado, Audiencia audiencia, String conclusion, Long idSolicitud) {
+	public void addResultado(String tipoResultado, Audiencia audiencia, String conclusion, Long idSolicitud, double nuevaCuantia) {
 		Resultado resultado = new Resultado();
 		resultado.setTipoResultado(tipoResultado);
 		resultado.setConclusion(conclusion);
 		resultado.setAudiencia(audiencia);
+		resultado.setNuevaCuantia(nuevaCuantia);
 		this.audienciaDAO.addResultado(resultado);
 		
+	}
+	
+	@Override
+	public void addSobreCosto(Pago pago){
+		this.audienciaDAO.addSobreCosto(pago);
 	}
 	
 	@Override
@@ -34,6 +41,7 @@ public class AudienciaBean implements iAudienciaBean {
 		resultado.setTipoResultado(tipoResultado);
 		resultado.setConclusion(conclusion);
 		resultado.setAudiencia(audiencia);
+		resultado.setNuevaCuantia(0);
 		this.audienciaDAO.addResultado(resultado);
 	}
 	

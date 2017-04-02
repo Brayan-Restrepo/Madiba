@@ -16,6 +16,7 @@ public class Pago implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_pago")
 	private Long idPago;
 
@@ -29,8 +30,14 @@ public class Pago implements Serializable {
 
 	private Integer referencia;
 
-	private Integer valor;
+	private double valor;
 
+	/**
+	 * (PAGADO - NOPAGADO) - Los Pagos Normales
+	 * (SPAGADO - SNOPAGADO) - Los pagos por sobrecosto (del 10% o por nueva Cuantia) 
+	 */
+	private String estado;
+	
 	//bi-directional many-to-one association to Solicitud
 	@ManyToOne
 	@JoinColumn(name="id_solicitud")
@@ -79,11 +86,11 @@ public class Pago implements Serializable {
 		this.referencia = referencia;
 	}
 
-	public Integer getValor() {
+	public double getValor() {
 		return this.valor;
 	}
 
-	public void setValor(Integer valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 
@@ -95,4 +102,12 @@ public class Pago implements Serializable {
 		this.solicitud = solicitud;
 	}
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
 }

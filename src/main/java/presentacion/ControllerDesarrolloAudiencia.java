@@ -14,6 +14,7 @@ import javax.servlet.http.Part;
 
 import entidades.Audiencia;
 import entidades.Devolucione;
+import entidades.Pago;
 import entidades.Solicitud;
 import negocio.iAudienciaBean;
 import negocio.iSolicitudBean;
@@ -130,7 +131,7 @@ public class ControllerDesarrolloAudiencia {
 			
 			this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
 			
-			this.audienciaBean.addResultado("INASISTENCIA", this.solicitud.getAudiencias().get(lastAudiencia), "INASISTENCIA", this.solicitud.getIdSolicitud());
+			this.audienciaBean.addResultado("INASISTENCIA", this.solicitud.getAudiencias().get(lastAudiencia), "INASISTENCIA", this.solicitud.getIdSolicitud(), 0);
 			if(this.solicitud.getAudiencias().get(lastAudiencia).getAudienciaNum()==1){
 				
 				Devolucione devolucione = new Devolucione();
@@ -161,17 +162,39 @@ public class ControllerDesarrolloAudiencia {
 						this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "FINALIZADA");
 	
 						this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
+						this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
+						this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
 						
-						this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud());
-						this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud());
+						if(this.modelDesarrolloAudiencia.getNuevaCuantia()>this.solicitud.getCuantia()){
+							
+							double nuevaCuantia;							
+							nuevaCuantia=(this.modelDesarrolloAudiencia.getNuevaCuantia()-this.solicitud.getCuantia())*(this.solicitud.getValorPagar()/this.solicitud.getCuantia());
+							
+							Pago pago = new Pago();
+							pago.setValor(nuevaCuantia);
+							pago.setEstado("SNOPAGADO");
+							pago.setSolicitud(this.solicitud);
+							this.audienciaBean.addSobreCosto(pago);
+							
+						}
 					}
 				}else{
 					if((observacion!="" && observacion!=null) && tipoResultado!=null && tipoResultado!=""){
+						
 						this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "FINALIZADA");
-						
 						this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
+						this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
 						
-						this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
+						if(this.modelDesarrolloAudiencia.getNuevaCuantia()>this.solicitud.getCuantia()){
+							double nuevaCuantia;							
+							nuevaCuantia=(this.modelDesarrolloAudiencia.getNuevaCuantia()-this.solicitud.getCuantia())*(this.solicitud.getValorPagar()/this.solicitud.getCuantia());
+							
+							Pago pago = new Pago();
+							pago.setValor(nuevaCuantia);
+							pago.setEstado("SNOPAGADO");
+							pago.setSolicitud(this.solicitud);
+							this.audienciaBean.addSobreCosto(pago);	
+						}	
 					}
 				}
 			}
@@ -343,6 +366,20 @@ public class ControllerDesarrolloAudiencia {
 			return false;
 		}
 		if(this.modelDesarrolloAudiencia.getTipoResultado()=="" || this.modelDesarrolloAudiencia.getTipoResultado()==null){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
+	/**
+	 * Se Activa el Componeste de Nuevas Pretenciones Solo y Solo si Hay un Acuerdo
+	 * @return
+	 */
+	public boolean activarPretenciones(){
+		System.out.print("Entro al Ajax");
+		if(this.modelDesarrolloAudiencia.getTipoResultado()!=null && this.modelDesarrolloAudiencia.getTipoResultado().equalsIgnoreCase("ACUERDO")){
 			return true;
 		}else{
 			return false;
