@@ -375,14 +375,13 @@ public class ControllerDesarrolloAudiencia {
 	 * @param selectSolicitud
 	 * @return
 	 */
-	public boolean bloquearBotonDesarrollarAudiencia(List<Long> selectSolicitud){
+	public boolean bloquearBotonDesarrollarAudiencia(List<Solicitud> selectSolicitud){
 		
 		if(selectSolicitud.size()==0){
 			return true;
 		}else{
-			Long id = selectSolicitud.get(0)+0L;
-			Solicitud solicitud = this.solicitudBean.findSolicitud(id);
-			if(solicitud.getEstado().equals("AUDIENCIA-ENCURSO") ){
+			String estadoSolicitud = selectSolicitud.get(0).getEstado();
+			if(estadoSolicitud.equals("AUDIENCIA-ENCURSO") ){
 				if(this.modelLogin.getRole().equals("conalbos")){
 				//	System.out.println("True");
 					return true;

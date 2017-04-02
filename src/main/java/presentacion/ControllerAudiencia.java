@@ -393,4 +393,17 @@ public class ControllerAudiencia {
 			this.solicitudBean.actualizarDevolucion(idDevolucion, devolucion, fecha);
 		}
 	}
+	
+	/**
+	 * Activa em modal del Sistema de ciopias
+	 * @return
+	 */
+	public boolean activarModalCopia(){
+		if(this.modelAudiencia.getSelectSolicitud().size()==1){
+			if(this.modelAudiencia.getSelectSolicitud().get(0).getActasConciliaciones().size()==1){
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -77,6 +77,10 @@
 														<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Observación  </label>
 														<h:inputTextarea readonly="#{controllerDesarrolloAudiencia.bloquearComponete()}" id="observacion" value="#{modelDesarrolloAudiencia.observacion}" styleClass="form-control" style="resize:none;background-color:#f39c121a;" rows="6"/>
 													</div>
+													<div class="form-group has-success col-lg-offset-2 col-lg-10">
+														<h:outputLabel value="Pretenciones:" styleClass="espacio5" />
+														<h:inputText value="#{controllerDesarrolloAudiencia.solicitud.cuantia}" />
+													</div>
 												</h:panelGroup>
 												
 												<h:panelGroup layout="block" rendered="#{modelDesarrolloAudiencia.acuerdoParcial}" styleClass="box-body">
