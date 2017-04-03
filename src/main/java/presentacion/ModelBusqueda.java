@@ -1,12 +1,19 @@
 package presentacion;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
+
+import entidades.Conciliador;
+import negocio.iConciliadorBean;
 
 @ManagedBean
 @SessionScoped
@@ -16,8 +23,13 @@ public class ModelBusqueda {
     private String fechaFinal;
     private String cc;
     private String tipoParte;
-    
-    private boolean mensaje = false;
+
+	private List<SelectItem> conciliadores;
+
+	private boolean mensaje = false;
+	
+	@EJB
+	public iConciliadorBean conciliadorBean;
 
 	public ModelBusqueda(){
 		Date fechaActual = new Date();
@@ -27,8 +39,17 @@ public class ModelBusqueda {
 	
 		this.fechaFinal = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual);
 		this.fechaInicio = new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());
-		this.tipoParte = "Convocante";
+		this.tipoParte = "Radicado";
     }
+	
+	@PostConstruct
+	public void initConciliadores(){
+		conciliadores = new ArrayList<SelectItem>();
+		List<Conciliador> listaConciliadores = conciliadorBean.allConciliador();
+		for (int i = 0; i < listaConciliadores.size(); i++) {
+			conciliadores.add(new SelectItem(listaConciliadores.get(i).getIdentificacion(), listaConciliadores.get(i).getNombres()+" "+listaConciliadores.get(i).getApellidos()));
+		}
+	}
 
 	public String getFechaInicio() {
 		return fechaInicio;
@@ -70,7 +91,7 @@ public class ModelBusqueda {
 		this.mensaje = mensaje;
 	}
 	
-	public void valFechIn(){
+	public void valFechIn(){	
 		Date fechaActual = new Date();
     	Calendar calendar = Calendar.getInstance();
     	calendar.setTime(fechaActual);
@@ -90,5 +111,13 @@ public class ModelBusqueda {
 		if( this.fechaFinal==null || this.fechaFinal.equals("")){
 			this.fechaFinal = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual);
 		}
+	}
+	
+	public List<SelectItem> getConciliadores() {
+		return conciliadores;
+	}
+
+	public void setConciliadores(List<SelectItem> conciliadores) {
+		this.conciliadores = conciliadores;
 	}
 }
