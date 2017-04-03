@@ -24,15 +24,15 @@ public class SolicitudBean implements iSolicitudBean {
 	}
 
 	@Override
-	public List<Solicitud> findSolicitudes() {
+	public List<Solicitud> findSolicitudes(Date fechaInicial, Date fechaFinal){
 		// TODO Auto-generated method stub
-		return this.solicitudDAO.findSolicitudes();
+		return this.solicitudDAO.findSolicitudes(fechaInicial, fechaFinal);
 	}
 
 	@Override
-	public List<Solicitud> findAudiencias(String role, Long idConciliador){
+	public List<Solicitud> findAudiencias(String role, Long idConciliador, Date fechaInicial, Date fechaFinal){
 		// TODO Auto-generated method stub
-		return this.solicitudDAO.findAudiencias(role, idConciliador);
+		return this.solicitudDAO.findAudiencias(role, idConciliador, fechaInicial, fechaFinal);
 	}
 	
 	@Override
@@ -98,14 +98,14 @@ public class SolicitudBean implements iSolicitudBean {
 	}
 
 	@Override
-	public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, Long nroRadicado) {
+	public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, String nroRadicado) {
 		
 		return this.solicitudDAO.findSolicitudesFiltroRadicadoFecha(fechaInicial, fechaFinal, nroRadicado);
 	}
 
 	@Override
 	public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial,
-			Date fechaFinal, Long nroRadicado) {
+			Date fechaFinal, String nroRadicado) {
 		
 		return this.findAudienciasFiltroRadicadoFecha(role, idConciliador, fechaInicial, fechaFinal, nroRadicado);
 	}

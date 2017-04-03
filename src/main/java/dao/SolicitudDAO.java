@@ -48,9 +48,9 @@ public class SolicitudDAO {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Solicitud> findSolicitudes(){
+	public List<Solicitud> findSolicitudes(Date fechaInicial, Date fechaFinal){
 
-		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findSolicitudes").getResultList();
+		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findSolicitudes").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).getResultList();
 		for(int i=0;i<solicitud.size();i++){
 			solicitud.get(i).getPartes().size();
 			solicitud.get(i).getPagos().size();
@@ -123,7 +123,7 @@ public class SolicitudDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, Long nroRadicado){
+	public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, String nroRadicado){
 		
 		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findSolicitudesFiltroRadicadoFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("nroRadicado", nroRadicado).getResultList();
 		for(int i=0;i<solicitud.size();i++){
@@ -149,13 +149,13 @@ public class SolicitudDAO {
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Solicitud> findAudiencias(String role, Long idConciliador){
+	public List<Solicitud> findAudiencias(String role, Long idConciliador, Date fechaInicial, Date fechaFinal){
 		
 		List<Solicitud> solicitud;
 		if(role.equalsIgnoreCase("Conciliador")){
-			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasConciliador").setParameter("idConciliador", idConciliador).getResultList();
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasConciliador").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("idConciliador", idConciliador).getResultList();
 		}else{
-			solicitud = this.manager.createNamedQuery("Solicitud.findAudiencias").getResultList();
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudiencias").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).getResultList();
 		}
 		
 		for(int i=0;i<solicitud.size();i++){
@@ -243,7 +243,7 @@ public class SolicitudDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, Long nroRadicado){
+	public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, String nroRadicado){
 		
 		List<Solicitud> solicitud;
 		if(role.equalsIgnoreCase("Conciliador")){

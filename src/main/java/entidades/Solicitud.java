@@ -15,7 +15,7 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="Solicitud.findAll", query="SELECT s FROM Solicitud s WHERE s.estado like :estado ORDER BY s.idSolicitud"),
 	
-	@NamedQuery(name="Solicitud.findAudiencias", query="SELECT s FROM Solicitud s WHERE s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findAudiencias", query="SELECT s FROM Solicitud s WHERE s.fecha between :fechaInicial AND :fechaFinal AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findAudienciasFiltroParteFecha", query="SELECT DISTINCT s FROM Solicitud s, Agenda ag, Audiencia au, Parte p WHERE ag.fecha BETWEEN :fechaInicial AND :fechaFinal AND ag.audiencia.idAudiencia = au.idAudiencia AND au.solicitud.idSolicitud = s.idSolicitud AND s.idSolicitud = p.solicitud.idSolicitud AND p.identificacion=:identificacion AND p.tipoParte=:tipoParte AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findAudienciasFiltroConciliadorFecha", query="SELECT DISTINCT s FROM Agenda agd, Audiencia aud, Solicitud s, Designacion d, Conciliador c WHERE agd.fecha BETWEEN :fechaInicial AND :fechaFinal AND agd.audiencia.idAudiencia = aud.idAudiencia AND aud.solicitud.idSolicitud = s.idSolicitud AND s.idSolicitud = d.solicitud.idSolicitud AND d.aceptada <> false AND d.conciliador.idConciliador = c.idConciliador AND c.identificacion=:identificacion AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findAudienciasFiltroRadicadoFecha", query="SELECT s FROM Agenda agd, Audiencia aud, Solicitud s WHERE agd.fecha BETWEEN :fechaInicial AND :fechaFinal AND agd.audiencia.idAudiencia = aud.idAudiencia AND aud.solicitud.idSolicitud = s.idSolicitud AND s.nroRadicado = :nroRadicado AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
@@ -24,7 +24,7 @@ import java.util.List;
 	@NamedQuery(name="Solicitud.findAudienciasConciliadorFiltroParteFecha", query="SELECT s FROM Agenda agd, Audiencia aud, Solicitud s, Parte p, Designacion d WHERE agd.fecha BETWEEN :fechaInicial AND :fechaFinal AND agd.audiencia.idAudiencia = aud.idAudiencia AND aud.solicitud.idSolicitud = s.idSolicitud AND s.idSolicitud = p.solicitud.idSolicitud AND p.identificacion = :identificacion AND p.tipoParte = :tipoParte AND s.idSolicitud = d.solicitud.idSolicitud AND d.aceptada <> false AND d.conciliador.idConciliador = :idConciliador  AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findAudienciasConciliadorFiltroRadicadoFecha", query="SELECT s FROM Agenda agd, Audiencia aud, Solicitud s, Designacion d WHERE agd.fecha BETWEEN :fechaInicial AND :fechaFinal AND agd.audiencia.idAudiencia = aud.idAudiencia AND aud.solicitud.idSolicitud = s.idSolicitud AND s.nroRadicado = :nroRadicado AND s.idSolicitud = d.solicitud.idSolicitud AND d.aceptada <> false AND d.conciliador.idConciliador = :idConciliador AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	
-	@NamedQuery(name="Solicitud.findSolicitudes", query="SELECT s FROM Solicitud s ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findSolicitudes", query="SELECT s FROM Solicitud s WHERE s.fecha between :fechaInicial AND :fechaFinal ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findSolicitudesFiltroParteFecha", query="SELECT s FROM Solicitud s, Parte p WHERE s.fecha between :fechaInicial AND :fechaFinal AND s.idSolicitud = p.solicitud.idSolicitud AND p.identificacion = :identificacion AND p.tipoParte=:tipoParte ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findSolicitudesFiltroConciliadorFecha", query="SELECT s FROM Solicitud s, Designacion d, Conciliador c WHERE s.fecha BETWEEN :fechaInicial AND :fechaFinal AND s.idSolicitud = d.solicitud.idSolicitud AND d.aceptada <> false AND d.conciliador.idConciliador = c.idConciliador AND c.identificacion = :identificacion ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findSolicitudesFiltroRadicadoFecha", query="SELECT s FROM Solicitud s WHERE s.fecha BETWEEN :fechaInicial AND :fechaFinal AND s.nroRadicado = :nroRadicado AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
@@ -50,7 +50,7 @@ public class Solicitud implements Serializable {
 	private Date fecha;
 
 	@Column(name="nro_radicado")
-	private Long nroRadicado;
+	private String nroRadicado;
 	
 	@Column(name="valor_pagar")
 	private double valorPagar;
@@ -134,11 +134,11 @@ public class Solicitud implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public Long getNroRadicado() {
+	public String getNroRadicado() {
 		return this.nroRadicado;
 	}
 
-	public void setNroRadicado(Long nroRadicado) {
+	public void setNroRadicado(String nroRadicado) {
 		this.nroRadicado = nroRadicado;
 	}
 	

@@ -26,13 +26,13 @@ public interface iSolicitudBean {
 	public void guardarActaConstancia(Actas_Conciliacione actaConstancia);
 	public void guardarCopia(Copia copia);
 	
-	public List<Solicitud> findSolicitudes();
+	public List<Solicitud> findSolicitudes(Date fechaInicial, Date fechaFinal);
 	public List<Solicitud> findSolicitudesFiltroParteFecha(Date fechaInicial, Date fechaFinal, String ccParte, String tipoParte);
 	public List<Solicitud> findSolicitudesFiltroConciliadorFecha(Date fechaInicial, Date fechaFinal, String identificacion);
-	public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, Long nroRadicado);
+	public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, String nroRadicado);
 	
-	public List<Solicitud> findAudiencias(String role, Long idConciliador);
+	public List<Solicitud> findAudiencias(String role, Long idConciliador, Date fechaInicial, Date fechaFinal);
 	public List<Solicitud> findAudienciasFiltroParteFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, String identificacion, String tipoParte);
 	public List<Solicitud> findAudienciasFiltroConciliadorFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, String identificacion);
-	public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, Long nroRadicado);
+	public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, String nroRadicado);
 }
