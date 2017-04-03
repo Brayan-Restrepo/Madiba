@@ -46,6 +46,7 @@ public class SolicitudDAO {
 		return solicitud;
 	}
 	
+	
 	@SuppressWarnings("unchecked")
 	public List<Solicitud> findSolicitudes(){
 
@@ -122,6 +123,32 @@ public class SolicitudDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, Long nroRadicado){
+		
+		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findSolicitudesFiltroRadicadoFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("nroRadicado", nroRadicado).getResultList();
+		for(int i=0;i<solicitud.size();i++){
+			solicitud.get(i).getPartes().size();
+			solicitud.get(i).getPagos().size();
+			solicitud.get(i).getDesignacions().size();			
+			solicitud.get(i).getAudiencias().size();
+			solicitud.get(i).getActasConciliaciones().size();			
+			solicitud.get(i).getDevoluciones().size();
+			
+			for(int j=0;j<solicitud.get(i).getActasConciliaciones().size();j++){
+				solicitud.get(i).getActasConciliaciones().get(j).getCopias().size();
+			}
+			
+			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){				
+				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
+				solicitud.get(i).getAudiencias().get(j).getAsistencias().size();
+				solicitud.get(i).getAudiencias().get(j).getResultados().size();
+			}
+		}
+		return solicitud;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
 	public List<Solicitud> findAudiencias(String role, Long idConciliador){
 		
 		List<Solicitud> solicitud;
@@ -158,7 +185,7 @@ public class SolicitudDAO {
 		List<Solicitud> solicitud;
 		if(role.equalsIgnoreCase("Conciliador")){
 			//Falta Filtros
-			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasConciliador").setParameter("idConciliador", idConciliador).getResultList();
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasConciliadorFiltroParteFecha").setParameter("idConciliador", idConciliador).setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("identificacion", identificacion).setParameter("tipoParte", tipoParte).getResultList();
 		}else{
 			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasFiltroParteFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("identificacion", identificacion).setParameter("tipoParte", tipoParte).getResultList();
 		}
@@ -214,6 +241,39 @@ public class SolicitudDAO {
 		}
 		return solicitud;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, Long nroRadicado){
+		
+		List<Solicitud> solicitud;
+		if(role.equalsIgnoreCase("Conciliador")){
+			//Falta Filtros
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasConciliadorFiltroRadicadoFecha").setParameter("idConciliador", idConciliador).setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("nroRadicado", nroRadicado).getResultList();
+		}else{
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasFiltroRadicadoFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("nroRadicado", nroRadicado).getResultList();
+		}
+		
+		for(int i=0;i<solicitud.size();i++){
+			solicitud.get(i).getPartes().size();
+			solicitud.get(i).getPagos().size();
+			solicitud.get(i).getDesignacions().size();			
+			solicitud.get(i).getAudiencias().size();
+			solicitud.get(i).getActasConciliaciones().size();			
+			solicitud.get(i).getDevoluciones().size();
+			
+			for(int j=0;j<solicitud.get(i).getActasConciliaciones().size();j++){
+				solicitud.get(i).getActasConciliaciones().get(j).getCopias().size();
+			}
+			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){				
+				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
+				solicitud.get(i).getAudiencias().get(j).getAsistencias().size();
+				solicitud.get(i).getAudiencias().get(j).getResultados().size();
+			}
+		}
+		return solicitud;
+	}
+	
+	
 	@SuppressWarnings("unchecked")
 	public Solicitud findSolicitud(Long id){
 		Solicitud solicitud = this.manager.find(Solicitud.class,id);		

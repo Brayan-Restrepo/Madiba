@@ -24,7 +24,7 @@ public class Resultado implements Serializable {
 	private String conclusion;
 
 	@Column(name="nueva_cuantia")
-	private double nuevaCuantia;
+	private Double nuevaCuantia;
 	
 	@Column(name="tipo_resultado")
 	private String tipoResultado;
@@ -69,11 +69,11 @@ public class Resultado implements Serializable {
 		this.audiencia = audiencia;
 	}
 
-	public double getNuevaCuantia() {
+	public Double getNuevaCuantia() {
 		return nuevaCuantia;
 	}
 
-	public void setNuevaCuantia(double nuevaCuantia) {
+	public void setNuevaCuantia(Double nuevaCuantia) {
 		this.nuevaCuantia = nuevaCuantia;
 	}	
 }

@@ -189,9 +189,18 @@ public class ControllerSolicitud {
 	public List<Solicitud> solicitudesPorEstado(String estado){
 		List<Solicitud> listaPorEstado = new ArrayList<Solicitud>();
 		int size = this.listaSolicitud.size();
-		for(int i=0; i<size; i++){
-			if(this.listaSolicitud.get(i).getEstado().equals(estado)){
-				listaPorEstado.add(this.listaSolicitud.get(i));
+		if(estado.equalsIgnoreCase("AUDIENCIA")){
+			for(int i=0; i<size; i++){
+				if(this.listaSolicitud.get(i).getEstado().equals("AUDIENCIA-CITACION") || this.listaSolicitud.get(i).getEstado().equals("AUDIENCIA-PENDIENTE") || 
+						this.listaSolicitud.get(i).getEstado().equals("AUDIENCIA-ENCURSO")){
+					listaPorEstado.add(this.listaSolicitud.get(i));
+				}
+			}
+		}else{
+			for(int i=0; i<size; i++){
+				if(this.listaSolicitud.get(i).getEstado().equals(estado)){
+					listaPorEstado.add(this.listaSolicitud.get(i));
+				}
 			}
 		}
 		return listaPorEstado;

@@ -41,7 +41,7 @@ public class AudienciaBean implements iAudienciaBean {
 		resultado.setTipoResultado(tipoResultado);
 		resultado.setConclusion(conclusion);
 		resultado.setAudiencia(audiencia);
-		resultado.setNuevaCuantia(0);
+		resultado.setNuevaCuantia(0.0);
 		this.audienciaDAO.addResultado(resultado);
 	}
 	

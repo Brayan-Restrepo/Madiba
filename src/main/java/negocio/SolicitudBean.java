@@ -96,5 +96,18 @@ public class SolicitudBean implements iSolicitudBean {
 	public void guardarCopia(Copia copia) {
 		this.solicitudDAO.guardarCopia(copia);
 	}
+
+	@Override
+	public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, Long nroRadicado) {
+		
+		return this.solicitudDAO.findSolicitudesFiltroRadicadoFecha(fechaInicial, fechaFinal, nroRadicado);
+	}
+
+	@Override
+	public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial,
+			Date fechaFinal, Long nroRadicado) {
+		
+		return this.findAudienciasFiltroRadicadoFecha(role, idConciliador, fechaInicial, fechaFinal, nroRadicado);
+	}
 	
 }

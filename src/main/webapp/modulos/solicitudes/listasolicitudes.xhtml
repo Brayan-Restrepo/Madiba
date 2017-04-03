@@ -89,16 +89,13 @@
 					<div class="col-md-12">
 						<div class="nav-tabs-custom">
 							<ul class="nav nav-tabs" style="border-color: blue">
-								<li class="active"><a href="#todas" data-toggle="tab">Todas</a>
-								</li>
-								<li><a href="#liquidar" data-toggle="tab">Grabada</a>
-								</li>
-								<li><a href="#radicar" data-toggle="tab">Por Radicar</a></li>
-								<li><a href="#asignarConciliador" data-toggle="tab">Por Conciliador</a></li>
-								<li><a href="#audiencia" data-toggle="tab">Para
-										Audiencia</a></li>
-								<li><a href="#registrar" data-toggle="tab">Por
-										Registrar</a></li>
+								<li class="active"><a href="#todas" data-toggle="tab">Todas <span class="label label-black">#{controllerSolicitud.listaSolicitud.size()}</span></a></li>
+								<li><a href="#liquidar" data-toggle="tab">Grabada <span class="label label-#{controllerSolicitud.colorSolicitudEstado('GRABADA')}">#{controllerSolicitud.solicitudesPorEstado('GRABADA').size()}</span></a></li>
+								<li><a href="#radicar" data-toggle="tab">Por Radicar <span class="label label-#{controllerSolicitud.colorSolicitudEstado('PAGADA')}">#{controllerSolicitud.solicitudesPorEstado('PAGADA').size()}</span></a></li>
+								<li><a href="#asignarConciliador" data-toggle="tab">Por Conciliador <span class="label label-#{controllerSolicitud.colorSolicitudEstado('RADICADA')}">#{controllerSolicitud.solicitudesPorEstado('RADICADA').size()}</span></a></li>
+								<li><a href="#paraaudiencia" data-toggle="tab">Para Audiencia <span class="label label-#{controllerSolicitud.colorSolicitudEstado('DESIGNACION')}">#{controllerSolicitud.solicitudesPorEstado('DESIGNACION').size()}</span></a></li>
+								<li><a href="#enaudiencia" data-toggle="tab">En Audiencia <span class="label label-black">#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA').size()}</span></a></li>
+								<li><a href="#registrar" data-toggle="tab">Por Registrar <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-FINALIZADA')}">#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA-FINALIZADA').size()}</span></a></li>
 							</ul>
 							<div class="tab-content">
 
@@ -176,8 +173,8 @@
 									</h:form>
 								</div>
 								
-								<div class="tab-pane" id="audiencia">
-									<h:form id='formaudiencia'>
+								<div class="tab-pane" id="paraaudiencia">
+									<h:form id='formparaaudiencia'>
 
 										<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formasignarconciliador :formregistrar :formBotones" />
 										<ui:repeat varStatus="n" var="solicitud"
@@ -187,6 +184,25 @@
 												<ui:include src="fichasolicitud.xhtml"></ui:include>
 												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('DESIGNACION').size()>(n.index+1)}">							
 													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('DESIGNACION')}">
+														<ui:include src="fichasolicitud.xhtml"></ui:include>
+													</ui:repeat>
+												</h:panelGroup>
+											</div>
+										</ui:repeat>
+									</h:form>
+								</div>
+								
+								<div class="tab-pane" id="enaudiencia">
+									<h:form id='formenaudiencia'>
+
+										<ui:param name="formulario" value="@form :formtodas :formliquidar :formradicar :formasignarconciliador :formregistrar :formBotones" />
+										<ui:repeat varStatus="n" var="solicitud"
+											value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA')}"
+											step="2">
+											<div class="row">
+												<ui:include src="fichasolicitud.xhtml"></ui:include>
+												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA').size()>(n.index+1)}">							
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('AUDIENCIA')}">
 														<ui:include src="fichasolicitud.xhtml"></ui:include>
 													</ui:repeat>
 												</h:panelGroup>

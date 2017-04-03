@@ -18,14 +18,16 @@ import java.util.List;
 	@NamedQuery(name="Solicitud.findAudiencias", query="SELECT s FROM Solicitud s WHERE s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findAudienciasFiltroParteFecha", query="SELECT DISTINCT s FROM Solicitud s, Agenda ag, Audiencia au, Parte p WHERE ag.fecha BETWEEN :fechaInicial AND :fechaFinal AND ag.audiencia.idAudiencia = au.idAudiencia AND au.solicitud.idSolicitud = s.idSolicitud AND s.idSolicitud = p.solicitud.idSolicitud AND p.identificacion=:identificacion AND p.tipoParte=:tipoParte AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findAudienciasFiltroConciliadorFecha", query="SELECT DISTINCT s FROM Agenda agd, Audiencia aud, Solicitud s, Designacion d, Conciliador c WHERE agd.fecha BETWEEN :fechaInicial AND :fechaFinal AND agd.audiencia.idAudiencia = aud.idAudiencia AND aud.solicitud.idSolicitud = s.idSolicitud AND s.idSolicitud = d.solicitud.idSolicitud AND d.aceptada <> false AND d.conciliador.idConciliador = c.idConciliador AND c.identificacion=:identificacion AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findAudienciasFiltroRadicadoFecha", query="SELECT s FROM Agenda agd, Audiencia aud, Solicitud s WHERE agd.fecha BETWEEN :fechaInicial AND :fechaFinal AND agd.audiencia.idAudiencia = aud.idAudiencia AND aud.solicitud.idSolicitud = s.idSolicitud AND s.nroRadicado = :nroRadicado AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	
-	@NamedQuery(name="Solicitud.findAudienciasConciliador", query="SELECT s FROM Solicitud s, Designacion d WHERE s.idSolicitud=d.solicitud.idSolicitud AND d.conciliador.idConciliador=:idConciliador AND d.aceptada=true AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
-	@NamedQuery(name="Solicitud.findAudienciasConciliadorFiltroParteFecha", query="SELECT s FROM Solicitud s, Designacion d WHERE s.idSolicitud=d.solicitud.idSolicitud AND d.conciliador.idConciliador=:idConciliador AND d.aceptada=true AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
-	@NamedQuery(name="Solicitud.findAudienciasConciliadorFiltroConciliadorFecha", query="SELECT s FROM Solicitud s, Designacion d WHERE s.idSolicitud=d.solicitud.idSolicitud AND d.conciliador.idConciliador=:idConciliador AND d.aceptada=true AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findAudienciasConciliador", query="SELECT s FROM Solicitud s, Designacion d WHERE s.idSolicitud=d.solicitud.idSolicitud AND d.conciliador.idConciliador=:idConciliador AND d.aceptada <> false AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findAudienciasConciliadorFiltroParteFecha", query="SELECT s FROM Agenda agd, Audiencia aud, Solicitud s, Parte p, Designacion d WHERE agd.fecha BETWEEN :fechaInicial AND :fechaFinal AND agd.audiencia.idAudiencia = aud.idAudiencia AND aud.solicitud.idSolicitud = s.idSolicitud AND s.idSolicitud = p.solicitud.idSolicitud AND p.identificacion = :identificacion AND p.tipoParte = :tipoParte AND s.idSolicitud = d.solicitud.idSolicitud AND d.aceptada <> false AND d.conciliador.idConciliador = :idConciliador  AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findAudienciasConciliadorFiltroRadicadoFecha", query="SELECT s FROM Agenda agd, Audiencia aud, Solicitud s, Designacion d WHERE agd.fecha BETWEEN :fechaInicial AND :fechaFinal AND agd.audiencia.idAudiencia = aud.idAudiencia AND aud.solicitud.idSolicitud = s.idSolicitud AND s.nroRadicado = :nroRadicado AND s.idSolicitud = d.solicitud.idSolicitud AND d.aceptada <> false AND d.conciliador.idConciliador = :idConciliador AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	
-	@NamedQuery(name="Solicitud.findSolicitudes", query="SELECT s FROM Solicitud s WHERE s.estado='GRABADA' or s.estado='PAGADA' or s.estado='RADICADA' or s.estado='REGISTRADA' or s.estado='DESIGNACION' or s.estado='AUDIENCIA-FINALIZADA' ORDER BY s.fecha"),
-	@NamedQuery(name="Solicitud.findSolicitudesFiltroParteFecha", query="SELECT s FROM Solicitud s, Parte p WHERE s.fecha between :fechaInicial AND :fechaFinal AND s.idSolicitud = p.solicitud.idSolicitud AND p.identificacion = :identificacion AND p.tipoParte=:tipoParte AND(s.estado='GRABADA' or s.estado='PAGADA' or s.estado='RADICADA' or s.estado='REGISTRADA' or s.estado='DESIGNACION' or s.estado='AUDIENCIA-FINALIZADA') ORDER BY s.fecha"),
-	@NamedQuery(name="Solicitud.findSolicitudesFiltroConciliadorFecha", query="SELECT s FROM Solicitud s, Designacion d, Conciliador c WHERE s.fecha BETWEEN :fechaInicial AND :fechaFinal AND s.idSolicitud = d.solicitud.idSolicitud AND d.aceptada <> false AND d.conciliador.idConciliador = c.idConciliador AND c.identificacion = :identificacion AND(s.estado='GRABADA' or s.estado='PAGADA' or s.estado='RADICADA' or s.estado='REGISTRADA' or s.estado='DESIGNACION' or s.estado='AUDIENCIA-FINALIZADA') ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findSolicitudes", query="SELECT s FROM Solicitud s ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findSolicitudesFiltroParteFecha", query="SELECT s FROM Solicitud s, Parte p WHERE s.fecha between :fechaInicial AND :fechaFinal AND s.idSolicitud = p.solicitud.idSolicitud AND p.identificacion = :identificacion AND p.tipoParte=:tipoParte ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findSolicitudesFiltroConciliadorFecha", query="SELECT s FROM Solicitud s, Designacion d, Conciliador c WHERE s.fecha BETWEEN :fechaInicial AND :fechaFinal AND s.idSolicitud = d.solicitud.idSolicitud AND d.aceptada <> false AND d.conciliador.idConciliador = c.idConciliador AND c.identificacion = :identificacion ORDER BY s.fecha"),
+	@NamedQuery(name="Solicitud.findSolicitudesFiltroRadicadoFecha", query="SELECT s FROM Solicitud s WHERE s.fecha BETWEEN :fechaInicial AND :fechaFinal AND s.nroRadicado = :nroRadicado AND s.estado like 'AUDIENCIA%' ORDER BY s.fecha"),
 	
 	
 })
@@ -40,7 +42,7 @@ public class Solicitud implements Serializable {
 
 	private Boolean conciliable;
 
-	private double cuantia;
+	private Double cuantia;
 
 	private String estado;
 
@@ -108,11 +110,11 @@ public class Solicitud implements Serializable {
 		this.conciliable = conciliable;
 	}
 
-	public double getCuantia() {
+	public Double getCuantia() {
 		return this.cuantia;
 	}
 
-	public void setCuantia(double cuantia) {
+	public void setCuantia(Double cuantia) {
 		this.cuantia = cuantia;
 	}
 

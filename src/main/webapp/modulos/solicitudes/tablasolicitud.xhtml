@@ -75,18 +75,18 @@
 				
 					<td>
 						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-							<h:outputText value="#{controllerDominio.nombreDominio(pagos.banco)}" />
+							<h:outputText rendered="#{pagos.estado=='PAGADO'}" value="#{controllerDominio.nombreDominio(pagos.banco)}" />
 						</ui:repeat>
 					</td>
 				
 					<td>
 						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-							<h:outputText value="#{pagos.referencia}" />
+							<h:outputText rendered="#{pagos.estado=='PAGADO'}" value="#{pagos.referencia}" />
 						</ui:repeat>
 					</td>
 					<td>
 						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-							<h:outputText value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
+							<h:outputText rendered="#{pagos.estado=='PAGADO'}" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
 						</ui:repeat>
 					</td>
 					<td>
