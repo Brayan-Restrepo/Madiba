@@ -100,15 +100,15 @@ public class ControllerAudiencia {
 	 * 
 	 */
 	public void findAudiencias(){
-		String ccParte = this.modelBusqueda.getCc();
-		String tipoParte = this.modelBusqueda.getTipoParte();
+		String numero = this.modelBusqueda.getNumero();
+		String tipoFiltro = this.modelBusqueda.getTipoFiltro();
 		
 		if((this.modelBusqueda.getFechaInicio() == null || this.modelBusqueda.getFechaInicio().equals("")) && 
 				(this.modelBusqueda.getFechaFinal() == null || this.modelBusqueda.getFechaFinal().equals("")) && 
-				(ccParte == null || ccParte.equals(""))){
+				(numero == null || numero.equals(""))){
 			this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador());
 		}else{
-			if(ccParte == null || ccParte.equals("")){
+			if(numero == null || numero.equals("")){
 				this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador());
 			}else{
 				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
@@ -122,10 +122,14 @@ public class ControllerAudiencia {
 					} catch (ParseException ex) {
 					     ex.printStackTrace();
 					}
-					if(tipoParte.equals("Conciliador")){
-						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, ccParte);
+					if(tipoFiltro.equals("Conciliador")){
+						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero);
 					}else {
-						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroParteFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, ccParte, tipoParte);
+						if(tipoFiltro.equals("Radicado")){
+							this.listaSolicitud = this.solicitudBean.findAudienciasFiltroRadicadoFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero);
+						}else {
+							this.listaSolicitud = this.solicitudBean.findAudienciasFiltroParteFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero, tipoFiltro);
+						}
 					}
 				}else {
 					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
@@ -142,10 +146,14 @@ public class ControllerAudiencia {
 					} catch (ParseException ex) {
 					     ex.printStackTrace();
 					}
-					if(tipoParte.equals("Conciliador")){
-						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, ccParte);
+					if(tipoFiltro.equals("Conciliador")){
+						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero);
 					}else {
-						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroParteFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, ccParte, tipoParte);
+						if(tipoFiltro.equals("Radicado")){
+							this.listaSolicitud = this.solicitudBean.findAudienciasFiltroRadicadoFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero);
+						}else {
+							this.listaSolicitud = this.solicitudBean.findAudienciasFiltroParteFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero, tipoFiltro);
+						}
 					}
 				}
 			}

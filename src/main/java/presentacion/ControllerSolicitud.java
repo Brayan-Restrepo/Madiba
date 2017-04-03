@@ -91,14 +91,14 @@ public class ControllerSolicitud {
 
 	public void findSolicitudes(){
 		
-		System.out.println("**********> "+this.modelBusqueda.getCc());
+		System.out.println("**********> "+this.modelBusqueda.getNumero());
 		System.out.println("**********> "+this.modelBusqueda.getTipoParte());
 		System.out.println("**********> "+this.modelBusqueda.getFechaInicio());
 		System.out.println("**********> "+this.modelBusqueda.getFechaFinal());
 		System.out.println("**********> "+this.modelBusqueda.isMensaje());
 				
-		String ccParte = this.modelBusqueda.getCc();
-		String tipoParte = this.modelBusqueda.getTipoParte();
+		String numero = this.modelBusqueda.getNumero();
+		String tipoFiltro = this.modelBusqueda.getTipoParte();
 
 		Date fechaActual = new Date();
     	Calendar calendar = Calendar.getInstance();
@@ -110,10 +110,10 @@ public class ControllerSolicitud {
 		
 		if((this.modelBusqueda.getFechaInicio() == null || this.modelBusqueda.getFechaInicio().equals("")) && 
 				(this.modelBusqueda.getFechaFinal() == null || this.modelBusqueda.getFechaFinal().equals("")) && 
-				(ccParte == null || ccParte.equals(""))){
+				(numero == null || numero.equals(""))){
 			this.listaSolicitud = this.solicitudBean.findSolicitudes();
 		}else{
-			if(ccParte == null || ccParte.equals("")){
+			if(numero == null || numero.equals("")){
 				this.listaSolicitud = this.solicitudBean.findSolicitudes();
 			}else{
 				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
@@ -127,10 +127,14 @@ public class ControllerSolicitud {
 					} catch (ParseException ex) {
 					     ex.printStackTrace();
 					}
-					if(tipoParte.equals("Conciliador")){
-						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroConciliadorFecha(fechaInicial, fechaFinal, ccParte);
+					if(tipoFiltro.equals("Conciliador")){
+						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroConciliadorFecha(fechaInicial, fechaFinal, numero);
 					}else {
-						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, ccParte, tipoParte);
+						if(tipoFiltro.equals("Radicado")){
+							this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroRadicadoFecha(fechaInicial, fechaFinal, numero);
+						}else {
+							this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, numero, tipoFiltro);
+						}
 					}
 				}else {
 					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
@@ -142,18 +146,22 @@ public class ControllerSolicitud {
 					} catch (ParseException ex) {
 					     ex.printStackTrace();
 					}
-					if(tipoParte.equals("Conciliador")){
-						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroConciliadorFecha(fechaInicial, fechaFinal, ccParte);
+					if(tipoFiltro.equals("Conciliador")){
+						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroConciliadorFecha(fechaInicial, fechaFinal, numero);
 					}else {
-						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, ccParte, tipoParte);
+						if(tipoFiltro.equals("Radicado")){
+							this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroRadicadoFecha(fechaInicial, fechaFinal, numero);
+						}else {
+							this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, numero, tipoFiltro);
+						}
 					}
 				}
 			}
 		}
 		
 		// Resetea los inputs
-		this.modelBusqueda.setCc("");
-		this.modelBusqueda.setTipoParte("Convocante");
+		this.modelBusqueda.setNumero("");
+		this.modelBusqueda.setTipoFiltro("Radicado");
 		this.modelBusqueda.setFechaInicio(fechIn);
 		this.modelBusqueda.setFechaFinal(fechFn);
 		this.modelBusqueda.setMensaje(false);

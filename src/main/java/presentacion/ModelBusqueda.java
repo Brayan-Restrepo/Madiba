@@ -21,8 +21,8 @@ public class ModelBusqueda {
 	
 	private String fechaInicio;
     private String fechaFinal;
-    private String cc;
-    private String tipoParte;
+    private String numero;
+    private String tipoFiltro;
 
 	private List<SelectItem> conciliadores;
 
@@ -39,7 +39,7 @@ public class ModelBusqueda {
 	
 		this.fechaFinal = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual);
 		this.fechaInicio = new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());
-		this.tipoParte = "Radicado";
+		this.tipoFiltro = "Radicado";
     }
 	
 	@PostConstruct
@@ -67,20 +67,20 @@ public class ModelBusqueda {
 		this.fechaFinal = fechaFinal;
 	}
 
-	public String getCc() {
-		return cc;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setCc(String cc) {
-		this.cc = cc;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
-	public String getTipoParte() {
-		return tipoParte;
+	public String getTipoFiltro() {
+		return tipoFiltro;
 	}
 
-	public void setTipoParte(String tipoParte) {
-		this.tipoParte = tipoParte;
+	public void setTipoFiltro(String tipoFiltro) {
+		this.tipoFiltro = tipoFiltro;
 	}
 	    
 	public boolean isMensaje() {
