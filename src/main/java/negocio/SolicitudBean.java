@@ -107,7 +107,7 @@ public class SolicitudBean implements iSolicitudBean {
 	public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial,
 			Date fechaFinal, String nroRadicado) {
 		
-		return this.findAudienciasFiltroRadicadoFecha(role, idConciliador, fechaInicial, fechaFinal, nroRadicado);
+		return this.solicitudDAO.findAudienciasFiltroRadicadoFecha(role, idConciliador, fechaInicial, fechaFinal, nroRadicado);
 	}
 	
 }

@@ -29,37 +29,41 @@
 		    </h:panelGroup>
 			<h:panelGroup class="has-success" layout="block">
 				<h:panelGrid columns="1" style="margin:15px">
-					<h:selectOneMenu class="fa" id="tipoParteConalbos" rendered="#{modelLogin.role=='conalbos'}" value="#{modelBusqueda.tipoParte}" style="width:195px; height: 25px"> 
+					<h:selectOneMenu class="fa" id="tipoParteConalbos" rendered="#{modelLogin.role=='conalbos'}" value="#{modelBusqueda.tipoFiltro}" style="width:195px; height: 25px"> 
 			            <f:selectItem itemValue = "Radicado" itemLabel = "Número Radicado" />
 			            <f:selectItem itemValue = "Convocante" itemLabel = "Convocante" />
 			            <f:selectItem itemValue = "Convocado" itemLabel = "Convocado" />  
 			            <f:selectItem itemValue = "Conciliador" itemLabel = "Conciliador" />
+			            <f:ajax event="change" render="botones" listener="#{modelBusqueda.setNumero('')}"></f:ajax>
 			            <f:ajax event="change" render="numero" execute="@this"></f:ajax>
 			        </h:selectOneMenu>
 			         
-			        <h:selectOneMenu class="fa" id="tipoParteConciliador" rendered="#{modelLogin.role=='conciliador'}" value="#{modelBusqueda.tipoParte}" style="width:195px; height: 25px"> 
+			        <h:selectOneMenu class="fa" id="tipoParteConciliador" rendered="#{modelLogin.role=='conciliador'}" value="#{modelBusqueda.tipoFiltro}" style="width:195px; height: 25px"> 
 			            <f:selectItem itemValue = "Radicado" itemLabel = "Número Radicado" />
 			            <f:selectItem itemValue = "Convocante" itemLabel = "Convocante" />
 			            <f:selectItem itemValue = "Convocado" itemLabel = "Convocado" /> 
+			            <f:ajax event="change" render="botones" listener="#{modelBusqueda.setNumero('')}"></f:ajax>
+			            <f:ajax event="change" render="numero" execute="@this"></f:ajax>
 			        </h:selectOneMenu>
 			    </h:panelGrid>
 			    
 				<h:panelGrid id="numero" columns="2" style="margin:15px">
-					<h:panelGroup rendered="#{modelBusqueda.tipoParte=='Convocado' || modelBusqueda.tipoParte=='Convocante' ? 'true': 'false'}">
+					<h:panelGroup rendered="#{modelBusqueda.tipoFiltro=='Convocado' || modelBusqueda.tipoFiltro=='Convocante' ? 'true': 'false'}">
 						<p:outputLabel value="Cédula" style="color: white;width:80px" />    
 			        	<p:inputText id="cc" class="fa" value="#{modelBusqueda.numero}" style="width:115px;text-align:center" >
 			        		<f:ajax event="keyup" render="botones" execute="@this"></f:ajax>
 			        	</p:inputText>
 		        	</h:panelGroup>
-		        	<h:panelGroup rendered="#{modelBusqueda.tipoParte=='Radicado' ? 'true': 'false'}">
+		        	<h:panelGroup rendered="#{modelBusqueda.tipoFiltro=='Radicado' ? 'true': 'false'}">
 						<p:outputLabel value="Número" style="color: white;width:80px" />    
 			        	<p:inputText id="radicado" class="fa" value="#{modelBusqueda.numero}" style="width:115px;text-align:center" >
 			        		<f:ajax event="keyup" render="botones" execute="@this"></f:ajax>
 			        	</p:inputText>
 		        	</h:panelGroup>
-		        	<h:selectOneMenu class="fa" value="#{modelBusqueda.numero}" rendered="#{modelBusqueda.tipoParte=='Conciliador' ? 'true': 'false'}" style="width:195px; height: 25px">
+		        	<h:selectOneMenu class="fa" value="#{modelBusqueda.numero}" rendered="#{modelBusqueda.tipoFiltro=='Conciliador' ? 'true': 'false'}" style="width:195px; height: 25px">
 			            <f:selectItem itemLabel="Seleccione Uno..." itemValue="0" />
 			            <f:selectItems value="#{modelBusqueda.conciliadores}" />
+			            <f:ajax event="change" render="botones" execute="@this"></f:ajax>
 			        </h:selectOneMenu>
 				</h:panelGrid>
 			    
@@ -78,10 +82,10 @@
 				</h:panelGrid>
 				
 				<h:panelGrid id="botones" columns="1" style="margin:15px">
-					<h:commandButton value="Buscar" rendered="#{modelBusqueda.numero=='' || modelBusqueda.numero==null? 'true': 'false'}" styleClass="btn btn-success" style="width:195px">
+					<h:commandButton value="Buscar" rendered="#{modelBusqueda.numero=='' || modelBusqueda.numero==null || modelBusqueda.numero=='0' ? 'true': 'false'}" styleClass="btn btn-success" style="width:195px">
 						<f:ajax render="mensaje" listener="#{modelBusqueda.setMensaje(true)}"></f:ajax>
 					</h:commandButton>
-					<h:commandButton value="Buscar" action="listaaudiencias" rendered="#{modelBusqueda.numero!=null and modelBusqueda.numero!=''? 'true': 'false'}" styleClass="btn btn-success" style="width:195px" />
+					<h:commandButton value="Buscar" action="listaaudienciastabla" rendered="#{modelBusqueda.numero!=null and modelBusqueda.numero!='' and modelBusqueda.numero!='0' ? 'true': 'false'}" styleClass="btn btn-success" style="width:195px" />
 				</h:panelGrid>
 			</h:panelGroup>
 		</ui:define>

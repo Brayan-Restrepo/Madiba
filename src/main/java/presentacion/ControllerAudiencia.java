@@ -103,19 +103,34 @@ public class ControllerAudiencia {
 		String numero = this.modelBusqueda.getNumero();
 		String tipoFiltro = this.modelBusqueda.getTipoFiltro();
 		
+		SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
+		Date fechaInicial = null;
+		Date fechaFinal = null;
+		
+		Date fechaActual = new Date();
+    	Calendar calendar = Calendar.getInstance();
+    	calendar.setTime(fechaActual);
+    	calendar.add(Calendar.MONTH, -3); 
+    	String fechFn = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual);
+    	String fechIn = new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());
+		try {
+			 fechaInicial = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
+			 fechaFinal = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechaActual));
+		} catch (ParseException ex) {
+		     ex.printStackTrace();
+		}
+		
 		if((this.modelBusqueda.getFechaInicio() == null || this.modelBusqueda.getFechaInicio().equals("")) && 
 				(this.modelBusqueda.getFechaFinal() == null || this.modelBusqueda.getFechaFinal().equals("")) && 
 				(numero == null || numero.equals(""))){
-			this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador());
+			System.out.println("ENTREeeeeeeeeeee "+this.modelLogin.getRole()+" "+this.modelLogin.getIdConciliador()+" "+fechaInicial+" "+fechaFinal);
+			this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial,fechaFinal);
 		}else{
 			if(numero == null || numero.equals("")){
-				this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador());
+				this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial,fechaFinal);
 			}else{
 				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
 						(this.modelBusqueda.getFechaFinal() != null && !this.modelBusqueda.getFechaFinal().equals(""))){
-					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
-					Date fechaInicial = null;
-					Date fechaFinal = null;
 					try {
 						 fechaInicial = formatoDelTexto.parse(this.modelBusqueda.getFechaInicio());
 						 fechaFinal = formatoDelTexto.parse(this.modelBusqueda.getFechaFinal());
@@ -132,20 +147,6 @@ public class ControllerAudiencia {
 						}
 					}
 				}else {
-					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
-					Date fechaInicial = null;
-					Date fechaFinal = null;
-					
-					Date fechaActual = new Date();
-			    	Calendar calendar = Calendar.getInstance();
-			    	calendar.setTime(fechaActual);
-			    	calendar.add(Calendar.MONTH, -3); 
-					try {
-						 fechaInicial = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
-						 fechaFinal = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechaActual));
-					} catch (ParseException ex) {
-					     ex.printStackTrace();
-					}
 					if(tipoFiltro.equals("Conciliador")){
 						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero);
 					}else {
@@ -158,6 +159,13 @@ public class ControllerAudiencia {
 				}
 			}
 		}
+		
+		// Resetea los inputs
+		this.modelBusqueda.setNumero("");
+		this.modelBusqueda.setTipoFiltro("Radicado");
+		this.modelBusqueda.setFechaInicio(fechIn);
+		this.modelBusqueda.setFechaFinal(fechFn);
+		this.modelBusqueda.setMensaje(false);
 	}
 	
 	/**

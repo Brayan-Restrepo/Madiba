@@ -90,15 +90,8 @@ public class ControllerSolicitud {
 	*/
 
 	public void findSolicitudes(){
-		
-		System.out.println("**********> "+this.modelBusqueda.getNumero());
-		System.out.println("**********> "+this.modelBusqueda.getTipoParte());
-		System.out.println("**********> "+this.modelBusqueda.getFechaInicio());
-		System.out.println("**********> "+this.modelBusqueda.getFechaFinal());
-		System.out.println("**********> "+this.modelBusqueda.isMensaje());
-				
 		String numero = this.modelBusqueda.getNumero();
-		String tipoFiltro = this.modelBusqueda.getTipoParte();
+		String tipoFiltro = this.modelBusqueda.getTipoFiltro();
 
 		Date fechaActual = new Date();
     	Calendar calendar = Calendar.getInstance();
@@ -106,21 +99,27 @@ public class ControllerSolicitud {
     	calendar.add(Calendar.MONTH, -3);   
     	String fechFn = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual);
     	String fechIn = new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime());
+    	SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
+		Date fechaInicial = null;
+		Date fechaFinal = null;
+		try {
+			 fechaInicial = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
+			 fechaFinal = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechaActual));
+		} catch (ParseException ex) {
+		     ex.printStackTrace();
+		}
 		
 		
 		if((this.modelBusqueda.getFechaInicio() == null || this.modelBusqueda.getFechaInicio().equals("")) && 
 				(this.modelBusqueda.getFechaFinal() == null || this.modelBusqueda.getFechaFinal().equals("")) && 
 				(numero == null || numero.equals(""))){
-			this.listaSolicitud = this.solicitudBean.findSolicitudes();
+			this.listaSolicitud = this.solicitudBean.findSolicitudes(fechaInicial, fechaFinal);
 		}else{
 			if(numero == null || numero.equals("")){
-				this.listaSolicitud = this.solicitudBean.findSolicitudes();
+				this.listaSolicitud = this.solicitudBean.findSolicitudes(fechaInicial, fechaFinal);
 			}else{
 				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
 						(this.modelBusqueda.getFechaFinal() != null && !this.modelBusqueda.getFechaFinal().equals(""))){
-					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
-					Date fechaInicial = null;
-					Date fechaFinal = null;
 					try {
 						 fechaInicial = formatoDelTexto.parse(this.modelBusqueda.getFechaInicio());
 						 fechaFinal = formatoDelTexto.parse(this.modelBusqueda.getFechaFinal());
@@ -137,15 +136,6 @@ public class ControllerSolicitud {
 						}
 					}
 				}else {
-					SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
-					Date fechaInicial = null;
-					Date fechaFinal = null;
-					try {
-						 fechaInicial = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechIn));
-						 fechaFinal = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechFn));
-					} catch (ParseException ex) {
-					     ex.printStackTrace();
-					}
 					if(tipoFiltro.equals("Conciliador")){
 						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroConciliadorFecha(fechaInicial, fechaFinal, numero);
 					}else {
