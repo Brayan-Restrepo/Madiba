@@ -79,6 +79,8 @@ public class ControllerSolicitud {
 		this.coloresEstado.put("AUDIENCIA-PENDIENTE", "primary");
 		this.coloresEstado.put("AUDIENCIA-ENCURSO", "warning");
 		this.coloresEstado.put("AUDIENCIA-FINALIZADA", "success");
+		this.coloresEstado.put("FINALIZADA-SOBRECOSTO", "black");
+		this.coloresEstado.put("DESIGNACION-SOBRECOSTO", "black");
 		this.coloresEstado.put("REGISTRADA", "black");
 	}
 	
@@ -187,6 +189,7 @@ public class ControllerSolicitud {
 	public List<Solicitud> solicitudesPorEstado(String estado){
 		List<Solicitud> listaPorEstado = new ArrayList<Solicitud>();
 		int size = this.listaSolicitud.size();
+		
 		if(estado.equalsIgnoreCase("AUDIENCIA")){
 			for(int i=0; i<size; i++){
 				if(this.listaSolicitud.get(i).getEstado().equals("AUDIENCIA-CITACION") || this.listaSolicitud.get(i).getEstado().equals("AUDIENCIA-PENDIENTE") || 
@@ -204,7 +207,19 @@ public class ControllerSolicitud {
 		return listaPorEstado;
 	}
 	
-	
+	public List<Solicitud> solicitudesPorPagar(){
+		List<Solicitud> listaPorEstado = new ArrayList<Solicitud>();
+		int size = this.listaSolicitud.size();
+		
+		for(int i=0; i<size; i++){
+			if(this.listaSolicitud.get(i).getEstado().equals("GRABADA") || this.listaSolicitud.get(i).getEstado().equals("FINALIZADA-SOBRECOSTO") || 
+					this.listaSolicitud.get(i).getEstado().equals("DESIGNACION-SOBRECOSTO")){
+				listaPorEstado.add(this.listaSolicitud.get(i));
+			}
+		}
+		
+		return listaPorEstado;
+	}
 	/**
 	 * Cambia el estado de la solicitud despues de ser gestionada
 	 * @param evento

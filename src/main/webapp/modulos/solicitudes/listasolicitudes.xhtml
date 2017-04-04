@@ -109,7 +109,7 @@
 						<div class="nav-tabs-custom">
 							<ul class="nav nav-tabs" style="border-color: blue">
 								<li class="active"><a href="#todas" data-toggle="tab">Todas <span class="label label-black">#{controllerSolicitud.listaSolicitud.size()}</span></a></li>
-								<li><a href="#liquidar" data-toggle="tab">Grabada <span class="label label-#{controllerSolicitud.colorSolicitudEstado('GRABADA')}">#{controllerSolicitud.solicitudesPorEstado('GRABADA').size()}</span></a></li>
+								<li><a href="#liquidar" data-toggle="tab">Por Pagar <span class="label label-#{controllerSolicitud.colorSolicitudEstado('GRABADA')}">#{controllerSolicitud.solicitudesPorEstado('GRABADA').size()}</span></a></li>
 								<li><a href="#radicar" data-toggle="tab">Por Radicar <span class="label label-#{controllerSolicitud.colorSolicitudEstado('PAGADA')}">#{controllerSolicitud.solicitudesPorEstado('PAGADA').size()}</span></a></li>
 								<li><a href="#asignarConciliador" data-toggle="tab">Por Conciliador <span class="label label-#{controllerSolicitud.colorSolicitudEstado('RADICADA')}">#{controllerSolicitud.solicitudesPorEstado('RADICADA').size()}</span></a></li>
 								<li><a href="#paraaudiencia" data-toggle="tab">Para Audiencia <span class="label label-#{controllerSolicitud.colorSolicitudEstado('DESIGNACION')}">#{controllerSolicitud.solicitudesPorEstado('DESIGNACION').size()}</span></a></li>
@@ -141,12 +141,12 @@
 									<h:form id='formliquidar'>
 										<ui:param name="formulario" value="@form :formtodas :formradicar :formasignarconciliador :formaudiencia :formregistrar :formBotones" />
 
-									 	<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('GRABADA')}" step="2">
+									 	<ui:repeat varStatus="n" var="solicitud" value="#{controllerSolicitud.solicitudesPorPagar()}" step="2">
 											<div class="row">
 												<ui:include src="fichasolicitud.xhtml"></ui:include>
-												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorEstado('GRABADA').size()>(n.index+1)}">
+												<h:panelGroup rendered="#{controllerSolicitud.solicitudesPorPagar().size()>(n.index+1)}">
 												
-													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorEstado('GRABADA')}">
+													<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerSolicitud.solicitudesPorPagar()}">
 														<ui:include src="fichasolicitud.xhtml"></ui:include>
 													</ui:repeat>
 												</h:panelGroup>

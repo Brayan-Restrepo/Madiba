@@ -159,15 +159,15 @@ public class ControllerDesarrolloAudiencia {
 			if(estdoAudiencia.equals("FINALIZADA")){
 				if(this.modelDesarrolloAudiencia.isAcuerdoParcial()){
 					if((acuerdos!="" && acuerdos!=null) && (noacuerdos!="" && noacuerdos!=null)){					
-						this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "FINALIZADA");
-	
-						this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
-						this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
-						this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
-						
+											
 						if(this.modelDesarrolloAudiencia.getNuevaCuantia()>this.solicitud.getCuantia()){
+							this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "FINALIZADA");
 							
-							double nuevaCuantia;							
+							this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "FINALIZADA-SOBRECOSTO");
+							this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
+							this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
+		
+							Double nuevaCuantia;							
 							nuevaCuantia=(this.modelDesarrolloAudiencia.getNuevaCuantia()-this.solicitud.getCuantia())*(this.solicitud.getValorPagar()/this.solicitud.getCuantia());
 							
 							Pago pago = new Pago();
@@ -176,17 +176,25 @@ public class ControllerDesarrolloAudiencia {
 							pago.setSolicitud(this.solicitud);
 							this.audienciaBean.addSobreCosto(pago);
 							
+						}else{
+							this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "FINALIZADA");
+							
+							this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
+							this.audienciaBean.addResultado("NOACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), noacuerdos, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
+							this.audienciaBean.addResultado("ACUERDO", this.solicitud.getAudiencias().get(lastAudiencia), acuerdos, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
+		
 						}
 					}
 				}else{
 					if((observacion!="" && observacion!=null) && tipoResultado!=null && tipoResultado!=""){
 						
-						this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "FINALIZADA");
-						this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
-						this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
-						
 						if(this.modelDesarrolloAudiencia.getNuevaCuantia()>this.solicitud.getCuantia()){
-							double nuevaCuantia;							
+
+							this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "FINALIZADA");
+							this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "FINALIZADA-SOBRECOSTO");
+							this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
+							
+							Double nuevaCuantia;							
 							nuevaCuantia=(this.modelDesarrolloAudiencia.getNuevaCuantia()-this.solicitud.getCuantia())*(this.solicitud.getValorPagar()/this.solicitud.getCuantia());
 							
 							Pago pago = new Pago();
@@ -194,7 +202,12 @@ public class ControllerDesarrolloAudiencia {
 							pago.setEstado("SNOPAGADO");
 							pago.setSolicitud(this.solicitud);
 							this.audienciaBean.addSobreCosto(pago);	
-						}	
+						}else{
+							this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "FINALIZADA");
+							this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
+							this.audienciaBean.addResultado(tipoResultado, this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud(),this.modelDesarrolloAudiencia.getNuevaCuantia());
+							
+						}
 					}
 				}
 			}
@@ -204,16 +217,47 @@ public class ControllerDesarrolloAudiencia {
 	
 	public void reprogramarAudiencia(){
 		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
-		this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "DESIGNACION");
-		this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "REPROGRAMADA");
+		if(this.solicitud.getAudiencias().size()==4){//Genera Sobrecsto del 10%
+			this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "DESIGNACION-SOBRECOSTO");
+			this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "REPROGRAMADA");
+			
+			Double nuevaCuantia;							
+			nuevaCuantia=this.solicitud.getValorPagar()*0.1;
+			
+			Pago pago = new Pago();
+			pago.setValor(nuevaCuantia);
+			pago.setEstado("SNOPAGADO");
+			pago.setSolicitud(this.solicitud);
+			this.audienciaBean.addSobreCosto(pago);	
+		}else{
+			this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "DESIGNACION");
+			this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "REPROGRAMADA");
+		}
+		
 	}
 	
 	public void suspenderAudiencia(){
-		System.out.println("-------------------> "+"DESIGNACION");
-		this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "DESIGNACION");
+
 		int lastAudiencia = this.solicitud.getAudiencias().size()-1;
-		this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "SUSPENDIDA");
-		
+		if(this.solicitud.getAudiencias().size()==4){//Genera Sobrecsto del 10%
+			this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "DESIGNACION-SOBRECOSTO");
+			this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "SUSPENDIDA");
+			
+			Double nuevaCuantia;							
+			nuevaCuantia=this.solicitud.getValorPagar()*0.1;
+			
+			Pago pago = new Pago();
+			pago.setValor(nuevaCuantia);
+			pago.setEstado("SNOPAGADO");
+			pago.setSolicitud(this.solicitud);
+			this.audienciaBean.addSobreCosto(pago);
+
+		}else{
+			this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "DESIGNACION");
+			this.audienciaBean.actualizarEstadoAudiencia(this.solicitud.getAudiencias().get(lastAudiencia).getIdAudiencia(), "SUSPENDIDA");
+			
+		}
+
 		String observacion = this.modelDesarrolloAudiencia.getObservacion();
 		this.audienciaBean.addResultadoSuspender("SUSPENDIDA", this.solicitud.getAudiencias().get(lastAudiencia), observacion, this.solicitud.getIdSolicitud());
 	}
