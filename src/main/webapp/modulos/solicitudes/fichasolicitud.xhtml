@@ -24,7 +24,7 @@
 				<div class='box-body'>
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              				<h:outputLabel value="Fecha" />
+              				<h:outputLabel value="Fecha de Solicitud" />
 							<br/>
 							<h:outputText style="padding-left:10%" value=" #{solicitud.fecha}" />
 							<br/>
@@ -62,18 +62,30 @@
 					<h:panelGroup layout="block" rendered="#{solicitud.estado!='GRABADA'}" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 						<div class="row">
 							<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	              				<h:outputLabel value="Banco:" />
-	              				<h:outputText style="padding-left:5%" rendered="#{pagos.estado=='PAGADO'}" value="#{controllerDominio.nombreDominio(pagos.banco)}" />
-	              				<br />              				
+								<h:outputLabel value="Fecha de Pago:" />
+	              				<h:outputText style="padding-left:5%" rendered="#{pagos.estado=='PAGADO' || pagos.estado=='SPAGADO'}" value="#{pagos.fecha}" />
+	              				<br/>
+	              				
+								<h:panelGroup layout="block" rendered="#{pagos.estado=='PAGADO'}">
+		              				<h:outputLabel value="Banco:" rendered="#{pagos.estado=='PAGADO'}"/>
+		              				<h:outputText style="padding-left:5%" rendered="#{pagos.estado=='PAGADO'}" value="#{controllerDominio.nombreDominio(pagos.banco)}" />
+		              				<br/>              				
+	              				</h:panelGroup>
 	              				<h:outputLabel value="Forma de Pago:" />
 	              				<h:outputText style="padding-left:5%" rendered="#{pagos.estado=='PAGADO'}" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
+	              				<h:outputText style="padding-left:5%" rendered="#{pagos.estado=='SPAGADO'}" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
 	           				</div>
 	           				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-	              				<h:outputLabel value="Referencia:" />
-	              				<h:outputText style="padding-left:5%" rendered="#{pagos.estado=='PAGADO'}" value="#{pagos.referencia}" />
-	              				<br />              				
+           						<h:outputLabel value="Sobrecosto" rendered="#{pagos.estado=='SPAGADO' || pagos.estado=='SNOPAGADO'}" styleClass="pull-right label label-danger" />
+								<h:outputLabel value="Pago Inicial" rendered="#{pagos.estado=='PAGADO'}" styleClass="pull-right label label-success" />
+								<br/>
+								<h:panelGroup layout="block" rendered="#{pagos.estado=='PAGADO'}">
+		              				<h:outputLabel value="Referencia:"/>
+		              				<h:outputText style="padding-left:5%" value="#{pagos.referencia}" />
+		              				<br/>
+	              				</h:panelGroup>              				
 	              				<h:outputLabel value="Valor:" />
-	              				<h:outputText style="padding-left:5%" value="$#{pagos.valor}" />
+	              				<h:outputText style="padding-left:5%" value="$#{controllerSolicitud.mascaraValor(pagos.valor)}" />
 	           				</div>
 	       				</div>
 							

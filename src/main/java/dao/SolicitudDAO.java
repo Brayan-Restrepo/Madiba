@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import entidades.Actas_Conciliacione;
 import entidades.Copia;
 import entidades.Devolucione;
+import entidades.Pago;
 import entidades.Resultado;
 import entidades.Solicitud;
 
@@ -332,5 +333,14 @@ public class SolicitudDAO {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void guardarCopia(Copia copia){
 		this.manager.persist(copia);
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void guardarPago(Pago auxPago){
+		Pago pago = this.manager.find(Pago.class, auxPago.getIdPago());
+		
+		pago.setFecha(auxPago.getFecha());
+		pago.setFormaPago(auxPago.getFormaPago());
+		pago.setEstado(auxPago.getEstado());
 	}
 }

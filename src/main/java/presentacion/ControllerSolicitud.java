@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 
+import entidades.Pago;
 import entidades.Solicitud;
 import negocio.iAudienciaBean;
 import negocio.iSolicitudBean;
@@ -338,68 +339,58 @@ public class ControllerSolicitud {
 		System.out.println("---------------------------------> "+ver);
 	}
 	
-	public Solicitud liquidar(){
-		/*for(int i=0;i<this.listaSolicitud.size();i++ ){
-			if(this.listaSolicitud.get(i).isSelect() && this.listaSolicitud.get(i).getEstado().equals("Grabada")){
-				return this.listaSolicitud.get(i);
-			}
-		}*/
-		return null;
-	}
-	public Solicitud designarConciliador(){
-		/*
-		for(int i=0;i<this.listaSolicitud.size();i++ ){
-			if(this.listaSolicitud.get(i).isSelect() && this.listaSolicitud.get(i).getEstado().equals("Radicada")){
-				return this.listaSolicitud.get(i);
-			}
-		}*/
-		return null;
-	}
+	public double valorSobrecosto(){
+		if(this.consultaModelSolicitud.getSelectSolicitud().size()==1){
+			if(this.consultaModelSolicitud.getSelectSolicitud().get(0).getEstado().equalsIgnoreCase("FINALIZADA-SOBRECOSTO") || this.consultaModelSolicitud.getSelectSolicitud().get(0).getEstado().equalsIgnoreCase("DESIGNACION-SOBRECOSTO")){
 		
-	public String classEstadoHidden(String estado){	
-		/*for(int i=0;i<this.listaSolicitud.size();i++){
-			if(this.listaSolicitud.get(i).getEstado().equals(estado) && this.listaSolicitud.get(i).isSelect()){
-				return "";
+				for (int i = 0; i < this.consultaModelSolicitud.getSelectSolicitud().get(0).getPagos().size(); i++) {
+					if(this.consultaModelSolicitud.getSelectSolicitud().get(0).getPagos().get(i).getEstado().equalsIgnoreCase("SNOPAGADO")){
+						return this.consultaModelSolicitud.getSelectSolicitud().get(0).getPagos().get(i).getValor();
+					}
+				}
 			}
-		}*/
-		return "hidden";
+			
+		}
+		return 0;
 	}
 	
-	
-	public boolean estadoSelect(String estado){	
-		/*for(int i=0;i<this.listaSolicitud.size();i++){
-			if(this.listaSolicitud.get(i).getEstado().equals(estado) && this.listaSolicitud.get(i).isSelect()){
-				return false;
-			}
-		}*/
-		return true;
-	}
-	
-	public void guardarPago(int id){
+	public void guardarPago(Solicitud auxSolicitud){
 		
-		for(int i=0;i<this.listaSolicitud.size();i++){
-			if(this.listaSolicitud.get(i).getIdSolicitud()==id && this.listaSolicitud.get(i).getEstado().equals("Grabada")){
-				this.listaSolicitud.get(i).setEstado("Pagada");
-				String bancoPago = this.consultaModelSolicitud.getBancoPago();
-				String cuantiaPago = this.consultaModelSolicitud.getCuantiaPago();
-				String formaPago = this.consultaModelSolicitud.getFormaPago();
-				//String referenciaPago
-				/*
-				ControllerSolicitud.listaSolicitud.get(i).setBancoPago(bancoPago);
-				ControllerSolicitud.listaSolicitud.get(i).setCuantiaPago(cuantiaPago);
-				ControllerSolicitud.listaSolicitud.get(i).setFormaPago(formaPago);
-				//ControllerSolicitud.listaSolicitud.get(i).setReferenciaPago(referenciaPago);
-				*/
-				
-				//ControllerSolicitud.listaSolicitud.get(i).setSelect(false);
+		Date fechaActual = new Date();
+		Pago pago = new Pago();
+		Long idPago = auxSolicitud.getPagos().get(auxSolicitud.getPagos().size()-1).getIdPago();
+		
+		for (int i = 0; i < auxSolicitud.getPagos().size(); i++) {
+			if(auxSolicitud.getPagos().get(i).getEstado().equalsIgnoreCase("SNOPAGADO")){
+				idPago = auxSolicitud.getPagos().get(i).getIdPago();
 			}
 		}
+		pago.setIdPago(idPago);
+		pago.setEstado("SPAGADO");
+		pago.setFecha(fechaActual);
+		pago.setFormaPago(2);
+		pago.setSolicitud(auxSolicitud);
 		
+		this.solicitudBean.guardarPago(pago);
+		
+		if(auxSolicitud.getEstado().equalsIgnoreCase("FINALIZADA-SOBRECOSTO")){
+			this.solicitudBean.actualizarEstadoSolicitud(auxSolicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
+		}else if(auxSolicitud.getEstado().equalsIgnoreCase("DESIGNACION-SOBRECOSTO")){
+			this.solicitudBean.actualizarEstadoSolicitud(auxSolicitud.getIdSolicitud(), "DESIGNACION");
+			
+		}
+	
 	}
 	
 	public boolean cambiarFichaTabla(){
 		this.consultaModelSolicitud.setFicha(!this.consultaModelSolicitud.isFicha());
 		return this.consultaModelSolicitud.isFicha();
+	}
+	
+	public Long mascaraValor(Double auxValor){
+		long valor= auxValor.longValue();
+		
+		return valor;
 	}
 	
 	public String MascaraHora(Integer hora){
@@ -424,6 +415,16 @@ public class ControllerSolicitud {
 		return this.coloresEstado.get(estado);
 	}
 	
+	public boolean bloquearModalSobrecosto(){
+		
+		if(this.consultaModelSolicitud.getSelectSolicitud().size()==1){
+			if(this.consultaModelSolicitud.getSelectSolicitud().get(0).getEstado().equalsIgnoreCase("FINALIZADA-SOBRECOSTO") || this.consultaModelSolicitud.getSelectSolicitud().get(0).getEstado().equalsIgnoreCase("DESIGNACION-SOBRECOSTO")){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public boolean bloquearBoton(String estado1, String estado2){
 		
 			if(this.consultaModelSolicitud.getSelectSolicitud().size()==0){
@@ -438,6 +439,15 @@ public class ControllerSolicitud {
 		return true;
 	}
 		
+	public boolean bloquearBotonRegistrarPago(){
+		if(this.consultaModelSolicitud.getSelectSolicitud().size()==1){
+			if(this.consultaModelSolicitud.getSelectSolicitud().get(0).getEstado().equalsIgnoreCase("FINALIZADA-SOBRECOSTO") || this.consultaModelSolicitud.getSelectSolicitud().get(0).getEstado().equalsIgnoreCase("DESIGNACION-SOBRECOSTO")){ 
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public String changeIconSelect(Solicitud auxSolicitud){
 		
 		for(int i=0;i<this.consultaModelSolicitud.getSelectSolicitud().size();i++){

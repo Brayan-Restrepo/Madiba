@@ -10,6 +10,7 @@ import dao.SolicitudDAO;
 import entidades.Actas_Conciliacione;
 import entidades.Copia;
 import entidades.Devolucione;
+import entidades.Pago;
 import entidades.Solicitud;
 
 @Stateless
@@ -108,6 +109,12 @@ public class SolicitudBean implements iSolicitudBean {
 			Date fechaFinal, String nroRadicado) {
 		
 		return this.solicitudDAO.findAudienciasFiltroRadicadoFecha(role, idConciliador, fechaInicial, fechaFinal, nroRadicado);
+	}
+
+	@Override
+	public void guardarPago(Pago pago) {
+		this.solicitudDAO.guardarPago(pago);
+		
 	}
 	
 }

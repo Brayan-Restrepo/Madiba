@@ -103,13 +103,13 @@
 					#{controllerSolicitud.findSolicitudes()}
 		
 					<ui:include src="modalasignarconciliador.xhtml"></ui:include>
-					<ui:include src="modalradicar.xhtml"></ui:include>
+					
 					
 					<div class="col-md-12">
 						<div class="nav-tabs-custom">
 							<ul class="nav nav-tabs" style="border-color: blue">
 								<li class="active"><a href="#todas" data-toggle="tab">Todas <span class="label label-black">#{controllerSolicitud.listaSolicitud.size()}</span></a></li>
-								<li><a href="#liquidar" data-toggle="tab">Por Pagar <span class="label label-#{controllerSolicitud.colorSolicitudEstado('GRABADA')}">#{controllerSolicitud.solicitudesPorEstado('GRABADA').size()}</span></a></li>
+								<li><a href="#liquidar" data-toggle="tab">Por Pagar <span class="label label-#{controllerSolicitud.colorSolicitudEstado('GRABADA')}">#{controllerSolicitud.solicitudesPorPagar().size()}</span></a></li>
 								<li><a href="#radicar" data-toggle="tab">Por Radicar <span class="label label-#{controllerSolicitud.colorSolicitudEstado('PAGADA')}">#{controllerSolicitud.solicitudesPorEstado('PAGADA').size()}</span></a></li>
 								<li><a href="#asignarConciliador" data-toggle="tab">Por Conciliador <span class="label label-#{controllerSolicitud.colorSolicitudEstado('RADICADA')}">#{controllerSolicitud.solicitudesPorEstado('RADICADA').size()}</span></a></li>
 								<li><a href="#paraaudiencia" data-toggle="tab">Para Audiencia <span class="label label-#{controllerSolicitud.colorSolicitudEstado('DESIGNACION')}">#{controllerSolicitud.solicitudesPorEstado('DESIGNACION').size()}</span></a></li>
@@ -259,13 +259,15 @@
 			<div class="text-center">
 				<h:form id='formBotones'>
 					
+					
+					
 					<h:commandButton value="Tabla" action="listasolicitudestabla" styleClass="btn btn-sm btn-primary btn-menu"/>	
 
 					<h:commandButton value="Detalle Audiencias" action="listaaudienciadetalletabla" actionListener="#{controllerSession.setIdSolicitudAudienciaDetalle(modelSolicitud.selectSolicitud.get(0).idSolicitud)}" disabled="#{modelSolicitud.selectSolicitud.size()==1? 'false': 'true'}" styleClass="btn btn-sm btn-primary btn-menu"/>
 					
 					
-					<h:commandButton id="btn-liquidar" styleClass="btn btn-sm btn-default btn-menu" value="Registrar Pago" disabled="true">
-					
+					<h:commandButton id="btn-liquidar" onclick="$('#modalRadicar').modal();" styleClass="btn btn-sm btn-primary	 btn-menu" value="Registrar Pago" disabled="#{controllerSolicitud.bloquearBotonRegistrarPago()}">
+						<f:ajax></f:ajax>
 					</h:commandButton>
 
 					<h:commandButton styleClass="btn btn-sm btndefault btn-menu" value="Radicar" disabled="true"></h:commandButton>
@@ -277,6 +279,8 @@
 					<h:commandButton styleClass="btn btn-sm btn-default btn-menu " value="Programar Audiencia" disabled="true"></h:commandButton>
 						
 					<h:commandButton styleClass="btn btn-sm btn-default btn-menu" value="Registrar" disabled="true"></h:commandButton>
+					
+					<ui:include src="modalradicar.xhtml"></ui:include>
 					
 				</h:form>
 			</div>

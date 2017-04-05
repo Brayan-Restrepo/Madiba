@@ -8,82 +8,51 @@
 <body>
 	<ui:composition>
 	
-		<div class="modal inmodal" id="modalRadicar" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="animated flipInY">
-					<div class="box box-primary box-solid animated flipInY">
-						<div class="box-header text-center with-border">
-							<h3 class="box-title">Registrar los Datos del Pago.</h3>
-						</div>
-						<h:form id="modalradicar">
-							<div class="box-body" style="background-color: aliceblue;">
-								<div class="well">
+		<h:panelGroup rendered="#{controllerSolicitud.bloquearModalSobrecosto()}">
+			<div class="modal inmodal" id="modalRadicar" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="animated flipInY">
+						<div class="box box-primary box-solid animated flipInY">
+							<div class="box-header text-center with-border">
+								<h3 class="box-title">Detalle del Pago.</h3>
+							</div>
+							<h:form id="modalradicar">
+								<div class="box-body" style="background-color: aliceblue;">
+									<div class="well">
+										<div class="row">
+											<div class="col-lg-12">
+					              				<h:outputLabel styleClass="text-center" value="Radicado No. #{modelSolicitud.selectSolicitud.get(0).nroRadicado}" />				              				
+					              			</div>
+										</div>
+									</div>
 									<div class="row">
-										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				              				<h:outputLabel value="Fecha:" />
-											<h:outputText value=" #{controllerSolicitud.liquidar().fecha}" />
-											<br/>
-											<h:outputLabel value="Convocantes:" />
-											<ul>
-												<ui:repeat var="convotante" value="#{controllerSolicitud.liquidar().convotante}">
-													<li><h:outputText value="#{convotante}" /></li>
-												</ui:repeat>
-											</ul>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<h:outputLabel value="Forma de Pago: " />
+												<h:inputText value="Efectivo" readonly="true" styleClass="form-control"  />
+												
+											</div>
 										</div>
-										<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-											<h:outputLabel value="Conciliador:" />
-											<h:outputText value="" />
-											<br/>
-											<h:outputLabel value="Convocados:" />
-											<ul>
-												<ui:repeat var="convocado" value="#{controllerSolicitud.liquidar().convocado}">
-													<li><h:outputText value="#{convocado}" /></li>
-												</ui:repeat>
-											</ul>
+										<div class="col-lg-6">		
+											<div class="form-group">
+												<h:outputLabel value="Total a Pagar: " />
+												<h:inputText value="#{controllerSolicitud.mascaraValor(controllerSolicitud.valorSobrecosto())}" readonly="true" styleClass="form-control"  />
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">	
-											<h:outputLabel value="Banco:" />
-											<h:inputText id="banco" required="true" requiredMessage="Value is required" value="#{modelSolicitud.bancoPago}" styleClass="form-control"/>					
-										</div>
-										<div class="form-group">
-											<h:outputLabel value="Forma de Pago:" />
-											<h:selectOneMenu id="formaPago" value="#{modelSolicitud.formaPago}" styleClass="form-control">
-												<f:selectItem itemLabel="Consignación" itemValue="consignacion"/>
-												<f:selectItem itemLabel="Transferencia" itemValue="transferencia"/>
-												<f:selectItem itemLabel="PSE" itemValue="pse"/>
-												<f:selectItem itemLabel="Otro" itemValue="otro"/>
-											</h:selectOneMenu>
-										</div>
-									</div>
-									<div class="col-lg-6">									
-										<div class="form-group">
-											<h:outputLabel value="Numero de Referencia de Pago:" />
-											<h:inputText id="referencia" value="#{modelSolicitud.referenciaPago}" styleClass="form-control" />
-										</div>
-										<div class="form-group">
-											<h:outputLabel value="Valor Pagado:" />
-											<h:inputText id="cuantia" value="#{modelSolicitud.cuantiaPago}" styleClass="form-control"/>
-										</div>
-									</div>
+								
+								<div class="box-footer">
+									<h:commandButton value="Pagar" actionListener="#{controllerSolicitud.guardarPago(modelSolicitud.selectSolicitud.get(0))}" action="listasolicitudes" onclick="$('#modalRadicar').modal('hide');" styleClass="btn btn-info pull-right" >
+									</h:commandButton>
+									<button class="btn btn-danger pull-right" data-dismiss="modal">Salir</button>
 								</div>
-							</div>
-							
-							<div class="box-footer">
-								<h:commandButton onclick="$('#modalRadicar').modal('hide');" styleClass="btn btn-info pull-right" value="Guardar">
-									<f:ajax execute="banco formaPago cuantia referencia" listener="#{controllerSolicitud.guardarPago(controllerSolicitud.liquidar().id)}" render="@form :formBotones :formtodas :formliquidar :formradicar"></f:ajax>
-								</h:commandButton>
-								<button class="btn btn-danger pull-right" data-dismiss="modal">Salir</button>
-							</div>
-						</h:form>
+							</h:form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	
+		</h:panelGroup>
 	</ui:composition>
 </body>
 </html>

@@ -8,6 +8,7 @@ import javax.ejb.Remote;
 import entidades.Actas_Conciliacione;
 import entidades.Copia;
 import entidades.Devolucione;
+import entidades.Pago;
 import entidades.Solicitud;
 
 @Remote
@@ -15,6 +16,7 @@ public interface iSolicitudBean {
 	
 	public List<Solicitud> allSolicitud(String estado);
 	
+	public void guardarPago(Pago pago);
 	
 	public Solicitud findSolicitud(Long id);
 	public void actualizarEstadoSolicitud(Long id,String nuevoEstado);
