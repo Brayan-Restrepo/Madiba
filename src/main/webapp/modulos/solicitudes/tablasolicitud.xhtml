@@ -16,14 +16,17 @@
 					<th>Select</th>
 					<th>Estado</th>
 					<th>N° Radicado</th>
+					<th>Fecha</th>
 					<th>Pretenciones</th>
 					<th>Conciliador por</th>
 					<th>Conciliador</th>	
 					<th>Convocados</th>
 					<th>Convocantes</th>
+					<th>Tipo Pago</th>
 					<th>Banco</th>
 					<th>Referencia N°</th>
 					<th>Forma de Pago</th>
+					<th>Fecha Pago</th>
 					<th>Valor Pagado</th>
 				</tr>
 			</thead>
@@ -42,8 +45,10 @@
 					
 					<td>#{solicitud.nroRadicado}</td>
 					
-					<td>
-						 <h:outputText value="#{solicitud.cuantia}"/>
+					<td>#{solicitud.fecha}</td>
+					
+					<td class="text-right">
+						 <h:outputText value="#{controllerSolicitud.mascaraValor(solicitud.cuantia)}"/>
 					</td>	
 				
 					<td>
@@ -55,44 +60,73 @@
 					</td>
 				
 					<td>
-						<ul>
+						<ul class="list-unstyled">
 							<ui:repeat var="partes" value="#{solicitud.partes}" >
 								<h:panelGroup rendered="#{partes.tipoParte=='Convocado'}">
-									<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+									<li><h:outputText value="#{partes.apellidos} #{partes.nombres}" /></li>
 								</h:panelGroup>
 							</ui:repeat>
 						</ul>
 					</td>
 					<td>
-						<ul>
+						<ul class="list-unstyled">
 							<ui:repeat var="partes" value="#{solicitud.partes}" >
 								<h:panelGroup rendered="#{partes.tipoParte=='Convocante'}">
-									<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+									<li><h:outputText value="#{partes.apellidos} #{partes.nombres}" /></li>
 								</h:panelGroup>
+							</ui:repeat>
+						</ul>
+					</td>
+					
+					<td>
+						<ul class="list-unstyled">
+							<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+								<li>
+									<h:outputLabel value="Sobrecosto" rendered="#{pagos.estado=='SPAGADO' || pagos.estado=='SNOPAGADO'}" styleClass="label label-danger" />
+									<h:outputLabel value="Pago Inicial" rendered="#{pagos.estado=='PAGADO'}" styleClass="label label-success" />
+								
+								</li>
+							</ui:repeat>
+						</ul>
+					</td>
+					<td>
+						<ul class="list-unstyled">
+							<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+								<li>
+									<h:outputText rendered="#{pagos.estado=='PAGADO'}" value=" #{controllerDominio.nombreDominio(pagos.banco)}" />
+								</li>
 							</ui:repeat>
 						</ul>
 					</td>
 				
 					<td>
-						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-							<h:outputText rendered="#{pagos.estado=='PAGADO'}" value="#{controllerDominio.nombreDominio(pagos.banco)}" />
-						</ui:repeat>
-					</td>
-				
-					<td>
-						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-							<h:outputText rendered="#{pagos.estado=='PAGADO'}" value="#{pagos.referencia}" />
-						</ui:repeat>
+						<ul class="list-unstyled">
+							<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+								<li class="text-center"><h:outputText rendered="#{pagos.estado=='PAGADO'}" value="#{pagos.referencia}" /></li>
+							</ui:repeat>
+						</ul>
 					</td>
 					<td>
-						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-							<h:outputText rendered="#{pagos.estado=='PAGADO'}" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
-						</ui:repeat>
+						<ul class="list-unstyled">
+							<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+	              				<h:outputText style="padding-left:5%" rendered="#{pagos.estado=='PAGADO'}" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
+	              				<h:outputText style="padding-left:5%" rendered="#{pagos.estado=='SPAGADO'}" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
+							</ui:repeat>
+						</ul>
 					</td>
 					<td>
-						<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-							<h:outputText value="#{pagos.valor}" />
-						</ui:repeat>					
+						<ul class="list-unstyled">
+							<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+								<li><h:outputText value="#{pagos.fecha}" /></li>
+							</ui:repeat>				
+						</ul>	
+					</td>
+					<td>
+						<ul class="list-unstyled">
+							<ui:repeat var="pagos" value="#{solicitud.pagos}" >
+								<li class="text-right"><h:outputText value="#{controllerSolicitud.mascaraValor(pagos.valor)}" /></li>
+							</ui:repeat>				
+						</ul>	
 					</td>
 				</tr>	
 				</ui:repeat>				

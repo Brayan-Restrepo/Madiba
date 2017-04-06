@@ -9,7 +9,13 @@
 <h:head></h:head> 
 <body> 
 <ui:composition template="/resources/plantilla/plantilla.xhtml">		
+	
+	<ui:define name="titulo">
+		 <title>Detalle Audiencia</title>	
+	</ui:define>
+			
 	<ui:define name="content">
+		#{controllerLogin.redirect()}
 		#{controllerAudienciaDetalle.findSolicitud(controllerSession.idSolicitudAudienciaDetalle)}
 		<div class='content-wrapper' style="height:10px;overflow:auto">
 			<div class="content">

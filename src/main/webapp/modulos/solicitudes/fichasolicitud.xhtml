@@ -32,7 +32,7 @@
 							<ul>
 								<ui:repeat var="partes" value="#{solicitud.partes}" >
 									<h:panelGroup rendered="#{partes.tipoParte=='Convocante'}">
-										<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+										<li><h:outputText value="#{partes.apellidos} #{partes.nombres}" /></li>
 									</h:panelGroup>
 								</ui:repeat>
 							</ul>
@@ -46,7 +46,7 @@
 							<ul>
 								<ui:repeat var="partes" value="#{solicitud.partes}" >
 									<h:panelGroup rendered="#{partes.tipoParte=='Convocado'}">
-										<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+										<li><h:outputText value="#{partes.apellidos} #{partes.nombres}" /></li>
 									</h:panelGroup>
 								</ui:repeat>
 							</ul>							
@@ -94,7 +94,7 @@
 				<h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Pretenciones:" />
-			            <h:outputText style="padding-left:5%" value=" $#{solicitud.cuantia}" />
+			            <h:outputText style="padding-left:5%" value=" $#{controllerSolicitud.mascaraValor(solicitud.cuantia)}" />
 		          	</div>
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Conciliador por:" />

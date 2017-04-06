@@ -90,7 +90,13 @@
 			</h:panelGroup>
 		</ui:define>
 			
+		<ui:define name="titulo">
+			 <title>Lista Audiencias</title>	
+		</ui:define>
+		
 		<ui:define name="content">			
+			
+			#{controllerLogin.redirect()}
 			#{controllerAudiencia.findAudiencias()}
 			<div class='content-wrapper' style="height:10px;overflow:auto">
 			<div class="content">

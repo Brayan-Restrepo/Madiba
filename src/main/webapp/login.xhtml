@@ -26,17 +26,17 @@
 
 		<div class="login-box-body login-div">
 			<p:outputLabel value="Inicie Session" />
-			<h:form>
+			<h:form id="formLogin">
 				<div class="form-group has-feedback">
-					<p:inputText value="#{modelLogin.nickname}" required="true" styleClass="form-control" placeholder="Nickname" requiredMessage="Nickname: Campo Obligatorio" />
+					<p:inputText id="user" value="#{modelLogin.nickname}" required="true" styleClass="form-control" placeholder="Nickname" requiredMessage="Nickname: Campo Obligatorio" />
 					<span class="fa fa-user form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">			
-					<p:password styleClass="form-control" required="true" value="#{modelLogin.password}" placeholder="Password" requiredMessage="Password: Campo Obligatorio"/>
+					<p:password id="password" styleClass="form-control" required="true" value="#{modelLogin.password}" placeholder="Password" requiredMessage="Password: Campo Obligatorio"/>
 	        		<span class="fa fa-lock form-control-feedback"></span>
 				</div>
-		   		<p:captcha language="es" requiredMessage="Captha: Campo Obligatorio"/>
-	  		 	<p:commandButton value="Iniciar Sesión" styleClass="btn btn-sm btn-primary" actionListener="#{controllerLogin.autenticar()}" action="#{controllerLogin.entrar()}" ajax="false" icon="ui-icon-check"/>
+		   		<p:captcha id="captcha" language="es" requiredMessage="Captha: Campo Obligatorio"/>
+	  		 	<p:commandButton id="iniciarSesion" value="Iniciar Sesión" styleClass="btn btn-sm btn-primary" actionListener="#{controllerLogin.autenticar()}" action="#{controllerLogin.entrar()}" ajax="false" icon="ui-icon-check"/>
 			</h:form>
 		</div>
 	</div>

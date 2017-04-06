@@ -9,7 +9,11 @@
 <h:head></h:head>
 <body>
 	<ui:composition template="/resources/plantilla/plantilla.xhtml">
+		<ui:define name="titulo">
+			 <title>Lista Audiencias</title>	
+		</ui:define>
 		<ui:define name="content">
+			#{controllerLogin.redirect()}
   			<h:form id="desarrolloForm" enctype="multipart/form-data">
 				<div class='content-wrapper' style="height:10px;overflow:auto">
 					<div class="content">

@@ -48,7 +48,7 @@
 							<ul>
 								<ui:repeat var="partes" value="#{audiencia.partes}" >
 									<h:panelGroup rendered="#{partes.tipoParte=='Convocado'}">
-										<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+										<li><h:outputText value="#{partes.apellidos} #{partes.nombres}" /></li>
 									</h:panelGroup>
 								</ui:repeat>
 							</ul>
@@ -57,7 +57,7 @@
 							<ul>
 								<ui:repeat var="partes" value="#{audiencia.partes}" >
 									<h:panelGroup rendered="#{partes.tipoParte=='Convocante'}">
-										<li><h:outputText value="#{partes.nombres} #{partes.apellidos}" /></li>
+										<li><h:outputText value="#{partes.apellidos} #{partes.nombres}" /></li>
 									</h:panelGroup>
 								</ui:repeat>
 							</ul>

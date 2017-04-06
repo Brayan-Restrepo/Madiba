@@ -31,7 +31,7 @@
 							<h:outputLabel value="Convocantes" />
 							<ul>
 								<ui:repeat var="convotante" value="#{solicitud.partes}">
-									<h:panelGroup rendered="#{convotante.tipoParte=='Convocante'}"><li><h:outputText value="#{convotante.apellidos}" /></li></h:panelGroup>
+									<h:panelGroup rendered="#{convotante.tipoParte=='Convocante'}"><li><h:outputText value="#{convotante.apellidos} #{convotante.nombres}" /></li></h:panelGroup>
 								</ui:repeat>
 							</ul>
 						</div>
@@ -42,7 +42,7 @@
 							<ul>
 								<ui:repeat var="convocado" value="#{solicitud.partes}">
 									<h:panelGroup rendered="#{convocado.tipoParte=='Convocado'}">
-										<li><h:outputText value="#{convocado.apellidos}"/></li>
+										<li><h:outputText value="#{convocado.apellidos} #{convocado.nombres}"/></li>
 									</h:panelGroup>
 								</ui:repeat>
 							</ul>

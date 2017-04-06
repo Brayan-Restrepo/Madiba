@@ -25,7 +25,7 @@
         <param-value>6LdbsxYUAAAAABKuzsIgOvEqw4Zsdef8Q6tEHN4l</param-value>
     </context-param> -->
     
-    <!-- Localhost -->
+    <!-- Localhost  
     <context-param>
         <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
         <param-value>6LeeTxQUAAAAAInP9teZ-_kAlaReoZlQxBIGSeM2</param-value>
@@ -34,15 +34,57 @@
     <context-param>
         <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
         <param-value>6LeeTxQUAAAAAJBt1_paEU248ePTD7yh6NqKT_qR</param-value>
+    </context-param> -->
+   
+       <!-- 192.168.0.2
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6Lf2rBsUAAAAAJhrElDUdMf_SMTCmPGob0rMjesy</param-value>
     </context-param>
-    
-    <error-page>
-		<error-code>404</error-code>
-		<location>/index.jsf</location>
+   
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6Lf2rBsUAAAAABxRGeHDL0k06NC6rBZIoXYxzbFK</param-value>
+    </context-param>  -->
+   	  <!-- 192.168.0.11 -->
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>6LckpBsUAAAAAKMP1iusU8YO-uPY2IJvCEpZKcfN</param-value>
+    </context-param>
+   
+    <context-param>
+        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+        <param-value>6LckpBsUAAAAAP2NvR9x3oeDLyyJdy1zjUalCtqe</param-value>
+    </context-param>  
+	<error-page>
+	    <!-- Missing login -->
+	    <error-code>401</error-code>
+	    <location>/error.jsf</location>
 	</error-page>
-	 <!-- 
+	<error-page>
+	    <!-- Forbidden directory listing -->
+	    <error-code>403</error-code>
+	    <location>/error.jsf</location>
+	</error-page>
+	<error-page>
+	    <!-- Missing resource -->
+	    <error-code>404</error-code>
+	    <location>/505.jsf</location>
+	</error-page>
+	<error-page>
+	    <!-- Uncaught exception -->
+	    <error-code>500</error-code>
+	    <location>/error.jsf</location>
+	</error-page>
+	<error-page>
+	    <!-- Unsupported servlet method -->
+	    <error-code>503</error-code>
+	    <location>/error.jsf</location>
+	</error-page>
+
+	 
 	 <session-config>
-        <session-timeout>60</session-timeout>
+        <session-timeout>20</session-timeout>
     </session-config>
-    -->
+    
 </web-app>

@@ -71,17 +71,53 @@ public class ControllerLogin {
 	public void redirect(){
 		if(!this.login.isValidado()){
 			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("login.jsf");
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/login.jsf");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 	
+	public void redirectConciliador(){
+		try {
+			if(this.login.isValidado()){
+				if(!this.login.getRole().equalsIgnoreCase("Conciliador")){
+					FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/accesodenegado.jsf");
+				}
+			}else{
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/login.jsf");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void redirectConalbos(){
+		try {
+			if(this.login.isValidado()){
+				if(!this.login.getRole().equalsIgnoreCase("Conalbos")){
+					FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/accesodenegado.jsf");
+				}
+			}else{
+				FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/login.jsf");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void logout(){
-		Object session = FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-		HttpSession httpSession = (HttpSession)session;
-		httpSession.invalidate();
+		try {
+			Object session = FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+			HttpSession httpSession = (HttpSession)session;
+			httpSession.invalidate();
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/login.jsf");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private String hash(String clear) {
