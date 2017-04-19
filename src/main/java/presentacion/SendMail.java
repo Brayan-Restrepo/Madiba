@@ -35,11 +35,11 @@ public class SendMail
     @EJB
     private iSolicitudBean solicitudBean;
     
-    public void enviarCitacion(List<Long> idSolicitud){
+    public void enviarCitacion(List<Solicitud> auxSolicitud){
     	
-    	for (Long long1 : idSolicitud) {
-    		
-			Solicitud solicitud = this.solicitudBean.findSolicitud(long1);
+    	for (Solicitud solicitud : auxSolicitud) {
+    		//Long long1 = soli.getIdSolicitud();
+			//Solicitud solicitud = this.solicitudBean.findSolicitud(long1);
 			
 			Date fechaActual = new Date();
 	    	SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -50,13 +50,13 @@ public class SendMail
 			String fechaAudiencia = solicitud.getAudiencias().get(ultimaAudiencia).getAgendas().get(ultimaAgenda).getFecha().toString();
 			
 			if(fechaAudiencia.equals(cadenaFecha)){
-				this.solicitudBean.actualizarEstadoSolicitud(long1, "AUDIENCIA-ENCURSO");
+				this.solicitudBean.actualizarEstadoSolicitud(solicitud.getIdSolicitud(), "AUDIENCIA-ENCURSO");
 			}else{
-				this.solicitudBean.actualizarEstadoSolicitud(long1, "AUDIENCIA-PENDIENTE");
+				this.solicitudBean.actualizarEstadoSolicitud(solicitud.getIdSolicitud(), "AUDIENCIA-PENDIENTE");
 			}
 			
 			//Envio de citacion al Conciliador
-    		//this.emailCitacion(solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).getConciliador().getCorreo(), "Conciliador");
+    		this.emailCitacion(solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).getConciliador().getCorreo(), "Conciliador");
 
     		List<Parte> parte = solicitud.getPartes();
 			for (Parte parte2 : parte) {
@@ -82,7 +82,7 @@ public class SendMail
             	//adjunto.setDataHandler(new DataHandler(new FileDataSource("C:/Users/Brayan Restrepo/Pictures/Prologa.doc")));
             	//adjunto.setFileName("Prologa.doc");
             	
-        		File file = new File("C:/Users/Juan/Desktop/Ambiente JavaEE/Documentacion/favicon.png");
+        		File file = new File("C:/Conalbos-Madiba/conalbos.png");
         	    DataSource source = new FileDataSource(file);
         	    
             	adjunto.setDataHandler(new DataHandler(source));

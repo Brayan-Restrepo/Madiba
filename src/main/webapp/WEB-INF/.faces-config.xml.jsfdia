@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
  <PROCESS-ITEM NAME="rules:#modulos#solicitudes#listasolicitudes.xhtml"
-  PATH="/modulos/solicitudes/listasolicitudes.xhtml" SHAPE="105,57,0,0" model-entity="JSFProcessGroup">
+  PATH="/modulos/solicitudes/listasolicitudes.xhtml"
+  SHAPE="368,64,50,41" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#modulos#solicitudes#listasolicitudes.xhtml:0"
    NAME="item" PATH="/modulos/solicitudes/listasolicitudes.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
@@ -15,5 +16,5 @@
  <PROCESS-ITEM
   NAME="rules:#modulos#audiencia#listaaudienciadetalletabla.xhtml"
   PATH="/modulos/audiencia/listaaudienciadetalletabla.xhtml"
-  SHAPE="242,179,0,0" model-entity="JSFProcessGroup" persistent="true"/>
+  SHAPE="688,96,50,25" model-entity="JSFProcessGroup"/>
 </PROCESS>
