@@ -82,7 +82,7 @@ public class SendMail
             	//adjunto.setDataHandler(new DataHandler(new FileDataSource("C:/Users/Brayan Restrepo/Pictures/Prologa.doc")));
             	//adjunto.setFileName("Prologa.doc");
             	
-        		File file = new File("C:/Users/Brayan Restrepo/workspace/Madiba/src/main/webapp/resources/img/conalbos.png");
+        		File file = new File("C:/Users/Juan/Desktop/Ambiente JavaEE/Documentacion/favicon.png");
         	    DataSource source = new FileDataSource(file);
         	    
             	adjunto.setDataHandler(new DataHandler(source));

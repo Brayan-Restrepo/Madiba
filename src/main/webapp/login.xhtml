@@ -17,14 +17,13 @@
 	<title>Login</title>
 	
 </h:head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-color:#222D32">
 	<p:messages/>
 	<div class="login-box">		
-		<div class="login-logo">
-			<p:outputLabel>CONALBOS</p:outputLabel>
+		<div class="login-logo" style="margin-bottom:0px;padding-bottom:0px">
+			<p:outputLabel style="color:#3C8DBC">CONALBOS</p:outputLabel>
 		</div>
-
-		<div class="login-box-body login-div">
+		<div class="login-box-body login-div" style="border-color:#3C8DBC">
 			<p:outputLabel value="Inicie Session" />
 			<h:form id="formLogin">
 				<div class="form-group has-feedback">
@@ -34,9 +33,9 @@
 				<div class="form-group has-feedback">			
 					<p:password id="password" styleClass="form-control" required="true" value="#{modelLogin.password}" placeholder="Password" requiredMessage="Password: Campo Obligatorio"/>
 	        		<span class="fa fa-lock form-control-feedback"></span>
-				</div>
+				</div>	
 		   		<p:captcha id="captcha" language="es" requiredMessage="Captha: Campo Obligatorio"/>
-	  		 	<p:commandButton id="iniciarSesion" value="Iniciar Sesión" styleClass="btn btn-sm btn-primary" actionListener="#{controllerLogin.autenticar()}" action="#{controllerLogin.entrar()}" ajax="false" icon="ui-icon-check"/>
+	  		 	<p:commandButton style="margin-top: 12px" id="iniciarSesion" value="Iniciar Sesión" styleClass="btn btn-sm btn-primary" actionListener="#{controllerLogin.autenticar()}" action="#{controllerLogin.entrar()}" ajax="false" icon="ui-icon-check"/>
 			</h:form>
 		</div>
 	</div>
