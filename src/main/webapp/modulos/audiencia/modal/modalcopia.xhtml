@@ -15,6 +15,7 @@
 			<div class="modal inmodal" id="modalcopia" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="animated flipInY">
+					<h:panelGroup layout="block" id="auxModalcopia" >
 						<div class="box #{modelAudiencia.selectSolicitud.get(0).actasConciliaciones.get(0).copias.size()>=modelAudiencia.selectSolicitud.get(0).actasConciliaciones.get(0).limiteCopias? 'box-danger': 'box-primary'} box-solid animated flipInY">
 							<div class="box-header text-center with-border">
 								<h3 class="box-title">Sistema de Copias de Documentos</h3>
@@ -43,6 +44,7 @@
 									
 								</div>
 						</div>
+						</h:panelGroup>
 					</div>
 				</div>
 			</div>

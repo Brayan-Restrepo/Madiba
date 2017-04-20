@@ -34,7 +34,7 @@
 					<p:password id="password" styleClass="form-control" required="true" value="#{modelLogin.password}" placeholder="Password" requiredMessage="Password: Campo Obligatorio"/>
 	        		<span class="fa fa-lock form-control-feedback"></span>
 				</div>	
-		   		<p:captcha id="captcha" language="es" requiredMessage="Captha: Campo Obligatorio"/>
+		   		<!--<p:captcha id="captcha" language="es" requiredMessage="Captha: Campo Obligatorio"/> -->
 	  		 	<p:commandButton style="margin-top: 12px" id="iniciarSesion" value="Iniciar Sesión" styleClass="btn btn-sm btn-primary" actionListener="#{controllerLogin.autenticar()}" action="#{controllerLogin.entrar()}" ajax="false" icon="ui-icon-check"/>
 			</h:form>
 		</div>

@@ -388,6 +388,8 @@ public class ControllerAudiencia {
 				copia.setFechaGeneracion(fecha);
 				copia.setNumCopia(auxSolicitud.getActasConciliaciones().get(0).getCopias().size()+1);
 				this.solicitudBean.guardarCopia(copia);
+				this.modelAudiencia.getSelectSolicitud().get(0).getActasConciliaciones().get(0).getCopias().add(copia);
+								
 			}
 			
 		}
