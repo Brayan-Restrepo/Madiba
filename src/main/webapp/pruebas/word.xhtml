@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>
+        <title>Apache POI</title>
+               
+    </h:head>
+     <h:body>
+        <h:form>
+        <p:growl id="growl" />
+      		<p:messages autoUpdate="true"/>
+      		 <p:fieldset id="formulario" legend="Expediente"> 
+            <h:panelGrid columns="2" columnClasses="label, value">
+            	
+             	<h:outputLabel value="Id  : *" for="id"></h:outputLabel>
+            	<p:inputText id="id" value="#{poipocMB.id}" required="true"/>
+           		<h:outputLabel value="Nombre  : *" for="txt_nombre"></h:outputLabel>
+            	<p:inputText id="txt_nombre" value="#{poipocMB.nombre}" required="true"/>
+ 
+            	<h:outputLabel value="Texto  : *" for="txt_text"></h:outputLabel>
+            	<p:inputText id="txt_text" value="#{poipocMB.texto}" required="true" />
+                      	
+             </h:panelGrid>
+             <p:commandButton value="Generar" action="#{poipocMB.generarArchivo}" update="ruta,dwbutton"/>
+             
+             <h:panelGrid columns="2" columnClasses="label, value">   
+             	<h:outputLabel value="Ruta  : *" for="ruta"></h:outputLabel>
+         	 	<h:outputText id="ruta" value="#{poipocMB.ruta}" styleClass="outputLabel"/>
+         	 </h:panelGrid>
+         	 
+         	 <p:commandButton id="dwbutton" value="Descargar Archivo" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" 
+					icon="ui-icon-arrowthick-1-s" update="ruta, growl">
+					        <p:fileDownload value="#{poipocMB.file}" />
+			 </p:commandButton>
+			</p:fieldset>		
+					
+					<script type="text/javascript">
+					function start() {
+					    PF('statusDialog').show();
+					}
+					 
+					function stop() {
+					    PF('statusDialog').hide();
+					}
+					</script>
+    	</h:form>
+    </h:body>
+     
+</html>
