@@ -27,9 +27,7 @@ import java.util.List;
 	@NamedQuery(name="Solicitud.findSolicitudes", query="SELECT DISTINCT s FROM Solicitud s WHERE s.fecha between :fechaInicial AND :fechaFinal ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findSolicitudesFiltroParteFecha", query="SELECT DISTINCT s FROM Solicitud s, Parte p WHERE s.fecha between :fechaInicial AND :fechaFinal AND s.idSolicitud = p.solicitud.idSolicitud AND p.identificacion = :identificacion AND p.tipoParte=:tipoParte ORDER BY s.fecha"),
 	@NamedQuery(name="Solicitud.findSolicitudesFiltroConciliadorFecha", query="SELECT DISTINCT s FROM Solicitud s, Designacion d, Conciliador c WHERE s.fecha BETWEEN :fechaInicial AND :fechaFinal AND s.idSolicitud = d.solicitud.idSolicitud AND d.aceptada <> false AND d.conciliador.idConciliador = c.idConciliador AND c.identificacion = :identificacion ORDER BY s.fecha"),
-	@NamedQuery(name="Solicitud.findSolicitudesFiltroRadicadoFecha", query="SELECT DISTINCT s FROM Solicitud s WHERE s.fecha BETWEEN :fechaInicial AND :fechaFinal AND s.nroRadicado = :nroRadicado ORDER BY s.fecha"),
-	
-	
+	@NamedQuery(name="Solicitud.findSolicitudesFiltroRadicadoFecha", query="SELECT DISTINCT s FROM Solicitud s WHERE s.fecha BETWEEN :fechaInicial AND :fechaFinal AND s.nroRadicado = :nroRadicado ORDER BY s.fecha")
 })
 public class Solicitud implements Serializable {
 	private static final long serialVersionUID = 1L;
