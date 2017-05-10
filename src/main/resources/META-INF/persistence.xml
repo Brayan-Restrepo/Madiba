@@ -46,6 +46,7 @@
       <class>entidades.Actas_Conciliacione</class>
       <class>entidades.Copia</class>
       <class>entidades.Devolucione</class>
+      <class>entidades.Audconcil</class>
       <validation-mode>CALLBACK</validation-mode>
       <properties>
          <!-- Properties for Hibernate -->

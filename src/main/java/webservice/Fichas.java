@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import entidades.Audconcil;
 import entidades.Solicitud;
 
 @Path("/fichas")
@@ -37,15 +38,9 @@ public class Fichas {
 			    .build();
     }
 
-	String $fichas(String idConciliador) {
-
-    	return audienciasConciliador(idConciliador);
-
-    }
-    
-    @SuppressWarnings("unchecked")
-	public String audienciasConciliador(String idConciliador){	
-    	Date fechaActual = new Date();
+	@SuppressWarnings("unchecked")
+	List<Audconcil> $fichas(String idConciliador) {
+		Date fechaActual = new Date();
     	Calendar calendar = Calendar.getInstance();
     	calendar.setTime(fechaActual);
     	calendar.add(Calendar.MONTH, -3); 
@@ -58,29 +53,9 @@ public class Fichas {
 		} catch (ParseException ex) {
 		     ex.printStackTrace();
 		}
+
+		List<Audconcil> audiencias = this.manager.createNamedQuery("Audconcil.findConciliadorFecha").setParameter("identificacion", Long.parseLong(idConciliador)).setParameter("fechaini", fechaInicial).setParameter("fechafin", fechaFinal).getResultList();
 		
-		/*List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findSolicitudesFiltroConciliadorFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("identificacion", idConciliador).getResultList();
-		for(int i=0;i<solicitud.size();i++){
-			solicitud.get(i).getPartes().size();
-			solicitud.get(i).getPagos().size();
-			solicitud.get(i).getDesignacions().size();			
-			solicitud.get(i).getAudiencias().size();
-			solicitud.get(i).getActasConciliaciones().size();			
-			solicitud.get(i).getDevoluciones().size();
-			
-			for(int j=0;j<solicitud.get(i).getActasConciliaciones().size();j++){
-				solicitud.get(i).getActasConciliaciones().get(j).getCopias().size();
-			}
-			
-			for(int j=0;j<solicitud.get(i).getAudiencias().size();j++){				
-				solicitud.get(i).getAudiencias().get(j).getAgendas().size();
-				solicitud.get(i).getAudiencias().get(j).getAsistencias().size();
-				solicitud.get(i).getAudiencias().get(j).getResultados().size();
-			}
-		}*/
-		
-		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findAll").setParameter("estado", "%").getResultList();
-		
-		return solicitud.get(0).getPartes().get(0).getApellidos()+"";
-	}
+		return audiencias;
+    }
 }
