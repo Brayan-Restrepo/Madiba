@@ -250,7 +250,7 @@ public class ControllerAudiencia {
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
 			String estadoSolicitud = this.modelAudiencia.getSelectSolicitud().get(0).getEstado();
 			
-			if(estadoSolicitud.equals("AUDIENCIA-FINALIZADA")){
+			if(estadoSolicitud.equals("AUDIENCIA-FINALIZADA") && this.modelAudiencia.getSelectSolicitud().get(0).getActasConciliaciones().size()==0){
 				
 				return false;
 			}

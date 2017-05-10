@@ -134,6 +134,8 @@ public class FileUtilities {
 		}else {
 			if (extention.equalsIgnoreCase("pdf")){
 				Type = "application/pdf";
+			}else if (extention.equalsIgnoreCase("docx")){
+				Type = "application/docx";
 			}else{
 				Type = "application/zip";
 			}

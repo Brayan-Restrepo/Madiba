@@ -111,9 +111,12 @@ public class ControllerLogin {
 	
 	public void logout(){
 		try {
-			Object session = FacesContext.getCurrentInstance().getExternalContext().getSession(false);
-			HttpSession httpSession = (HttpSession)session;
-			httpSession.invalidate();
+			//Object session = FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+			//HttpSession httpSession = (HttpSession)session;
+			//httpSession.invalidate();
+			this.login.setValidado(false);
+			this.login.setRole(null);
+			this.login.setIdConciliador(null);
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/login.jsf");
 		} catch (IOException e) {
 			e.printStackTrace();

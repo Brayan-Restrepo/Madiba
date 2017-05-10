@@ -15,6 +15,7 @@ import entidades.Solicitud;
 import negocio.iSolicitudBean;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,8 @@ public class SendMail
     @EJB
     private iSolicitudBean solicitudBean;
     
-    public void enviarCitacion(List<Solicitud> auxSolicitud){
+    public void enviarCitacion(List<Solicitud> auxSolicitud) throws IOException{
+    	ControllerDocumento contDocumento = new ControllerDocumento();
     	
     	for (Solicitud solicitud : auxSolicitud) {
     		//Long long1 = soli.getIdSolicitud();
@@ -49,6 +51,7 @@ public class SendMail
 			int ultimaAgenda = solicitud.getAudiencias().get(ultimaAudiencia).getAgendas().size()-1;
 			String fechaAudiencia = solicitud.getAudiencias().get(ultimaAudiencia).getAgendas().get(ultimaAgenda).getFecha().toString();
 			
+			
 			if(fechaAudiencia.equals(cadenaFecha)){
 				this.solicitudBean.actualizarEstadoSolicitud(solicitud.getIdSolicitud(), "AUDIENCIA-ENCURSO");
 			}else{
@@ -56,11 +59,32 @@ public class SendMail
 			}
 			
 			//Envio de citacion al Conciliador
-    		this.emailCitacion(solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).getConciliador().getCorreo(), "Conciliador");
+			String identificacionConciliador = solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).getConciliador().getIdentificacion();
+			//String rutaCitacion="C:/Conalbos-Madiba/docs/Conciliador"+identificacionConciliador+".docx";
+			//contDocumento.citaciones(rutaCitacion, "res", "bras", "");
+			//contDocumento.citaciones(rutaCitacion, nombreConvocado, nombresConvocantes, asunto, direccionCitado, radicado, fechaAudiencia, horaAudiencia);
+    		this.emailCitacion(solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).getConciliador().getCorreo(), "Conciliador", identificacionConciliador);
 
     		List<Parte> parte = solicitud.getPartes();
+    		String nombresConvocantes = "";
+    		for (Parte parte3 : parte) {
+    			if(parte3.getTipoParte().equalsIgnoreCase("Convocante")){
+    				nombresConvocantes+=parte3.getNombres()+" "+parte3.getApellidos()+", ";
+    			}    			
+    		}
 			for (Parte parte2 : parte) {
-				this.emailCitacion(parte2.getCorreo(), parte2.getTipoParte());
+				String rutaCitacion="C:/Conalbos-Madiba/docs/"+parte2.getIdentificacion()+".docx";
+				String nombreConvocado = parte2.getNombres()+" "+parte2.getApellidos();
+				
+				String asunto = solicitud.getAsunto();
+				String direccionCitado = parte2.getDireccion();
+				String radicado = solicitud.getNroRadicado();
+			
+				ControllerSolicitud contSolicitud = new ControllerSolicitud();
+				String horaAudiencia = contSolicitud.MascaraHora(solicitud.getAudiencias().get(ultimaAudiencia).getAgendas().get(ultimaAgenda).getHoraInicial());
+				
+				contDocumento.citaciones(rutaCitacion, parte2.getTipoParte(), nombreConvocado, nombresConvocantes, asunto, direccionCitado, radicado, fechaAudiencia, horaAudiencia);
+				this.emailCitacion(parte2.getCorreo(), parte2.getTipoParte(), parte2.getIdentificacion());
 			}
 		}
     	
@@ -71,22 +95,25 @@ public class SendMail
      * @param emailParte El email
      * @param rol El rol al que se le envia Conciliado, convocante, Convocado
      */
-    public void emailCitacion(String emailParte, String rol) {
+    public void emailCitacion(String emailParte, String rol, String identificacion) {
         {
  
             try    {
             	BodyPart texto = new MimeBodyPart();
             	texto.setText("Señor "+rol);
-            	
+            	if(rol.equalsIgnoreCase("Conciliador")){
+            		texto.setText("Señor Usted es un Conciliador");
+            	}
             	BodyPart adjunto = new MimeBodyPart();
             	//adjunto.setDataHandler(new DataHandler(new FileDataSource("C:/Users/Brayan Restrepo/Pictures/Prologa.doc")));
             	//adjunto.setFileName("Prologa.doc");
             	
-        		File file = new File("C:/Conalbos-Madiba/conalbos.png");
+        		//File file = new File("C:/Conalbos-Madiba/conalbos.png");
+            	File file = new File("C:/Conalbos-Madiba/docs/"+identificacion+".docx");
         	    DataSource source = new FileDataSource(file);
         	    
             	adjunto.setDataHandler(new DataHandler(source));
-            	adjunto.setFileName("conalbos.png");
+            	adjunto.setFileName(identificacion+".docx");
             	
             	MimeMultipart multiParte = new MimeMultipart();
 
