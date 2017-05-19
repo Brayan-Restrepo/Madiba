@@ -53,7 +53,6 @@ public class Fichas {
 		} catch (ParseException ex) {
 		     ex.printStackTrace();
 		}
-
 		List<Audconcil> audiencias = this.manager.createNamedQuery("Audconcil.findConciliadorFecha").setParameter("identificacion", Long.parseLong(idConciliador)).setParameter("fechaini", fechaInicial).setParameter("fechafin", fechaFinal).getResultList();
 		
 		return audiencias;

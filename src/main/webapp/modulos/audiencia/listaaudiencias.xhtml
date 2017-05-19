@@ -228,7 +228,7 @@
 					
 					<h:commandButton value="Aplazar" rendered="#{modelLogin.role=='conciliador'}" actionListener="#{controllerAudiencia.aplazarAudiencia()}" styleClass="btn btn-sm btn-warning btn-menu" disabled="#{controllerAudiencia.bloquearBotonAplazar('AUDIENCIA-PENDIENTE','AUDIENCIA-CITACION')}" action="listaaudiencias?faces-redirect=true"/>
 					
-					<h:commandButton value="Expedir #{controllerAudiencia.nombreBotonActaConstancia()}" rendered="#{modelLogin.role=='conciliador'}" disabled="#{controllerAudiencia.bloquearBotonExpedir()}" styleClass="btn btn-sm btn-success btn-menu"></h:commandButton>
+					<h:commandButton value="Expedir #{controllerAudiencia.nombreBotonActaConstancia()}" action="#{controllerDocumento.actasConstancia(modelAudiencia.selectSolicitud.get(0))}" rendered="#{modelLogin.role=='conciliador'}" disabled="#{controllerAudiencia.bloquearBotonExpedir()}" styleClass="btn btn-sm btn-success btn-menu"></h:commandButton>
 
             		<h:commandButton value="Guardar  #{controllerAudiencia.nombreBotonActaConstancia()}" rendered="#{modelLogin.role=='conalbos'}" onclick="$('#modalsubiracta').modal();" disabled="#{controllerAudiencia.bloquearBotonSubir()}" class="btn btn-success btn-menu">
             			<f:ajax></f:ajax>
