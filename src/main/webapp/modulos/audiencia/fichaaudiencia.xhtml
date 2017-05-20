@@ -4,6 +4,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui"> 
 
 <h:head></h:head> 
@@ -100,7 +101,7 @@
 		        <h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Pretenciones:" />
-			            <h:outputText style="padding-left:5%" value=" $#{solicitud.cuantia}" />
+			            <h:outputText styleClass="mascara" style="padding-left:5%" value="#{solicitud.cuantia}"/>
 		          	</div>
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Conciliador por:" />

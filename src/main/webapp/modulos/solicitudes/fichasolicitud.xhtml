@@ -94,7 +94,7 @@
 				<h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Pretenciones:" />
-			            <h:outputText style="padding-left:5%" value=" $#{controllerSolicitud.mascaraValor(solicitud.cuantia)}" />
+			            <h:outputText styleClass="mascara" style="padding-left:5%" value="#{solicitud.cuantia}"/>
 		          	</div>
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Conciliador por:" />
