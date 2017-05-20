@@ -123,10 +123,16 @@ public class SolicitudDAO {
 		return solicitud;
 	}
 	
+	/**
+	 * Filtra tosdas las solicitudes por el numero de radicado y la ordena la fecha de solicitud
+	 * @param nroRadicado fracmento del numero rdicado 201705 --->20170500094
+	 * @return Lista de todas la solicitudes
+	 */
+	
 	@SuppressWarnings("unchecked")
-	public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, String nroRadicado){
+	public List<Solicitud> findSolicitudesFiltroRadicado(String nroRadicado){
 		
-		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findSolicitudesFiltroRadicadoFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("nroRadicado", nroRadicado).getResultList();
+		List<Solicitud> solicitud = this.manager.createNamedQuery("Solicitud.findSolicitudesFiltroRadicado").setParameter("nroRadicado", nroRadicado+"%").getResultList();
 		for(int i=0;i<solicitud.size();i++){
 			solicitud.get(i).getPartes().size();
 			solicitud.get(i).getPagos().size();
@@ -243,15 +249,22 @@ public class SolicitudDAO {
 		return solicitud;
 	}
 	
+	/**
+	 * Filtra tosdas las solicitudes por el numero de radicado y la ordena la fecha de solicitud
+	 * @param role Rol del Solicitante
+	 * @param idConciliador el id del Conciliador en caso de serlo 
+	 * @param nroRadicado numero de radicado de la solicitud
+	 * @return lista de la solicitudes
+	 */
 	@SuppressWarnings("unchecked")
-	public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, String nroRadicado){
+	public List<Solicitud> findAudienciasFiltroRadicado(String role, Long idConciliador, String nroRadicado){
 		
 		List<Solicitud> solicitud;
 		if(role.equalsIgnoreCase("Conciliador")){
 			//Falta Filtros
-			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasConciliadorFiltroRadicadoFecha").setParameter("idConciliador", idConciliador).setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("nroRadicado", nroRadicado).getResultList();
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasConciliadorFiltroRadicado").setParameter("idConciliador", idConciliador).setParameter("nroRadicado", nroRadicado+"%").getResultList();
 		}else{
-			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasFiltroRadicadoFecha").setParameter("fechaInicial", fechaInicial).setParameter("fechaFinal", fechaFinal).setParameter("nroRadicado", nroRadicado).getResultList();
+			solicitud = this.manager.createNamedQuery("Solicitud.findAudienciasFiltroRadicado").setParameter("nroRadicado", nroRadicado+"%").getResultList();
 		}
 		
 		for(int i=0;i<solicitud.size();i++){

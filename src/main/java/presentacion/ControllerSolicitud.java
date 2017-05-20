@@ -133,7 +133,7 @@ public class ControllerSolicitud {
 						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroConciliadorFecha(fechaInicial, fechaFinal, numero);
 					}else {
 						if(tipoFiltro.equals("Radicado")){
-							this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroRadicadoFecha(fechaInicial, fechaFinal, numero);
+							this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroRadicado(numero);
 						}else {
 							this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, numero, tipoFiltro);
 						}
@@ -143,7 +143,7 @@ public class ControllerSolicitud {
 						this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroConciliadorFecha(fechaInicial, fechaFinal, numero);
 					}else {
 						if(tipoFiltro.equals("Radicado")){
-							this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroRadicadoFecha(fechaInicial, fechaFinal, numero);
+							this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroRadicado(numero);
 						}else {
 							this.listaSolicitud = this.solicitudBean.findSolicitudesFiltroParteFecha(fechaInicial, fechaFinal, numero, tipoFiltro);
 						}

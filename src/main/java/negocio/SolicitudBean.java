@@ -99,16 +99,15 @@ public class SolicitudBean implements iSolicitudBean {
 	}
 
 	@Override
-	public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, String nroRadicado) {
+	public List<Solicitud> findSolicitudesFiltroRadicado(String nroRadicado) {
 		
-		return this.solicitudDAO.findSolicitudesFiltroRadicadoFecha(fechaInicial, fechaFinal, nroRadicado);
+		return this.solicitudDAO.findSolicitudesFiltroRadicado(nroRadicado);
 	}
 
 	@Override
-	public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial,
-			Date fechaFinal, String nroRadicado) {
+	public List<Solicitud> findAudienciasFiltroRadicado(String role, Long idConciliador, String nroRadicado) {
 		
-		return this.solicitudDAO.findAudienciasFiltroRadicadoFecha(role, idConciliador, fechaInicial, fechaFinal, nroRadicado);
+		return this.solicitudDAO.findAudienciasFiltroRadicado(role, idConciliador, nroRadicado);
 	}
 
 	@Override
