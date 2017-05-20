@@ -49,7 +49,9 @@ public class Login {
 				if(usuarioBD.getIdConciliador()!=null){
 					idConcil = usuarioBD.getIdConciliador().toString();
 					Conciliador conciliadorBD = manager.find(Conciliador.class, Long.parseLong(idConcil));
-					nombreConcil = conciliadorBD.getNombres()+" "+conciliadorBD.getApellidos();
+					String[] nombres = conciliadorBD.getNombres().split(" ");
+					String[] apellidos = conciliadorBD.getApellidos().split(" ");
+					nombreConcil = nombres[0]+" "+apellidos[0];
 				}
 			}
 		}

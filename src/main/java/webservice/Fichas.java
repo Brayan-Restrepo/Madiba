@@ -26,7 +26,8 @@ public class Fichas {
 	@POST
 	@Produces({"application/json"})
     public Response fichas(
-    		@QueryParam("idConcil") String idConciliador
+    		@QueryParam("idConcil") String idConciliador,
+    		@QueryParam("estado") String estado
     ) {
 		return Response
 				.status(200)
@@ -34,16 +35,16 @@ public class Fichas {
 			    .header("Access-Control-Allow-Credentials", "true")
 			    .header("Access-Control-Allow-Headers","origin, content-type, accept, authorization")
 			    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-			    .entity($fichas(idConciliador))
+			    .entity($fichas(idConciliador,estado))
 			    .build();
     }
 
 	@SuppressWarnings("unchecked")
-	List<Audconcil> $fichas(String idConciliador) {
+	List<Audconcil> $fichas(String idConciliador, String estado) {
 		Date fechaActual = new Date();
     	Calendar calendar = Calendar.getInstance();
     	calendar.setTime(fechaActual);
-    	calendar.add(Calendar.MONTH, -3); 
+    	calendar.add(Calendar.MONTH, -30); 
     	SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
 		Date fechaInicial = null;
 		Date fechaFinal = null;
@@ -53,7 +54,7 @@ public class Fichas {
 		} catch (ParseException ex) {
 		     ex.printStackTrace();
 		}
-		List<Audconcil> audiencias = this.manager.createNamedQuery("Audconcil.findConciliadorFecha").setParameter("identificacion", Long.parseLong(idConciliador)).setParameter("fechaini", fechaInicial).setParameter("fechafin", fechaFinal).getResultList();
+		List<Audconcil> audiencias = this.manager.createNamedQuery("Audconcil.findConciliadorFecha").setParameter("identificacion", Long.parseLong(idConciliador)).setParameter("estado", estado+"%").setParameter("fechaini", fechaInicial).setParameter("fechafin", fechaFinal).getResultList();
 		
 		return audiencias;
     }
