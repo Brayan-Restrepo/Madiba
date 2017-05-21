@@ -29,7 +29,7 @@
 		            #{modelBusqueda.setMensaje(false)}
               	</h:panelGroup>
 		    </h:panelGroup>
-			<h:panelGroup class="has-success" layout="block">
+			<h:panelGroup id="divBusquedas" class="has-success" layout="block">
 				<h:panelGrid columns="1" style="margin:15px">
 				
 					<h:selectOneMenu class="fa" id="tipoParteConalbos" rendered="#{modelLogin.role=='conalbos'}" value="#{modelBusqueda.tipoFiltro}" style="width:195px; height: 25px"> 
