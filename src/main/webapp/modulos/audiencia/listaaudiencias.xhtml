@@ -115,7 +115,7 @@
 					<div class="col-md-12">
 						<div class="nav-tabs-custom">
 							<ul class="nav nav-tabs" style="border-color: blue">
-								<li class="active"><a href="#todas" data-toggle="tab">Todas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('REGISTRADA')}">#{controllerAudiencia.listaSolicitud.size()}</span></a>
+								<li class="active"><a href="#todas" data-toggle="tab">Todas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('REGISTRADA')}">#{modelLogin.role=='conalbos' ? controllerAudiencia.listaSolicitud.size() : controllerAudiencia.solicitudesConciliador('AUDIENCIA-CITACION').size()}</span></a>
 								</li>
 								<h:panelGroup layout="block" rendered="#{modelLogin.role=='conalbos'}"> <li><a href="#citacion" data-toggle="tab">Por citación <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')}">#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-CITACION').size()}</span></a>
 								</li></h:panelGroup>
@@ -134,8 +134,8 @@
 												<h:panelGroup layout="block" class="row">
 	
 													<ui:include src="fichaaudiencia.xhtml"></ui:include>
-													<h:panelGroup rendered="#{controllerAudiencia.listaSolicitud.size()>(n.index+1)}">						
-														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{controllerAudiencia.listaSolicitud}">
+													<h:panelGroup rendered="#{modelLogin.role=='conalbos' ? controllerAudiencia.listaSolicitud.size()>(n.index+1) : controllerAudiencia.solicitudesConciliador('AUDIENCIA-CITACION').size()>(n.index+1)}">						
+														<ui:repeat offset="#{n.index+1}" size="#{n.index+2}" var="solicitud" value="#{modelLogin.role=='conalbos' ? controllerAudiencia.listaSolicitud : controllerAudiencia.solicitudesConciliador('AUDIENCIA-CITACION')}">
 															<ui:include src="fichaaudiencia.xhtml"></ui:include>
 														</ui:repeat>
 													</h:panelGroup>
