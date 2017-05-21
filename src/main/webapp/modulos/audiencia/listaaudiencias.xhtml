@@ -92,10 +92,10 @@
 				</h:panelGroup>
 				
 				<h:panelGrid id="botones" columns="1" style="margin:15px">
-					<h:commandButton value="BuscarNO - #{modelBusqueda.numero}" rendered="#{modelBusqueda.tipoFiltro!='Fecha' and (modelBusqueda.numero=='' || modelBusqueda.numero==null || modelBusqueda.numero=='0') ? 'true': 'false'}" styleClass="btn btn-success" style="width:195px">
+					<h:commandButton value="Buscar" rendered="#{modelBusqueda.tipoFiltro!='Fecha' and (modelBusqueda.numero=='' || modelBusqueda.numero==null || modelBusqueda.numero=='0') ? 'true': 'false'}" styleClass="btn btn-success" style="width:195px">
 						<f:ajax render="mensaje numero" listener="#{modelBusqueda.setMensaje(true)}"></f:ajax>
 					</h:commandButton>
-					<h:commandButton value="BuscarSI - #{modelBusqueda.numero}" action="listaaudiencias" rendered="#{modelBusqueda.tipoFiltro=='Fecha' || (modelBusqueda.numero!=null and modelBusqueda.numero!='' and modelBusqueda.numero!='0') ? 'true': 'false'}" styleClass="btn btn-success" style="width:195px" />
+					<h:commandButton value="Buscar" action="listaaudiencias" rendered="#{modelBusqueda.tipoFiltro=='Fecha' || (modelBusqueda.numero!=null and modelBusqueda.numero!='' and modelBusqueda.numero!='0') ? 'true': 'false'}" styleClass="btn btn-success" style="width:195px" />
 				</h:panelGrid>
 			</h:panelGroup>
 		</ui:define>

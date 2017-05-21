@@ -137,7 +137,7 @@ public class ControllerAudiencia {
 				System.out.println("FEchaaaasss "+this.modelLogin.getRole()+" "+this.modelLogin.getIdConciliador()+" "+fechaInicial+" "+fechaFinal);
 				this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial,fechaFinal);
 			}
-			if(numero == null || numero.equals("")){
+			else if(numero == null || numero.equals("")){
 				this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial,fechaFinal);
 			}else{
 				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
