@@ -61,7 +61,11 @@ public class ControllerLogin {
 	
 	public String entrar(){
 		if(this.login.isValidado()){
-			return "index?faces-redirect=true";
+			if (this.login.getRole().equalsIgnoreCase("conalbos")) {
+				return "/modulos/solicitudes/listasolicitudes?faces-redirect=true";
+			}else{
+				return "/modulos/audiencia/listaaudiencias?faces-redirect=true";
+			}
 		}else{
 			return "login"; 
 		}

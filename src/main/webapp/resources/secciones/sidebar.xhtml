@@ -10,16 +10,28 @@
 	<h:form>
 		<div class="sidebar">
 			<ul class="sidebar-menu">
-				<li class="header">MENU</li>
-				<!-- Optionally, you can add icons to the links -->
-				<li class="active">
-					<h:outputLink value="/Madiba/index.jsf" >
-				        <i class="fa fa-home"></i>
-						<span>Inicio</span>	
+				<h:panelGroup layout="block" rendered="#{modelLogin.role=='conalbos'}"> 
+					<li class="header">MENU</li>
+					<!-- <li class="active">
+						<h:outputLink value="/Madiba/index.jsf" >
+					        <i class="fa fa-home"></i>
+							<span>Inicio</span>	
+					    </h:outputLink>
+					</li>  -->			    
+					<li>
+						<h:outputLink value="/Madiba/modulos/solicitudes/listasolicitudes.jsf" >
+					        <i class="fa fa-list-alt"></i>
+							<span>Solicitudes</span>
+					    </h:outputLink>
+					</li>
+				</h:panelGroup>
+				<li>
+					<h:outputLink value="/Madiba/modulos/audiencia/listaaudiencias.jsf" >
+				        <i class="fa fa-th-list"></i>
+						<span>Audiencia</span>
 				    </h:outputLink>
-				</li>
-				
-				<h:panelGroup layout="block" rendered="#{modelLogin.role=='conalbos'}"> 						    
+				</li>		
+				<h:panelGroup layout="block" rendered="#{modelLogin.role=='conalbos'}"> 
 					<li class="treeview">
 						<h:outputLink value="#" >
 					        <i class="fa fa-users"></i>
@@ -39,20 +51,8 @@
 							    </h:outputLink>
 							</li>
 						</ul>
-					</li>
-					<li>
-						<h:outputLink value="/Madiba/modulos/solicitudes/listasolicitudes.jsf" >
-					        <i class="fa fa-list-alt"></i>
-							<span>Solicitudes</span>
-					    </h:outputLink>
-					</li>
+					</li>	
 				</h:panelGroup>
-				<li>
-					<h:outputLink value="/Madiba/modulos/audiencia/listaaudiencias.jsf" >
-				        <i class="fa fa-th-list"></i>
-						<span>Audiencia</span>
-				    </h:outputLink>
-				</li>			
 			</ul>
 			
 			<ui:insert name="busqueda"></ui:insert>

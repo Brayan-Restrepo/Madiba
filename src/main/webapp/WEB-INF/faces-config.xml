@@ -26,6 +26,24 @@
    <to-view-id>/modulos/audiencia/listaaudienciadetalletabla.xhtml</to-view-id>
   </navigation-case>
  </navigation-rule>
+ 
+ <navigation-rule>
+  <from-view-id>/login.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>listasolicitudes</from-outcome>
+   <to-view-id>/modulos/solicitudes/listasolicitudes.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+  <navigation-rule>
+  <from-view-id>/login.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>listaaudiencias</from-outcome>
+   <to-view-id>/modulos/audiencia/listaaudiencias.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+ 
  <!-- This descriptor activates the JSF 2.0 Servlet 
  Write your navigation rules here. You are encouraged to use CDI 
         for creating @Named managed beans. -->
