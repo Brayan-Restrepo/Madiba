@@ -11,7 +11,7 @@
 <body> 
 	
 	<ui:composition>
-		<h:panelGroup layout="block" styleClass="col-lg-6 col-md-12 col-sm-12 col-xs-12">	
+		<h:panelGroup layout="block" styleClass="col-lg-6 col-md-12 col-sm-12 col-xs-12" >	
 			<f:ajax event="click" listener="#{modelAudiencia.addSelectSolicitud(solicitud,solicitud.estado)}" render="#{formulario}" ></f:ajax>
 
 			<h:panelGroup layout="block" class="box box-#{controllerSolicitud.colorSolicitudEstado(solicitud.estado)} sombra #{controllerAudiencia.seleccionarSolicitud(solicitud,solicitud.estado)}">
@@ -94,14 +94,18 @@
 		            </h:panelGroup>
 		            <div class="col-lg-6">
 			            <h:outputLabel value="Valor: " />
-			            <h:outputText styleClass="mascara" style="padding-left:5%" value="#{solicitud.devoluciones.get(0).valor}" />
+			            <h:outputText style="padding-left:5%" value="#{solicitud.devoluciones.get(0).valor}" >
+					    	<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
+		                </h:outputText>
 		            </div>
 				</h:panelGroup>
 				
 		        <h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Pretenciones:" />
-			            <h:outputText styleClass="mascara" style="padding-left:5%" value="#{solicitud.cuantia}"/>
+			            <h:outputText style="padding-left:5%" value="#{solicitud.cuantia}">
+					    	<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
+		                </h:outputText>
 		          	</div>
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Conciliador por:" />

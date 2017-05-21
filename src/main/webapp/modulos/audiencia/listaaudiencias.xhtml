@@ -130,8 +130,7 @@
 									<h:form id='formtodas'>
 										<ui:param name="formulario" value="@form :formcitacion :formpendientes :formencurso :formfinalizadas :formBotones"/>
 										
-											<ui:repeat varStatus="n" var="solicitud"
-												value="#{controllerAudiencia.listaSolicitud}" step="2">
+											<ui:repeat varStatus="n" var="solicitud" value="#{modelLogin.role=='conalbos' ? controllerAudiencia.listaSolicitud : controllerAudiencia.solicitudesConciliador('AUDIENCIA-CITACION')}" step="2">
 												<h:panelGroup layout="block" class="row">
 	
 													<ui:include src="fichaaudiencia.xhtml"></ui:include>

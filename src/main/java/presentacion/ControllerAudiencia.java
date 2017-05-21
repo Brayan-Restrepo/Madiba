@@ -197,6 +197,17 @@ public class ControllerAudiencia {
 		return listaPorEstado;
 	}
 	
+	public List<Solicitud> solicitudesConciliador(String estado){
+		List<Solicitud> listaPorEstado = new ArrayList<Solicitud>();
+		int size = this.listaSolicitud.size();
+		for(int i=0; i<size; i++){
+			if(!this.listaSolicitud.get(i).getEstado().equals(estado)){
+				listaPorEstado.add(this.listaSolicitud.get(i));
+			}
+		}
+		return listaPorEstado;
+	}
+	
 	public void aplazarAudiencia(){
 		if(this.modelAudiencia.getSelectSolicitud().size()==1){
 			

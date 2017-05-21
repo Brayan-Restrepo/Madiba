@@ -407,7 +407,7 @@ public class ControllerSolicitud {
 	
 	public String Duracion(Integer horaIni, Integer horaFin){
 		String duracion = (horaFin-horaIni)+"";
-		duracion = duracion.substring(0, 1);
+		duracion = duracion.substring(0, 1)+" horas";
 		return duracion;
 	}
 	

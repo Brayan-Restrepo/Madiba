@@ -48,7 +48,9 @@
 					<td>#{solicitud.fecha}</td>
 					
 					<td class="text-right">
-						 <h:outputText value="#{controllerSolicitud.mascaraValor(solicitud.cuantia)}"/>
+						 <h:outputText value="#{solicitud.cuantia}">
+					    	<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
+		                </h:outputText>
 					</td>	
 				
 					<td>
@@ -124,7 +126,11 @@
 					<td>
 						<ul class="list-unstyled">
 							<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-								<li class="text-right"><h:outputText value="#{controllerSolicitud.mascaraValor(pagos.valor)}" /></li>
+								<li class="text-right">
+									<h:outputText value="#{pagos.valor}" >
+								    	<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
+					                </h:outputText>
+								</li>
 							</ui:repeat>				
 						</ul>	
 					</td>

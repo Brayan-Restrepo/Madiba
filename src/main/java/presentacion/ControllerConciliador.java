@@ -10,6 +10,7 @@ import entidades.Solicitud;
 import negocio.iConciliadorBean;
 import negocio.iSolicitudBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
@@ -62,8 +63,16 @@ public class ControllerConciliador {
 		
 		this.conciliadorBean.removeAllReparto();
 		this.modelConciliador.setConciliador(this.conciliadorBean.reparto(auxSolicitud.getIdSolicitud(),reparto));
-		
-		
 	}
 	
+	public String fotoConciliador(Long idConciliador){
+		String rutaFoto = "";
+		int size = this.listaConciliador().size();
+		for(int i=0; i<size; i++){
+			if(this.listaConciliador().get(i).getIdConciliador()==idConciliador){
+				rutaFoto = this.listaConciliador().get(i).getFoto();
+			}
+		}
+		return rutaFoto;
+	}
 }
