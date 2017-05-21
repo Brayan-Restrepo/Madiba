@@ -17,19 +17,7 @@
 					        <i class="fa fa-home"></i>
 							<span>Inicio</span>	
 					    </h:outputLink>
-					</li>  -->			    
-					<li>
-						<h:outputLink value="/Madiba/modulos/solicitudes/listasolicitudes.jsf" >
-					        <i class="fa fa-list-alt"></i>
-							<span>Solicitudes</span>
-					    </h:outputLink>
-					</li>
-					<li>
-						<h:outputLink value="/Madiba/modulos/audiencia/listaaudiencias.jsf" >
-					        <i class="fa fa-th-list"></i>
-							<span>Audiencia</span>
-					    </h:outputLink>
-					</li>	
+					</li>  -->	
 					<li class="treeview">
 						<h:outputLink value="#" >
 					        <i class="fa fa-users"></i>
@@ -49,8 +37,20 @@
 							    </h:outputLink>
 							</li>
 						</ul>
-					</li>	
+					</li>			    
+					<li>
+						<h:outputLink value="/Madiba/modulos/solicitudes/listasolicitudes.jsf" >
+					        <i class="fa fa-list-alt"></i>
+							<span>Solicitudes</span>
+					    </h:outputLink>
+					</li>
 				</h:panelGroup>
+				<li>
+					<h:outputLink value="/Madiba/modulos/audiencia/listaaudiencias.jsf" >
+				        <i class="fa fa-th-list"></i>
+						<span>Audiencia</span>
+				    </h:outputLink>
+				</li>	
 			</ul>
 			
 			<ui:insert name="busqueda"></ui:insert>
