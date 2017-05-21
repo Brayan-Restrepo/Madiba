@@ -118,7 +118,17 @@ public class ControllerSolicitud {
 				(numero == null || numero.equals(""))){
 			this.listaSolicitud = this.solicitudBean.findSolicitudes(fechaInicial, fechaFinal);
 		}else{
-			if(numero == null || numero.equals("")){
+			if(tipoFiltro.equals("Fecha")){
+				try {
+					 fechaInicial = formatoDelTexto.parse(this.modelBusqueda.getFechaInicio());
+					 fechaFinal = formatoDelTexto.parse(this.modelBusqueda.getFechaFinal());
+				} catch (ParseException ex) {
+				     ex.printStackTrace();
+				}
+				System.out.println("FEchaaaasss "+this.modelLogin.getRole()+" "+this.modelLogin.getIdConciliador()+" "+fechaInicial+" "+fechaFinal);
+				this.listaSolicitud = this.solicitudBean.findSolicitudes(fechaInicial,fechaFinal);
+			}
+			else if(numero == null || numero.equals("")){
 				this.listaSolicitud = this.solicitudBean.findSolicitudes(fechaInicial, fechaFinal);
 			}else{
 				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
@@ -154,7 +164,7 @@ public class ControllerSolicitud {
 		
 		// Resetea los inputs
 		this.modelBusqueda.setNumero("");
-		this.modelBusqueda.setTipoFiltro("Radicado");
+		//this.modelBusqueda.setTipoFiltro("Radicado");
 		this.modelBusqueda.setFechaInicio(fechIn);
 		this.modelBusqueda.setFechaFinal(fechFn);
 		this.modelBusqueda.setMensaje(false);
