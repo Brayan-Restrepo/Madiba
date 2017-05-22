@@ -89,7 +89,9 @@
 														<h:panelGroup layout="block" rendered="#{controllerDesarrolloAudiencia.activarPretenciones()}" styleClass="form-horizontal form-group col-lg-offset-2 col-lg-10">													
 															<h:outputLabel value="Pretenciones: " styleClass="col-sm-2 control-label"/>
 															<div class="has-success col-lg-2">
-																<h:inputText value="#{controllerDesarrolloAudiencia.solicitud.cuantia}" readonly="true" styleClass="form-control espacio5" />
+																<h:inputText value="#{controllerDesarrolloAudiencia.solicitud.cuantia}" readonly="true" styleClass="form-control espacio5" >
+																	<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
+																</h:inputText>
 															</div>
 															
 															<h:outputLabel value="Nuevar Pretenciones: " styleClass="col-sm-3 control-label"/>
@@ -145,13 +147,16 @@
 													<h:panelGroup layout="block" rendered="#{controllerDesarrolloAudiencia.solicitud.cuantia!=null}" styleClass="form-horizontal form-group col-lg-offset-2 col-lg-10">													
 														<h:outputLabel value="Pretenciones: " styleClass="col-sm-2 control-label"/>
 														<div class="has-success col-lg-2">
-															<h:inputText value="#{controllerDesarrolloAudiencia.solicitud.cuantia}" readonly="true" styleClass="form-control espacio5" />
+															<h:inputText value="#{controllerDesarrolloAudiencia.solicitud.cuantia}" readonly="true" styleClass="form-control espacio5" >
+																<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
+															</h:inputText>
 														</div>
 														
 														<h:outputLabel value="Nuevar Pretenciones: " styleClass="col-sm-3 control-label"/>
 														<div class="has-success col-lg-2">
 															#{modelDesarrolloAudiencia.setNuevaCuantia(controllerDesarrolloAudiencia.solicitud.cuantia)}
-															<h:inputText value="#{modelDesarrolloAudiencia.nuevaCuantia}" styleClass="form-control espacio5" />
+															<h:inputText value="#{modelDesarrolloAudiencia.nuevaCuantia}" styleClass="form-control espacio5" >
+															</h:inputText>
 														</div>
 													</h:panelGroup>
 													
