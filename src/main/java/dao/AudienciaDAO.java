@@ -88,7 +88,6 @@ public class AudienciaDAO {
 		for (int i = 0; i < audiencia.getAsistencias().size(); i++) {
 			if(audiencia.getAsistencias().get(i).getParte().getIdParte()==idParte && !audiencia.getAsistencias().get(i).getAsistio()){
 				audiencia.getAsistencias().get(i).setExcusa(excusa);
-				System.out.println("Entrar");
 			}
 		}
 	}

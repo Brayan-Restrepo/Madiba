@@ -61,7 +61,6 @@ public class ModelAudiencia {
 			}else{
 				this.selectSolicitud.add(auxSolicitud);
 			}
-			System.out.println(isSelect);
 		}
 		else{
 			if(this.selectSolicitud.size()>0){

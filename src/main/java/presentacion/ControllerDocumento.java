@@ -92,8 +92,6 @@ public class ControllerDocumento {
 			inputfilepath = "C:/Conalbos-Madiba/plantilla/citacionConvocado.docx";
 		}
 		
-		//String outputfilepath = "C:/Conalbos-Madiba/docs/"+nombreDocumento+".docx";
-		System.out.println(inputfilepath);
 		Date fechaActual = new Date(); 
     	String fechaCitacion = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual);
     	
@@ -245,7 +243,6 @@ public class ControllerDocumento {
 			inasistencia = "";
 		}
 		
-		System.out.println(inputfilepath);
 		InputStream fs = new FileInputStream(inputfilepath);
 		XWPFDocument doc = new XWPFDocument(fs); 
 		
@@ -369,7 +366,7 @@ public class ControllerDocumento {
 			}
 		}
 		identificacionConvocado = identificacionConvocado.substring(0, identificacionConvocado.length()-2);
-		System.out.println(inputfilepath);
+		
 		InputStream fs = new FileInputStream(inputfilepath);
 		XWPFDocument doc = new XWPFDocument(fs); 
 		
@@ -497,7 +494,7 @@ public class ControllerDocumento {
 			}
 		}
 		identificacionConvocado = identificacionConvocado.substring(0, identificacionConvocado.length()-2);
-		System.out.println(inputfilepath);
+		
 		InputStream fs = new FileInputStream(inputfilepath);
 		XWPFDocument doc = new XWPFDocument(fs); 
 		
@@ -614,7 +611,7 @@ public class ControllerDocumento {
 		convocados = convocados.substring(0, convocados.length()-2);
 		convocantes = convocantes.substring(0, convocantes.length()-2);
 		
-		System.out.println(inputfilepath);
+		
 		InputStream fs = new FileInputStream(inputfilepath);
 		XWPFDocument doc = new XWPFDocument(fs); 
 		
@@ -718,7 +715,7 @@ public class ControllerDocumento {
 		convocados = convocados.substring(0, convocados.length()-2);
 		convocantes = convocantes.substring(0, convocantes.length()-2);
 		
-		System.out.println(inputfilepath);
+		
 		InputStream fs = new FileInputStream(inputfilepath);
 		XWPFDocument doc = new XWPFDocument(fs); 
 		

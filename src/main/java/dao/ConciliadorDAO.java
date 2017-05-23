@@ -22,7 +22,6 @@ public class ConciliadorDAO {
 		for(int i=0;i<conciliadores.size();i++){
 			conciliadores.get(i).getConciliadorEspecialidads().size();
 			conciliadores.get(i).getRepartos().size();
-			System.out.println("Turno-> "+conciliadores.get(i).getRepartos().get(0).getTurno()+" id-> "+conciliadores.get(i).getIdConciliador());
 		}
 		
 		return conciliadores;

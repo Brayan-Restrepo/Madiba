@@ -41,17 +41,14 @@ public class FileUtilities {
 	public void setNombreFile(Long nombreFile) {
 		
 		this.nombreFile = nombreFile;
-		System.out.println("setNambreFile ->"+nombreFile);
 		this.nombresFile.add(this.nombreFile+"");
 	}
 
 	public Part getFile() {
-		System.out.println("getFile");
 	    return file;
 	}
 	
 	public void setFile(Part file) {
-			System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		    this.file = file;
 			files.add(file);
 	}
@@ -200,41 +197,5 @@ public class FileUtilities {
         } catch (Exception e) {
             e.printStackTrace(System.out);
         }
-    }
-	
-	// -----------------------------------------------------------------------------------
-	/*
-		String path = "C:/Conalbos-Madiba/Solicitud #1/Audiencia #1";
-		String folderName = "Excusa NombreParte";
-		String fileName = "excusaFecha";
-		createFolder(path,folderName);
-		upload(this.file,path+"/"+folderName,fileName);
-	}
-	
-	public void GuardarExcusas(){
-		Long idSolicitud=5L;
-		Long idAudiencia=7L;
-		if(this.nombresFile.size()==this.files.size()){
-			for(int i=0; i<this.files.size(); i++){
-				if(this.files.get(i)!=null){
-					String path = "C:/Conalbos-Madiba/Solicitud #"+idSolicitud+"/Audiencia #"+idAudiencia;
-					String folderName = "Excusas";
-					//String fileName = nombreExcusa(this.files.get(i));
-					String fileName = this.nombresFile.get(i);
-					createFolder(path,folderName);
-					upload(this.files.get(i),path+"/"+folderName,fileName);
-				}
-			}
-		}else {
-			System.out.println(this.nombresFile.size()+" ERROR  "+this.files.size());
-		}
-	}
-	public String nombreExcusa(Part file){
-		String nombre = file.getName();
-		nombre = nombre.split("[:]")[nombre.split("[:]").length-1];
-		return nombre;
-	}
-	*/
-	
-	
+    }	
 }

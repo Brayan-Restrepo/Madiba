@@ -70,7 +70,6 @@ public class ControllerSolicitud {
 	 * Constructor: 
 	 */
 	public ControllerSolicitud(){
-		System.out.println("Constructor Inicializado");
 		this.coloresEstado = new HashMap<String, String>();
 		this.coloresEstado.put("GRABADA", "info");
 		this.coloresEstado.put("PAGADA", "primary");
@@ -125,7 +124,6 @@ public class ControllerSolicitud {
 				} catch (ParseException ex) {
 				     ex.printStackTrace();
 				}
-				System.out.println("FEchaaaasss "+this.modelLogin.getRole()+" "+this.modelLogin.getIdConciliador()+" "+fechaInicial+" "+fechaFinal);
 				this.listaSolicitud = this.solicitudBean.findSolicitudes(fechaInicial,fechaFinal);
 			}
 			else if(numero == null || numero.equals("")){

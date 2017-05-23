@@ -132,7 +132,6 @@ public class SendMail
                 */
                 m.setContent(multiParte);
                 Transport.send(m);
-                System.out.println("Mail sent!");
             }
             catch (javax.mail.MessagingException e)
             {

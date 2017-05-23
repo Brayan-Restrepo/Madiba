@@ -153,8 +153,6 @@ public class ControllerDesarrolloAudiencia {
 			String acuerdos = this.modelDesarrolloAudiencia.getAcuerdo();
 			String noacuerdos = this.modelDesarrolloAudiencia.getNoAcuerdo();
 			
-	
-			System.out.println(this.modelDesarrolloAudiencia.isAcuerdoParcial());
 			//Sia hay un Acuerdo Parcial, es decir Hay Acuerdos pero tambien desacuerdos
 			if(estdoAudiencia.equals("FINALIZADA")){
 				if(this.modelDesarrolloAudiencia.isAcuerdoParcial()){
@@ -293,10 +291,8 @@ public class ControllerDesarrolloAudiencia {
 		}
 		if(valor==2L){
 			listaAsistencias.get(posicion)[1] = 0L;
-			System.out.println("Entre 2");
 		}else{
 			listaAsistencias.get(posicion)[1] = valor+1L;
-			System.out.println("Entre 0, 1");
 		}
 		
 		this.modelDesarrolloAudiencia.setListaAsistencias(listaAsistencias);
@@ -329,7 +325,6 @@ public class ControllerDesarrolloAudiencia {
 					Long idParte = Long.valueOf(this.fileUtilities.getNombresFile().get(i));
 					String ruta = path+"/"+folderName+"/"+idParte+this.fileUtilities.getFileExtention(this.fileUtilities.getFileName(this.fileUtilities.getFiles().get(i)));
 					this.audienciaBean.guardarEscusaParte(idAudiencia, idParte, ruta);
-					//System.out.println(idAudiencia+"     -      "+idParte+"   -   "+ path+"/"+folderName);
 				}
 			}
 		}
@@ -422,7 +417,6 @@ public class ControllerDesarrolloAudiencia {
 	 * @return
 	 */
 	public boolean activarPretenciones(){
-		System.out.print("Entro al Ajax");
 		if(this.modelDesarrolloAudiencia.getTipoResultado()!=null && this.modelDesarrolloAudiencia.getTipoResultado().equalsIgnoreCase("ACUERDO")){
 			return true;
 		}else{
@@ -464,10 +458,10 @@ public class ControllerDesarrolloAudiencia {
 			String estadoSolicitud = selectSolicitud.get(0).getEstado();
 			if(estadoSolicitud.equals("AUDIENCIA-ENCURSO") ){
 				if(this.modelLogin.getRole().equals("conalbos")){
-				//	System.out.println("True");
+				
 					return true;
 				}else{
-					//System.out.println("False");
+				
 					return false;
 				}
 			}
@@ -485,7 +479,6 @@ public class ControllerDesarrolloAudiencia {
 				break;
 			}
 		}
-		//System.out.println("asdasdasdasdasdasdasds  "+valor);
 		if(valor==0){
 			icono = "fa-square";
 		}

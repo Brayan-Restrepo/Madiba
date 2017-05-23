@@ -321,7 +321,6 @@ public class SolicitudDAO {
 	 * @param nuevoEstado
 	 */
 	public void actualizarEstadoSolicitud(Long idSolicitud, String nuevoEstado){
-		System.out.println(nuevoEstado);
 		Solicitud solicitud = this.manager.find(Solicitud.class, idSolicitud);
 		solicitud.setEstado(nuevoEstado);
 	}
