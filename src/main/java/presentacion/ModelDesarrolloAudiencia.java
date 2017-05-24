@@ -58,6 +58,32 @@ public class ModelDesarrolloAudiencia {
 	
 	private double nuevaCuantia;
 	
+	/**
+	 * LA cuantia inicial, cuando se hizo la soliitud
+	 */
+	private double solicitudCuantia;
+
+	/**
+	 * Numero de radicado de la solicitud
+	 */ 
+	private String solicitudNroRadicado;
+	
+	public double getSolicitudCuantia() {
+		return solicitudCuantia;
+	}
+
+	public void setSolicitudCuantia(double solicitudCuantia) {
+		this.solicitudCuantia = solicitudCuantia;
+	}
+
+	public String getSolicitudNroRadicado() {
+		return solicitudNroRadicado;
+	}
+
+	public void setSolicitudNroRadicado(String solicitudNroRadicado) {
+		this.solicitudNroRadicado = solicitudNroRadicado;
+	}
+
 	public double getNuevaCuantia() {
 		return nuevaCuantia;
 	}

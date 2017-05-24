@@ -194,6 +194,18 @@ public class ControllerAudiencia {
 		return listaPorEstado;
 	}
 	
+	public double pretencionesSolicitud(Solicitud solicitud){
+		if(solicitud.getAudiencias().size()==0){
+			return solicitud.getCuantia();
+		}else {
+			if(solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().size()==0){
+				return solicitud.getCuantia();
+			}else{
+				return solicitud.getAudiencias().get(solicitud.getAudiencias().size()-1).getResultados().get(0).getNuevaCuantia();
+			}
+		}
+	}
+	
 	public List<Solicitud> solicitudesConciliador(String estado){
 		List<Solicitud> listaPorEstado = new ArrayList<Solicitud>();
 		int size = this.listaSolicitud.size();

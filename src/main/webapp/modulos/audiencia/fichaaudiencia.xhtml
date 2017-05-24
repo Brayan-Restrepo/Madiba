@@ -103,7 +103,7 @@
 		        <h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Pretenciones:" />
-			            <h:outputText style="padding-left:5%" value="#{solicitud.cuantia}">
+			            <h:outputText style="padding-left:5%" value="#{controllerAudiencia.pretencionesSolicitud(solicitud)}">
 					    	<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
 		                </h:outputText>
 		          	</div>

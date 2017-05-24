@@ -88,16 +88,16 @@
 													<h:panelGroup id="nuevaspretenciones" >
 														<h:panelGroup layout="block" rendered="#{controllerDesarrolloAudiencia.activarPretenciones()}" styleClass="form-horizontal form-group col-lg-offset-2 col-lg-10">													
 															<h:outputLabel value="Pretenciones: " styleClass="col-sm-2 control-label"/>
-															<div class="has-success col-lg-2">
-																<h:inputText value="#{controllerDesarrolloAudiencia.solicitud.cuantia}" readonly="true" styleClass="form-control espacio5" >
+															<div class="has-success col-lg-3">
+																<h:inputText value="#{controllerDesarrolloAudiencia.solicitud.cuantia}" readonly="true" styleClass="form-control espacio5 inputPretenciones" >
 																	<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
 																</h:inputText>
 															</div>
 															
 															<h:outputLabel value="Nueva Pretenciones: " styleClass="col-sm-3 control-label"/>
-															<div class="has-success col-lg-2">
+															<div class="has-success col-lg-3">
 																#{modelDesarrolloAudiencia.setNuevaCuantia(controllerDesarrolloAudiencia.solicitud.cuantia)}
-																<h:inputText value="#{modelDesarrolloAudiencia.nuevaCuantia}" styleClass="form-control espacio5" />
+																<h:inputText value="#{modelDesarrolloAudiencia.nuevaCuantia}" styleClass="form-control espacio5 inputPretenciones" />
 															</div>
 														</h:panelGroup>
 													</h:panelGroup>
@@ -143,19 +143,18 @@
 														<h:inputTextarea id="noacuerdos" value="#{modelDesarrolloAudiencia.noAcuerdo}" styleClass="form-control" style="resize:none;background-color:#df4b391a;" rows="6"/>
 													</div>
 													
-													
 													<h:panelGroup layout="block" rendered="#{controllerDesarrolloAudiencia.solicitud.cuantia!=null}" styleClass="form-horizontal form-group col-lg-offset-2 col-lg-10">													
 														<h:outputLabel value="Pretenciones: " styleClass="col-sm-2 control-label"/>
-														<div class="has-success col-lg-2">
-															<h:inputText value="#{controllerDesarrolloAudiencia.solicitud.cuantia}" readonly="true" styleClass="form-control espacio5" >
+														<div class="has-success col-lg-3">
+															<h:inputText value="#{controllerDesarrolloAudiencia.solicitud.cuantia}" readonly="true" styleClass="form-control espacio5 inputPretenciones" >
 																<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
 															</h:inputText>
 														</div>
 														
 														<h:outputLabel value="Nueva Pretenciones: " styleClass="col-sm-3 control-label"/>
-														<div class="has-success col-lg-2">
+														<div class="has-success col-lg-3">
 															#{modelDesarrolloAudiencia.setNuevaCuantia(controllerDesarrolloAudiencia.solicitud.cuantia)}
-															<h:inputText value="#{modelDesarrolloAudiencia.nuevaCuantia}" styleClass="form-control espacio5" >
+															<h:inputText value="#{modelDesarrolloAudiencia.nuevaCuantia}" styleClass="form-control espacio5 inputPretenciones" >
 															</h:inputText>
 														</div>
 													</h:panelGroup>

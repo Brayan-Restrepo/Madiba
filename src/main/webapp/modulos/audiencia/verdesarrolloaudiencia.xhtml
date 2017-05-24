@@ -24,6 +24,7 @@
 									<div class="box-header with-border" style="padding-bottom:0px">
 		                				<i>
 			              					<h:outputLabel value="Desarrollo Audiencia" style="font-size:14pt; margin-left:1%"/>
+			              					<h:outputLabel value="Radicado No. #{modelDesarrolloAudiencia.solicitudNroRadicado}" styleClass="pull-right" />
 		                  				</i>
 		               				</div>
 		               				<div class="box-body">
@@ -69,6 +70,21 @@
 														<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Observación  </label>
 														<h:inputTextarea required="true" readonly="true" id="observacion" value="#{modelDesarrolloAudiencia.observacion}" styleClass="form-control" style="resize:none;background-color:#f39c121a;" rows="6"/>
 													</div>
+													<h:panelGroup layout="block" styleClass="form-horizontal form-group col-lg-offset-2 col-lg-10">													
+														<h:outputLabel value="Pretencion Inicial: " styleClass="col-sm-2 control-label"/>
+														<div class="has-success col-lg-3 divPretenciones">
+															<h:inputText value="#{modelDesarrolloAudiencia.solicitudCuantia}" readonly="true" styleClass="form-control espacio5 inputPretenciones" >
+																<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
+															</h:inputText>
+														</div>
+															
+														<h:outputLabel value="Pretencion Final: " rendered="#{modelDesarrolloAudiencia.nuevaCuantia!=0}" styleClass="col-sm-2 control-label"/>
+														<h:panelGroup layout="block" rendered="#{modelDesarrolloAudiencia.nuevaCuantia!=0}" styleClass="has-success col-lg-3 divPretenciones">
+															<h:inputText value="#{modelDesarrolloAudiencia.nuevaCuantia}" readonly="true" styleClass="form-control espacio5 inputPretenciones" >
+																<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
+															</h:inputText>
+														</h:panelGroup>
+													</h:panelGroup>
 												</h:panelGroup>
 												
 												<h:panelGroup layout="block" rendered="#{modelDesarrolloAudiencia.acuerdoParcial}" styleClass="box-body">
@@ -97,7 +113,21 @@
 														<label class="control-label" for="inputSuccess"><i class="fa fa-commenting-o"></i> Desacuerdos  </label>
 														<h:inputTextarea id="noacuerdos" readonly="true" value="#{modelDesarrolloAudiencia.noAcuerdo}" styleClass="form-control" style="resize:none;background-color:#df4b391a;" rows="6"/>
 													</div>
-													
+													<h:panelGroup layout="block" styleClass="form-horizontal form-group col-lg-offset-2 col-lg-10">													
+														<h:outputLabel value="Pretencion Inicial: " styleClass="col-sm-2 control-label"/>
+														<div class="has-success col-lg-3">
+															<h:inputText value="#{modelDesarrolloAudiencia.solicitudCuantia}" readonly="true" styleClass="form-control espacio5 inputPretenciones" >
+																<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
+															</h:inputText>
+														</div>
+															
+														<h:outputLabel value="Pretencion Final: " rendered="#{modelDesarrolloAudiencia.nuevaCuantia!=0}" styleClass="col-sm-2 control-label"/>
+														<h:panelGroup layout="block" rendered="#{modelDesarrolloAudiencia.nuevaCuantia!=0}" styleClass="has-success col-lg-3">
+															<h:inputText value="#{modelDesarrolloAudiencia.nuevaCuantia}" readonly="true" styleClass="form-control espacio5 inputPretenciones" >
+																<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
+															</h:inputText>
+														</h:panelGroup>
+													</h:panelGroup>
 												</h:panelGroup>	
 											</h:panelGroup>
 										</div>

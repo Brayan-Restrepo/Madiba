@@ -82,11 +82,19 @@ public class ControllerDesarrolloAudiencia {
 	public void cargarDatosDesarrolloAudiencia(Long idAudiencia){
 		Audiencia audiencia = this.audienciaBean.findAudienciaResultadoAsistenia(idAudiencia);
 		this.cargarAsistencia(idAudiencia);
+
+		this.modelDesarrolloAudiencia.setSolicitudCuantia(audiencia.getSolicitud().getCuantia());
+		this.modelDesarrolloAudiencia.setSolicitudNroRadicado(audiencia.getSolicitud().getNroRadicado());
+		
 		if(audiencia.getResultados().size()==1){
+			
+			this.modelDesarrolloAudiencia.setNuevaCuantia(audiencia.getResultados().get(0).getNuevaCuantia());
 			this.modelDesarrolloAudiencia.setAcuerdoParcial(false);
 			this.modelDesarrolloAudiencia.setObservacion(audiencia.getResultados().get(0).getConclusion());
 			this.modelDesarrolloAudiencia.setTipoResultado(audiencia.getResultados().get(0).getTipoResultado());
 		}else if(audiencia.getResultados().size()==2){
+			
+			this.modelDesarrolloAudiencia.setNuevaCuantia(audiencia.getResultados().get(0).getNuevaCuantia());
 			this.modelDesarrolloAudiencia.setAcuerdoParcial(true);
 			for(int i=0;i<audiencia.getResultados().size();i++){
 				if(audiencia.getResultados().get(i).getTipoResultado().equals("NOACUERDO")){
@@ -131,7 +139,7 @@ public class ControllerDesarrolloAudiencia {
 			
 			this.solicitudBean.actualizarEstadoSolicitud(this.solicitud.getIdSolicitud(), "AUDIENCIA-FINALIZADA");
 			
-			this.audienciaBean.addResultado("INASISTENCIA", this.solicitud.getAudiencias().get(lastAudiencia), "INASISTENCIA", this.solicitud.getIdSolicitud(), 0);
+			this.audienciaBean.addResultado("INASISTENCIA", this.solicitud.getAudiencias().get(lastAudiencia), "INASISTENCIA", this.solicitud.getIdSolicitud(), this.solicitud.getCuantia());
 			if(this.solicitud.getAudiencias().get(lastAudiencia).getAudienciaNum()==1){
 				
 				Devolucione devolucione = new Devolucione();

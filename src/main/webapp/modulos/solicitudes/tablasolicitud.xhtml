@@ -48,7 +48,7 @@
 					<td>#{solicitud.fecha}</td>
 					
 					<td class="text-right">
-						 <h:outputText value="#{solicitud.cuantia}">
+						 <h:outputText value="#{controllerSolicitud.pretencionesSolicitud(solicitud)}">
 					    	<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
 		                </h:outputText>
 					</td>	
@@ -111,8 +111,8 @@
 					<td>
 						<ul class="list-unstyled">
 							<ui:repeat var="pagos" value="#{solicitud.pagos}" >
-	              				<h:outputText style="padding-left:5%" rendered="#{pagos.estado=='PAGADO'}" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
-	              				<h:outputText style="padding-left:5%" rendered="#{pagos.estado=='SPAGADO'}" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" />
+	              				<li><h:outputText style="padding-left:5%" rendered="#{pagos.estado=='PAGADO'}" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" /></li>
+	              				<li><h:outputText style="padding-left:5%" rendered="#{pagos.estado=='SPAGADO'}" value="#{controllerDominio.nombreDominio(pagos.formaPago)}" /></li>
 							</ui:repeat>
 						</ul>
 					</td>

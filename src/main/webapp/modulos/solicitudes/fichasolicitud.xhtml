@@ -95,10 +95,11 @@
 				</ui:repeat>
 				<h:panelGroup layout="block" styleClass="box-body" style="border-top: 1px solid #f4f4f4;">
 		          	<div class="col-lg-6">
-			            <h:outputLabel value="Pretenciones:" />
-			            <h:outputText style="padding-left:5%" value="#{solicitud.cuantia}">
+			            <h:outputLabel value="Pretenciones:" />			            
+ 						<h:outputText style="padding-left:5%" value="#{controllerSolicitud.pretencionesSolicitud(solicitud)}">
 					    	<f:convertNumber currencySymbol="$" type="currency" maxFractionDigits="2" minFractionDigits="2" />
-		                </h:outputText>
+		                </h:outputText>	
+			            
 		          	</div>
 		          	<div class="col-lg-6">
 			            <h:outputLabel value="Conciliador por:" />
