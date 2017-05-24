@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.servlet.http.Part;
 
+import entidades.Asistencia;
 import entidades.Audiencia;
 import entidades.Devolucione;
 import entidades.Pago;
@@ -395,6 +396,12 @@ public class ControllerDesarrolloAudiencia {
 	
 	public Boolean activarBotonReprogramar(){
 		if(this.hayAsistencias() && this.hayInasistencias()){
+			List<Asistencia> asistencia = this.solicitud.getAudiencias().get(this.solicitud.getAudiencias().size()-1).getAsistencias();
+			for(Asistencia a: asistencia){
+				if(a.getAsistio()==false && a.getExcusa().equals("")){
+					return true;
+				}
+			}
 			return false;
 		}else{
 			return true;
