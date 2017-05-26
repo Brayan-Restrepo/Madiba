@@ -31,9 +31,9 @@ public class SolicitudBean implements iSolicitudBean {
 	}
 
 	@Override
-	public List<Solicitud> findAudiencias(String role, Long idConciliador, Date fechaInicial, Date fechaFinal){
+	public List<Solicitud> findAudiencias(String role, Long idConciliador, Date fechaInicial){
 		// TODO Auto-generated method stub
-		return this.solicitudDAO.findAudiencias(role, idConciliador, fechaInicial, fechaFinal);
+		return this.solicitudDAO.findAudiencias(role, idConciliador, fechaInicial);
 	}
 	
 	@Override
@@ -77,15 +77,13 @@ public class SolicitudBean implements iSolicitudBean {
 	}
 
 	@Override
-	public List<Solicitud> findAudienciasFiltroParteFecha(String role, Long idConciliador, Date fechaInicial,
-			Date fechaFinal, String identificacion, String tipoParte) {		
-		return this.solicitudDAO.findAudienciasFiltroParteFecha(role, idConciliador, fechaInicial, fechaFinal, identificacion, tipoParte);
+	public List<Solicitud> findAudienciasFiltroParteFecha(String role, Long idConciliador, Date fechaInicial, String identificacion, String tipoParte) {		
+		return this.solicitudDAO.findAudienciasFiltroParteFecha(role, idConciliador, fechaInicial, identificacion, tipoParte);
 	}
 
 	@Override
-	public List<Solicitud> findAudienciasFiltroConciliadorFecha(String role, Long idConciliador, Date fechaInicial,
-			Date fechaFinal, String identificacion) {
-		return this.solicitudDAO.findAudienciasFiltroConciliadorFecha(role, idConciliador, fechaInicial, fechaFinal, identificacion);
+	public List<Solicitud> findAudienciasFiltroConciliadorFecha(String role, Long idConciliador, Date fechaInicial, String identificacion) {
+		return this.solicitudDAO.findAudienciasFiltroConciliadorFecha(role, idConciliador, fechaInicial, identificacion);
 	}
 
 	@Override

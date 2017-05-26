@@ -83,12 +83,6 @@
 			        	</p:inputText>
 					</h:panelGrid>
 				    
-					<h:panelGrid columns="2" rendered="#{modelBusqueda.tipoFiltro=='Radicado' ? 'false': 'true'}" style="margin:15px">
-		       			<p:outputLabel value="Hasta" style="color: white;width:80px"/>
-	          			<p:inputText class="fa" value="#{modelBusqueda.fechaFinal}" id="fechaFinal" style="width:115px;text-align:center" a:data-inputmask="'alias': 'dd/mm/yyyy'" a:data-mask="" >
-			        		<f:ajax event="blur" render="fechaFinal" execute="@this" listener="#{modelBusqueda.valFechFn()}"></f:ajax>
-			        	</p:inputText>
-					</h:panelGrid>
 				</h:panelGroup>
 				
 				<h:panelGrid id="botones" columns="1" style="margin:15px">

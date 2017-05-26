@@ -34,9 +34,9 @@ public interface iSolicitudBean {
 	//public List<Solicitud> findSolicitudesFiltroRadicadoFecha(Date fechaInicial, Date fechaFinal, String nroRadicado);
 	public List<Solicitud> findSolicitudesFiltroRadicado(String nroRadicado);
 	
-	public List<Solicitud> findAudiencias(String role, Long idConciliador, Date fechaInicial, Date fechaFinal);
-	public List<Solicitud> findAudienciasFiltroParteFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, String identificacion, String tipoParte);
-	public List<Solicitud> findAudienciasFiltroConciliadorFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, String identificacion);
+	public List<Solicitud> findAudiencias(String role, Long idConciliador, Date fechaInicial);
+	public List<Solicitud> findAudienciasFiltroParteFecha(String role, Long idConciliador, Date fechaInicial, String identificacion, String tipoParte);
+	public List<Solicitud> findAudienciasFiltroConciliadorFecha(String role, Long idConciliador, Date fechaInicial, String identificacion);
 	//public List<Solicitud> findAudienciasFiltroRadicadoFecha(String role, Long idConciliador, Date fechaInicial, Date fechaFinal, String nroRadicado);
 	public List<Solicitud> findAudienciasFiltroRadicado(String role, Long idConciliador, String nroRadicado);
 }

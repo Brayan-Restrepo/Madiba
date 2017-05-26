@@ -123,7 +123,7 @@ public class ControllerAudiencia {
 		if((this.modelBusqueda.getFechaInicio() == null || this.modelBusqueda.getFechaInicio().equals("")) && 
 				(this.modelBusqueda.getFechaFinal() == null || this.modelBusqueda.getFechaFinal().equals("")) && 
 				(numero == null || numero.equals(""))){
-			this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial,fechaFinal);
+			this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial);
 		}else{
 			if(tipoFiltro.equals("Fecha")){
 				try {
@@ -132,10 +132,10 @@ public class ControllerAudiencia {
 				} catch (ParseException ex) {
 				     ex.printStackTrace();
 				}
-				this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial,fechaFinal);
+				this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial);
 			}
 			else if(numero == null || numero.equals("")){
-				this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial,fechaFinal);
+				this.listaSolicitud = this.solicitudBean.findAudiencias(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial);
 			}else{
 				if((this.modelBusqueda.getFechaInicio() != null && !this.modelBusqueda.getFechaInicio().equals("")) && 
 						(this.modelBusqueda.getFechaFinal() != null && !this.modelBusqueda.getFechaFinal().equals(""))){
@@ -146,22 +146,22 @@ public class ControllerAudiencia {
 					     ex.printStackTrace();
 					}
 					if(tipoFiltro.equals("Conciliador")){
-						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero);
+						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, numero);
 					}else {
 						if(tipoFiltro.equals("Radicado")){
 							this.listaSolicitud = this.solicitudBean.findAudienciasFiltroRadicado(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(), numero);
 						}else {
-							this.listaSolicitud = this.solicitudBean.findAudienciasFiltroParteFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero, tipoFiltro);
+							this.listaSolicitud = this.solicitudBean.findAudienciasFiltroParteFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, numero, tipoFiltro);
 						}
 					}
 				}else {
 					if(tipoFiltro.equals("Conciliador")){
-						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero);
+						this.listaSolicitud = this.solicitudBean.findAudienciasFiltroConciliadorFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, numero);
 					}else {
 						if(tipoFiltro.equals("Radicado")){
 							this.listaSolicitud = this.solicitudBean.findAudienciasFiltroRadicado(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(), numero);
 						}else {
-							this.listaSolicitud = this.solicitudBean.findAudienciasFiltroParteFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, fechaFinal, numero, tipoFiltro);
+							this.listaSolicitud = this.solicitudBean.findAudienciasFiltroParteFecha(this.modelLogin.getRole(), this.modelLogin.getIdConciliador(),fechaInicial, numero, tipoFiltro);
 						}
 					}
 				}
