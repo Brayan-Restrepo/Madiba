@@ -108,10 +108,10 @@
 					<div class="col-md-12">
 						<div class="nav-tabs-custom">
 							<ul class="nav nav-tabs" style="border-color: blue">
-								<li class="active"><a href="#todas" data-toggle="tab">Todas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('REGISTRADA')}">#{controllerAudiencia.listaSolicitud.size()}</span></a>
+								<li class="active"><a href="#todas" data-toggle="tab">Todas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('REGISTRADA')}">#{modelLogin.role=='conalbos' ? controllerAudiencia.listaSolicitud.size() : controllerAudiencia.solicitudesConciliador('AUDIENCIA-CITACION').size()}</span></a>
 								</li>
-								<li><a href="#citacion" data-toggle="tab">Por citación <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')}">#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-CITACION').size()}</span></a>
-								</li>
+								<h:panelGroup layout="block" rendered="#{modelLogin.role=='conalbos'}"> <li><a href="#citacion" data-toggle="tab">Por citación <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-CITACION')}">#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-CITACION').size()}</span></a>
+								</li></h:panelGroup>
 								<li><a href="#pendientes" data-toggle="tab">Pendientes <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-PENDIENTE')}">#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-PENDIENTE').size()}</span></a></li>
 								<li><a href="#encurso" data-toggle="tab">En curso <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-ENCURSO')}">#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-ENCURSO').size()}</span></a></li>
 								<li><a href="#finalizadas" data-toggle="tab">Finalizadas <span class="label label-#{controllerSolicitud.colorSolicitudEstado('AUDIENCIA-FINALIZADA')}">#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-FINALIZADA').size()}</span></a></li>
@@ -124,22 +124,23 @@
 										<ui:param name="formulario" value="@form :formcitacion :formpendientes :formencurso :formfinalizadas :formBotones"/>
 										
 											<ui:include src="tablaaudiencia.xhtml">
-												<ui:param name="listaAudiencia" value="#{controllerAudiencia.listaSolicitud}" />
+												<ui:param name="listaAudiencia" value="#{modelLogin.role=='conalbos' ? controllerAudiencia.listaSolicitud : controllerAudiencia.solicitudesConciliador('AUDIENCIA-CITACION')}"></ui:param>
 											</ui:include>
 										
 									</h:form>
 								</div>
-								
-								<div class="tab-pane" id="citacion">
-									<h:form id="formcitacion">
-										<ui:param name="formulario" value="@form :formtodas :formpendientes :formencurso :formfinalizadas :formBotones"/>
-									
-											<ui:include src="tablaaudiencia.xhtml">
-												<ui:param name="listaAudiencia" value="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-CITACION')}" />
-											</ui:include>
+								<h:panelGroup layout="block" rendered="#{modelLogin.role=='conalbos'}">
+									<div class="tab-pane" id="citacion">
+										<h:form id="formcitacion">
+											<ui:param name="formulario" value="@form :formtodas :formpendientes :formencurso :formfinalizadas :formBotones"/>
 										
-									</h:form>
-								</div>
+												<ui:include src="tablaaudiencia.xhtml">
+													<ui:param name="listaAudiencia" value="#{controllerAudiencia.solicitudesPorEstado('AUDIENCIA-CITACION')}" />
+												</ui:include>
+											
+										</h:form>
+									</div>
+								</h:panelGroup>
 								<div class="tab-pane" id="pendientes">
 									<h:form id="formpendientes">
 										<ui:param name="formulario" value="@form :formtodas :formcitacion :formencurso :formfinalizadas :formBotones"/>
