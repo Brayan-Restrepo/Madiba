@@ -39,6 +39,7 @@ public class Login {
     	String rol = "";
     	String idConcil = "";
     	String nombreConcil = "";
+    	String imgConcil = "";
 
     	CifradorMD5 cifrador = new CifradorMD5();
     	Usuario usuarioBD = manager.find(Usuario.class, user);
@@ -52,6 +53,7 @@ public class Login {
 					String[] nombres = conciliadorBD.getNombres().split(" ");
 					String[] apellidos = conciliadorBD.getApellidos().split(" ");
 					nombreConcil = nombres[0]+" "+apellidos[0];
+					imgConcil = conciliadorBD.getFoto();
 				}
 			}
 		}
@@ -60,7 +62,8 @@ public class Login {
 				+ "\"resultado\":\""+validacion+"\","
 				+ "\"rol\":\""+rol+"\","
 				+ "\"idConcil\":\""+idConcil+"\","
-				+ "\"nombreConcil\":\""+nombreConcil+"\""
+				+ "\"nombreConcil\":\""+nombreConcil+"\","
+				+ "\"imgConcil\":\""+imgConcil+"\""
 				+ "}";
     }
     

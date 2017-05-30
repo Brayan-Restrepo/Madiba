@@ -41,21 +41,7 @@ public class Fichas {
 
 	@SuppressWarnings("unchecked")
 	List<Audconcil> $fichas(String idConciliador, String estado) {
-		Date fechaActual = new Date();
-    	Calendar calendar = Calendar.getInstance();
-    	calendar.setTime(fechaActual);
-    	calendar.add(Calendar.MONTH, -30); 
-    	SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd/MM/yyyy");
-		Date fechaInicial = null;
-		Date fechaFinal = null;
-		try {
-			 fechaInicial = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(calendar.getTime()));
-			 fechaFinal = formatoDelTexto.parse(new SimpleDateFormat("dd/MM/yyyy").format(fechaActual));
-		} catch (ParseException ex) {
-		     ex.printStackTrace();
-		}
-		List<Audconcil> audiencias = this.manager.createNamedQuery("Audconcil.findConciliadorFecha").setParameter("identificacion", Long.parseLong(idConciliador)).setParameter("estado", estado+"%").setParameter("fechaini", fechaInicial).setParameter("fechafin", fechaFinal).getResultList();
-		
+		List<Audconcil> audiencias = this.manager.createNamedQuery("Audconcil.findConciliadorFecha").setParameter("identificacion", Long.parseLong(idConciliador)).setParameter("estado", estado+"%").getResultList();
 		return audiencias;
     }
 }
