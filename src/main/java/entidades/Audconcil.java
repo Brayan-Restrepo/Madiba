@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Audconcil.findConciliadorFecha", query="SELECT a FROM Audconcil a WHERE a.fechasolicitud BETWEEN :fechaini AND :fechafin and a.idconciliador = :identificacion AND a.estadoaudiencia like :estado ORDER BY a.radicado"),
+	@NamedQuery(name="Audconcil.findConciliadorFecha", query="SELECT DISTINCT a FROM Audconcil a WHERE a.idconciliador = :identificacion AND a.estadoaudiencia like :estado ORDER BY a.radicado"),
 	@NamedQuery(name="Audconcil.findConciliador", query="SELECT a FROM Audconcil a WHERE a.idconciliador = :identificacion"),
 	@NamedQuery(name="Audconcil.findAll", query="SELECT a FROM Audconcil a")
 })
@@ -33,7 +33,7 @@ public class Audconcil implements Serializable {
 	private Integer horafinaudiencia;
 
 	private Integer horainiaudiencia;
-
+	
 	@Id
 	@Column(name="id")
 	private Long id;
