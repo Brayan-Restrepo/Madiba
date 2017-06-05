@@ -42,7 +42,7 @@ public class Login {
     	String imgConcil = "";
 
     	CifradorMD5 cifrador = new CifradorMD5();
-    	Usuario usuarioBD = manager.find(Usuario.class, user);
+    	Usuario usuarioBD = manager.find(Usuario.class, user.toLowerCase());
 		if(usuarioBD != null){
 			if(usuarioBD.getPassword().equals(cifrador.MD5(pass))){
 				validacion = "VALIDO";

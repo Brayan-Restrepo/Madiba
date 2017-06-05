@@ -34,7 +34,7 @@ public class ControllerLogin {
 	}
 
 	public void autenticar() {	
-		String nickname = this.login.getNickname();
+		String nickname = this.login.getNickname().toLowerCase();
 		String password = MD5(this.login.getPassword());
 		
 		
