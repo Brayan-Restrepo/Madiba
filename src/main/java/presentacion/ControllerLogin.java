@@ -75,9 +75,10 @@ public class ControllerLogin {
 	public void redirect(){
 		if(!this.login.isValidado()){
 			try {
+				System.out.print(this.login.getRole());
 				FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/login.jsf");
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.print("redirect");
 			}
 		}
 	}
@@ -92,7 +93,7 @@ public class ControllerLogin {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/login.jsf");
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.print("redirectConciliador");
 		}
 	}
 	
@@ -109,7 +110,7 @@ public class ControllerLogin {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/login.jsf");
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.print("redirectConalbos");
 		}
 	}
 	
@@ -119,8 +120,8 @@ public class ControllerLogin {
 			//HttpSession httpSession = (HttpSession)session;
 			//httpSession.invalidate();
 			this.login.setValidado(false);
-			this.login.setRole(null);
-			this.login.setIdConciliador(null);
+			//this.login.setRole(null);
+			//this.login.setIdConciliador(null);
 			FacesContext.getCurrentInstance().getExternalContext().redirect("/Madiba/login.jsf");
 		} catch (IOException e) {
 			e.printStackTrace();

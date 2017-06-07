@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head></h:head> 
+<body> 
+	<ui:composition template="/resources/plantilla/plantilla.xhtml">
+		<ui:define name="titulo">
+			 <title>Autores</title>	
+		</ui:define>
+				
+		<ui:define name="content">
+			#{controllerLogin.redirect()}
+			<div class='content-wrapper' style="height:10px;overflow:auto">
+				<div class="content">
+					<div class="row">
+    		<div class="col-lg-offset-2 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+	          <div class="box box-info">
+	            <div class="box-header with-border">
+	              <h3 class="box-title">Universidad de los Llanos</h3>
+	              
+	            </div>
+	            <div class="box-body">
+	            	<div class="text-center">
+	            		<h:graphicImage library="img" name="autor/unillanos.png" class="img-circle"/>
+	            	</div>
+	            </div>
+	          </div>
+        	</div>        	
+
+    		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+	          <div class="box box-info">
+	            <div class="box-header with-border">
+	              <h3 class="box-title">Grupo de Investigación DyATIC</h3>
+	              
+	            </div>
+	            <div class="box-body">
+	            	<div class="text-center">
+	            		<h:graphicImage library="img" name="autor/dyatic.png" class="img-circle"/>
+	            	</div>
+	            </div>
+	          </div>
+        	</div>
+    	</div>
+
+    	<div class="row">
+			   	
+    		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+	          <div class="box box-success">
+	            <div class="box-header with-border">
+	              <h3 class="box-title">Brayan Andrés Restrepo Galeano</h3>
+	              
+	            </div>
+	            <div class="box-body">
+	            	<div class="right col-xs-4 text-center">
+	            		<h:graphicImage library="img" name="autor/Brayan.jpg" class="img-circle img-responsive"/>
+	            	</div>
+	              	<div>
+	              		<label>Programador</label>
+	              	</div>
+	              	<div>
+	              		<label>Telefono: </label><span>3214361170</span>
+	              	</div>
+	              	<div>
+	              		<label>Correo: </label><span>Bayan2293@gmail.com</span>
+	              	</div>
+	            </div>
+	          </div>
+        	</div>
+        	
+    		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+	          <div class="box box-success">
+	            <div class="box-header with-border">
+	              <h3 class="box-title">Juan Sebastian Castro Morales</h3>
+	              
+	            </div>
+	            <div class="box-body">
+	            	<div class="right col-xs-4 text-center">
+	            		<h:graphicImage library="img" name="autor/juan.jpg" class="img-circle img-responsive"/>
+	            	</div>
+	              	<div>
+	              		<label>Programador</label>
+	              	</div>
+	              	<div>
+	              		<label>Telefono: </label><span>3147582842</span>
+	              	</div>
+	              	<div>
+	              		<label>Correo: </label><span>juanseca@gmail.com</span>
+	              	</div>
+	            </div>
+	          </div>
+        	</div>
+        	
+        	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+	          <div class="box box-success">
+	            <div class="box-header with-border">
+	              <h3 class="box-title">Olga Lucero Vega Márquez</h3>
+	              
+	            </div>
+	            <div class="box-body">
+	            	<div class="right col-xs-4 text-center">
+	            		<h:graphicImage library="img" name="autor/olga.jpg" class="img-circle img-responsive"/>
+	            	</div>
+	              	<div>
+	              		<label>Directora de Tesis</label>
+	              	</div>
+	              	<div>
+	              		<label>Telefono: </label><span>3108816229</span>
+	              	</div>
+	              	<div>
+	              		<label>Correo: </label><span>olvegam@unillanos.edu.co</span>
+	              	</div>
+	            </div>
+	          </div>
+        	</div> 
+		</div>
+
+    	<div class="row">
+    		<div class="col-md-12">
+
+    			<p><strong>Copyright &copy; <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> </p>
+    			<p><strong>Copyright &copy; <a href="http://www.unillanos.edu.co">Universidad de los Llanos</a>.</strong> All rights
+    reserved.</p>
+    		</div>
+    	</div>
+				</div>
+			</div>
+		</ui:define>
+	</ui:composition>
+</body> 
+</html>
