@@ -63,7 +63,7 @@ public class SendMail
 			//String rutaCitacion="C:/Conalbos-Madiba/docs/Conciliador"+identificacionConciliador+".docx";
 			//contDocumento.citaciones(rutaCitacion, "res", "bras", "");
 			//contDocumento.citaciones(rutaCitacion, nombreConvocado, nombresConvocantes, asunto, direccionCitado, radicado, fechaAudiencia, horaAudiencia);
-    		this.emailCitacion(solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).getConciliador().getCorreo(), "Conciliador", identificacionConciliador);
+    		this.emailCitacionConciliador(solicitud.getDesignacions().get(solicitud.getDesignacions().size()-1).getConciliador().getCorreo(), "Conciliador", identificacionConciliador);
 
     		List<Parte> parte = solicitud.getPartes();
     		String nombresConvocantes = "";
@@ -93,7 +93,7 @@ public class SendMail
     /**
      * 
      * @param emailParte El email
-     * @param rol El rol al que se le envia Conciliado, convocante, Convocado
+     * @param rol El rol al que se le envia convocante, Convocado
      */
     public void emailCitacion(String emailParte, String rol, String identificacion) {
         {
@@ -102,7 +102,7 @@ public class SendMail
             	BodyPart texto = new MimeBodyPart();
             	texto.setText("Señor "+rol);
             	if(rol.equalsIgnoreCase("Conciliador")){
-            		texto.setText("Señor Usted es un Conciliador");
+            		texto.setText("Señor conciliador usted se encuentra citado");
             	}
             	BodyPart adjunto = new MimeBodyPart();
             	//adjunto.setDataHandler(new DataHandler(new FileDataSource("C:/Users/Brayan Restrepo/Pictures/Prologa.doc")));
@@ -119,6 +119,49 @@ public class SendMail
 
             	multiParte.addBodyPart(texto);
             	multiParte.addBodyPart(adjunto);
+            	
+            	MimeMessage m = new MimeMessage(mailSession);
+                Address from = new InternetAddress("conalbos.madiba@gmail.com");
+                Address[] to = new InternetAddress[] {new InternetAddress(emailParte) };
+ 
+                m.setFrom(from);
+                m.setRecipients(Message.RecipientType.TO, to);
+                m.setSubject("Citacion de Audiencia - Conalbos");
+               /* m.setSentDate(new java.util.Date());
+                m.setContent("Mail sent from JBoss AS 7","text/plain");
+                */
+                m.setContent(multiParte);
+                Transport.send(m);
+            }
+            catch (javax.mail.MessagingException e)
+            {
+                e.printStackTrace();
+                System.out.println("Error in Sending Mail: "+e);
+            }
+        }
+    }
+    
+    /**
+     * 
+     * @param emailParte El email
+     * @param rol El rol al que se le envia Conciliador
+     */
+    public void emailCitacionConciliador(String emailParte, String rol, String identificacion) {
+        {
+ 
+            try    {
+            	BodyPart texto = new MimeBodyPart();
+            	texto.setText("Señor "+rol);
+            	if(rol.equalsIgnoreCase("Conciliador")){
+            		texto.setText("Señor conciliador usted se encuentra citado");
+            	}
+            	BodyPart adjunto = new MimeBodyPart();
+            	//adjunto.setDataHandler(new DataHandler(new FileDataSource("C:/Users/Brayan Restrepo/Pictures/Prologa.doc")));
+            	//adjunto.setFileName("Prologa.doc");
+            	
+            	MimeMultipart multiParte = new MimeMultipart();
+
+            	multiParte.addBodyPart(texto);
             	
             	MimeMessage m = new MimeMessage(mailSession);
                 Address from = new InternetAddress("conalbos.madiba@gmail.com");
